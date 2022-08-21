@@ -8,7 +8,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonNo"
+        android:id="@+id/buttonYes"
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="20dp"
@@ -23,14 +23,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonYes"
+        android:id="@+id/buttonNo"
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/customnobutton"
         android:text="@string/buttonNoText"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/primaryColor"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

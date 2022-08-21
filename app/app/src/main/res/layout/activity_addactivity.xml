@@ -12,11 +12,62 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/quellenHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/headlineQuellenActivity"
-            />
+            android:textColor="@color/primaryColor"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/quellenSocialMediaHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/headlineQuellenSocialMedia"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewQuellenSM"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <TextView
+            android:id="@+id/quellenNewsPagesHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/headlineQuellenNP"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewQuellenNP"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+
+
+
     </LinearLayout>
 
 

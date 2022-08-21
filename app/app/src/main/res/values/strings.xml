@@ -3,4 +3,6 @@
 
 
     <string name="headlineQuellenActivity">Quellen</string>
+    <string name="headlineQuellenSocialMedia">Social Media</string>
+    <string name="headlineQuellenNP">Zeitungen</string>
 </resources>

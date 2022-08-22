@@ -5,4 +5,8 @@
     <string name="headlineQuellenActivity">Quellen</string>
     <string name="headlineQuellenSocialMedia">Social Media</string>
     <string name="headlineQuellenNP">Zeitungen</string>
+    <string name="hallo">HALLO</string>
+    <string name="pictureofbutton">PictureOfButton</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

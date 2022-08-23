@@ -16,11 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/headlineQuellenActivity"
+            android:textAlignment="center"
             android:textColor="@color/primaryColor"
             android:textStyle="bold"
             android:textSize="40sp"
             android:layout_marginTop="60dp"
-            android:layout_marginStart="10dp"/>
+            />
 
         <Space
             android:layout_width="match_parent"
@@ -50,7 +51,6 @@
                 android:id="@+id/informationButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/white"
                 app:srcCompat="@drawable/informationicon"
                 tools:ignore="SpeakableTextPresentCheck" />

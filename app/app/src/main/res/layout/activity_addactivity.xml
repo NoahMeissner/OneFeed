@@ -17,13 +17,45 @@
             android:layout_height="wrap_content"
             android:text="@string/headlineQuellenActivity"
             android:textColor="@color/primaryColor"
-            android:textSize="30sp"
-            android:layout_marginTop="40dp"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:layout_marginTop="60dp"
             android:layout_marginStart="10dp"/>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="107dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                app:srcCompat="@drawable/ic_vector"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Space
+                android:layout_width="287dp"
+                android:layout_height="13dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/informationButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/white"
+                app:srcCompat="@drawable/informationicon"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/quellenSocialMediaHeadline"
@@ -64,14 +96,7 @@
             android:id="@+id/recyclerViewQuellenNP"
             android:layout_marginStart="10dp"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-
-
-            />
-
-
-
-
+            android:layout_height="120dp"/>
     </LinearLayout>
 
 

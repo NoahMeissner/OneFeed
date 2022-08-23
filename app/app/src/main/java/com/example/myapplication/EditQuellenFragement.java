@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class editQuellenFragement extends DialogFragment {
+public class EditQuellenFragement extends DialogFragment {
 
 
 
@@ -21,7 +21,9 @@ public class editQuellenFragement extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_quellen, container, false);
+        View view =inflater.inflate(R.layout.fragment_edit_quellen, container, false);
+        return view;
     }
+
+
 }

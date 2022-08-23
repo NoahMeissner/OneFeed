@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-
         Button button = findViewById(R.id.button3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

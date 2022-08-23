@@ -13,11 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.myapplication.R;
+import com.example.myapplication.TypriwriterAnimation;
 
 
 public class InteressenFragement extends Fragment {
 
-
+    private long animationDelay = 100;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,14 @@ public class InteressenFragement extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_interessen_fragement, container, false);
         initButtons(view);
+        initAnimation(view);
         return view;
+    }
+
+    private void initAnimation(View view){
+        TypriwriterAnimation typriwriterAnimation = view.findViewById(R.id.socialMediaHeadline);
+        typriwriterAnimation.setText("");
+        typriwriterAnimation.setCharacterDelay(animationDelay);
+        typriwriterAnimation.animateText(getResources().getString(R.string.interestsHeadline));
     }
 }

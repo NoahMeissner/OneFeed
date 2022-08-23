@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.example.myapplication.TypriwriterAnimation;
 
 
 public class WillkommenFragement extends Fragment {
 
-
+    private long animationDelay = 150;
 
 
     @Override
@@ -24,6 +25,15 @@ public class WillkommenFragement extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_willkommen_fragement, container, false);
+        View view = inflater.inflate(R.layout.fragment_willkommen_fragement, container, false);
+        initAnimation(view);
+        return view;
+    }
+
+    private void initAnimation(View view){
+        TypriwriterAnimation typriwriterAnimation = view.findViewById(R.id.welcomeText);
+        typriwriterAnimation.setText("");
+        typriwriterAnimation.setCharacterDelay(animationDelay);
+        typriwriterAnimation.animateText(getResources().getString(R.string.willkommen));
     }
 }

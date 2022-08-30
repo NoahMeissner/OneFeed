@@ -1,26 +1,28 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.util.Log;
 
-
-@SuppressLint("ViewConstructor")
-public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageButton {
+public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButton {
 
     private final Handler myhandler  = new Handler();
+    private final long myDelay =50;
     private int minX =0;
     private int maxX =0;
     private int minY=0;
     private int maxY=0;
-    private int xSpeed=2;
-    private int ySpeed= (int) (2*xSpeed*Math.random());
-    private final long myDelay =50;
+    private int xSpeed=0;
+    private int ySpeed=0;
+    private float startX=getX();
+    private float startY=getY();
+
 
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            Log.d("x", String.valueOf(startX));
             if(getX()>=minX && getX()<=maxX){
                 if (!(getY() >= minY) || !(getY() <= maxY)) {
                     ySpeed = (int) (ySpeed * (-1)*Math.random());
@@ -46,6 +48,11 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
         this.maxY = maxY;
     }
 
+    @Override
+    public float getX() {
+        return super.getX();
+    }
+
     public void setxSpeed(int xSpeed) {
         this.xSpeed = xSpeed;
     }
@@ -54,16 +61,19 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
         this.ySpeed = ySpeed;
     }
 
-    public void animateBubbles(){
+    public void animateInteressen(){
         myhandler.removeCallbacks(runnable);
         myhandler.postDelayed(runnable, myDelay);
     }
 
-    public BubbleAnimation(Context context) {
+
+
+
+    public InteressenAnimation(Context context) {
         super(context);
     }
 
-    public BubbleAnimation(Context context, AttributeSet attrs) {
+    public InteressenAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 }

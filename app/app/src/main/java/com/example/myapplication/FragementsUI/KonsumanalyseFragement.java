@@ -14,7 +14,6 @@ import com.example.myapplication.R;
 public class KonsumanalyseFragement extends Fragment {
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

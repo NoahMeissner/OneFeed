@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragementsUI.InteressenFragement">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.myapplication.InteressenAnimation
         android:id="@+id/buttonKategoriePolitik"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -21,8 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonKategorieWirtschaft"
+    <com.example.myapplication.InteressenAnimation        android:id="@+id/buttonKategorieWirtschaft"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginStart="252dp"
@@ -36,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.myapplication.InteressenAnimation
         android:id="@+id/buttonKategorieCorona"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -51,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.myapplication.InteressenAnimation
         android:id="@+id/buttonKategorieGaming"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -66,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.example.myapplication.InteressenAnimation
         android:id="@+id/buttonKategorieTechnik"
         android:layout_width="125dp"
         android:layout_height="125dp"

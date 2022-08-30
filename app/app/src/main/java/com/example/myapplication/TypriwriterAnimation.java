@@ -2,20 +2,17 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import android.os.Handler;
-import java.util.logging.LogRecord;
 
-import kotlinx.coroutines.internal.ThreadContextKt;
 
 public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTextView {
 
     private CharSequence myText;
     private int myIndex;
     private long myDelay =150;
+    private final Handler myHandler = new Handler();
 
 
     public TypriwriterAnimation(@NonNull Context context) {
@@ -26,8 +23,7 @@ public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTex
         super(context, attrs);
     }
 
-    private Handler myHandler = new Handler();
-    private Runnable characterAdder = new Runnable() {
+    private final Runnable characterAdder = new Runnable() {
         @Override
         public void run() {
             setText(myText.subSequence(0,myIndex++));
@@ -48,8 +44,4 @@ public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTex
     public void setCharacterDelay(long m){
         myDelay = m ;
     }
-
-
-
-
 }

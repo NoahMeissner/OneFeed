@@ -14,7 +14,7 @@ import com.example.myapplication.TypriwriterAnimation;
 
 public class WillkommenFragement extends Fragment {
 
-    private long animationDelay = 150;
+    private final long animationDelay = 150;
 
 
     @Override

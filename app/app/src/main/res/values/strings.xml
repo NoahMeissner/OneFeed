@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="analytics_icon_description">Analytics icon</string>
+    <string name="feed_title_day_of_week_sample">Samstag</string>
+    <string name="feed_title_date_sample">20. August</string>
+    <string name="sources_icon_description">Sources icon</string>
 </resources>

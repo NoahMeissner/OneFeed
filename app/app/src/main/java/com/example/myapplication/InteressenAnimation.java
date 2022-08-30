@@ -7,50 +7,52 @@ import android.util.Log;
 
 public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButton {
 
-    private final Handler myhandler  = new Handler();
-    private final long myDelay =50;
+    private final Handler myhandlerClick  = new Handler();
+    private long myDelay =5;
     private int minX =0;
     private int maxX =0;
     private int minY=0;
     private int maxY=0;
     private int xSpeed=0;
     private int ySpeed=0;
-    private float startX=getX();
-    private float startY=getY();
+    private final int spacing = 330;
 
-
+    // Animation wenn geklickt wird
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Log.d("x", String.valueOf(startX));
-            if(getX()>=minX && getX()<=maxX){
-                if (!(getY() >= minY) || !(getY() <= maxY)) {
-                    ySpeed = (int) (ySpeed * (-1)*Math.random());
+                if(getX()>=minX && getX()<=maxX){
+                    if (!(getY() >= minY) || !(getY() <= maxY)) {
+                        ySpeed = (int) (ySpeed * (-1));
+                    }
                 }
-            }
-            else{
-                xSpeed= (int) (xSpeed*(-1));
-            }
-            setX(getX()+xSpeed);
-            setY(getY()+ySpeed);
-            myhandler.postDelayed(runnable,myDelay);
+                else{
+                    xSpeed=(xSpeed*(-1));
+                }
+                setX(getX()+xSpeed);
+                setY(getY()+ySpeed);
+                myhandlerClick.postDelayed(runnable,myDelay);
+                myDelay++;
         }
     };
 
-    public void setX(int minX,int maxX) {
+    public void animateInteressenClick(){
+        myhandlerClick.removeCallbacks(runnable);
+        myhandlerClick.postDelayed(runnable, myDelay);
+    }
+
+    public void setDelay(long myDelay){
+        this.myDelay = myDelay;
+    }
+
+    public void setXField(int minX, int maxX) {
         this.minX = minX;
-        this.maxX = maxX;
+        this.maxX = maxX-spacing;
     }
 
-
-    public void setY(int minY,int maxY) {
-        this.minY = minY;
-        this.maxY = maxY;
-    }
-
-    @Override
-    public float getX() {
-        return super.getX();
+    public void setYField(int minY, int maxY) {
+        this.minY = minY+spacing;
+        this.maxY = maxY-2*spacing;
     }
 
     public void setxSpeed(int xSpeed) {
@@ -58,16 +60,8 @@ public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButt
     }
 
     public void setySpeed(int ySpeed) {
-        this.ySpeed = ySpeed;
+        this.ySpeed =  ySpeed;
     }
-
-    public void animateInteressen(){
-        myhandler.removeCallbacks(runnable);
-        myhandler.postDelayed(runnable, myDelay);
-    }
-
-
-
 
     public InteressenAnimation(Context context) {
         super(context);
@@ -76,4 +70,5 @@ public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButt
     public InteressenAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
 }

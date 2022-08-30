@@ -14,20 +14,20 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
     private int maxX =0;
     private int minY=0;
     private int maxY=0;
-    private int xSpeed=2;
-    private int ySpeed= (int) (2*xSpeed*Math.random());
-    private final long myDelay =50;
+    private int xSpeed;
+    private int ySpeed;
+    private final long myDelay =70;
 
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
             if(getX()>=minX && getX()<=maxX){
                 if (!(getY() >= minY) || !(getY() <= maxY)) {
-                    ySpeed = (int) (ySpeed * (-1)*Math.random());
+                    ySpeed =  (ySpeed * (-1));
                 }
             }
             else{
-                xSpeed= (int) (xSpeed*(-1));
+                xSpeed=(xSpeed*(-1));
             }
             setX(getX()+xSpeed);
             setY(getY()+ySpeed);
@@ -57,6 +57,10 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
     public void animateBubbles(){
         myhandler.removeCallbacks(runnable);
         myhandler.postDelayed(runnable, myDelay);
+    }
+
+    public void stopAnimation(){
+        myhandler.removeCallbacks(runnable);
     }
 
     public BubbleAnimation(Context context) {

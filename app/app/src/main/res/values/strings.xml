@@ -10,6 +10,7 @@
     <string name="kategorieCorona">Corona</string>
     <string name="kategorieGaming">Gaming</string>
     <string name="kategorieTechnik">Technik</string>
+    <string name="kategorieSport">Sport</string>
 
     <string name="konsumanalyseHeadline">Konsumanalyse</string>
     <string name="textKonsumanalyse">In dieser App möchten wir ihnen helfen ihren Konsum von Medien zu analysieren und effizienter zu gestalten.
@@ -24,7 +25,7 @@
 
     <string name="buttonYesText">Ja</string>
     <string name="buttonNoText">Nein</string>
-    <string name="willkommen">Willkommen</string>
+    <string name="willkommen">Willkommen ONE FEED</string>
 
 
 </resources>

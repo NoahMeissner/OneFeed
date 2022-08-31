@@ -23,6 +23,9 @@
             android:name=".Activities.addNewQuelle.ADDActivity"
             android:exported="false" />
         <activity
+            android:name=".LoadingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>

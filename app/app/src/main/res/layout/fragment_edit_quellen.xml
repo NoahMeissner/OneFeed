@@ -5,109 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imageQuellenAdd"
         android:layout_width="125dp"
         android:layout_height="125dp"
+        app:srcCompat="@drawable/ic_twitter_brands"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_twitter_brands" />
+         />
 
     <TextView
         android:id="@+id/headlineQuellenAdd"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="30dp"
         android:textAlignment="center"
-        android:text="QUELLE"
-        android:textColor="@color/primaryColor"
-        android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Quelle"
         app:layout_constraintStart_toEndOf="@+id/imageQuellenAdd"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="InvalidId,MissingConstraints" />
-
-
-    <TableRow
-        android:id="@+id/tablerow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/imageQuellenAdd"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        tools:ignore="MissingConstraints">
-
-            <TextView
-                android:id="@+id/editActivation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Active"
-                android:textColor="@color/tertiaryColor"
-                android:textSize="20sp"/>
-
-            <Space
-                android:layout_width="56dp"
-                android:layout_height="wrap_content" />
-
-            <Switch
-                android:id="@+id/switchEditActivation"
-                android:layout_width="80dp"
-                android:layout_height="53dp"
-                android:outlineSpotShadowColor="@color/primaryColor"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-            <Space
-                android:layout_width="46dp"
-                android:layout_height="wrap_content" />
-
-    </TableRow>
-
-    <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/tablerow1"
-            tools:ignore="MissingConstraints">
-
-
-            <TextView
-                android:id="@+id/editNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notification"
-                android:textColor="@color/tertiaryColor"
-                android:textSize="20sp" />
-
-            <Space
-                android:layout_width="10dp"
-                android:layout_height="wrap_content" />
-
-            <Switch
-                android:id="@+id/switchEditNotifications"
-                android:layout_width="80dp"
-                android:layout_height="53dp"
-                android:outlineSpotShadowColor="@color/primaryColor"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-    </TableRow>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989" />
+        android:textSize="30sp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

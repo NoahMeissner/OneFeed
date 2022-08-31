@@ -14,8 +14,6 @@ import com.example.myapplication.TypriwriterAnimation;
 
 public class WillkommenFragement extends Fragment {
 
-    private final long animationDelay = 150;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +31,7 @@ public class WillkommenFragement extends Fragment {
     private void initAnimation(View view){
         TypriwriterAnimation typriwriterAnimation = view.findViewById(R.id.welcomeText);
         typriwriterAnimation.setText("");
+        long animationDelay = 150;
         typriwriterAnimation.setCharacterDelay(animationDelay);
         typriwriterAnimation.animateText(getResources().getString(R.string.willkommen));
     }

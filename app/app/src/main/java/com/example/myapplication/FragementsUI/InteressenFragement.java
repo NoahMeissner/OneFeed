@@ -44,7 +44,6 @@ public class InteressenFragement extends Fragment {
         buttons.put("Technik",view.findViewById(R.id.buttonKategorieTechnik));
         buttons.put("Wirtschaft",view.findViewById(R.id.buttonKategorieWirtschaft));
         buttons.put("Sport",view.findViewById(R.id.buttonKategorieSport));
-
         for(String s:buttons.keySet()){
             setListener(Objects.requireNonNull(buttons.get(s)),s);
         }

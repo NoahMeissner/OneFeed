@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.FragementsUI.KonsumanalyseFragement;
@@ -36,18 +35,8 @@ public class permissionsActivity extends AppCompatActivity {
         Button buttonNo=findViewById(R.id.buttonNo);
         //@TODO Zeige welche Button geklickt wurde
         Intent intent = new Intent(permissionsActivity.this, MainActivity.class);
-        buttonYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
-        buttonNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(intent);
-            }
-        });
+        buttonYes.setOnClickListener(view -> startActivity(intent));
+        buttonNo.setOnClickListener(view -> startActivity(intent));
     }
 
 

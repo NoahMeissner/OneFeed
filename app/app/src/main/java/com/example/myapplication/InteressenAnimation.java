@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButton {
 

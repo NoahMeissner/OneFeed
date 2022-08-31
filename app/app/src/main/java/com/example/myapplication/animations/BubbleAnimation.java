@@ -16,7 +16,7 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
     private int maxY=0;
     private int xSpeed;
     private int ySpeed;
-    private final long myDelay =70;
+    private long myDelay =70;
 
     private final Runnable runnable = new Runnable() {
         @Override
@@ -44,6 +44,10 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
     public void setY(int minY,int maxY) {
         this.minY = minY;
         this.maxY = maxY;
+    }
+
+    public void setMyDelay(long myDelay) {
+        this.myDelay = myDelay;
     }
 
     public void setxSpeed(int xSpeed) {

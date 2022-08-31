@@ -23,7 +23,7 @@
             android:name=".Activities.addNewQuelle.ADDActivity"
             android:exported="false" />
         <activity
-            android:name=".LoadingActivity"
+            android:name=".Activities.LoadingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

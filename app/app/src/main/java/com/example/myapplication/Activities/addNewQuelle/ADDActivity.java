@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities.addNewQuelle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
+
+import com.example.myapplication.R;
+import com.example.myapplication.Activities.addNewQuelle.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -31,12 +34,12 @@ public class ADDActivity extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initArrayLists() {
-        socialMediaArrayList.add(new Quellen("Twitter", getDrawable(R.drawable.ic_twitter_brands)));
+        socialMediaArrayList.add(new Quellen("Twitter", getDrawable(R.drawable.twitter_icon)));
         socialMediaArrayList.add(new Quellen("Reddit",getDrawable(R.drawable.reddit)));
-        socialMediaArrayList.add(new Quellen("",getDrawable(R.drawable.ic_add_button)));
+        socialMediaArrayList.add(new Quellen("",getDrawable(R.drawable.add_button)));
         newsArrayList.add(new Quellen("FAZ",getDrawable(R.drawable.faz)));
         newsArrayList.add(new Quellen("SPIEGEL", getDrawable(R.drawable.spiegel)));
-        newsArrayList.add(new Quellen("", getDrawable(R.drawable.ic_add_button)));
+        newsArrayList.add(new Quellen("", getDrawable(R.drawable.add_button)));
     }
 
 

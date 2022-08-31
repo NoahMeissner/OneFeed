@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities.addNewQuelle;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.myapplication.R;
 
 public class EditQuellenFragement extends DialogFragment {
 

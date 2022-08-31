@@ -20,7 +20,7 @@
             android:name=".Activities.InitialActivity"
             android:exported="false" />
         <activity
-            android:name=".ADDActivity"
+            android:name=".Activities.addNewQuelle.ADDActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

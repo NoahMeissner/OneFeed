@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import com.example.myapplication.InteressenAnimation;
+import com.example.myapplication.animations.InteressenAnimation;
 import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.HashMap;

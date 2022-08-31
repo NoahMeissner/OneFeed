@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.animations;
 
 import android.content.Context;
 import android.os.Handler;

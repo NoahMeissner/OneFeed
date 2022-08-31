@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.TypriwriterAnimation;
+import com.example.myapplication.animations.TypriwriterAnimation;
 
 
 public class WillkommenFragement extends Fragment {

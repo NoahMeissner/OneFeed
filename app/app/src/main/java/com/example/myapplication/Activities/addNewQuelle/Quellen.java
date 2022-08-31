@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities.addNewQuelle;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

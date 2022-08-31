@@ -13,9 +13,8 @@ import java.util.ArrayList;
 
 public class ADDActivity extends AppCompatActivity {
 
-    private ArrayList<Quellen> socialMediaArrayList = new ArrayList<>();
-    private ArrayList<Quellen> newsArrayList = new ArrayList<>();
-
+    private final ArrayList<Quellen> socialMediaArrayList = new ArrayList<>();
+    private final ArrayList<Quellen> newsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

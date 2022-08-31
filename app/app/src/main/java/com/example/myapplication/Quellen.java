@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 public class Quellen {
 
-    private Drawable image;
-    private String name;
+    private final Drawable image;
+    private final String name;
 
     public Quellen(String name, Drawable image){
         this.name = name;

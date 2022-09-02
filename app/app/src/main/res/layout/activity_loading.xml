@@ -7,48 +7,50 @@
     tools:context=".Activities.LoadingActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/custombutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/loadingHeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OneFEED"
-            android:textSize="30sp"
-            android:textColor="@color/primaryColor"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:id="@+id/loadingPanel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/loadingHeadline"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:indeterminate="true"
-                android:indeterminateTint="@color/secondayryColor"
-                />
+                android:indeterminateTint="@color/secondayryColor" />
         </RelativeLayout>
 
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:background="@drawable/customyesbutton"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/onefeedpicture" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

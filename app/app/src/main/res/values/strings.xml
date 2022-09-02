@@ -13,6 +13,9 @@
     <string name="kategorieSport">Sport</string>
 
     <string name="konsumanalyseHeadline">Konsumanalyse</string>
+    <string name="NotificationsHeadline">Notifications</string>
+    <string name="textNotification">Die App ermöglicht es Ihnen Mitteilungen zum aktuellen Geschehen als Push Benachrichtigung zu senden.
+        Die Berechtigung kann dabei jederzeit für alle oder einzelne Quellen wiederrufen werden. </string>
     <string name="textKonsumanalyse">In dieser App möchten wir ihnen helfen ihren Konsum von Medien zu analysieren und effizienter zu gestalten.
         Dabei erheben wir Daten die ausschließlich Local auf ihrem Gerät gespeichert und verarbeitet werden.
         Sie können die App auch weiterhin ohne diese Nutzen, jedoch sind dadurch nicht alle Funktionen für Sie verfügbar.</string>
@@ -25,9 +28,7 @@
 
     <string name="buttonYesText">Ja</string>
     <string name="buttonNoText">Nein</string>
-    <string name="willkommen">Willkommen ONE FEED</string>
-
-
+    <string name="willkommen">Willkommen</string>
 
 
     <string name="headlineQuellenActivity">Quellen</string>

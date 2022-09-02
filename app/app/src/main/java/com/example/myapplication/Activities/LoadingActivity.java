@@ -24,9 +24,5 @@ public class LoadingActivity extends AppCompatActivity {
 
     private void initUi() {
         setContentView(R.layout.activity_loading);
-
     }
-
-
-
 }

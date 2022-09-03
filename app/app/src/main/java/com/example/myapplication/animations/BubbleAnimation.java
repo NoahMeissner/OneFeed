@@ -46,9 +46,6 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
         this.maxY = maxY;
     }
 
-    public void setMyDelay(long myDelay) {
-        this.myDelay = myDelay;
-    }
 
     public void setxSpeed(int xSpeed) {
         this.xSpeed = xSpeed;

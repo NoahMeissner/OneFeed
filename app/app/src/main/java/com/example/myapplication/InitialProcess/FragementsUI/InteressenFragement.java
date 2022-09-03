@@ -1,4 +1,4 @@
-package com.example.myapplication.FragementsUI;
+package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.example.myapplication.Activities.InitialActivity;
-import com.example.myapplication.animations.InteressenAnimation;
+import com.example.myapplication.InitialProcess.animations.InteressenAnimation;
 import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FragementsUI.InteressenFragement">
+    tools:context=".InitialProcess.FragementsUI.InteressenFragement">
 
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategoriePolitik"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategorieWirtschaft"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategorieCorona"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategorieGaming"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategorieTechnik"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animations.InteressenAnimation
+    <com.example.myapplication.InitialProcess.animations.InteressenAnimation
         android:id="@+id/buttonKategorieSport"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animations.TypriwriterAnimation
+    <com.example.myapplication.InitialProcess.animations.TypriwriterAnimation
         android:id="@+id/socialMediaHeadline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

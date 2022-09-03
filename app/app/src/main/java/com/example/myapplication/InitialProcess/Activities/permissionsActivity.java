@@ -1,32 +1,35 @@
-package com.example.myapplication.Activities;
-
+package com.example.myapplication.InitialProcess.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-
-import com.example.myapplication.FragementsUI.KonsumanalyseFragement;
-import com.example.myapplication.FragementsUI.NotifiactionFragement;
-import com.example.myapplication.InitialInformation;
-import com.example.myapplication.MainActivity;
+import com.example.myapplication.InitialProcess.FragementsUI.KonsumanalyseFragement;
+import com.example.myapplication.InitialProcess.FragementsUI.NotifiactionFragement;
+import com.example.myapplication.InitialProcess.InitialData;
 import com.example.myapplication.R;
+
+import java.util.ArrayList;
 
 public class permissionsActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private boolean notifications = false;
     private boolean consumptionanalysis = false;
-
+    private ArrayList<String> interests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getIntentInformation();
         setContentView(R.layout.activity_permissions);
         initFragement();
         initUI();
+    }
+
+    private void getIntentInformation(){
+        Intent intent = getIntent();
+        interests = intent.getStringArrayListExtra(String.valueOf(InitialData.interestsArrayList));
     }
 
     private void initFragement() {
@@ -52,7 +55,6 @@ public class permissionsActivity extends AppCompatActivity {
             switch (fragmentManager.getBackStackEntryCount()){
             case 1:
                 this.consumptionanalysis=result;
-                Log.d("konsumanalyse", String.valueOf(consumptionanalysis));
                 fragmentManager.beginTransaction()
                         .replace(R.id.frameLayoutPermissions, NotifiactionFragement.class, null)
                         .setReorderingAllowed(true)
@@ -62,12 +64,13 @@ public class permissionsActivity extends AppCompatActivity {
                 return;
             case 2:
                 this.notifications=result;
-                Log.d("Nn",String.valueOf(notifications));
-                Intent intent = new Intent(this, MainActivity.class);
-                InitialInformation.consumptionanalysePermission=consumptionanalysis;
-                InitialInformation.notificationPermission=notifications;
-                InitialInformation.initialApplication=true;
-                    startActivity(intent);
+                Intent intent = new Intent(this, LoadingActivity.class);
+                intent.putExtra(String.valueOf(InitialData.consumptionAnalysePermission),consumptionanalysis);
+                intent.putExtra(String.valueOf(InitialData.notificationAnalysePermission),notifications);
+                intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);
+                //@TODO Social Media Array Liste übergeben
+                //intent.putExtra(String.valueOf(InitialData.socialMediaArrayList),null);
+                startActivity(intent);
         }
         });
     }

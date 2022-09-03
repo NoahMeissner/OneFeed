@@ -1,4 +1,4 @@
-package com.example.myapplication.Activities.addNewQuelle;
+package com.example.myapplication.addNewQuelle;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.Activities.addNewQuelle.adapter;
+package com.example.myapplication.addNewQuelle.adapter;
 
 import android.view.View;
 import android.widget.ImageView;

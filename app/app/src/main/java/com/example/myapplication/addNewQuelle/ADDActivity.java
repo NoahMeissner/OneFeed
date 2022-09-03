@@ -1,4 +1,4 @@
-package com.example.myapplication.Activities.addNewQuelle;
+package com.example.myapplication.addNewQuelle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Activities.addNewQuelle.adapter.RecyclerViewAdapter;
+import com.example.myapplication.addNewQuelle.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 

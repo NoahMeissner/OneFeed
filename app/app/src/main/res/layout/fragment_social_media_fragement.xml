@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FragementsUI.SocialMediaFragement">
+    tools:context=".InitialProcess.FragementsUI.SocialMediaFragement">
 
-    <com.example.myapplication.animations.BubbleAnimation
+    <com.example.myapplication.InitialProcess.animations.BubbleAnimation
         android:id="@+id/imageTwitterButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.example.myapplication.animations.BubbleAnimation
+    <com.example.myapplication.InitialProcess.animations.BubbleAnimation
         android:id="@+id/imageRedditButton"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.example.myapplication.animations.TypriwriterAnimation
+    <com.example.myapplication.InitialProcess.animations.TypriwriterAnimation
         android:id="@+id/socialMediaConnectHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,9 +1,6 @@
-package com.example.myapplication.Activities.addNewQuelle;
+package com.example.myapplication.addNewQuelle;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.widget.ImageView;
 
 public class Quellen {
 

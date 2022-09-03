@@ -1,4 +1,4 @@
-package com.example.myapplication.FragementsUI;
+package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.animations.TypriwriterAnimation;
+import com.example.myapplication.InitialProcess.animations.TypriwriterAnimation;
 
 
 public class WillkommenFragement extends Fragment {

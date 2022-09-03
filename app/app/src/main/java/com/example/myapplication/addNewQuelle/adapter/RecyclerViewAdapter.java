@@ -1,4 +1,4 @@
-package com.example.myapplication.Activities.addNewQuelle.adapter;
+package com.example.myapplication.addNewQuelle.adapter;
 
 
 import android.annotation.SuppressLint;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Activities.addNewQuelle.Quellen;
+import com.example.myapplication.addNewQuelle.Quellen;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.myapplication.FragementsUI;
+package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.os.Bundle;
 

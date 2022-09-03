@@ -1,4 +1,4 @@
-package com.example.myapplication.animations;
+package com.example.myapplication.InitialProcess.animations;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

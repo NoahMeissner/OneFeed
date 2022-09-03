@@ -1,4 +1,4 @@
-package com.example.myapplication.Activities;
+package com.example.myapplication.InitialProcess.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.myapplication.FragementsUI.InteressenFragement;
-import com.example.myapplication.FragementsUI.SocialMediaFragement;
-import com.example.myapplication.FragementsUI.WillkommenFragement;
-import com.example.myapplication.InitialInformation;
+import com.example.myapplication.InitialProcess.FragementsUI.InteressenFragement;
+import com.example.myapplication.InitialProcess.FragementsUI.SocialMediaFragement;
+import com.example.myapplication.InitialProcess.FragementsUI.WillkommenFragement;
+import com.example.myapplication.InitialProcess.InitialData;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class InitialActivity extends AppCompatActivity implements InteressenFrag
         fragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, WillkommenFragement.class, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("Willkommen")
+                .addToBackStack("")
                 .commit();
         initButton();
     }
@@ -45,7 +45,7 @@ public class InitialActivity extends AppCompatActivity implements InteressenFrag
                     fragmentManager.beginTransaction()
                             .replace(R.id.frameLayout, InteressenFragement.class, null)
                             .setReorderingAllowed(true)
-                            .addToBackStack("Willkommen")
+                            .addToBackStack("")
                             .commit();
                     return;
                 case 2:
@@ -53,12 +53,12 @@ public class InitialActivity extends AppCompatActivity implements InteressenFrag
                     fragmentManager.beginTransaction()
                             .replace(R.id.frameLayout, SocialMediaFragement.class, null)
                             .setReorderingAllowed(true)
-                            .addToBackStack("Willkommen")
+                            .addToBackStack("")
                             .commit();
                     return;
                 case 3:
                     Intent intent = new Intent(InitialActivity.this, permissionsActivity.class);
-                    InitialInformation.interestsList=interests;
+                    intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);
                     startActivity(intent);
             }
         });

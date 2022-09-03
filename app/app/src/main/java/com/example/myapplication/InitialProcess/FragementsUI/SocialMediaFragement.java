@@ -1,4 +1,4 @@
-package com.example.myapplication.FragementsUI;
+package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.annotation.SuppressLint;
 import android.graphics.Point;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import com.example.myapplication.animations.BubbleAnimation;
+import com.example.myapplication.InitialProcess.animations.BubbleAnimation;
 import com.example.myapplication.R;
 
 public class SocialMediaFragement extends Fragment {

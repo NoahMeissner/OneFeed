@@ -9,7 +9,6 @@ import com.example.myapplication.R;
 
 public class LoadingActivity extends AppCompatActivity {
 
-    private final Point size = new Point();
 
 
     @Override

@@ -49,7 +49,6 @@ public class InitialActivity extends AppCompatActivity implements InteressenFrag
                             .commit();
                     return;
                 case 2:
-                    checkData();
                     fragmentManager.beginTransaction()
                             .replace(R.id.frameLayout, SocialMediaFragement.class, null)
                             .setReorderingAllowed(true)
@@ -62,12 +61,6 @@ public class InitialActivity extends AppCompatActivity implements InteressenFrag
                     startActivity(intent);
             }
         });
-    }
-
-    private void  checkData(){
-            for(String s: interests){
-                System.out.println(s);
-            }
     }
 
 

@@ -122,7 +122,7 @@ public class InteressenFragement extends Fragment {
     }
 
     public interface OnDataPass{
-        public void onDataPass(ArrayList<String> interessenList);
+         void onDataPass(ArrayList<String> interessenList);
     }
 }
 

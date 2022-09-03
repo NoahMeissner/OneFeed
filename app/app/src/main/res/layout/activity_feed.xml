@@ -6,59 +6,9 @@
     android:orientation="vertical"
     android:paddingHorizontal="16dp">
 
-    <LinearLayout
-        android:id="@+id/feed_title_layout"
+    <com.example.myapplication.view.TitleBar
+        app:pageContentView="@layout/content_scrolling"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingVertical="64dp">
-
-        <TextView
-            android:id="@+id/feed_title_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feed_title_date_sample"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
-            android:textColor="@color/md_theme_light_primary"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/feed_title_day_of_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feed_title_day_of_week_sample"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            android:textColor="@color/md_theme_light_primary" />
-
-    </LinearLayout>
-
-    <LinearLayout
-
-        android:id="@+id/feed_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="9dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/analytics_icon"
-            style="@style/toolbar_icon_button"
-            android:contentDescription="@string/analytics_icon_description"
-            android:src="@drawable/ic_round_bar_chart_40" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:id="@+id/sources_icon"
-            style="@style/toolbar_icon_button"
-            android:contentDescription="@string/sources_icon_description"
-            android:src="@drawable/ic_round_group_40" />
-
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

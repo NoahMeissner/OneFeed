@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ScrollingActivity">
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:paddingHorizontal="@dimen/app_padding"
         android:layout_height="@dimen/app_bar_height"
         android:background="@color/md_theme_light_background"
         android:fitsSystemWindows="true"
+        android:paddingHorizontal="@dimen/app_padding"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -21,21 +19,21 @@
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             android:background="@color/md_theme_light_background"
-            app:expandedTitleTextColor="@color/md_theme_light_primary"
-            app:collapsedTitleTextColor="@color/md_theme_light_onSurface"
-            app:expandedTitleGravity="center|center"
+            android:fitsSystemWindows="true"
             app:collapsedTitleGravity="center|center"
+            app:collapsedTitleTextColor="@color/md_theme_light_onSurface"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="center|center"
+            app:expandedTitleTextColor="@color/md_theme_light_primary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <androidx.appcompat.widget.Toolbar
-                android:background="@color/md_theme_light_background"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/md_theme_light_background"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -79,6 +77,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling" />
+    <ViewStub
+        android:id="@+id/page_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

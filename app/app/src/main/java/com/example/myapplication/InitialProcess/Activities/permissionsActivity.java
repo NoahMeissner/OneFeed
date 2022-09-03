@@ -21,8 +21,8 @@ public class permissionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getIntentInformation();
         setContentView(R.layout.activity_permissions);
+        getIntentInformation();
         initFragement();
         initUI();
     }

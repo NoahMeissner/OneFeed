@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".addNewQuelle.ADDActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -100,7 +104,32 @@
             android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="120dp"/>
+
+        <TextView
+            android:id="@+id/quellenInterestsHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/headlineQuellenIn"
+            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewQuellenIn"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
     </LinearLayout>
+    </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,4 +7,21 @@
         <item name="android:tint">@color/md_theme_light_secondary</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
+    <style name="title_bar_app_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/app_bar_height</item>
+        <item name="android:background">@color/md_theme_light_background</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:paddingHorizontal">@dimen/app_padding</item>
+        <item name="android:theme">@style/AppTheme.AppBarOverlay</item>
+    </style>
+
+    <style name="title_bar_collapse_toolbar_layout"
+        parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/md_theme_light_background</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>

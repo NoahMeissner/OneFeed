@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.example.myapplication.FragementsUI.KonsumanalyseFragement;
 import com.example.myapplication.FragementsUI.NotifiactionFragement;
+import com.example.myapplication.InitialInformation;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
@@ -40,8 +41,8 @@ public class permissionsActivity extends AppCompatActivity {
     private void initUI() {
         Button buttonYes= findViewById(R.id.buttonYes);
         Button buttonNo=findViewById(R.id.buttonNo);
-        setListener(buttonYes,false);
-        setListener(buttonNo,true);
+        setListener(buttonYes,true);
+        setListener(buttonNo,false);
 
 
     }
@@ -50,8 +51,8 @@ public class permissionsActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
             switch (fragmentManager.getBackStackEntryCount()){
             case 1:
-                this.notifications=result;
-                Log.d("Nn","NO/yES");
+                this.consumptionanalysis=result;
+                Log.d("konsumanalyse", String.valueOf(consumptionanalysis));
                 fragmentManager.beginTransaction()
                         .replace(R.id.frameLayoutPermissions, NotifiactionFragement.class, null)
                         .setReorderingAllowed(true)
@@ -60,11 +61,12 @@ public class permissionsActivity extends AppCompatActivity {
 
                 return;
             case 2:
-                this.consumptionanalysis=result;
-                Log.d("konsumanalyse", String.valueOf(consumptionanalysis));
-                Log.d("*", "********");
-                Log.d("Notification", String.valueOf(notifications));
+                this.notifications=result;
+                Log.d("Nn",String.valueOf(notifications));
                 Intent intent = new Intent(this, MainActivity.class);
+                InitialInformation.consumptionanalysePermission=consumptionanalysis;
+                InitialInformation.notificationPermission=notifications;
+                InitialInformation.initialApplication=true;
                     startActivity(intent);
         }
         });

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.myapplication.Activities.InitialActivity;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public boolean setUpApplication = true;
     ArrayList<String> interessen = new ArrayList<>();
 
     @Override
@@ -23,19 +23,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        if (setUpApplication) {
+        if (!InitialInformation.initialApplication) {
             Intent intent = new Intent(this, InitialActivity.class);
             startActivity(intent);
         }
         setContentView(R.layout.activity_main);
-        Button button = findViewById(R.id.button3);
-        button.setOnClickListener(view -> {
-            Intent intent = new Intent(getBaseContext(), ADDActivity.class);
-            startActivity(intent);
-        });
+        presentData();
+
     }
 
-    public void setSetUpApplication(boolean setUpApplication) {
-        this.setUpApplication = setUpApplication;
+    private void presentData() {
+        Log.d("NotificationsPermissions", String.valueOf(InitialInformation.notificationPermission));
+        Log.d("ConsumptionPermissions", String.valueOf(InitialInformation.consumptionanalysePermission));
+        Log.d("Interests", String.valueOf(InitialInformation.interestsList.size()));
+
     }
 }

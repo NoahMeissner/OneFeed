@@ -1,13 +1,18 @@
 package com.example.myapplication.FragementsUI;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.example.myapplication.Activities.InitialActivity;
 import com.example.myapplication.animations.InteressenAnimation;
 import com.example.myapplication.R;
 import java.util.ArrayList;
@@ -21,12 +26,18 @@ public class InteressenFragement extends Fragment {
     private final HashMap<String,InteressenAnimation> buttons = new HashMap<>();
     private final ArrayList<String> results = new ArrayList<>();
     private int buttonSize=0;
+    private OnDataPass dataPasser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+    }
 
 
     @Override
@@ -93,6 +104,7 @@ public class InteressenFragement extends Fragment {
         interessenAnimation.setBackground(getResources().getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
         interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
         results.remove(kategorie);
+        dataPasser.onDataPass(results);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -102,6 +114,7 @@ public class InteressenFragement extends Fragment {
         interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
         interessenAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
         results.add(kategorie);
+        dataPasser.onDataPass(results);
         for(String s:buttons.keySet()){
             if(!Objects.equals(s, kategorie)){
                 setAnimation(Objects.requireNonNull(buttons.get(s)),interessenAnimation.getX(),interessenAnimation.getY());
@@ -109,7 +122,8 @@ public class InteressenFragement extends Fragment {
         }
     }
 
-    public ArrayList<String> getResults() {
-        return results;
+    public interface OnDataPass{
+        public void onDataPass(ArrayList<String> interessenList);
     }
 }
+

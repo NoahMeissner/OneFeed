@@ -98,6 +98,9 @@ public class ADDActivity extends AppCompatActivity implements Adapter.OnItemClic
 
     @Override
     public void onItemClick(Quellen quellen) {
-        System.out.println(quellen.getName());
+        EditQuellenFragement editQuellenFragement = new EditQuellenFragement();
+        editQuellenFragement.setKategorie(quellen.getName());
+        editQuellenFragement.setDrawable(quellen.getImage());
+        editQuellenFragement.show(getSupportFragmentManager(),"My Fragement");
     }
 }

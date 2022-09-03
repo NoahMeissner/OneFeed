@@ -17,7 +17,6 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/custombutton"
-            android:clickable="true"
             android:orientation="vertical"
             tools:ignore="UselessParent,SpeakableTextPresentCheck">
 

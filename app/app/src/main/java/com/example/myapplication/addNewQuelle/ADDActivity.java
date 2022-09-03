@@ -98,6 +98,6 @@ public class ADDActivity extends AppCompatActivity implements Adapter.OnItemClic
 
     @Override
     public void onItemClick(Quellen quellen) {
-        System.out.println("Hello");
+        System.out.println(quellen.getName());
     }
 }

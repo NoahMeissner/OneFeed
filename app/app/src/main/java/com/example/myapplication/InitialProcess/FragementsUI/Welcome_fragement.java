@@ -12,7 +12,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.InitialProcess.animations.TypriwriterAnimation;
 
 
-public class WillkommenFragement extends Fragment {
+public class Welcome_fragement extends Fragment {
 
 
     @Override

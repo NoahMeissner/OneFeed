@@ -6,6 +6,11 @@ import android.util.AttributeSet;
 
 public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButton {
 
+    /*
+        this class is responsible for providing the animation for the InteressenFragement
+
+     */
+
     private final Handler myhandlerClick  = new Handler();
     private long myDelay =5;
     private int minX =0;

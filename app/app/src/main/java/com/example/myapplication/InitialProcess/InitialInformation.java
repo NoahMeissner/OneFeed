@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class InitialInformation {
 /*
-Durch diese Klasse können alle Informationen des Initialisierungsprozesses in der Home Feed Klasse gebündelt gespeichert werden
-und müsssen nicht extra gespeichert werden.
+With this class, all information of the initialization process can be stored bundled in the home feed class
+and do not have to be saved separately
  */
 
     private ArrayList<String> stringInterestsList;

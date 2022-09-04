@@ -9,6 +9,10 @@ import android.os.Handler;
 
 public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTextView {
 
+    /*
+        this class is responsible for providing the animation for the Willkommen fragement
+     */
+
     private CharSequence myText;
     private int myIndex;
     private long myDelay =150;

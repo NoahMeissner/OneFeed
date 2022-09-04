@@ -7,7 +7,11 @@ import android.os.Handler;
 
 
 @SuppressLint("ViewConstructor")
-public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageButton {
+public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatImageButton {
+
+    /*
+    this class is responsible for providing the animation for the social media Fragement
+     */
 
     private final Handler myhandler  = new Handler();
     private int minX =0;
@@ -64,11 +68,11 @@ public class BubbleAnimation extends androidx.appcompat.widget.AppCompatImageBut
         myhandler.removeCallbacks(runnable);
     }
 
-    public BubbleAnimation(Context context) {
+    public SocialMediaAnimation(Context context) {
         super(context);
     }
 
-    public BubbleAnimation(Context context, AttributeSet attrs) {
+    public SocialMediaAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 }

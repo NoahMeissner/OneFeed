@@ -9,6 +9,9 @@ import com.example.myapplication.R;
 
 public class LoadingActivity extends AppCompatActivity {
 
+    /*
+    This Activity Displays the Loading Activity
+     */
 
 
     @Override

@@ -19,7 +19,11 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-public class InteressenFragement extends Fragment {
+public class Interests_fragement extends Fragment {
+
+    /*
+    This method is responsible for querying interests
+     */
 
     private final Point size = new Point();
     private final HashMap<String,InteressenAnimation> buttons = new HashMap<>();
@@ -47,6 +51,7 @@ public class InteressenFragement extends Fragment {
         return view;
     }
 
+    // This method initializes all buttons representing the interests
     private void initButtons(View view){
         buttons.put("Politik",view.findViewById(R.id.buttonKategoriePolitik));
         buttons.put("Corona",view.findViewById(R.id.buttonKategorieCorona));
@@ -59,6 +64,7 @@ public class InteressenFragement extends Fragment {
         }
     }
 
+    // This method sets the parameters for the animation, which is implemented in the Interests Animation class
     private void setAnimation(InteressenAnimation interessenAnimation, float x, float y){
         int speedX =1;
         int speedY =1;
@@ -82,6 +88,7 @@ public class InteressenFragement extends Fragment {
         interessenAnimation.animateInteressenClick();
     }
 
+    //This method sets a listener on all buttons in the Fragement, to receive the user's responses
     private void setListener(InteressenAnimation interessenAnimation,String kategorie){
         interessenAnimation.setOnClickListener(view -> {
             if(buttonSize==0){
@@ -96,6 +103,7 @@ public class InteressenFragement extends Fragment {
         });
     }
 
+    //This method rolls back a user's answer if he revises it
     @SuppressLint("UseCompatLoadingForDrawables")
     private void buttonAnimationReset(InteressenAnimation interessenAnimation,String kategorie) {
         interessenAnimation.getLayoutParams().width= buttonSize;
@@ -106,10 +114,12 @@ public class InteressenFragement extends Fragment {
         dataPasser.onDataPass(results);
     }
 
+    //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
     @SuppressLint("UseCompatLoadingForDrawables")
     private void detecButtonAnimation(InteressenAnimation interessenAnimation, String kategorie){
-        interessenAnimation.getLayoutParams().width= (int) (interessenAnimation.getWidth()*1.1);
-        interessenAnimation.getLayoutParams().height= (int) (interessenAnimation.getHeight()*1.1);
+        double magnificationfactor = 1.1;
+        interessenAnimation.getLayoutParams().width= (int) (interessenAnimation.getWidth()*magnificationfactor);
+        interessenAnimation.getLayoutParams().height= (int) (interessenAnimation.getHeight()*magnificationfactor);
         interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
         interessenAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
         results.add(kategorie);
@@ -121,6 +131,7 @@ public class InteressenFragement extends Fragment {
         }
     }
 
+    // This interface allows the activity to transmit the information
     public interface OnDataPass{
          void onDataPass(ArrayList<String> interessenList);
     }

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme" >
         tools:targetApi="31" >
         <activity
-            android:name=".InitialProcess.Activities.permissionsActivity"
+            android:name=".InitialProcess.Activities.PermissionsActivity"
             android:exported="false" />
         <activity
             android:name=".InitialProcess.Activities.InitialActivity"

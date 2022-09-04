@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".InitialProcess.FragementsUI.WillkommenFragement">
+    tools:context=".InitialProcess.FragementsUI.Welcome_fragement">
 
     <com.example.myapplication.InitialProcess.animations.TypriwriterAnimation
         android:id="@+id/welcomeText"

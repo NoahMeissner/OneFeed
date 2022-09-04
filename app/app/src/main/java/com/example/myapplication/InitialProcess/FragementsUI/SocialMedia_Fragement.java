@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import com.example.myapplication.InitialProcess.animations.BubbleAnimation;
+import com.example.myapplication.InitialProcess.animations.SocialMediaAnimation;
 import com.example.myapplication.R;
 
-public class SocialMediaFragement extends Fragment {
+public class SocialMedia_Fragement extends Fragment {
 
     private final Point size = new Point();
     private final int xSpeed =1;
@@ -40,7 +40,7 @@ public class SocialMediaFragement extends Fragment {
     private void initAnimation(View view, int id, int xSpeed, int ySpeed){
         WindowManager windowManager = requireActivity().getWindowManager();
         windowManager.getDefaultDisplay().getSize(size);
-        BubbleAnimation bubbleAnimation = view.findViewById(id);
+        SocialMediaAnimation bubbleAnimation = view.findViewById(id);
         DrawableCompat.setTint(bubbleAnimation.getDrawable(),ContextCompat.getColor(requireContext(),R.color.primaryColor));
         bubbleAnimation.setX(startPoint,size.x-spacing);
         bubbleAnimation.setY(spacing,size.y-spacing-spacing);
@@ -51,7 +51,7 @@ public class SocialMediaFragement extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void stopAnimation(BubbleAnimation bubbleAnimation) {
+    private void stopAnimation(SocialMediaAnimation bubbleAnimation) {
         bubbleAnimation.setOnClickListener(view1 -> {
             DrawableCompat.setTint(bubbleAnimation.getDrawable(),ContextCompat.getColor(requireContext(),R.color.white));
             bubbleAnimation.stopAnimation();

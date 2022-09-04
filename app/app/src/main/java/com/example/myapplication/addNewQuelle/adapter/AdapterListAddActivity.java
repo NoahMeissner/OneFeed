@@ -13,7 +13,7 @@ import com.example.myapplication.addNewQuelle.Quellen;
 
 import java.util.ArrayList;
 
-public class Adapter extends RecyclerView.Adapter<Viewholder> {
+public class AdapterListAddActivity extends RecyclerView.Adapter<ViewholderAddActivity> {
 
     public interface OnItemClickListener{
         void onItemClick(Quellen quellen);
@@ -22,20 +22,20 @@ public class Adapter extends RecyclerView.Adapter<Viewholder> {
     private ArrayList<Quellen> quellenArrayList;
     private OnItemClickListener listener;
 
-    public Adapter(OnItemClickListener listener, ArrayList<Quellen> quellenArrayList){
+    public AdapterListAddActivity(OnItemClickListener listener, ArrayList<Quellen> quellenArrayList){
         this.listener=listener;
         this.quellenArrayList=quellenArrayList;
     }
 
     @NonNull
     @Override
-    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewholderAddActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.icons_quellen,parent,false);
-        return new Viewholder(view);
+        return new ViewholderAddActivity(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewholderAddActivity holder, int position) {
         holder.bind(quellenArrayList.get(position),listener);
     }
 

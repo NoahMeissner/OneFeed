@@ -9,13 +9,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.example.myapplication.R;
-import com.example.myapplication.addNewQuelle.adapter.Adapter;
+import com.example.myapplication.addNewQuelle.adapter.AdapterListAddActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ADDActivity extends AppCompatActivity implements Adapter.OnItemClickListener {
+public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener {
 
 
     private final ArrayList<Quellen> socialMediaQuellenArrayList = new ArrayList<>();
@@ -92,7 +92,7 @@ public class ADDActivity extends AppCompatActivity implements Adapter.OnItemClic
     private void initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
         // RecylerView
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        Adapter recyclerViewAdapter = new Adapter(this,arrayList);
+        AdapterListAddActivity recyclerViewAdapter = new AdapterListAddActivity(this,arrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 

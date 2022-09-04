@@ -10,27 +10,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Quellen;
 
-public class Viewholder extends RecyclerView.ViewHolder{
+public class ViewholderAddActivity extends RecyclerView.ViewHolder{
 
-    ImageView imageView;
-    TextView textView;
+    private final ImageView imageView;
+    private final TextView textView;
 
-    public Viewholder(@NonNull View itemView) {
+    public ViewholderAddActivity(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.quellenImage);
         textView = itemView.findViewById(R.id.quelleText);
     }
 
 
-    public void bind(final Quellen quellen,final Adapter.OnItemClickListener listener) {
+    public void bind(final Quellen quellen,final AdapterListAddActivity.OnItemClickListener listener) {
         textView.setText(quellen.getName());
         imageView.setImageDrawable(quellen.getImage());
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.onItemClick(quellen);
-            }
-        });
+        itemView.setOnClickListener( view -> listener.onItemClick(quellen));
     }
 }
 

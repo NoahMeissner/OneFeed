@@ -20,8 +20,13 @@ import java.util.ArrayList;
 
 public class EditQuellenFragement extends DialogFragment {
 
-    String kategorie;
-    Drawable drawable;
+    /*
+    this method creates the EditSources fragment,
+     which can be used to edit individual sources.
+     */
+
+    private String kategorie;
+    private Drawable drawable;
     private ArrayList<String[]> categories = new ArrayList<>();
     private boolean wahr = true;
     private boolean falsch = false;
@@ -37,21 +42,28 @@ public class EditQuellenFragement extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_edit_quellen, container, false);
+        initUI(view);
+        initcategories();
+        initRecyclerView(view);
+        return view;
+    }
+
+    // This Method initialise the Fragement items
+    private void initUI(View view){
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         imageView.setImageDrawable(drawable);
         textView.setText(kategorie);
-        initcategories();
-        initUI(view);
-        return view;
     }
 
+    //@TODO Hernach Löschen nicht mehr gebraucht
     private void initcategories() {
         categories.add(new String[]{"Notification", String.valueOf(wahr)});
         categories.add(new String[]{"Enabeld", String.valueOf(falsch)});
     }
 
-    private void initUI(View view) {
+    // This method initializes the RecyclerView for the settings
+    private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewEditQuellenFragement);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         layoutManager.canScrollVertically();
@@ -62,6 +74,7 @@ public class EditQuellenFragement extends DialogFragment {
         recyclerView.setAdapter(adapterEditQuellenFragement);
     }
 
+    // With the following Methods it is possible to set the Materials for the Fragement Items
     public void setKategorie(String kategorie) {
         this.kategorie = kategorie;
     }

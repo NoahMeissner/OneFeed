@@ -94,19 +94,19 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     private void initQuellen(){
         for(String[]s : hashMap.keySet()){
             if(s[0].equals(String.valueOf(Categories.SocialMedia))){
-                socialMediaQuellenArrayList.add(new Quellen(s[1],hashMap.get(s)));
+                socialMediaQuellenArrayList.add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
             }
             if(s[0].equals(String.valueOf(Categories.Newspaper))){
-                newsArrayList.add(new Quellen(s[1],hashMap.get(s)));
+                newsArrayList.add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
             }
             if(s[0].equals(String.valueOf(Categories.Interessen))){
-                interestsArrayList.add(new Quellen(s[1],hashMap.get(s)));
+                interestsArrayList.add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
             }
 
         }
-            socialMediaQuellenArrayList.add(new Quellen(String.valueOf(Categories.ADDButton),getDrawable(R.drawable.add)));
-            newsArrayList.add(new Quellen(String.valueOf(Categories.ADDButton),getDrawable(R.drawable.add)));
-            interestsArrayList.add(new Quellen(String.valueOf(Categories.ADDButton),getDrawable(R.drawable.add)));
+            socialMediaQuellenArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
+            newsArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
+            interestsArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
     }
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter

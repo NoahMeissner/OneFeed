@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="article_card_image">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:adjustViewBounds">false</item>
+        <item name="android:cropToPadding">false</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="article_card_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/article_card_padding</item>
+    </style>
+
+    <style name="article_card_title" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:lines">3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="article_card_source_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="article_source_icon">
+        <item name="android:layout_width">@dimen/article_source_dimensions</item>
+        <item name="android:layout_height">@dimen/article_source_dimensions</item>
+        <item name="android:adjustViewBounds">false</item>
+        <item name="android:cropToPadding">false</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <style name="article_source_label" parent="TextAppearance.Material3.LabelSmall">
+        <item name="singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="article_card_layout" parent="Widget.Material3.CardView.Outlined">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/article_card_height</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+</resources>

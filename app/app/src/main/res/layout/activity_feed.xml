@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.myapplication.view.TitleBar
+    <com.example.myapplication.ui.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pageContentView="@layout/sample_article" />
+        app:pageContentView="@layout/view_news_cards_recycler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

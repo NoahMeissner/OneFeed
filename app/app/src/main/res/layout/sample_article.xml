@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/app_padding"
-    tools:showIn="@layout/component_title_bar">
+    tools:showIn="@layout/component_bar_title">
 
     <TextView
         android:layout_width="wrap_content"

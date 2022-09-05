@@ -1,4 +1,4 @@
-package com.example.myapplication.view;
+package com.example.myapplication.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -29,7 +29,7 @@ public class TitleBar extends CoordinatorLayout {
         initializeAttributes(context, attrs);
 
         // Inflate title-bar
-        View.inflate(context, R.layout.component_title_bar, this);
+        View.inflate(context, R.layout.component_bar_title, this);
 
         // Initialize content
         setTitle();

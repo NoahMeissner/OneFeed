@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/article_card_layout"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/article_card_image"
+            android:id="@+id/imageView"
+            android:src="@drawable/sample_picture"
+            android:contentDescription="@string/content_description_article_image" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/article_card_content"
+            android:id="@+id/article_card_content_layout">
+
+            <TextView
+                style="@style/article_card_title"
+                android:id="@+id/article_card_title"
+                android:text="@string/sample_article_title"
+                app:layout_constraintStart_toStartOf="@id/article_card_content_layout"
+                app:layout_constraintTop_toTopOf="@id/article_card_content_layout"/>
+
+            <LinearLayout
+                style="@style/article_card_source_layout"
+                app:layout_constraintStart_toStartOf="@id/article_card_content_layout"
+                app:layout_constraintBottom_toBottomOf="@id/article_card_content_layout"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    style="@style/article_source_icon"
+                    android:id="@+id/source_icon"
+                    android:src="@drawable/sample_source_icon"
+                    android:contentDescription="@string/content_description_article_source" />
+
+                <TextView
+                    style="@style/article_source_label"
+                    android:id="@+id/article_card_source"
+                    android:text="@string/sample_source_name" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

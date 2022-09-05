@@ -14,7 +14,7 @@
             style="@style/title_bar_collapse_toolbar_layout"
             app:collapsedTitleGravity="center|center"
             app:collapsedTitleTextColor="@color/md_theme_light_onSurface"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/md_theme_light_background"
             app:expandedTitleGravity="center|center"
             app:expandedTitleTextColor="@color/md_theme_light_primary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"

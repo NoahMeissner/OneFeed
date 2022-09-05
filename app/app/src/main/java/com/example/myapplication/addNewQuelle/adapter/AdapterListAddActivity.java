@@ -19,11 +19,17 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewholderAddAc
         void onItemClick(Quellen quellen);
     }
 
+    public interface longItemClickListener{
+        void onLongClick(Quellen quellen);
+    }
+
     private ArrayList<Quellen> quellenArrayList;
     private OnItemClickListener listener;
+    private longItemClickListener longItemClickListener;
 
-    public AdapterListAddActivity(OnItemClickListener listener, ArrayList<Quellen> quellenArrayList){
+    public AdapterListAddActivity(OnItemClickListener listener, longItemClickListener longItemClickListener, ArrayList<Quellen> quellenArrayList){
         this.listener=listener;
+        this.longItemClickListener = longItemClickListener;
         this.quellenArrayList=quellenArrayList;
     }
 
@@ -37,6 +43,7 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewholderAddAc
     @Override
     public void onBindViewHolder(@NonNull ViewholderAddActivity holder, int position) {
         holder.bind(quellenArrayList.get(position),listener);
+        holder.bindlong(quellenArrayList.get(position),longItemClickListener);
     }
 
     @Override

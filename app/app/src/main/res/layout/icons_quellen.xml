@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     >
 
-    <LinearLayout
+    <com.example.myapplication.addNewQuelle.AnimateLinearLayout
+        android:id="@+id/linearLayoutQuellenIcons"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:orientation="vertical">
@@ -42,7 +43,7 @@
             android:text="@string/hallo"
             android:textAlignment="center"
             android:textColor="@color/primaryColor" />
-    </LinearLayout>
+    </com.example.myapplication.addNewQuelle.AnimateLinearLayout>
 
 
 </FrameLayout>

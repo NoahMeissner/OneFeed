@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.AnimateLinearLayout;
 import com.example.myapplication.addNewQuelle.Categories;
 import com.example.myapplication.addNewQuelle.Quellen;
 
@@ -31,6 +32,20 @@ public class ViewholderAddActivity extends RecyclerView.ViewHolder{
         else textView.setText("");
         imageView.setImageDrawable(quellen.getImage());
         itemView.setOnClickListener( view -> listener.onItemClick(quellen));
+    }
+
+    public void bindlong(Quellen quellen, AdapterListAddActivity.longItemClickListener longItemClickListener) {
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                longItemClickListener.onLongClick(quellen);
+                if(quellen.getName()!= Categories.ADDButton.name()){
+                    AnimateLinearLayout animateLinearLayout = view.findViewById(R.id.linearLayoutQuellenIcons);
+                    animateLinearLayout.animateText();
+                }
+                return true;
+            }
+        });
     }
 }
 

@@ -16,13 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener {
+public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener, AdapterListAddActivity.longItemClickListener {
 
 
     private final ArrayList<Quellen> socialMediaQuellenArrayList = new ArrayList<>();
     private final ArrayList<Quellen> newsArrayList = new ArrayList<>();
     private final ArrayList<Quellen> interestsArrayList = new ArrayList<>();
     private final HashMap<String[],Drawable> hashMap = new HashMap<>();
+
 
 
     @Override
@@ -112,7 +113,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
     private void initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        AdapterListAddActivity recyclerViewAdapter = new AdapterListAddActivity(this,arrayList);
+        AdapterListAddActivity recyclerViewAdapter = new AdapterListAddActivity(this,this,arrayList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -124,5 +125,11 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         editQuellenFragement.setCategory(String.valueOf(quellen.getCategories()));
         editQuellenFragement.setDrawable(quellen.getImage());
         editQuellenFragement.show(getSupportFragmentManager(),"My Fragement");
+    }
+
+    @Override
+    public void onLongClick(Quellen quellen) {
+        //@TODO LongClick funktioniert est muss nur alle betreffen und Farbe ändern und Fragement für löschen
+
     }
 }

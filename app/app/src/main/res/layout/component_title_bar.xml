@@ -3,30 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         style="@style/title_bar_app_layout">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             style="@style/title_bar_collapse_toolbar_layout"
+            android:id="@+id/toolbar_layout"
             app:collapsedTitleGravity="center|center"
-            app:collapsedTitleTextColor="@color/md_theme_light_onSurface"
-            app:contentScrim="@color/md_theme_light_background"
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:expandedTitleTextAppearance="@style/title_bar_title_style"
             app:expandedTitleGravity="center|center"
-            app:expandedTitleTextColor="@color/md_theme_light_primary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleTextColor="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="scale"
             app:toolbarId="@+id/toolbar">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/md_theme_light_background"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:layout_collapseMode="pin" />
 
             <LinearLayout
                 android:layout_width="match_parent"

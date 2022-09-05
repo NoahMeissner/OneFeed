@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
+import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
+import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
 import com.example.myapplication.addNewQuelle.adapter.AdapterListAddActivity;
 
 import java.util.ArrayList;
@@ -120,6 +123,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     //this method is inherited from the onclick listener here and using it we can open the fragment depending on the button clicked
     @Override
     public void onItemClick(Quellen quellen) {
+
         EditQuellenFragement editQuellenFragement = new EditQuellenFragement();
         editQuellenFragement.setName(quellen.getName());
         editQuellenFragement.setCategory(String.valueOf(quellen.getCategories()));
@@ -130,6 +134,9 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     @Override
     public void onLongClick(Quellen quellen) {
         //@TODO LongClick funktioniert est muss nur alle betreffen und Farbe ändern und Fragement für löschen
-
+        DeleteSourceFragement deleteSourceFragement = new DeleteSourceFragement();
+        deleteSourceFragement.setImage(quellen.getImage());
+        deleteSourceFragement.setHeadline(quellen.getName());
+        deleteSourceFragement.show(getSupportFragmentManager(),"deleteFragement");
     }
 }

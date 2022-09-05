@@ -1,4 +1,4 @@
-package com.example.myapplication.addNewQuelle;
+package com.example.myapplication.addNewQuelle.Fragement;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Categories;
 import com.example.myapplication.addNewQuelle.adapter.AdapterEditQuellenFragement;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class EditQuellenFragement extends DialogFragment {
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
         imageView.setImageDrawable(drawable);
-        if(name !=Categories.ADDButton.name()){
+        if(name != Categories.ADDButton.name()){
             textView.setText(name);
         }
         else{

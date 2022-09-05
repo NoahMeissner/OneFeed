@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:background="@drawable/delete_source_style"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/deleteSourceImage"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/deleteSourceHeadline"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:text="Wollen Sie die Quelle wirklich entfernen" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button"
+                android:layout_marginStart="10dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textAppearance="@style/toolbar_icon_button"
+                android:background="@drawable/custombutton"
+                android:text="Ja"
+                android:textSize="15sp"/>
+
+            <Space
+                android:layout_width="130dp"
+                android:layout_height="10dp"
+                />
+
+            <Button
+                android:id="@+id/button2"
+                android:textAppearance="@style/toolbar_icon_button"
+                android:layout_width="100dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="50dp"
+                android:textSize="15sp"
+                android:text="Nein" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

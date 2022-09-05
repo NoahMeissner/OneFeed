@@ -25,9 +25,10 @@ public class EditQuellenFragement extends DialogFragment {
      which can be used to edit individual sources.
      */
 
-    private String kategorie;
+    private String name;
+    private String category;
     private Drawable drawable;
-    private ArrayList<String[]> categories = new ArrayList<>();
+    private ArrayList<String[]> settings = new ArrayList<>();
     private boolean wahr = true;
     private boolean falsch = false;
 
@@ -52,17 +53,35 @@ public class EditQuellenFragement extends DialogFragment {
     private void initUI(View view){
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
+        TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
         imageView.setImageDrawable(drawable);
-        if(kategorie!=Categories.ADDButton.name()){
-            textView.setText(kategorie);
+        if(name !=Categories.ADDButton.name()){
+            textView.setText(name);
         }
-        else textView.setText("");
+        else{
+            textView.setText("");
+            underline.setText("Quellen");
+        }
     }
 
     //@TODO Hernach Löschen nicht mehr gebraucht
     private void initcategories() {
-        categories.add(new String[]{"Notification", String.valueOf(wahr)});
-        categories.add(new String[]{"Enabeld", String.valueOf(falsch)});
+        if(name == Categories.ADDButton.name()){
+            if(category== Categories.Newspaper.name()){
+
+            }
+            if(category== Categories.Interessen.name()){
+
+            }
+            if(category==Categories.SocialMedia.name()){
+
+            }
+        }
+        else{
+            settings.add(new String[]{"Notification", String.valueOf(wahr)});
+            settings.add(new String[]{"Enabeld", String.valueOf(falsch)});
+            settings.add(new String[]{"Konsumanalyse", String.valueOf(falsch)});
+        }
     }
 
     // This method initializes the RecyclerView for the settings
@@ -73,20 +92,24 @@ public class EditQuellenFragement extends DialogFragment {
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
         recyclerView.setLayoutManager(layoutManager);
-        AdapterEditQuellenFragement adapterEditQuellenFragement = new AdapterEditQuellenFragement(categories);
+        AdapterEditQuellenFragement adapterEditQuellenFragement = new AdapterEditQuellenFragement(settings);
         recyclerView.setAdapter(adapterEditQuellenFragement);
     }
 
     // With the following Methods it is possible to set the Materials for the Fragement Items
-    public void setKategorie(String kategorie) {
-        this.kategorie = kategorie;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
     }
 
-    public void setCategories(ArrayList<String[]> categories) {
-        this.categories = categories;
+    public void setSettings(ArrayList<String[]> settings) {
+        this.settings = settings;
     }
 }

@@ -104,9 +104,9 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
             }
 
         }
-            socialMediaQuellenArrayList.add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add),Categories.ADDButton));
-            newsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.ADDButton));
-            interestsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.ADDButton));
+            socialMediaQuellenArrayList.add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add),Categories.SocialMedia));
+            newsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Newspaper));
+            interestsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Interessen));
     }
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
@@ -120,7 +120,8 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     @Override
     public void onItemClick(Quellen quellen) {
         EditQuellenFragement editQuellenFragement = new EditQuellenFragement();
-        editQuellenFragement.setKategorie(quellen.getName());
+        editQuellenFragement.setName(quellen.getName());
+        editQuellenFragement.setCategory(String.valueOf(quellen.getCategories()));
         editQuellenFragement.setDrawable(quellen.getImage());
         editQuellenFragement.show(getSupportFragmentManager(),"My Fragement");
     }

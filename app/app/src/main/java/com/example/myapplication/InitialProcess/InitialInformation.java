@@ -36,6 +36,7 @@ and do not have to be saved separately
         return consum;
     }
 
+
     public ArrayList<String> getSocialMedia() {
         return socialMedia;
     }

@@ -11,6 +11,8 @@ public class Quellen {
     private final Drawable image;
     private final String name;
     private Categories categories;
+    private boolean notification;
+    private boolean enabeld;
 
     public Quellen(String name, Drawable image,Categories categories){
         this.name = name;
@@ -19,6 +21,23 @@ public class Quellen {
 
     public Categories getCategories() {
         return categories;
+    }
+
+    public boolean isNotification() {
+        return notification;
+    }
+
+    public boolean isEnabeld() {
+        return enabeld;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
+    }
+
+
+    public void setEnabeld(boolean enabeld) {
+        this.enabeld = enabeld;
     }
 
     public Drawable getImage() {

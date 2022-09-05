@@ -53,7 +53,10 @@ public class EditQuellenFragement extends DialogFragment {
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         imageView.setImageDrawable(drawable);
-        textView.setText(kategorie);
+        if(kategorie!=Categories.ADDButton.name()){
+            textView.setText(kategorie);
+        }
+        else textView.setText("");
     }
 
     //@TODO Hernach Löschen nicht mehr gebraucht

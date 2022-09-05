@@ -67,16 +67,16 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     //In this method, the hashmap is initialized in which the category and the image are located in order to assign them quickly
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initHashMap(){
-        hashMap.put(new String[]{String.valueOf(Categories.SocialMedia), "Twitter"},getDrawable(R.drawable.twitter_icon));
-        hashMap.put(new String[]{String.valueOf(Categories.SocialMedia), "Reddit"},getDrawable(R.drawable.reddit));
-        hashMap.put(new String[]{String.valueOf(Categories.Newspaper), "FAZ"},getDrawable(R.drawable.faz));
-        hashMap.put(new String[]{String.valueOf(Categories.Newspaper), "Spiegel Online"},getDrawable(R.drawable.spiegel));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Politik"},getDrawable(R.drawable.world));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Wirtschaft"},getDrawable(R.drawable.business));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Corona"},getDrawable(R.drawable.coronavirus));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Technik"},getDrawable(R.drawable.tech));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Gaming"},getDrawable(R.drawable.sports));
-        hashMap.put(new String[]{String.valueOf(Categories.Interessen), "Sport"},getDrawable(R.drawable.sport));
+        hashMap.put(new String[]{Categories.SocialMedia.name(), Categories.socialMedia.Twitter.name()},getDrawable(R.drawable.twitter_icon));
+        hashMap.put(new String[]{Categories.SocialMedia.name(), Categories.socialMedia.Reddit.name()},getDrawable(R.drawable.reddit));
+        hashMap.put(new String[]{Categories.Newspaper.name(), Categories.news.FAZ.name()},getDrawable(R.drawable.faz));
+        hashMap.put(new String[]{Categories.Newspaper.name(), Categories.news.Spiegel.name()},getDrawable(R.drawable.spiegel));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Politik.name()},getDrawable(R.drawable.world));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Wirtschaft.name()},getDrawable(R.drawable.business));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Corona.name()},getDrawable(R.drawable.coronavirus));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Technik.name()},getDrawable(R.drawable.tech));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Gaming.name()},getDrawable(R.drawable.sports));
+        hashMap.put(new String[]{Categories.Interessen.name(), Categories.interests.Sport.name()},getDrawable(R.drawable.sport));
     }
 
     // With this method you can easily edit the images of the buttons
@@ -104,9 +104,9 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
             }
 
         }
-            socialMediaQuellenArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
-            newsArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
-            interestsArrayList.add(new Quellen("",getDrawable(R.drawable.add),Categories.ADDButton));
+            socialMediaQuellenArrayList.add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add),Categories.ADDButton));
+            newsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.ADDButton));
+            interestsArrayList.add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.ADDButton));
     }
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter

@@ -14,6 +14,8 @@ import android.view.WindowManager;
 
 import com.example.myapplication.InitialProcess.animations.InteressenAnimation;
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Categories;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -53,12 +55,12 @@ public class Interests_fragement extends Fragment {
 
     // This method initializes all buttons representing the interests
     private void initButtons(View view){
-        buttons.put("Politik",view.findViewById(R.id.buttonKategoriePolitik));
-        buttons.put("Corona",view.findViewById(R.id.buttonKategorieCorona));
-        buttons.put("Gaming",view.findViewById(R.id.buttonKategorieGaming));
-        buttons.put("Technik",view.findViewById(R.id.buttonKategorieTechnik));
-        buttons.put("Wirtschaft",view.findViewById(R.id.buttonKategorieWirtschaft));
-        buttons.put("Sport",view.findViewById(R.id.buttonKategorieSport));
+        buttons.put(String.valueOf(Categories.interests.Politik),view.findViewById(R.id.buttonKategoriePolitik));
+        buttons.put(String.valueOf(Categories.interests.Corona),view.findViewById(R.id.buttonKategorieCorona));
+        buttons.put(String.valueOf(Categories.interests.Gaming),view.findViewById(R.id.buttonKategorieGaming));
+        buttons.put(String.valueOf(Categories.interests.Technik),view.findViewById(R.id.buttonKategorieTechnik));
+        buttons.put(String.valueOf(Categories.interests.Wirtschaft),view.findViewById(R.id.buttonKategorieWirtschaft));
+        buttons.put(String.valueOf(Categories.interests.Sport),view.findViewById(R.id.buttonKategorieSport));
         for(String s:buttons.keySet()){
             setListener(Objects.requireNonNull(buttons.get(s)),s);
         }

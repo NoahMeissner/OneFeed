@@ -30,6 +30,9 @@
     <string name="buttonNoText">Nein</string>
     <string name="willkommen">Willkommen</string>
 
+    <string name="informationenText">In diesem Bereich der App können Sie die Quellen,
+        welche ihnen in der One Feed App angezeigt werden bearbeiten, löschen oder neue Quellen hinzufügen.</string>
+
 
     <string name="headlineQuellenActivity">Quellen</string>
     <string name="headlineQuellenSocialMedia">Social Media</string>

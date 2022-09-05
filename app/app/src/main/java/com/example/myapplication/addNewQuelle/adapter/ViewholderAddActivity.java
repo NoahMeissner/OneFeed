@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Categories;
 import com.example.myapplication.addNewQuelle.Quellen;
 
 public class ViewholderAddActivity extends RecyclerView.ViewHolder{
@@ -23,7 +24,11 @@ public class ViewholderAddActivity extends RecyclerView.ViewHolder{
 
 
     public void bind(final Quellen quellen,final AdapterListAddActivity.OnItemClickListener listener) {
-        textView.setText(quellen.getName());
+        if(quellen.getName()!= Categories.ADDButton.name()){
+            textView.setText(quellen.getName());
+
+        }
+        else textView.setText("");
         imageView.setImageDrawable(quellen.getImage());
         itemView.setOnClickListener( view -> listener.onItemClick(quellen));
     }

@@ -4,5 +4,8 @@ public enum Categories {
     SocialMedia,
     Newspaper,
     Interessen,
-    ADDButton,
+    ADDButton;
+    public enum interests{Corona, Politik, Sport, Technik, Gaming, Wirtschaft}
+    public enum news{FAZ,Spiegel}
+    public enum socialMedia{Twitter,Reddit}
 }

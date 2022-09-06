@@ -20,6 +20,8 @@ import java.util.Locale;
 
 public class TitleBar extends CoordinatorLayout {
 
+    private String title;
+    private int toolbarResourceId;
     private int pageContentResourceId;
 
     public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -33,7 +35,14 @@ public class TitleBar extends CoordinatorLayout {
 
         // Initialize content
         setTitle();
+        setToolbar();
         setPageContent();
+    }
+
+    private void setToolbar() {
+        ViewStub toolbar = (ViewStub) findViewById(R.id.toolbar_view);
+        toolbar.setLayoutResource(this.toolbarResourceId);
+        toolbar.inflate();
     }
 
     private void initializeAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -42,9 +51,15 @@ public class TitleBar extends CoordinatorLayout {
                 R.styleable.TitleBar,
                 0, 0);
         try {
-            pageContentResourceId = a.getResourceId(
-                    R.styleable.TitleBar_pageContentView, 0
+            this.pageContentResourceId = a.getResourceId(
+                    R.styleable.TitleBar_pageContentView,
+                    R.layout.view_news_cards_recycler
             );
+            this.toolbarResourceId = a.getResourceId(
+                    R.styleable.TitleBar_toolbar,
+                    R.layout.component_bar_feed_toolbar
+            );
+            this.title = a.getString(R.styleable.TitleBar_title);
         } finally {
             a.recycle();
         }
@@ -52,7 +67,13 @@ public class TitleBar extends CoordinatorLayout {
 
     private void setTitle() {
         CollapsingToolbarLayout toolbarLayout = this.findViewById(R.id.toolbar_layout);
-        toolbarLayout.setTitle(getDateTitle(LocalDateTime.now()));
+        if (this.title == null) {
+            // Default behavior: Current date as title
+            toolbarLayout.setTitle(getDateTitle(LocalDateTime.now()));
+        } else {
+            // If provided: Custom title from string
+            toolbarLayout.setTitle(this.title);
+        }
     }
 
     private void setPageContent() {

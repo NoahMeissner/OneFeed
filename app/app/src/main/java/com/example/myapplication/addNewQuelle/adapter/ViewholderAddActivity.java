@@ -2,6 +2,7 @@ package com.example.myapplication.addNewQuelle.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,39 +13,59 @@ import com.example.myapplication.addNewQuelle.AnimateLinearLayout;
 import com.example.myapplication.addNewQuelle.Categories;
 import com.example.myapplication.addNewQuelle.Quellen;
 
+import java.util.Objects;
+
 public class ViewholderAddActivity extends RecyclerView.ViewHolder{
 
     private final ImageView imageView;
     private final TextView textView;
+    private final LinearLayout linearLayout;
+    private boolean click;
+    private boolean setAnimation;
+    private final AnimateLinearLayout animateLinearLayout = itemView.findViewById(R.id.frameLayout_icons_Quellen);
 
     public ViewholderAddActivity(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.quellenImage);
         textView = itemView.findViewById(R.id.quelleText);
+        linearLayout = itemView.findViewById(R.id.deleteLayout);
+        linearLayout.setVisibility(View.GONE);
     }
 
-
     public void bind(final Quellen quellen,final AdapterListAddActivity.OnItemClickListener listener) {
-        if(quellen.getName()!= Categories.ADDButton.name()){
-            textView.setText(quellen.getName());
-
-        }
-        else textView.setText("");
-        imageView.setImageDrawable(quellen.getImage());
-        itemView.setOnClickListener( view -> listener.onItemClick(quellen));
+        textView.setText("");
+        if(quellen.getAnimation()&&!Objects.equals(quellen.getName(), Categories.ADDButton.name())){
+                animateLinearLayout.animateText();
+                linearLayout.setVisibility(View.VISIBLE);
+                setAnimation = true;
+            }
+            if(!quellen.getAnimation()&&setAnimation){
+                animateLinearLayout.stopAnimation();
+                linearLayout.setVisibility(View.GONE);
+            }
+            if(!Objects.equals(quellen.getName(), Categories.ADDButton.name())){
+                textView.setText(quellen.getName());
+            }
+            imageView.setImageDrawable(quellen.getImage());
+            itemView.setOnClickListener( view -> listener.onItemClick(quellen));
     }
 
     public void bindlong(Quellen quellen, AdapterListAddActivity.longItemClickListener longItemClickListener) {
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
+        itemView.setOnLongClickListener(view -> {
+            if (Objects.equals(quellen.getName(), Categories.ADDButton.name())){
+                return false;
+            }
+            if(!click){
                 longItemClickListener.onLongClick(quellen);
-                if(quellen.getName()!= Categories.ADDButton.name()){
-                    AnimateLinearLayout animateLinearLayout = view.findViewById(R.id.linearLayoutQuellenIcons);
-                    animateLinearLayout.animateText();
+                if(!Objects.equals(quellen.getName(), Categories.ADDButton.name())){
+                    linearLayout.setVisibility(View.VISIBLE);
                 }
+                click = true;
                 return true;
             }
+            click = false;
+            longItemClickListener.onLongClick(quellen);
+            return false;
         });
     }
 }

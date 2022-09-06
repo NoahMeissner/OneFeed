@@ -2,6 +2,8 @@ package com.example.myapplication.addNewQuelle;
 
 import android.graphics.drawable.Drawable;
 
+import com.example.myapplication.R;
+
 public class Quellen {
 
     /*
@@ -13,10 +15,12 @@ public class Quellen {
     private Categories categories;
     private boolean notification;
     private boolean enabeld;
+    private boolean setAnimation = false;
 
     public Quellen(String name, Drawable image,Categories categories){
         this.name = name;
         this.image = image;
+        this.categories = categories;
     }
 
     public Categories getCategories() {
@@ -35,13 +39,20 @@ public class Quellen {
         this.notification = notification;
     }
 
-
     public void setEnabeld(boolean enabeld) {
         this.enabeld = enabeld;
     }
 
     public Drawable getImage() {
         return image;
+    }
+
+    public void setSetAnimation(boolean setAnimation) {
+        this.setAnimation = setAnimation;
+    }
+
+    public boolean getAnimation() {
+        return setAnimation;
     }
 
     public String getName() {

@@ -60,8 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button"
+                android:id="@+id/buttonYD"
                 android:layout_marginStart="10dp"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
@@ -76,7 +77,7 @@
                 />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonND"
                 android:textAppearance="@style/toolbar_icon_button"
                 android:layout_width="100dp"
                 android:layout_marginEnd="10dp"

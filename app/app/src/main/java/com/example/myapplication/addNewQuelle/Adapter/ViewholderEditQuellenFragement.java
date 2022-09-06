@@ -1,4 +1,4 @@
-package com.example.myapplication.addNewQuelle.adapter;
+package com.example.myapplication.addNewQuelle.Adapter;
 
 import android.annotation.SuppressLint;
 import android.view.View;

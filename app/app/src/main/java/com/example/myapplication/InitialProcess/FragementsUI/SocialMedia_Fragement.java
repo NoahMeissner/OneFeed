@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import com.example.myapplication.InitialProcess.animations.SocialMediaAnimation;
+import com.example.myapplication.InitialProcess.Animations.SocialMediaAnimation;
 import com.example.myapplication.R;
 
 public class SocialMedia_Fragement extends Fragment {

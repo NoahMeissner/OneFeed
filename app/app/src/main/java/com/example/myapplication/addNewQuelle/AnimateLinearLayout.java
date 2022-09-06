@@ -3,11 +3,12 @@ package com.example.myapplication.addNewQuelle;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-public class AnimateLinearLayout extends LinearLayout {
+public class AnimateLinearLayout extends FrameLayout {
 
     private int rotation = 2;
     private long myDelay =80;
@@ -33,7 +34,8 @@ public class AnimateLinearLayout extends LinearLayout {
 
     //@TODO Eine Methode Stop Animation implementieren
     public void stopAnimation(){
-        myHandler.postDelayed(runnable, myDelay);
+        myHandler.removeCallbacksAndMessages(null);
+
     }
 
     public void setCharacterDelay(long m){

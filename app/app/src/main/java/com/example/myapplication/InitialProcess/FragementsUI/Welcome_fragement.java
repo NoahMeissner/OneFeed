@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.InitialProcess.animations.TypriwriterAnimation;
+import com.example.myapplication.InitialProcess.Animations.TypriwriterAnimation;
 
 
 public class Welcome_fragement extends Fragment {

@@ -5,7 +5,7 @@
         <item name="android:layout_height">48dp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:tint">?attr/colorSecondary</item>
+        <item name="android:tint">?attr/colorSecondaryVariant</item>
     </style>
 
     <style name="title_bar_app_layout">
@@ -21,7 +21,7 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="title_bar_title_style">
+    <style name="title_bar_title_style" parent="TextAppearance.Material3.DisplayMedium">
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

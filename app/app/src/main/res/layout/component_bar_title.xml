@@ -45,8 +45,8 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/analytics_icon"
                         style="@style/toolbar_icon_button"
+                        android:id="@+id/analytics_icon"
                         android:contentDescription="@string/analytics_icon_description"
                         android:src="@drawable/ic_round_bar_chart_40" />
 
@@ -56,8 +56,8 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:id="@+id/sources_icon"
                         style="@style/toolbar_icon_button"
+                        android:id="@+id/sources_icon"
                         android:contentDescription="@string/sources_icon_description"
                         android:src="@drawable/ic_round_group_40" />
                 </LinearLayout>

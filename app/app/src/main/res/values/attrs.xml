@@ -4,7 +4,7 @@
         <attr name="pageContentView" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="NewsSourceComponent">
+    <declare-styleable name="NewsSource">
         <attr name="name" format="string" />
         <attr name="sourceIcon" format="reference" />
     </declare-styleable>

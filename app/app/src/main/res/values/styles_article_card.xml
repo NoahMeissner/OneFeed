@@ -50,6 +50,5 @@
     <style name="article_card_layout" parent="Widget.Material3.CardView.Outlined">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/article_card_height</item>
-        <item name="android:background">?attr/colorSurface</item>
     </style>
 </resources>

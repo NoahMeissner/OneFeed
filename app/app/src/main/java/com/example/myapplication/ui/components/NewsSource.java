@@ -13,12 +13,12 @@ import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
 
-public class NewsSourceComponent extends LinearLayout {
+public class NewsSource extends LinearLayout {
 
     private String name;
     private int iconResourceId;
 
-    public NewsSourceComponent(Context context, @Nullable AttributeSet attrs) {
+    public NewsSource(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         // Read and initialize provided attributes
@@ -39,11 +39,11 @@ public class NewsSourceComponent extends LinearLayout {
     private void initializeAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.NewsSourceComponent,
+                R.styleable.NewsSource,
                 0, 0);
         try {
-            name = a.getString(R.styleable.NewsSourceComponent_name);
-            iconResourceId = a.getResourceId(R.styleable.NewsSourceComponent_sourceIcon, 0);
+            name = a.getString(R.styleable.NewsSource_name);
+            iconResourceId = a.getResourceId(R.styleable.NewsSource_sourceIcon, 0);
         } finally {
             a.recycle();
         }

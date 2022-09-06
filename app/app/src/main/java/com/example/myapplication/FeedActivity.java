@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.myapplication.data.NewsCard;
+import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.NewsSource;
 import com.example.myapplication.ui.NewsCardListAdapter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,10 +37,10 @@ public class FeedActivity extends AppCompatActivity {
         NewsSource sampleSource = new NewsSource(
                 "Spiegel", "https://www.spiegel.de/"
         );
-        NewsCard sampleCard = new NewsCard(
-                getString(R.string.lorem_ipsum), sampleSource
+        ArticleCard sampleCard = new ArticleCard(
+                getString(R.string.lorem_ipsum), sampleSource, LocalDateTime.now()
         );
-        ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
+        ArrayList<ArticleCard> sampleCards = new ArrayList<>(Arrays.asList(
                 sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard,
                 sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard,
                 sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard

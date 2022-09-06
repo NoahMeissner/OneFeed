@@ -22,7 +22,7 @@
 
             <TextView
                 style="@style/article_card_title"
-                android:id="@+id/tweet_card_content"
+                android:id="@+id/article_card_title"
                 android:text="@string/lorem_ipsum"
                 app:layout_constraintStart_toStartOf="@id/tweet_card_content_layout"
                 app:layout_constraintTop_toTopOf="@id/tweet_card_content_layout"/>

@@ -8,45 +8,51 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.DiffUtil.DiffResult;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.data.NewsCard;
+import com.example.myapplication.data.card.ArticleCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsCardListAdapter extends RecyclerView.Adapter<NewsCardViewHolder> {
-    private List<NewsCard> newsCards = new ArrayList<>();
+public class NewsCardListAdapter extends RecyclerView.Adapter<ArticleCardViewHolder> {
+    private List<ArticleCard> articleCards = new ArrayList<>();
 
-    public void updateItems(List<NewsCard> data) {
+    public void updateItems(List<ArticleCard> data) {
         NewsDiffCallback diffCallback = new NewsDiffCallback(
-                this.newsCards, data
+                this.articleCards, data
         );
         DiffResult callback = DiffUtil.calculateDiff(diffCallback);
         callback.dispatchUpdatesTo(this);
-        this.newsCards.clear();
-        this.newsCards.addAll(data);
+        this.articleCards.clear();
+        this.articleCards.addAll(data);
     }
 
     @Override
-    public NewsCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return NewsCardViewHolder.create(parent);
+    public int getItemViewType(int position) {
+        // Source: https://stackoverflow.com/a/26245463
+        return position % 2 * 2;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsCardViewHolder holder, int position) {
-        NewsCard newsCard = newsCards.get(position);
-        holder.bind(newsCard);
+    public ArticleCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return ArticleCardViewHolder.create(parent);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ArticleCardViewHolder holder, int position) {
+        ArticleCard articleCard = articleCards.get(position);
+        holder.bind(articleCard);
     }
 
     @Override
     public int getItemCount() {
-        return this.newsCards.size();
+        return this.articleCards.size();
     }
 
     static class NewsDiffCallback extends DiffUtil.Callback {
-        List<NewsCard> oldCards;
-        List<NewsCard> newCards;
+        List<ArticleCard> oldCards;
+        List<ArticleCard> newCards;
 
-        public NewsDiffCallback(List<NewsCard> oldCards, List<NewsCard> newCards) {
+        public NewsDiffCallback(List<ArticleCard> oldCards, List<ArticleCard> newCards) {
             this.oldCards = oldCards;
             this.newCards = newCards;
         }

@@ -50,7 +50,7 @@
                 <!--Twitter handle-->
                 <TextView
                     style="@style/tweet_card_author_tag"
-                    android:id="@+id/tweet_card_author_tag"
+                    android:id="@+id/tweet_card_author_handle"
                     android:text="@string/lorem_ipsum" />
 
             </LinearLayout>
@@ -58,7 +58,7 @@
             <!--Content-->
             <TextView
                 style="@style/tweet_card_content"
-                android:id="@+id/tweet_card_content"
+                android:id="@+id/article_card_title"
                 android:text="@string/lorem_ipsum_long" />
 
             <!--Source-->

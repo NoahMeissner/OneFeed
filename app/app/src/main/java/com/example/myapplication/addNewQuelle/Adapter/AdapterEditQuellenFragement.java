@@ -1,4 +1,4 @@
-package com.example.myapplication.addNewQuelle.adapter;
+package com.example.myapplication.addNewQuelle.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class AdapterEditQuellenFragement extends RecyclerView.Adapter<ViewholderEditQuellenFragement> {
 

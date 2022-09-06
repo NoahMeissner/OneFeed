@@ -7,17 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
-import com.example.myapplication.InitialProcess.FragementsUI.SocialMedia_Fragement;
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
 import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
-import com.example.myapplication.addNewQuelle.adapter.AdapterListAddActivity;
+import com.example.myapplication.addNewQuelle.Adapter.AdapterListAddActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

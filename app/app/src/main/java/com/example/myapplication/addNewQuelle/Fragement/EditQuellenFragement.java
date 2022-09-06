@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Categories;
-import com.example.myapplication.addNewQuelle.adapter.AdapterEditQuellenFragement;
+import com.example.myapplication.addNewQuelle.Adapter.AdapterEditQuellenFragement;
 
 import java.util.ArrayList;
 

@@ -1,16 +1,14 @@
-package com.example.myapplication.addNewQuelle.adapter;
+package com.example.myapplication.addNewQuelle.Adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.addNewQuelle.AnimateLinearLayout;
 import com.example.myapplication.addNewQuelle.Quellen;
 
 import java.util.ArrayList;

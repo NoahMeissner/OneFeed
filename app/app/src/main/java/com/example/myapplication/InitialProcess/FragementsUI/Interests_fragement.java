@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.example.myapplication.InitialProcess.animations.InteressenAnimation;
+import com.example.myapplication.InitialProcess.Animations.InteressenAnimation;
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Categories;
 

@@ -25,7 +25,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     private HashMap<Categories,ArrayList<Quellen>> arrayListHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
-    private  AdapterListAddActivity adapterInteressen;
+    private AdapterListAddActivity adapterInteressen;
     private boolean click = false;
 
 
@@ -147,7 +147,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         setAnimation(false);
         click = false;
         if(result){
-            arrayListHashMap.get(quellen.getCategories()).remove(quellen);
+            Objects.requireNonNull(arrayListHashMap.get(quellen.getCategories())).remove(quellen);
             if(quellen.getCategories()== Categories.Interessen){
                 adapterInteressen.setQuellenArrayList(arrayListHashMap.get(quellen.getCategories()));
                 return;
@@ -162,7 +162,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
 
     private void setAnimation(boolean boo){
         for(Categories categories: arrayListHashMap.keySet()){
-            for(Quellen quellen: arrayListHashMap.get(categories)){
+            for(Quellen quellen: Objects.requireNonNull(arrayListHashMap.get(categories))){
                 quellen.setSetAnimation(boo);
             }
             arrayListHashMap.put(categories,arrayListHashMap.get(categories));

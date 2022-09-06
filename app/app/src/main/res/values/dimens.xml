@@ -5,5 +5,5 @@
     <dimen name="app_padding">16dp</dimen>
     <dimen name="article_source_dimensions">17dp</dimen>
     <dimen name="article_card_height">136dp</dimen>
-    <dimen name="article_card_padding">16dp</dimen>
+    <dimen name="news_card_padding">16dp</dimen>
 </resources>

@@ -14,7 +14,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/article_card_padding</item>
+        <item name="android:padding">@dimen/news_card_padding</item>
     </style>
 
     <style name="article_card_title" parent="TextAppearance.Material3.TitleSmall">
@@ -31,7 +31,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="article_source_icon">
+    <style name="source_icon">
         <item name="android:layout_width">@dimen/article_source_dimensions</item>
         <item name="android:layout_height">@dimen/article_source_dimensions</item>
         <item name="android:adjustViewBounds">false</item>
@@ -40,7 +40,7 @@
         <item name="android:layout_marginRight">5dp</item>
     </style>
 
-    <style name="article_source_label" parent="TextAppearance.Material3.LabelSmall">
+    <style name="source_name" parent="TextAppearance.Material3.LabelSmall">
         <item name="singleLine">true</item>
         <item name="android:ellipsize">end</item>
         <item name="android:layout_width">match_parent</item>

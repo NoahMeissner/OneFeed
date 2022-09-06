@@ -3,9 +3,9 @@ package com.example.myapplication.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -16,7 +16,7 @@ public class NewsCardViewHolder extends RecyclerView.ViewHolder {
 
     public NewsCardViewHolder(View itemView) {
         super(itemView);
-        this.titleView = itemView.findViewById(R.id.article_card_title);
+        this.titleView = itemView.findViewById(R.id.tweet_card_content);
     }
 
     public void bind(NewsCard data) {

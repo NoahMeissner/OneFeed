@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Material3.CardView.Outlined"
+    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/news_card_padding">
+
+        <!--Container for the image to provide circular shape-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                android:id="@+id/tweet_card_profile_picture"
+                android:src="@drawable/sample_picture"
+                android:contentDescription="@string/content_description_tweet_profile_picture"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Space
+            android:layout_width="@dimen/news_card_padding"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/tweet_card_content_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!--Author information-->
+            <LinearLayout
+                android:id="@+id/tweet_card_author_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <!--Tweet author-->
+                <TextView
+                    style="@style/TextAppearance.Material3.LabelMedium"
+                    android:id="@+id/tweet_card_author_name"
+                    android:text="@string/lorem_ipsum"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Space
+                    android:layout_width="4dp"
+                    android:layout_height="0dp" />
+
+                <!--Twitter handle-->
+                <TextView
+                    style="@style/TextAppearance.Material3.LabelMedium"
+                    android:textFontWeight="@integer/material_motion_duration_long_1"
+                    android:id="@+id/tweet_card_author_tag"
+                    android:text="@string/lorem_ipsum"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--Content-->
+            <TextView
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:id="@+id/tweet_card_content"
+                android:text="@string/lorem_ipsum_long"
+                android:lines="3"
+                android:ellipsize="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"/>
+
+            <!--Source-->
+            <com.example.myapplication.ui.components.NewsSourceComponent
+                app:name="@string/source_twitter"
+                app:sourceIcon="@drawable/ic_twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

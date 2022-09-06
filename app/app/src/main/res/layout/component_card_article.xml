@@ -13,39 +13,27 @@
 
         <ImageView
             style="@style/article_card_image"
-            android:id="@+id/imageView"
+            android:id="@+id/tweet_card_profile_picture"
             android:src="@drawable/sample_picture"
             android:contentDescription="@string/content_description_article_image" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/article_card_content"
-            android:id="@+id/article_card_content_layout">
+            android:id="@+id/tweet_card_content_layout">
 
             <TextView
                 style="@style/article_card_title"
-                android:id="@+id/article_card_title"
-                android:text="@string/sample_article_title"
-                app:layout_constraintStart_toStartOf="@id/article_card_content_layout"
-                app:layout_constraintTop_toTopOf="@id/article_card_content_layout"/>
+                android:id="@+id/tweet_card_content"
+                android:text="@string/lorem_ipsum"
+                app:layout_constraintStart_toStartOf="@id/tweet_card_content_layout"
+                app:layout_constraintTop_toTopOf="@id/tweet_card_content_layout"/>
 
-            <LinearLayout
-                style="@style/article_card_source_layout"
-                app:layout_constraintStart_toStartOf="@id/article_card_content_layout"
-                app:layout_constraintBottom_toBottomOf="@id/article_card_content_layout"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    style="@style/article_source_icon"
-                    android:id="@+id/source_icon"
-                    android:src="@drawable/sample_source_icon"
-                    android:contentDescription="@string/content_description_article_source" />
-
-                <TextView
-                    style="@style/article_source_label"
-                    android:id="@+id/article_card_source"
-                    android:text="@string/sample_source_name" />
-
-            </LinearLayout>
+            <com.example.myapplication.ui.components.NewsSourceComponent
+                app:name="@string/sample_source_name"
+                app:sourceIcon="@drawable/sample_source_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tweet_card_content_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

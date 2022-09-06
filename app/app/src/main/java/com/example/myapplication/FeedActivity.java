@@ -1,24 +1,17 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.example.myapplication.data.NewsCard;
 import com.example.myapplication.data.NewsSource;
 import com.example.myapplication.ui.NewsCardListAdapter;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -44,7 +37,7 @@ public class FeedActivity extends AppCompatActivity {
                 "Spiegel", "https://www.spiegel.de/"
         );
         NewsCard sampleCard = new NewsCard(
-                getString(R.string.sample_article_title), sampleSource
+                getString(R.string.lorem_ipsum), sampleSource
         );
         ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
                 sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard,

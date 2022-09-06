@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:orientation="horizontal">
+
+    <ImageButton
+        style="@style/toolbar_icon_button"
+        android:id="@+id/analytics_icon"
+        android:contentDescription="@string/analytics_icon_description"
+        android:src="@drawable/back_arrow" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        style="@style/toolbar_icon_button"
+        android:id="@+id/sources_icon"
+        android:contentDescription="@string/sources_icon_description"
+        android:src="@drawable/informationicon" />
+
+</LinearLayout>

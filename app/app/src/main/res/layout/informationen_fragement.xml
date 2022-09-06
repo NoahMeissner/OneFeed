@@ -14,22 +14,25 @@
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+       >
 
         <TextView
             android:id="@+id/InformationFragementHeadline"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Informationen"
-            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
             android:textColor="?attr/colorPrimary"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+
+            />
 
         <Space
             android:layout_width="match_parent"

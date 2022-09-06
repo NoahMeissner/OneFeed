@@ -38,6 +38,11 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUI();
+        initToolbar();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar));
     }
 
     // in this method all elements are initialized

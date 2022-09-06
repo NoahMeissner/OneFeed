@@ -1,5 +1,47 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">OneFeed</string>
+    <string name="buttonText">Weiter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="interestsHeadline">Was hast du für Interessen?</string>
+    <string name="socialMediaHeadline">Verbinde dich mit deinen Social Media Accounts</string>
+    <string name="kategoriePolitik">Politik</string>
+    <string name="kategorieWirtschaft">Wirtschaft</string>
+    <string name="kategorieCorona">Corona</string>
+    <string name="kategorieGaming">Gaming</string>
+    <string name="kategorieTechnik">Technik</string>
+    <string name="kategorieSport">Sport</string>
+
+    <string name="konsumanalyseHeadline">Konsumanalyse</string>
+    <string name="NotificationsHeadline">Notifications</string>
+    <string name="textNotification">Die App ermöglicht es Ihnen Mitteilungen zum aktuellen Geschehen als Push Benachrichtigung zu senden.
+        Die Berechtigung kann dabei jederzeit für alle oder einzelne Quellen wiederrufen werden. </string>
+    <string name="textKonsumanalyse">In dieser App möchten wir ihnen helfen ihren Konsum von Medien zu analysieren und effizienter zu gestalten.
+        Dabei erheben wir Daten die ausschließlich Local auf ihrem Gerät gespeichert und verarbeitet werden.
+        Sie können die App auch weiterhin ohne diese Nutzen, jedoch sind dadurch nicht alle Funktionen für Sie verfügbar.</string>
+    <string name="title_activity_permissions">permissionsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="buttonYesText">Ja</string>
+    <string name="buttonNoText">Nein</string>
+    <string name="willkommen">Willkommen</string>
+
+    <string name="informationenText">In diesem Bereich der App können Sie die Quellen,
+        welche ihnen in der One Feed App angezeigt werden bearbeiten, löschen oder neue Quellen hinzufügen.</string>
+
+
+    <string name="headlineQuellenActivity">Quellen</string>
+    <string name="headlineQuellenSocialMedia">Social Media</string>
+    <string name="headlineQuellenNP">Zeitungen</string>
+    <string name="headlineQuellenIn">Interessen</string>
+    <string name="hallo">Hallo</string>
+    <string name="pictureofbutton">PictureOfButton</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
     <string name="analytics_icon_description">Analytics icon</string>
     <string name="feed_title_day_of_week_sample">Samstag</string>
     <string name="feed_title_date_sample">20. August</string>

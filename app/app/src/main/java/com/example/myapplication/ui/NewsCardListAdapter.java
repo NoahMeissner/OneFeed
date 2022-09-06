@@ -9,50 +9,72 @@ import androidx.recyclerview.widget.DiffUtil.DiffResult;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.data.card.ArticleCard;
+import com.example.myapplication.data.card.NewsCard;
+import com.example.myapplication.data.card.TwitterCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsCardListAdapter extends RecyclerView.Adapter<ArticleCardViewHolder> {
-    private List<ArticleCard> articleCards = new ArrayList<>();
+public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final List<NewsCard> cards = new ArrayList<>();
 
-    public void updateItems(List<ArticleCard> data) {
+    public void updateItems(List<NewsCard> data) {
         NewsDiffCallback diffCallback = new NewsDiffCallback(
-                this.articleCards, data
+                this.cards, data
         );
         DiffResult callback = DiffUtil.calculateDiff(diffCallback);
         callback.dispatchUpdatesTo(this);
-        this.articleCards.clear();
-        this.articleCards.addAll(data);
+        this.cards.clear();
+        this.cards.addAll(data);
     }
 
     @Override
     public int getItemViewType(int position) {
         // Source: https://stackoverflow.com/a/26245463
-        return position % 2 * 2;
+        if (cards.get(position).getClass() == ArticleCard.class) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
+    @NonNull
     @Override
-    public ArticleCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case 0: return ArticleCardViewHolder.create(parent);
+            case 1: return TwitterCardViewHolder.create(parent);
+        }
+
         return ArticleCardViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticleCardViewHolder holder, int position) {
-        ArticleCard articleCard = articleCards.get(position);
-        holder.bind(articleCard);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case 0:
+                ArticleCardViewHolder articleHolder = (ArticleCardViewHolder) holder;
+                ArticleCard articleCard = (ArticleCard) cards.get(position);
+                articleHolder.bind(articleCard);
+                break;
+            case 1:
+                TwitterCardViewHolder twitterHolder = (TwitterCardViewHolder) holder;
+                TwitterCard twitterCard = (TwitterCard) cards.get(position);
+                twitterHolder.bind(twitterCard);
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return this.articleCards.size();
+        return this.cards.size();
     }
 
     static class NewsDiffCallback extends DiffUtil.Callback {
-        List<ArticleCard> oldCards;
-        List<ArticleCard> newCards;
+        List<NewsCard> oldCards;
+        List<NewsCard> newCards;
 
-        public NewsDiffCallback(List<ArticleCard> oldCards, List<ArticleCard> newCards) {
+        public NewsDiffCallback(List<NewsCard> oldCards, List<NewsCard> newCards) {
             this.oldCards = oldCards;
             this.newCards = newCards;
         }

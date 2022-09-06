@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.card.TweetCard;
+import com.example.myapplication.data.card.TwitterCard;
 
 public class TwitterCardViewHolder extends RecyclerView.ViewHolder {
     private final TextView tweetContent;
@@ -22,7 +22,7 @@ public class TwitterCardViewHolder extends RecyclerView.ViewHolder {
         this.tweetContent = itemView.findViewById(R.id.article_card_title);
     }
 
-    public void bind(TweetCard data) {
+    public void bind(TwitterCard data) {
         this.tweetContent.setText(data.getContent());
         this.authorName.setText(data.getAuthorName());
         this.authorHandle.setText(data.getAuthorHandle());

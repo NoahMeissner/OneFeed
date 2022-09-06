@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.NewsSource;
+import com.example.myapplication.data.card.NewsCard;
+import com.example.myapplication.data.card.TwitterCard;
 import com.example.myapplication.ui.NewsCardListAdapter;
 
 import java.time.LocalDateTime;
@@ -34,17 +36,25 @@ public class FeedActivity extends AppCompatActivity {
         this.recycler.setAdapter(this.adapter);
 
         // Dummy data setup
-        NewsSource sampleSource = new NewsSource(
+        NewsSource sampleArticleSource = new NewsSource(
                 "Spiegel", "https://www.spiegel.de/"
         );
-        ArticleCard sampleCard = new ArticleCard(
-                getString(R.string.lorem_ipsum), sampleSource, LocalDateTime.now()
+        NewsSource sampleTwitterSource = new NewsSource(
+                "Twitter", "https://twitter.com/"
         );
-        ArrayList<ArticleCard> sampleCards = new ArrayList<>(Arrays.asList(
-                sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard,
-                sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard,
-                sampleCard, sampleCard, sampleCard, sampleCard, sampleCard, sampleCard
-        ));
+        ArticleCard sampleArticleCard = new ArticleCard(
+                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now()
+        );
+        TwitterCard sampleTwitterCard = new TwitterCard(
+            sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
+                "Elon Musk", "@elonmusk"
+        );
+
+        ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
+                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
+                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
+                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
+                ));
         this.adapter.updateItems(sampleCards);
     }
 }

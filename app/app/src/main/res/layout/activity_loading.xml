@@ -25,7 +25,7 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:indeterminate="true"
-                android:indeterminateTint="@color/secondayryColor" />
+                android:indeterminateTint="?attr/colorSecondary" />
         </RelativeLayout>
 
 

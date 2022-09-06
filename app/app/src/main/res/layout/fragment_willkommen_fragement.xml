@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/willkommen"
         android:textAlignment="center"
-        android:textColor="@color/primaryColor"
+        android:textColor="?attr/colorPrimary"
         android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"

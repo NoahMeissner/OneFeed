@@ -2,6 +2,7 @@ package com.example.myapplication.InitialProcess.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -21,6 +22,8 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void initUi() {
+        Intent intent = new Intent(this, InitialActivity.class);
+        startActivity(intent);
         setContentView(R.layout.activity_loading);
     }
 

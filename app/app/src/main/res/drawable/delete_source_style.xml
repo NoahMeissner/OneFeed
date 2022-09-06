@@ -4,5 +4,5 @@
 
 
 
-    <stroke android:width="5px" android:color="@color/error" />
+    <stroke android:width="5px" android:color="?attr/colorError" />
 </shape>

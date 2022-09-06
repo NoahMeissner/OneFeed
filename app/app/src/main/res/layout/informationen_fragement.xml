@@ -24,7 +24,7 @@
             android:text="Informationen"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-            android:textColor="@color/primaryColor"
+            android:textColor="?attr/colorPrimary"
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_marginTop="30dp"

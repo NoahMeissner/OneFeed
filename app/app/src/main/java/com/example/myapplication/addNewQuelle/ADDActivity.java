@@ -5,15 +5,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.ImageButton;
 
+import com.example.myapplication.FeedActivity;
+import com.example.myapplication.InitialProcess.Activities.InitialActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
 import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
 import com.example.myapplication.addNewQuelle.adapter.AdapterListAddActivity;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +61,8 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         });
         backButton.setOnClickListener(view -> {
             //@TODO zurück zum Home FEED
+            Intent intent = new Intent(this, FeedActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -86,9 +94,14 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     // With this method you can easily edit the images of the buttons
     @SuppressLint("ResourceAsColor")
     private void editpictures(){
+        // Todo: simplify attr resolution?
+        TypedArray a = getTheme().obtainStyledAttributes(
+                R.style.AppTheme, new int[] {androidx.appcompat.R.attr.colorPrimary}
+        );
+        int attributeResourceId = a.getResourceId(0, 0);
         for(String[] s: hashMap.keySet()){
             if(!Objects.equals(s[0], String.valueOf(Categories.Newspaper))){
-                Objects.requireNonNull(hashMap.get(s)).setTint(R.color.primaryColor);
+                Objects.requireNonNull(hashMap.get(s)).setTint(getColor(attributeResourceId));
             }
         }
     }

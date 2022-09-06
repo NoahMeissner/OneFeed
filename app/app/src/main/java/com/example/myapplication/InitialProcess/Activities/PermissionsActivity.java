@@ -4,6 +4,8 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.example.myapplication.FeedActivity;
 import com.example.myapplication.InitialProcess.FragementsUI.Consumption_permission_fragement;
 import com.example.myapplication.InitialProcess.FragementsUI.Notification_permission_fragement;
 import com.example.myapplication.InitialProcess.InitialData;
@@ -83,7 +85,7 @@ public class PermissionsActivity extends AppCompatActivity {
 
     // the Method hands over all Informations of the Set Up Process to the Intent and the new Activity
     private void setIntent(boolean consumptionanalysis, boolean notifications){
-        Intent intent = new Intent(this, LoadingActivity.class);
+        Intent intent = new Intent(this, FeedActivity.class);
         intent.putExtra(String.valueOf(InitialData.consumptionAnalysePermission),consumptionanalysis);
         intent.putExtra(String.valueOf(InitialData.notificationAnalysePermission),notifications);
         intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);

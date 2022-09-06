@@ -29,7 +29,7 @@
         android:background="@drawable/custombutton"
         android:text="@string/buttonNoText"
         android:textAllCaps="false"
-        android:textColor="@color/primaryColor"
+        android:textColor="?attr/colorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

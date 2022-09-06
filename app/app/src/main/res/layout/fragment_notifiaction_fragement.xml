@@ -14,7 +14,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
         android:text="@string/NotificationsHeadline"
-        android:textColor="@color/primaryColor"
+        android:textColor="?attr/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

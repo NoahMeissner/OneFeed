@@ -28,7 +28,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:text="TextView"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="20sp"
                      />
 

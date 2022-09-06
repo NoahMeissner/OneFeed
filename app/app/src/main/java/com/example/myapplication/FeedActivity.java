@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
+import com.example.myapplication.addNewQuelle.ADDActivity;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.NewsSource;
 import com.example.myapplication.data.card.NewsCard;
@@ -20,6 +23,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
+    private ImageButton addSourceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,12 @@ public class FeedActivity extends AppCompatActivity {
 
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar));
+
+        this.addSourceButton = findViewById(R.id.sources_icon);
+        this.addSourceButton.setOnClickListener(l -> {
+            Intent intent = new Intent(this, ADDActivity.class);
+            startActivity(intent);
+        });
 
         // News cards recycler
         this.adapter = new NewsCardListAdapter();

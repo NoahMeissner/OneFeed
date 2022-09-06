@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-        android:theme="@style/AppTheme" >
-        tools:targetApi="31" >
+        <activity
+            android:name=".InsightActivity"
+            android:exported="false" />
         <activity
             android:name=".InitialProcess.Activities.PermissionsActivity"
             android:exported="false" />
@@ -26,8 +27,7 @@
             android:exported="false" />
         <activity
             android:name=".InitialProcess.Activities.LoadingActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -36,6 +36,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

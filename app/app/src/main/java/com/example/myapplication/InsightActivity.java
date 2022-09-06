@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+// Insight = Konsumverhalten
 public class InsightActivity extends AppCompatActivity {
 
     @Override

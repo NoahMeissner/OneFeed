@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.ImageButton;
 
 import com.example.myapplication.addNewQuelle.ADDActivity;
@@ -31,7 +32,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         // Title-bar
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar_collapse));
 
         this.addSourceButton = findViewById(R.id.sources_icon);
         this.addSourceButton.setOnClickListener(l -> {
@@ -46,6 +47,10 @@ public class FeedActivity extends AppCompatActivity {
         this.recycler.setAdapter(this.adapter);
 
         // Dummy data setup
+        setupDummyCards();
+    }
+
+    private void setupDummyCards() {
         NewsSource sampleArticleSource = new NewsSource(
                 "Spiegel", "https://www.spiegel.de/"
         );
@@ -59,12 +64,18 @@ public class FeedActivity extends AppCompatActivity {
             sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
                 "Elon Musk", "@elonmusk"
         );
-
         ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
                 sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
                 sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
                 sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
                 ));
         this.adapter.updateItems(sampleCards);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu, this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.empty, menu);
+        return true;
     }
 }

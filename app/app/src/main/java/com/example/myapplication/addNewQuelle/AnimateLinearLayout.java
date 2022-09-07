@@ -11,6 +11,7 @@ public class AnimateLinearLayout extends FrameLayout {
 
     private int rotation = 2;
     private long myDelay =80;
+    private int startPoint = 0;
     private final Handler myHandler = new Handler();
 
 
@@ -30,8 +31,8 @@ public class AnimateLinearLayout extends FrameLayout {
         myHandler.postDelayed(runnable, myDelay);
     }
 
-    //@TODO Bug wenn fertig richtig drehen
     public void stopAnimation(){
+        setRotation(startPoint);
         myHandler.removeCallbacksAndMessages(null);
     }
 

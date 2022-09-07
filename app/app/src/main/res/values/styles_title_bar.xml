@@ -8,7 +8,7 @@
         <item name="android:tint">?attr/colorSecondaryVariant</item>
     </style>
 
-    <style name="title_bar_app_layout">
+    <style name="app_bar_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/app_bar_height</item>
         <item name="android:fitsSystemWindows">true</item>

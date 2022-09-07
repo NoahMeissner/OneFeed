@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TitleBar">
+    <!--Global declaration of attributes to prevenet duplicate name error-->
+    <!--https://medium.com/mobile-app-development-publication/better-way-of-declaring-custom-view-attributes-23f876c28534-->
+    <declare-styleable name="CustomAttributes">
         <attr name="title" format="string" />
         <attr name="toolbar" format="reference" />
         <attr name="pageContentView" format="reference" />
+        <attr name="name" format="string" />
+        <attr name="sourceIcon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="AppBarCollapse">
+        <attr name="title"/>
+        <attr name="toolbar" />
+        <attr name="pageContentView" />
+    </declare-styleable>
+
+    <declare-styleable name="AppBar">
+        <attr name="title" />
+        <attr name="menu" />
+        <attr name="pageContentView" />
     </declare-styleable>
 
     <declare-styleable name="NewsSource">
-        <attr name="name" format="string" />
-        <attr name="sourceIcon" format="reference" />
+        <attr name="name" />
+        <attr name="sourceIcon" />
     </declare-styleable>
 </resources>

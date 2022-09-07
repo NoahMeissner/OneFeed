@@ -18,20 +18,20 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-public class TitleBar extends CoordinatorLayout {
+public class AppBar extends CoordinatorLayout {
 
     private String title;
-    private int toolbarResourceId;
+    private int menuResourceId;
     private int pageContentResourceId;
 
-    public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public AppBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         // Read and initialize provided attributes
         initializeAttributes(context, attrs);
 
         // Inflate layout
-        View.inflate(context, R.layout.component_bar_title, this);
+        View.inflate(context, R.layout.component_app_bar_collapse, this);
 
         // Initialize content
         setTitle();
@@ -40,33 +40,34 @@ public class TitleBar extends CoordinatorLayout {
     }
 
     private void setToolbar() {
-        ViewStub toolbar = (ViewStub) findViewById(R.id.toolbar_view);
-        toolbar.setLayoutResource(this.toolbarResourceId);
-        toolbar.inflate();
+//        Todo: Change default
+        ViewStub menu = (ViewStub) findViewById(R.id.toolbar_collapse_view);
+        menu.setLayoutResource(this.menuResourceId);
+        menu.inflate();
     }
 
     private void initializeAttributes(@NonNull Context context, @Nullable AttributeSet attrs) {
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.TitleBar,
+                R.styleable.AppBarCollapse,
                 0, 0);
         try {
+            this.title = a.getString(R.styleable.AppBarCollapse_title);
+            this.menuResourceId = a.getResourceId(
+                    R.styleable.AppBarCollapse_toolbar,
+                    R.layout.toolbar_feed
+            );
             this.pageContentResourceId = a.getResourceId(
-                    R.styleable.TitleBar_pageContentView,
+                    R.styleable.AppBarCollapse_pageContentView,
                     R.layout.view_news_cards_recycler
             );
-            this.toolbarResourceId = a.getResourceId(
-                    R.styleable.TitleBar_toolbar,
-                    R.layout.component_bar_feed_toolbar
-            );
-            this.title = a.getString(R.styleable.TitleBar_title);
         } finally {
             a.recycle();
         }
     }
 
     private void setTitle() {
-        CollapsingToolbarLayout toolbarLayout = this.findViewById(R.id.toolbar_layout);
+        CollapsingToolbarLayout toolbarLayout = this.findViewById(R.id.toolbar_collapse_layout);
         if (this.title == null) {
             // Default behavior: Current date as title
             toolbarLayout.setTitle(getDateTitle(LocalDateTime.now()));

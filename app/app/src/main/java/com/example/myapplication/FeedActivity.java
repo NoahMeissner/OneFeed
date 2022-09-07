@@ -31,7 +31,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
         // Title-bar
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar_collapse));
 
         this.addSourceButton = findViewById(R.id.sources_icon);
         this.addSourceButton.setOnClickListener(l -> {

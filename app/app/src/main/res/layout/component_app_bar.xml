@@ -13,7 +13,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/topAppBar"
+            android:id="@+id/app_bar_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
@@ -24,7 +24,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ViewStub
-        android:id="@+id/page_content"
+        android:id="@+id/app_bar_page_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

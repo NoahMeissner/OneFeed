@@ -5,6 +5,7 @@
     <declare-styleable name="CustomAttributes">
         <attr name="title" format="string" />
         <attr name="toolbar" format="reference" />
+        <attr name="menu" format="reference" />
         <attr name="pageContentView" format="reference" />
         <attr name="name" format="string" />
         <attr name="sourceIcon" format="reference" />

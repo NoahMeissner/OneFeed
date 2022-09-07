@@ -10,9 +10,13 @@
 
     <style name="app_bar_layout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/app_bar_height</item>
+        <item name="android:layout_height">64dp</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:paddingHorizontal">@dimen/app_padding</item>
+    </style>
+
+    <style name="app_bar_collapse_layout" parent="app_bar_layout">
+        <item name="android:layout_height">@dimen/app_bar_height</item>
     </style>
 
     <style name="title_bar_collapse_toolbar_layout"

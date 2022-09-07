@@ -78,7 +78,7 @@ public class AppBarCollapse extends CoordinatorLayout {
 
     private void setPageContent() {
         if (this.pageContentResourceId != 0) {
-            ViewStub pageContent = (ViewStub) this.findViewById(R.id.page_content);
+            ViewStub pageContent = (ViewStub) this.findViewById(R.id.app_bar_collapse_page_content);
             pageContent.setLayoutResource(pageContentResourceId);
             pageContent.inflate();
         }

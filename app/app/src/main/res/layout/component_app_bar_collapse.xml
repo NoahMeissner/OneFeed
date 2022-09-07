@@ -7,7 +7,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
-        style="@style/app_bar_layout">
+        style="@style/app_bar_collapse_layout">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             style="@style/title_bar_collapse_toolbar_layout"
@@ -51,7 +51,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ViewStub
-        android:id="@+id/page_content"
+        android:id="@+id/app_bar_collapse_page_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

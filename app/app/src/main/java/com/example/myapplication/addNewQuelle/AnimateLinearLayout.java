@@ -26,7 +26,6 @@ public class AnimateLinearLayout extends FrameLayout {
     };
 
     public void animateText(){
-
         myHandler.removeCallbacks(runnable);
         myHandler.postDelayed(runnable, myDelay);
     }
@@ -34,7 +33,6 @@ public class AnimateLinearLayout extends FrameLayout {
     //@TODO Eine Methode Stop Animation implementieren
     public void stopAnimation(){
         myHandler.removeCallbacksAndMessages(null);
-
     }
 
     public AnimateLinearLayout(Context context) {

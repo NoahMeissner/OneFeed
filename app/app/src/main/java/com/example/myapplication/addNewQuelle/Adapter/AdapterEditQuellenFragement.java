@@ -1,5 +1,6 @@
 package com.example.myapplication.addNewQuelle.Adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class AdapterEditQuellenFragement extends RecyclerView.Adapter<ViewholderEditQuellenFragement> {
 
     private ArrayList<Quellen> categories;
-    private QuelleSettingsChanged quelleSettingsChanged;
+    private final QuelleSettingsChanged quelleSettingsChanged;
 
     public interface QuelleSettingsChanged{
         void changedQuelle(Quellen quellen);
@@ -36,9 +37,10 @@ public class AdapterEditQuellenFragement extends RecyclerView.Adapter<Viewholder
 
     @Override
     public void onBindViewHolder(@NonNull ViewholderEditQuellenFragement holder, int position) {
-        holder.bind(categories.get(position),quelleSettingsChanged,categories.size(),position);
+        holder.bind(categories.get(position),quelleSettingsChanged,categories.size());
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setCategories(ArrayList<Quellen> categories) {
         this.categories = categories;
         notifyDataSetChanged();

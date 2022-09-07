@@ -9,11 +9,9 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.widget.ImageButton;
 
 import com.example.myapplication.FeedActivity;
-import com.example.myapplication.InitialProcess.Activities.InitialActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
@@ -27,7 +25,7 @@ import java.util.Objects;
 public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener, AdapterListAddActivity.longItemClickListener, DeleteSourceFragement.InputDeleteSourceFragement,EditQuellenFragement.SettingsChanges {
 
     private final HashMap<String[],Drawable> hashMap = new HashMap<>();
-    private HashMap<Categories,ArrayList<Quellen>> arrayListHashMap = new HashMap<>();
+    private final HashMap<Categories,ArrayList<Quellen>> arrayListHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInteressen;
@@ -121,25 +119,24 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         arrayListHashMap.put(Categories.Newspaper,new ArrayList<>());
         for(String[]s : hashMap.keySet()){
             if(s[0].equals(String.valueOf(Categories.SocialMedia))){
-                arrayListHashMap.get(Categories.SocialMedia).add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia)).add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
             }
             if(s[0].equals(String.valueOf(Categories.Newspaper))){
-                arrayListHashMap.get(Categories.Newspaper).add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper)).add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
             }
             if(s[0].equals(String.valueOf(Categories.Interessen))){
-                arrayListHashMap.get(Categories.Interessen).add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen)).add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
             }
         }
-        arrayListHashMap.get(Categories.Newspaper).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Newspaper));
-        arrayListHashMap.get(Categories.SocialMedia).add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add ),Categories.SocialMedia));
-        arrayListHashMap.get(Categories.Interessen).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Interessen));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper)).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Newspaper));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia)).add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add ),Categories.SocialMedia));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen)).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Interessen));
     }
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
     private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        AdapterListAddActivity recyclerViewAdapter = new AdapterListAddActivity(this,this,arrayList);
-        return  recyclerViewAdapter;
+        return new AdapterListAddActivity(this, this,arrayList);
     }
 
     //this method is inherited from the onclick listener here and using it we can open the fragment depending on the button clicked
@@ -197,11 +194,10 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         }
         click = false;
         setAnimation(false);
-        return;
     }
 
     @Override
     public void getChangedQuellenArrayList(ArrayList<Quellen> quellenArrayList,Categories categories) {
-
+        arrayListHashMap.put(categories,quellenArrayList);
     }
 }

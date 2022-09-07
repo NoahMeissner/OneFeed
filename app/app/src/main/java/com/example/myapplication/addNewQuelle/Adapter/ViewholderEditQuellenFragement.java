@@ -23,20 +23,17 @@ public class ViewholderEditQuellenFragement extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.editQuellenIconText);
     }
 
-    public void bind(Quellen quellen, AdapterEditQuellenFragement.QuelleSettingsChanged quelleSettingsChanged,int size,int position) {
+    public void bind(Quellen quellen, AdapterEditQuellenFragement.QuelleSettingsChanged quelleSettingsChanged, int size) {
+        //@TODO Bug wenn nur ein Element in Reihe Add Button zeigt nicht das richtige an
         if(size<=1){
             String setNotification = "Notification";
             textView.setText(setNotification);
                 aSwitch.setChecked(quellen.isNotification());
-                aSwitch.setOnClickListener(view -> {
-                    quelleSettingsChanged.changedQuelle(quellen);
-                });
+                aSwitch.setOnClickListener(view -> quelleSettingsChanged.changedQuelle(quellen));
                 return;
         }
         textView.setText(quellen.getName());
         aSwitch.setChecked(quellen.isEnabeld());
-        aSwitch.setOnClickListener(view -> {
-                quelleSettingsChanged.changedQuelle(quellen);
-                });
+        aSwitch.setOnClickListener(view -> quelleSettingsChanged.changedQuelle(quellen));
     }
 }

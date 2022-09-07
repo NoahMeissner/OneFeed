@@ -40,7 +40,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     }
 
     private void initToolbar() {
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar_collapse));
     }
 
     // in this method all elements are initialized
@@ -50,9 +50,9 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         editpictures();
         initQuellen();
         declareRecyclerView();
-        initButton();
+        //initButton();
     }
-
+/*
     // This Method initialise the Buttons to close the Actitivity and show the Information Fragement
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.informationButton);
@@ -67,6 +67,8 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
             startActivity(intent);
         });
     }
+
+ */
 
     // in this method the recycler view is initialized and passed to the initRecyclerView method
     private void declareRecyclerView(){

@@ -29,7 +29,10 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewholderAddAc
     private final OnItemClickListener listener;
     private final longItemClickListener longItemClickListener;
 
-    public AdapterListAddActivity(OnItemClickListener listener, longItemClickListener longItemClickListener, ArrayList<Quellen> quellenArrayList){
+    public AdapterListAddActivity(OnItemClickListener listener,
+                                  longItemClickListener longItemClickListener,
+                                  ArrayList<Quellen> quellenArrayList){
+
         this.listener=listener;
         this.longItemClickListener = longItemClickListener;
         this.quellenArrayList=quellenArrayList;

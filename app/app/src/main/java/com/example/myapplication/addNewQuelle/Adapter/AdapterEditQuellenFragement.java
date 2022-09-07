@@ -13,7 +13,8 @@ import com.example.myapplication.addNewQuelle.Quellen;
 
 import java.util.ArrayList;
 
-public class AdapterEditQuellenFragement extends RecyclerView.Adapter<ViewholderEditQuellenFragement> {
+public class AdapterEditQuellenFragement extends
+        RecyclerView.Adapter<ViewholderEditQuellenFragement>{
 
     private ArrayList<Quellen> categories;
     private final QuelleSettingsChanged quelleSettingsChanged;
@@ -23,15 +24,17 @@ public class AdapterEditQuellenFragement extends RecyclerView.Adapter<Viewholder
     }
 
 
-    public AdapterEditQuellenFragement(ArrayList<Quellen> categories,QuelleSettingsChanged quelleSettingsChanged){
+    public AdapterEditQuellenFragement(ArrayList<Quellen> categories,QuelleSettingsChanged qSC){
         this.categories = categories;
-        this.quelleSettingsChanged = quelleSettingsChanged;
+        this.quelleSettingsChanged = qSC;
     }
 
     @NonNull
     @Override
     public ViewholderEditQuellenFragement onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.edit_quellen_icon,parent,false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.edit_quellen_icon,parent,false);
+
         return new ViewholderEditQuellenFragement(view);
     }
 

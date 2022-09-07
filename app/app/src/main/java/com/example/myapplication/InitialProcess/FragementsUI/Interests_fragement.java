@@ -111,7 +111,7 @@ public class Interests_fragement extends Fragment {
         interessenAnimation.getLayoutParams().width= buttonSize;
         interessenAnimation.getLayoutParams().height= buttonSize;
         interessenAnimation.setBackground(getResources().getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
-        interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
+        interessenAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
         results.remove(kategorie);
         dataPasser.onDataPass(results);
     }
@@ -122,7 +122,7 @@ public class Interests_fragement extends Fragment {
         double magnificationfactor = 1.1;
         interessenAnimation.getLayoutParams().width= (int) (interessenAnimation.getWidth()*magnificationfactor);
         interessenAnimation.getLayoutParams().height= (int) (interessenAnimation.getHeight()*magnificationfactor);
-        interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
+        interessenAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
         interessenAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
         results.add(kategorie);
         dataPasser.onDataPass(results);

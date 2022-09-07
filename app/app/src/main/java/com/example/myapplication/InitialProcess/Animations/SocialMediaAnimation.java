@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.os.Handler;
+import android.widget.ImageButton;
+
+import com.google.android.material.button.MaterialButton;
 
 
 @SuppressLint("ViewConstructor")
-public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatImageButton {
+public class SocialMediaAnimation extends ImageButton {
 
     /*
     this class is responsible for providing the animation for the social media Fragement

@@ -1,5 +1,7 @@
 package com.example.myapplication.addNewQuelle.Fragement;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -39,10 +41,9 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
     private Quellen quellen;
     private ArrayList<Quellen> recyclerArrayList = new ArrayList<>();
     private Button safeButton;
-    private SettingsChanges settingsChanges;
 
     public EditQuellenFragement (SettingsChanges settingsChanges){
-        this.settingsChanges = settingsChanges;
+        //this.settingsChanges = settingsChanges;
     }
 
 
@@ -57,24 +58,15 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_edit_quellen, container, false);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initUI(view);
         initRecyclerArrayList();
         initRecyclerView(view);
-        initButton(view);
+        //initButton(view);
         return view;
     }
 
-    private void initButton(View view) {
-        safeButton = view.findViewById(R.id.buttonSafe);
-        safeButton.setEnabled(false);
-        safeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                settingsChanges.getChangedQuellenArrayList(settings,settings.get(0).getCategories());
-                onStop();
-            }
-        });
-    }
+
 
     private void initRecyclerArrayList() {
         if(quellen.getName()==Categories.ADDButton.name()){
@@ -123,7 +115,6 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
     public void changedQuelle(Quellen quellen) {
             settings.remove(quellen);
             settings.add(quellen);
-            safeButton.setEnabled(true);
     }
 
     public void setQuellen(Quellen quellen) {

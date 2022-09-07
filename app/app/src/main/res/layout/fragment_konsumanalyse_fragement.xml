@@ -6,20 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".InitialProcess.FragementsUI.Consumption_permission_fragement">
 
-    <TextView
-        android:id="@+id/konsumanalyseHeadline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/konsumanalyseHeadline"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -31,6 +17,23 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/konsumanalyseHeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        style="@style/TextAppearance.Material3.ActionBar.Title"
+        android:textStyle="bold"
+        android:text="@string/konsumanalyseHeadline"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"

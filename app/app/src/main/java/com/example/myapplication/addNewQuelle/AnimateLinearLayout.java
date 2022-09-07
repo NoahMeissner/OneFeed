@@ -30,7 +30,7 @@ public class AnimateLinearLayout extends FrameLayout {
         myHandler.postDelayed(runnable, myDelay);
     }
 
-    //@TODO Eine Methode Stop Animation implementieren
+    //@TODO Bug wenn fertig richtig drehen
     public void stopAnimation(){
         myHandler.removeCallbacksAndMessages(null);
     }

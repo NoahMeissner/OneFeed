@@ -8,12 +8,15 @@ import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
 import com.example.myapplication.addNewQuelle.Adapter.AdapterListAddActivity;
+import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,13 +50,15 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         editpictures();
         initQuellen();
         declareRecyclerView();
-        //initButton();
+        initButton();
     }
-/*
+
+
+
     // This Method initialise the Buttons to close the Actitivity and show the Information Fragement
     private void initButton() {
-        ImageButton buttonInformation = findViewById(R.id.informationButton);
-        ImageButton backButton = findViewById(R.id.imagebackButton);
+        ImageButton buttonInformation = findViewById(R.id.addInfo);
+        ImageButton backButton = findViewById(R.id.addback);
         buttonInformation.setOnClickListener(view -> {
             InformationenFragement informationenFragement = new InformationenFragement();
             informationenFragement.show(getSupportFragmentManager(),"openInformationFragement");
@@ -64,7 +69,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         });
     }
 
- */
+
 
     // in this method the recycler view is initialized and passed to the initRecyclerView method
     private void declareRecyclerView(){

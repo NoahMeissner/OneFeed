@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
@@ -69,36 +69,37 @@
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
 
             <Button
                 android:id="@+id/buttonYD"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
-                android:layout_marginStart="10dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_gravity="center"
                 android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
+                app:layout_constraintEnd_toEndOf="@id/buttonND"
                 android:textAppearance="@style/toolbar_icon_button"
                 android:text="Ja"
                 android:textSize="15sp"/>
 
-            <Space
-                android:layout_width="130dp"
-                android:layout_height="10dp"
-                />
+
 
             <Button
                 android:id="@+id/buttonND"
                 android:textAppearance="@style/toolbar_icon_button"
-                style="@style/Widget.Material3.Button.TextButton.Dialog"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="100dp"
+                android:layout_gravity="right"
                 android:layout_marginEnd="10dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:textSize="15sp"
                 android:text="Nein" />
 
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

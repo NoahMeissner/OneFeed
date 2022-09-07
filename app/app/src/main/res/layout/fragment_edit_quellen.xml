@@ -27,8 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
                 android:id="@+id/imageQuellenAdd"
@@ -37,8 +36,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_launcher_foreground"
-                />
+                app:srcCompat="@drawable/ic_launcher_foreground" />
 
 
             <TextView
@@ -51,12 +49,7 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
-
-
-
 
         <TextView
             android:id="@+id/textViewHeadlineQuellenAdd"
@@ -77,11 +70,6 @@
             android:clipToPadding="false"
             android:scrollbars="vertical"
             app:layout_constraintTop_toBottomOf="@+id/textViewHeadlineQuellenAdd">
-
         </androidx.recyclerview.widget.RecyclerView>
-
-
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

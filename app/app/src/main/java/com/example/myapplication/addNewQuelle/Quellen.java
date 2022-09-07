@@ -2,7 +2,6 @@ package com.example.myapplication.addNewQuelle;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.myapplication.R;
 
 public class Quellen {
 
@@ -12,7 +11,7 @@ public class Quellen {
 
     private final Drawable image;
     private final String name;
-    private Categories categories;
+    private final Categories categories;
     private boolean notification;
     private boolean enabeld;
     private boolean setAnimation = false;

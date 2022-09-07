@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
@@ -36,10 +35,6 @@ public class AnimateLinearLayout extends FrameLayout {
     public void stopAnimation(){
         myHandler.removeCallbacksAndMessages(null);
 
-    }
-
-    public void setCharacterDelay(long m){
-        myDelay = m ;
     }
 
     public AnimateLinearLayout(Context context) {

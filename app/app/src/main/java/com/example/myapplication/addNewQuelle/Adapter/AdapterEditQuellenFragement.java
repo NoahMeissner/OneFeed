@@ -8,16 +8,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Quellen;
 
 import java.util.ArrayList;
 
 public class AdapterEditQuellenFragement extends RecyclerView.Adapter<ViewholderEditQuellenFragement> {
 
-    private ArrayList<String[]> categories;
+    private ArrayList<Quellen> categories;
+    private QuelleSettingsChanged quelleSettingsChanged;
+
+    public interface QuelleSettingsChanged{
+        void changedQuelle(Quellen quellen);
+    }
 
 
-    public AdapterEditQuellenFragement(ArrayList<String[]> categories){
+    public AdapterEditQuellenFragement(ArrayList<Quellen> categories,QuelleSettingsChanged quelleSettingsChanged){
         this.categories = categories;
+        this.quelleSettingsChanged = quelleSettingsChanged;
     }
 
     @NonNull
@@ -29,7 +36,12 @@ public class AdapterEditQuellenFragement extends RecyclerView.Adapter<Viewholder
 
     @Override
     public void onBindViewHolder(@NonNull ViewholderEditQuellenFragement holder, int position) {
-        holder.bind(categories.get(position));
+        holder.bind(categories.get(position),quelleSettingsChanged,categories.size(),position);
+    }
+
+    public void setCategories(ArrayList<Quellen> categories) {
+        this.categories = categories;
+        notifyDataSetChanged();
     }
 
     @Override

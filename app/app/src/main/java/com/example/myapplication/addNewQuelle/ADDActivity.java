@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener, AdapterListAddActivity.longItemClickListener, DeleteSourceFragement.InputDeleteSourceFragement {
+public class ADDActivity extends AppCompatActivity implements AdapterListAddActivity.OnItemClickListener, AdapterListAddActivity.longItemClickListener, DeleteSourceFragement.InputDeleteSourceFragement,EditQuellenFragement.SettingsChanges {
 
     private final HashMap<String[],Drawable> hashMap = new HashMap<>();
     private HashMap<Categories,ArrayList<Quellen>> arrayListHashMap = new HashMap<>();
@@ -146,10 +146,9 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     @Override
     public void onItemClick(Quellen quellen) {
         if(!click){
-            EditQuellenFragement editQuellenFragement = new EditQuellenFragement();
-            editQuellenFragement.setName(quellen.getName());
-            editQuellenFragement.setCategory(String.valueOf(quellen.getCategories()));
-            editQuellenFragement.setDrawable(quellen.getImage());
+            EditQuellenFragement editQuellenFragement = new EditQuellenFragement(this);
+            editQuellenFragement.setQuellen(quellen);
+            editQuellenFragement.setSettings(arrayListHashMap.get(quellen.getCategories()));
             editQuellenFragement.show(getSupportFragmentManager(),"");
             return;
         }
@@ -199,5 +198,10 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         click = false;
         setAnimation(false);
         return;
+    }
+
+    @Override
+    public void getChangedQuellenArrayList(ArrayList<Quellen> quellenArrayList,Categories categories) {
+
     }
 }

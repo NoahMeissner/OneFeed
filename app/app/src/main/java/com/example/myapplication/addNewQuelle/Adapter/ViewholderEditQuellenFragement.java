@@ -25,6 +25,7 @@ public class ViewholderEditQuellenFragement extends RecyclerView.ViewHolder{
 
     public void bind(Quellen quellen, AdapterEditQuellenFragement.QuelleSettingsChanged quelleSettingsChanged, int size) {
         //@TODO Bug wenn nur ein Element in Reihe Add Button zeigt nicht das richtige an
+        //@TODO switch bearbeiten switch eintrag zu speicern
         if(size<=1){
             String setNotification = "Notification";
             textView.setText(setNotification);

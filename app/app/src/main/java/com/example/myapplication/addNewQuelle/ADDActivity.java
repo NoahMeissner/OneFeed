@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 
 import com.example.myapplication.FeedActivity;
@@ -137,7 +138,14 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
     private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4){
+            @Override
+            public boolean canScrollVertically(){
+                return false;
+            }
+        };
+        recyclerView.setLayoutManager(gridLayoutManager);
+
         return new AdapterListAddActivity(this, this,arrayList);
     }
 

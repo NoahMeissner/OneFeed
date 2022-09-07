@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Quellen;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 public class ViewholderEditQuellenFragement extends RecyclerView.ViewHolder{
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private final Switch aSwitch;
+    private final MaterialSwitch aSwitch;
     private final TextView textView;
 
     public ViewholderEditQuellenFragement(@NonNull View itemView) {

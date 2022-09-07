@@ -5,18 +5,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
 
-import com.example.myapplication.FeedActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
-import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
 import com.example.myapplication.addNewQuelle.Adapter.AdapterListAddActivity;
 
 import java.util.ArrayList;
@@ -64,8 +60,7 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         });
         backButton.setOnClickListener(view -> {
             //@TODO zurück zum Home FEED
-            Intent intent = new Intent(this, FeedActivity.class);
-            startActivity(intent);
+            finish();
         });
     }
 
@@ -87,7 +82,11 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
     //In this method, the hashmap is initialized in which the category and the image are located in order to assign them quickly
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initHashMap(){
-        hashMap.put(new String[]{Categories.SocialMedia.name(), Categories.socialMedia.Twitter.name()},getDrawable(R.drawable.twitter_icon));
+        hashMap.put( new String[]{
+                        Categories.SocialMedia.name(),
+                        Categories.socialMedia.Twitter.name()},
+                getDrawable(R.drawable.twitter_icon)
+        );
         hashMap.put(new String[]{Categories.SocialMedia.name(), Categories.socialMedia.Reddit.name()},getDrawable(R.drawable.reddit));
         hashMap.put(new String[]{Categories.Newspaper.name(), Categories.news.FAZ.name()},getDrawable(R.drawable.faz));
         hashMap.put(new String[]{Categories.Newspaper.name(), Categories.news.Spiegel.name()},getDrawable(R.drawable.spiegel));
@@ -122,18 +121,24 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
         arrayListHashMap.put(Categories.Newspaper,new ArrayList<>());
         for(String[]s : hashMap.keySet()){
             if(s[0].equals(String.valueOf(Categories.SocialMedia))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia)).add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
+                        .add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
             }
             if(s[0].equals(String.valueOf(Categories.Newspaper))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper)).add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
+                        .add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
             }
             if(s[0].equals(String.valueOf(Categories.Interessen))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen)).add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
+                Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen))
+                        .add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
             }
         }
-        Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper)).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Newspaper));
-        Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia)).add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add ),Categories.SocialMedia));
-        Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen)).add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Interessen));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
+                .add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Newspaper));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
+                .add(new Quellen(Categories.ADDButton.name(),getDrawable(R.drawable.add ),Categories.SocialMedia));
+        Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen))
+                .add(new Quellen(Categories.ADDButton.name(), getDrawable(R.drawable.add),Categories.Interessen));
     }
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
@@ -144,7 +149,8 @@ public class ADDActivity extends AppCompatActivity implements AdapterListAddActi
                 return false;
             }
         };
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,4));
+        //recyclerView.setLayoutManager(gridLayoutManager);
 
         return new AdapterListAddActivity(this, this,arrayList);
     }

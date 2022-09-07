@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".InsightActivity">
 
-    <com.example.myapplication.ui.components.TitleBar
+    <com.example.myapplication.ui.components.AppBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:title="Konsumverhalten"/>
+        app:title="@string/insight_activity_title"
+        app:pageContentView="@layout/view_insight"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

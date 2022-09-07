@@ -24,7 +24,8 @@ public class FeedActivity extends AppCompatActivity {
 
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
-    private ImageButton addSourceButton;
+    private ImageButton sourcesNavigationButton;
+    private ImageButton insightNavigationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,7 @@ public class FeedActivity extends AppCompatActivity {
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
 
-        this.addSourceButton = findViewById(R.id.sources_icon);
-        this.addSourceButton.setOnClickListener(l -> {
-            Intent intent = new Intent(this, ADDActivity.class);
-            startActivity(intent);
-        });
+        initializeNavigationButtons();
 
         // News cards recycler
         this.adapter = new NewsCardListAdapter();
@@ -48,6 +45,20 @@ public class FeedActivity extends AppCompatActivity {
 
         // Dummy data setup
         setupDummyCards();
+    }
+
+    private void initializeNavigationButtons() {
+        this.sourcesNavigationButton = findViewById(R.id.sources_icon);
+        this.sourcesNavigationButton.setOnClickListener(l -> {
+            Intent intent = new Intent(this, ADDActivity.class);
+            startActivity(intent);
+        });
+
+        this.insightNavigationButton = findViewById(R.id.insight_icon);
+        this.insightNavigationButton.setOnClickListener(l -> {
+            Intent intent = new Intent(this, InsightActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void setupDummyCards() {

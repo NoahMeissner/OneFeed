@@ -150,4 +150,5 @@
     <string name="content_description_article_image">Image about the article.</string>
     <string name="source_twitter">Twitter</string>
     <string name="content_description_tweet_profile_picture">Profile picture of the tweet author.</string>
+    <string name="insight_activity_title">Konsumverhalten</string>
 </resources>

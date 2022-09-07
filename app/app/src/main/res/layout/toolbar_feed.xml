@@ -5,7 +5,7 @@
 
     <ImageButton
         style="@style/toolbar_icon_button"
-        android:id="@+id/analytics_icon"
+        android:id="@+id/insight_icon"
         android:contentDescription="@string/analytics_icon_description"
         android:src="@drawable/ic_round_bar_chart_40" />
 

@@ -24,6 +24,7 @@ import com.google.android.material.slider.Slider;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,20 +93,25 @@ public class InsightActivity extends AppCompatActivity {
     }
 
     private void activateYearView(LocalDateTime now) {
+        float barWidth = ResourcesCompat.getFloat(
+                this.getResources(), R.dimen.insight_chart_bar_width_year
+        );
+
         int amountDaysInYear = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_YEAR);
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(1);
+        // no padding (value too large / small for chart because out of current year)
+        this.chart.getXAxis().setAxisMinimum(1); // barwidth for padding
         this.chart.getXAxis().setAxisMaximum(amountDaysInYear);
 
         // Format the labels according to months
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                LocalDateTime providedDate = now.withDayOfYear((int)value);
                 // Chart x-axis granularity has to be set to 1 for this to work:
                 // MPAndroidChart iterates through every x-value so float values should not
                 // be a possibility!
+                LocalDateTime providedDate = now.withDayOfYear((int)value);
                 return providedDate.getMonth().getDisplayName(
                         TextStyle.SHORT_STANDALONE, Locale.getDefault()
                 );
@@ -114,21 +120,26 @@ public class InsightActivity extends AppCompatActivity {
 
         if (this.chart.getXAxis().getLabelCount() != 12) {
             this.chart.getXAxis().setLabelCount(12);
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_year)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
         }
         refreshChart();
     }
 
     private void activateMonthView(LocalDateTime now, int currentDayOfYear) {
+        float barWidth = ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_month);
+
         int currentDayOfMonth = now.getDayOfMonth();
         int startOfCurrentMonth = currentDayOfYear - currentDayOfMonth;
         int amountDaysInMonth = Calendar.getInstance().getActualMaximum(Calendar.DATE);
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(startOfCurrentMonth);
-        this.chart.getXAxis().setAxisMaximum(startOfCurrentMonth + amountDaysInMonth);
+        float chartPaddingLeft = barWidth;
+        float chartPaddingRight = barWidth;
+        if (now.getMonth() == Month.JANUARY) chartPaddingLeft = 0;
+        if (now.getMonth() == Month.DECEMBER) chartPaddingRight = 0;
+
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentMonth - chartPaddingLeft);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentMonth + amountDaysInMonth + chartPaddingRight);
 
         // Format the labels according to days in a month
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -144,20 +155,25 @@ public class InsightActivity extends AppCompatActivity {
         // Displaying 30 dates would not fit the chart space
         if (this.chart.getXAxis().getLabelCount() != 15) {
             this.chart.getXAxis().setLabelCount(15);
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_month)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
         }
         refreshChart();
     }
 
     private void activateWeekView(LocalDateTime now, int currentDayOfYear) {
+        float barWidth = ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_week);
+
         int currentDayOfWeek = now.getDayOfWeek().getValue();
         int startOfCurrentWeek = currentDayOfYear - currentDayOfWeek + 1;
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek);
-        this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6); // 6 more days
+        float chartPaddingLeft = barWidth;
+        float chartPaddingRight = barWidth;
+        if (now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 7) chartPaddingLeft = 0;
+        if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 25) chartPaddingRight = 0;
+
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek - chartPaddingLeft);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6 + chartPaddingRight); // 6 more days
 
         // Format the labels according to weekdays
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -179,9 +195,7 @@ public class InsightActivity extends AppCompatActivity {
         });
 
         if (this.chart.getXAxis().getLabelCount() != 7) {
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_week)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
             this.chart.getXAxis().setLabelCount(7);
         }
 

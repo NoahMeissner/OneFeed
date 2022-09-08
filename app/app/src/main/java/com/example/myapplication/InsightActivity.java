@@ -214,6 +214,7 @@ public class InsightActivity extends AppCompatActivity {
         List<BarEntry> sampleEntries = generateSampleEntries();
         BarDataSet dataSet = new BarDataSet(sampleEntries, "");
         // Todo: set text color for night mode
+        dataSet.setValueTextColor(MaterialColors.getColor(chart, com.google.android.material.R.attr.colorOnSurface));
         dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
         // - axis dependency is required because the axis is being adjusted
         dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());

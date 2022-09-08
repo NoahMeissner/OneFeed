@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/news_card_padding">
+        android:padding="@dimen/card_padding_horizontal">
 
         <!--Container for the image to provide circular shape-->
         <androidx.cardview.widget.CardView
@@ -25,7 +25,7 @@
         </androidx.cardview.widget.CardView>
 
         <Space
-            android:layout_width="@dimen/news_card_padding"
+            android:layout_width="@dimen/card_padding_horizontal"
             android:layout_height="match_parent" />
 
         <LinearLayout

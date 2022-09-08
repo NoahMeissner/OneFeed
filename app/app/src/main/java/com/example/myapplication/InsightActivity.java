@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.myapplication.data.insight.ReadingDay;
 import com.github.mikephil.charting.charts.BarChart;
@@ -16,7 +17,10 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.slider.Slider;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -47,19 +51,37 @@ public class InsightActivity extends AppCompatActivity {
         // Chart
         initializeChart();
         initializeChartControls();
+
+        // Settings
+        initializeSettings();
+    }
+
+    private void initializeSettings() {
+        MaterialSwitch limitArticlesSwitch = findViewById(R.id.insight_limit_articles_switch);
+        Slider limitArticlesSlider = findViewById(R.id.insight_limit_articles_slider);
+        TextView limitArticlesDescription = findViewById(R.id.insight_limit_articles_description);
+
+        // Todo: load preferences from settings
+        limitArticlesSwitch.setChecked(true);
+
+        limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) -> {
+            limitArticlesSlider.setEnabled(newValue);
+            limitArticlesDescription.setEnabled(newValue);
+        });
     }
 
     private void initializeChartControls() {
         // Views
-        Button chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
-        Button chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
-        Button chartYearButton = findViewById(R.id.insight_chart_toggle_year);
+        MaterialButton chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
+        MaterialButton chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
+        MaterialButton chartYearButton = findViewById(R.id.insight_chart_toggle_year);
 
         // Listeners
         LocalDateTime now = LocalDateTime.now();
         int currentDayOfYear = now.getDayOfYear();
 
         // Week button
+        chartWeekButton.setChecked(true);
         chartWeekButton.setOnClickListener(l -> activateWeekView(now, currentDayOfYear));
 
         // Month button
@@ -177,6 +199,7 @@ public class InsightActivity extends AppCompatActivity {
         // Data
         List<BarEntry> sampleEntries = generateSampleEntries();
         BarDataSet dataSet = new BarDataSet(sampleEntries, "");
+        // Todo: set text color for night mode
         dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
         // - axis dependency is required because the axis is being adjusted
         dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());

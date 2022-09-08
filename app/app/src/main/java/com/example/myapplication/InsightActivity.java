@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import com.example.myapplication.data.insight.ReadingDay;
@@ -31,11 +30,7 @@ import java.util.Locale;
 // Insight = Konsumverhalten
 public class InsightActivity extends AppCompatActivity {
 
-    private MaterialToolbar toolbar;
     private BarChart chart;
-    private Button chartWeekButton;
-    private Button chartMonthButton;
-    private Button chartYearButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +41,8 @@ public class InsightActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.app_bar_toolbar));
 
         // Toolbar
-        this.toolbar = findViewById(R.id.app_bar_toolbar);
-        this.toolbar.setNavigationOnClickListener(l -> {
-            finish();
-        });
+        MaterialToolbar toolbar = findViewById(R.id.app_bar_toolbar);
+        toolbar.setNavigationOnClickListener(l -> finish());
 
         // Chart
         initializeChart();
@@ -58,28 +51,22 @@ public class InsightActivity extends AppCompatActivity {
 
     private void initializeChartControls() {
         // Views
-        this.chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
-        this.chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
-        this.chartYearButton = findViewById(R.id.insight_chart_toggle_year);
+        Button chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
+        Button chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
+        Button chartYearButton = findViewById(R.id.insight_chart_toggle_year);
 
         // Listeners
         LocalDateTime now = LocalDateTime.now();
         int currentDayOfYear = now.getDayOfYear();
 
         // Week button
-        this.chartWeekButton.setOnClickListener(l -> {
-            activateWeekView(now, currentDayOfYear);
-        });
+        chartWeekButton.setOnClickListener(l -> activateWeekView(now, currentDayOfYear));
 
         // Month button
-        this.chartMonthButton.setOnClickListener(l -> {
-            activateMonthView(now, currentDayOfYear);
-        });
+        chartMonthButton.setOnClickListener(l -> activateMonthView(now, currentDayOfYear));
 
         // Year button
-        this.chartYearButton.setOnClickListener(l -> {
-            activateYearView(now);
-        });
+        chartYearButton.setOnClickListener(l -> activateYearView(now));
     }
 
     private void activateYearView(LocalDateTime now) {
@@ -235,7 +222,6 @@ public class InsightActivity extends AppCompatActivity {
         ReadingDay exampleDayYesterday = new ReadingDay(now.getDayOfYear()-1, 0);
         ReadingDay exampleDayMinus3 = new ReadingDay(now.getDayOfYear()-2, 24);
         ReadingDay exampleDayMinus4 = new ReadingDay(now.getDayOfYear()-3, 11);
-        ReadingDay exampleDayMinus5 = new ReadingDay(now.getDayOfYear()-4, 8);
         ReadingDay exampleDayPlus2 = new ReadingDay(now.getDayOfYear()+2, 8);
         ReadingDay exampleDayEndOfMonth = new ReadingDay(now.getDayOfYear()+22, 8);
 
@@ -243,7 +229,7 @@ public class InsightActivity extends AppCompatActivity {
                 exampleDayToday, exampleDayYesterday, exampleDayMinus3, exampleDayMinus4, exampleDayPlus2, exampleDayEndOfMonth
         );
 
-        List<BarEntry> entries = new ArrayList<BarEntry>();
+        List<BarEntry> entries = new ArrayList<>();
         for (ReadingDay data : dataObjects) {
             entries.add(new BarEntry(data.getDayOfYear(), data.getAmountArticlesRead()));
         }

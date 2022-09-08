@@ -90,7 +90,7 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
         }
         else{
             textView.setText("Neue Quelle");
-            underline.setText("Quellen");
+            underline.setText("");
         }
     }
 

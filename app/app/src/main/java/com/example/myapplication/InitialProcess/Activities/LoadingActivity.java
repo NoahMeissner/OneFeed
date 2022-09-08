@@ -26,12 +26,6 @@ public class LoadingActivity extends AppCompatActivity {
         initUi();
     }
 
-
-
-
-
-
-
     private void initUi() {
         if(!isInitalised){
             Intent intent = new Intent(this, InitialActivity.class);

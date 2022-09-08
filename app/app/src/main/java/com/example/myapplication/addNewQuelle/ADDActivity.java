@@ -16,7 +16,6 @@ import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
 import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
 import com.example.myapplication.addNewQuelle.Adapter.AdapterListAddActivity;
 import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,23 +39,19 @@ public class ADDActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUI();
-        initToolbar();
     }
 
-    private void initToolbar() {
-        setSupportActionBar(findViewById(R.id.toolbar_collapse));
-    }
 
     // in this method all elements are initialized
     private void initUI() {
         setContentView(R.layout.activity_addactivity);
+        setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initHashMap();
         editpictures();
         initQuellen();
         declareRecyclerView();
         initButton();
     }
-
 
 
     // This Method initialise the Buttons to close the Actitivity and show the Information Fragement
@@ -72,7 +67,6 @@ public class ADDActivity extends AppCompatActivity implements
             finish();
         });
     }
-
 
 
     // in this method the recycler view is initialized and passed to the initRecyclerView method
@@ -97,6 +91,7 @@ public class ADDActivity extends AppCompatActivity implements
         recylerViewSM.setAdapter(adapterSocialMedia);
         recylerViewNP.setAdapter(adapterNews);
     }
+
 
     //In this method, the hashmap is initialized in which the category and the image
     // are located in order to assign them quickly
@@ -145,6 +140,7 @@ public class ADDActivity extends AppCompatActivity implements
                 getDrawable(R.drawable.sport));
     }
 
+
     // With this method you can easily edit the images of the buttons
     @SuppressLint("ResourceAsColor")
     private void editpictures(){
@@ -159,6 +155,7 @@ public class ADDActivity extends AppCompatActivity implements
             }
         }
     }
+
 
     //in this method the source objects are created
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -196,11 +193,13 @@ public class ADDActivity extends AppCompatActivity implements
                         Categories.Interessen));
     }
 
+
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
     private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
         return new AdapterListAddActivity(this, this,arrayList);
     }
+
 
     //this method is inherited from the onclick listener here and
     // using it we can open the fragment depending on the button clicked
@@ -218,6 +217,7 @@ public class ADDActivity extends AppCompatActivity implements
         dSf.setQuellen(quellen);
         dSf.show(getSupportFragmentManager(),"");
     }
+
 
     @Override
     public void inputDeleteSource(boolean result, Quellen quellen) {
@@ -237,6 +237,7 @@ public class ADDActivity extends AppCompatActivity implements
         }
     }
 
+
     private void setAnimation(boolean boo){
         for(Categories categories: arrayListHashMap.keySet()){
             for(Quellen quellen: Objects.requireNonNull(arrayListHashMap.get(categories))){
@@ -249,6 +250,7 @@ public class ADDActivity extends AppCompatActivity implements
         adapterNews.setQuellenArrayList(arrayListHashMap.get(Categories.Newspaper));
     }
 
+
     @Override
     public void onLongClick(Quellen quellen) {
         if(!click){
@@ -260,6 +262,7 @@ public class ADDActivity extends AppCompatActivity implements
         setAnimation(false);
     }
 
+    
     @Override
     public void getChangedQuellenArrayList(ArrayList<Quellen> quellenArrayList,Categories c) {
         arrayListHashMap.put(c,quellenArrayList);

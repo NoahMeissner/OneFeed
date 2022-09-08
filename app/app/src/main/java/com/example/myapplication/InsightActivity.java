@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -104,7 +105,9 @@ public class InsightActivity extends AppCompatActivity {
 
         if (this.chart.getXAxis().getLabelCount() != 12) {
             this.chart.getXAxis().setLabelCount(12);
-            this.chart.getBarData().setBarWidth(1f);
+            this.chart.getBarData().setBarWidth(
+                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_year)
+            );
         }
         refreshChart();
     }
@@ -132,7 +135,9 @@ public class InsightActivity extends AppCompatActivity {
         // Displaying 30 dates would not fit the chart space
         if (this.chart.getXAxis().getLabelCount() != 15) {
             this.chart.getXAxis().setLabelCount(15);
-            this.chart.getBarData().setBarWidth(0.5f);
+            this.chart.getBarData().setBarWidth(
+                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_month)
+            );
         }
         refreshChart();
     }
@@ -144,8 +149,6 @@ public class InsightActivity extends AppCompatActivity {
         // Adjust the axis min & max
         this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek);
         this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6); // 6 more days
-
-        Log.d("TAG", "min: " + this.chart.getXAxis().getAxisMinimum() + " max: " + this.chart.getXAxis().getAxisMaximum());
 
         // Format the labels according to weekdays
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -161,14 +164,15 @@ public class InsightActivity extends AppCompatActivity {
                     // Possibly an MPANdroid bug: value provided for the formatter is > than the
                     // previously set minimum and maximum of the charts
                     // Workaround: Catch exception for these cases...
-                    Log.d("MPAndroidChart Initialization", "getAxisLabel: " + exception.getMessage());
                     return "";
                 }
             }
         });
 
         if (this.chart.getXAxis().getLabelCount() != 7) {
-            this.chart.getBarData().setBarWidth(0.3f);
+            this.chart.getBarData().setBarWidth(
+                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_week)
+            );
             this.chart.getXAxis().setLabelCount(7);
         }
 

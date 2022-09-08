@@ -10,8 +10,7 @@ import androidx.annotation.Nullable;
 public class AnimateLinearLayout extends FrameLayout {
 
     private int rotation = 2;
-    private long myDelay =80;
-    private int startPoint = 0;
+    private final long myDelay =80;
     private final Handler myHandler = new Handler();
 
 
@@ -32,6 +31,7 @@ public class AnimateLinearLayout extends FrameLayout {
     }
 
     public void stopAnimation(){
+        int startPoint = 0;
         setRotation(startPoint);
         myHandler.removeCallbacksAndMessages(null);
     }

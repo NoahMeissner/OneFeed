@@ -2,7 +2,9 @@ package com.example.myapplication.InitialProcess.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.example.myapplication.FeedActivity;
@@ -90,8 +92,16 @@ public class PermissionsActivity extends AppCompatActivity {
         intent.putExtra(String.valueOf(InitialData.notificationAnalysePermission),notifications);
         intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);
         //@TODO Social Media Array Liste übergeben
+        //initBeispiel();
         //intent.putExtra(String.valueOf(InitialData.socialMediaArrayList),null);
         startActivity(intent);
+    }
+
+    private void initBeispiel() {
+            SharedPreferences pref = getSharedPreferences("APP",0);
+            SharedPreferences.Editor ed = pref.edit();
+            ed.putBoolean("isInitalised",true);
+            ed.commit();
     }
 }
 

@@ -1,59 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="380dp"
+    android:layout_height="250dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:minWidth="600dp"
-    android:minHeight="800dp">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="28dp"
+    app:shapeAppearanceOverlay="?attr/shapeAppearanceMediumComponent"
+    app:backgroundInsetStart="24dp"
+    app:backgroundInsetEnd="24dp"
+    app:backgroundInsetTop="80dp"
+    app:backgroundInsetBottom="80dp"
+    android:background="?attr/colorSurface"
+    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+    >
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="200dp"
         android:layout_marginTop="30dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:backgroundTint="?attr/colorSurface"
+        >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/informationicon" />
 
         <TextView
             android:id="@+id/InformationFragementHeadline"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Informationen"
-            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
             android:textColor="?attr/colorPrimary"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+            />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/informationicon" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
 
         <TextView
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
+            android:layout_width="350dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
             android:text="@string/informationenText" />
 
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

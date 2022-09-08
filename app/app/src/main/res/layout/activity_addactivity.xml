@@ -1,135 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addNewQuelle.ADDActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <com.example.myapplication.ui.components.AppBarCollapse
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:title="@string/headlineQuellenActivity"
+        app:toolbar="@layout/addsite_component_toolbar"
+        app:pageContentView="@layout/view_add_activity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/quellenHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/headlineQuellenActivity"
-            android:textAlignment="center"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-            android:textSize="40sp"
-            android:layout_marginTop="60dp"
-            />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="107dp" />
+    </com.example.myapplication.ui.components.AppBarCollapse>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-
-            <ImageButton
-                android:id="@+id/imagebackButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:backgroundTint="@color/white"
-                app:srcCompat="@drawable/back_arrow"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <Space
-                android:layout_width="287dp"
-                android:layout_height="13dp"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/informationButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:backgroundTint="@color/white"
-                app:srcCompat="@drawable/informationicon"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/quellenSocialMediaHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/headlineQuellenSocialMedia"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="20sp"
-            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewQuellenSM"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal" />
-
-        <TextView
-            android:id="@+id/quellenNewsPagesHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/headlineQuellenNP"
-            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewQuellenNP"
-            android:layout_marginStart="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"/>
-
-        <TextView
-            android:id="@+id/quellenInterestsHeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/headlineQuellenIn"
-            android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"/>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewQuellenIn"
-            android:layout_marginStart="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
-    </ScrollView>
 
 
 

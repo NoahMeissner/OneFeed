@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
 public class AnimateLinearLayout extends FrameLayout {
 
     private int rotation = 2;
-    private long myDelay =80;
+    private final long myDelay =80;
     private final Handler myHandler = new Handler();
 
 
@@ -27,19 +26,14 @@ public class AnimateLinearLayout extends FrameLayout {
     };
 
     public void animateText(){
-
         myHandler.removeCallbacks(runnable);
         myHandler.postDelayed(runnable, myDelay);
     }
 
-    //@TODO Eine Methode Stop Animation implementieren
     public void stopAnimation(){
+        int startPoint = 0;
+        setRotation(startPoint);
         myHandler.removeCallbacksAndMessages(null);
-
-    }
-
-    public void setCharacterDelay(long m){
-        myDelay = m ;
     }
 
     public AnimateLinearLayout(Context context) {

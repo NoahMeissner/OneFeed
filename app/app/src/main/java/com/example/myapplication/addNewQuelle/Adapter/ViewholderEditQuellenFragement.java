@@ -9,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.addNewQuelle.Quellen;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 public class ViewholderEditQuellenFragement extends RecyclerView.ViewHolder{
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private final Switch aSwitch;
+    private final MaterialSwitch aSwitch;
     private final TextView textView;
 
     public ViewholderEditQuellenFragement(@NonNull View itemView) {
@@ -22,9 +24,18 @@ public class ViewholderEditQuellenFragement extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.editQuellenIconText);
     }
 
-    public void bind(String[] strings) {
-        textView.setText(strings[0]);
-        aSwitch.setChecked(Boolean.parseBoolean(strings[1]));
-        aSwitch.setOnClickListener(view -> System.out.println("Hello"));
+    public void bind(Quellen quellen, AdapterEditQuellenFragement.QuelleSettingsChanged quelleSettingsChanged, int size) {
+        //@TODO Bug wenn nur ein Element in Reihe Add Button zeigt nicht das richtige an
+        //@TODO switch bearbeiten switch eintrag zu speicern
+        if(size<=1){
+            String setNotification = "Notification";
+            textView.setText(setNotification);
+                aSwitch.setChecked(quellen.isNotification());
+                aSwitch.setOnClickListener(view -> quelleSettingsChanged.changedQuelle(quellen));
+                return;
+        }
+        textView.setText(quellen.getName());
+        aSwitch.setChecked(quellen.isEnabeld());
+        aSwitch.setOnClickListener(view -> quelleSettingsChanged.changedQuelle(quellen));
     }
 }

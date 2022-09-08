@@ -1,10 +1,15 @@
 package com.example.myapplication.InitialProcess.Animations;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.widget.Button;
 
-public class InteressenAnimation extends androidx.appcompat.widget.AppCompatButton {
+import com.google.android.material.button.MaterialButton;
+
+@SuppressLint("AppCompatCustomView")
+public class InteressenAnimation extends MaterialButton {
 
     /*
         this class is responsible for providing the animation for the InteressenFragement

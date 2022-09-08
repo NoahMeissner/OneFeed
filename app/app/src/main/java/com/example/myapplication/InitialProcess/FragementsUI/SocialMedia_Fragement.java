@@ -1,12 +1,15 @@
 package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +38,8 @@ public class SocialMedia_Fragement extends Fragment {
         initAnimation(view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
         return view;
     }
+
+
 
 
     @SuppressLint("UseCompatLoadingForDrawables")

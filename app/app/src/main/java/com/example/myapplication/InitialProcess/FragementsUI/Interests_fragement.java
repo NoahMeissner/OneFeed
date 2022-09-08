@@ -55,12 +55,30 @@ public class Interests_fragement extends Fragment {
 
     // This method initializes all buttons representing the interests
     private void initButtons(View view){
-        buttons.put(String.valueOf(Categories.interests.Politik),view.findViewById(R.id.buttonKategoriePolitik));
-        buttons.put(String.valueOf(Categories.interests.Corona),view.findViewById(R.id.buttonKategorieCorona));
-        buttons.put(String.valueOf(Categories.interests.Gaming),view.findViewById(R.id.buttonKategorieGaming));
-        buttons.put(String.valueOf(Categories.interests.Technik),view.findViewById(R.id.buttonKategorieTechnik));
-        buttons.put(String.valueOf(Categories.interests.Wirtschaft),view.findViewById(R.id.buttonKategorieWirtschaft));
-        buttons.put(String.valueOf(Categories.interests.Sport),view.findViewById(R.id.buttonKategorieSport));
+        buttons.put(
+                String.valueOf(Categories.interests.Politik),
+                view.findViewById(R.id.buttonKategoriePolitik));
+
+        buttons.put(
+                String.valueOf(Categories.interests.Corona),
+                view.findViewById(R.id.buttonKategorieCorona));
+
+        buttons.put(
+                String.valueOf(Categories.interests.Gaming),
+                view.findViewById(R.id.buttonKategorieGaming));
+
+        buttons.put(String.valueOf(
+                Categories.interests.Technik),
+                view.findViewById(R.id.buttonKategorieTechnik));
+
+        buttons.put(
+                String.valueOf(Categories.interests.Wirtschaft),
+                view.findViewById(R.id.buttonKategorieWirtschaft));
+
+        buttons.put(
+                String.valueOf(Categories.interests.Sport),
+                view.findViewById(R.id.buttonKategorieSport));
+
         for(String s:buttons.keySet()){
             setListener(Objects.requireNonNull(buttons.get(s)),s);
         }
@@ -110,8 +128,12 @@ public class Interests_fragement extends Fragment {
     private void buttonAnimationReset(InteressenAnimation interessenAnimation,String kategorie) {
         interessenAnimation.getLayoutParams().width= buttonSize;
         interessenAnimation.getLayoutParams().height= buttonSize;
-        interessenAnimation.setBackground(getResources().getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
-        interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
+        interessenAnimation.setBackground(getResources()
+                .getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
+
+        interessenAnimation.setTextColor(getResources()
+                .getColor(R.color.black, requireActivity().getTheme()));
+
         results.remove(kategorie);
         dataPasser.onDataPass(results);
     }
@@ -122,8 +144,11 @@ public class Interests_fragement extends Fragment {
         double magnificationfactor = 1.1;
         interessenAnimation.getLayoutParams().width= (int) (interessenAnimation.getWidth()*magnificationfactor);
         interessenAnimation.getLayoutParams().height= (int) (interessenAnimation.getHeight()*magnificationfactor);
-        interessenAnimation.setTextColor(getResources().getColor(R.color.white, requireActivity().getTheme()));
-        interessenAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
+        interessenAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
+
+        interessenAnimation.setBackground(getResources()
+                .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
+
         results.add(kategorie);
         dataPasser.onDataPass(results);
         for(String s:buttons.keySet()){

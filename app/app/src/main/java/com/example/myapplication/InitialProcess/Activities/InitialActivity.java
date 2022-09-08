@@ -63,7 +63,10 @@ public class InitialActivity extends AppCompatActivity implements Interests_frag
                             .commit();
                     return;
                 case 3:
-                    Intent intent = new Intent(InitialActivity.this, PermissionsActivity.class);
+                    Intent intent = new Intent(
+                            InitialActivity.this,
+                            PermissionsActivity.class);
+
                     intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);
                     startActivity(intent);
             }

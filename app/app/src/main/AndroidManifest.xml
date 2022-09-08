@@ -26,18 +26,18 @@
             android:name=".addNewQuelle.ADDActivity"
             android:exported="false" />
         <activity
+            android:name=".FeedActivity"
+            android:exported="true" />
+        <activity
             android:name=".InitialProcess.Activities.LoadingActivity"
-            android:exported="true"></activity>
             android:exported="true">
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FeedActivity"
-            android:exported="true" />
+
     </application>
 
 </manifest>

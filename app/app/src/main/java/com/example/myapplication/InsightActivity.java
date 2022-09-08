@@ -1,32 +1,29 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
+import android.widget.Button;
 
 import com.example.myapplication.data.insight.ReadingDay;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.color.MaterialColors;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +31,10 @@ import java.util.Locale;
 public class InsightActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbar;
-    BarChart chart;
+    private BarChart chart;
+    private Button chartWeekButton;
+    private Button chartMonthButton;
+    private Button chartYearButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +51,143 @@ public class InsightActivity extends AppCompatActivity {
         });
 
         // Chart
+        initializeChart();
+        initializeChartControls();
+    }
+
+    private void initializeChartControls() {
+        // Views
+        this.chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
+        this.chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
+        this.chartYearButton = findViewById(R.id.insight_chart_toggle_year);
+
+        // Listeners
+        LocalDateTime now = LocalDateTime.now();
+        int currentDayOfYear = now.getDayOfYear();
+
+        // Week button
+        this.chartWeekButton.setOnClickListener(l -> {
+            activateWeekView(now, currentDayOfYear);
+        });
+
+        // Month button
+        this.chartMonthButton.setOnClickListener(l -> {
+            activateMonthView(now, currentDayOfYear);
+        });
+
+        // Year button
+        this.chartYearButton.setOnClickListener(l -> {
+            activateYearView(now);
+        });
+    }
+
+    private void activateYearView(LocalDateTime now) {
+        int amountDaysInYear = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_YEAR);
+
+        // Adjust the axis min & max
+        this.chart.getXAxis().setAxisMinimum(1);
+        this.chart.getXAxis().setAxisMaximum(amountDaysInYear);
+
+        // Format the labels according to months
+        this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                LocalDateTime providedDate = now.withDayOfYear((int)value);
+                // Chart x-axis granularity has to be set to 1 for this to work:
+                // MPAndroidChart iterates through every x-value so float values should not
+                // be a possibility!
+                return providedDate.getMonth().getDisplayName(
+                        TextStyle.SHORT_STANDALONE, Locale.getDefault()
+                );
+            }
+        });
+
+        if (this.chart.getXAxis().getLabelCount() != 12) {
+            this.chart.getXAxis().setLabelCount(12);
+            this.chart.getBarData().setBarWidth(1f);
+        }
+        refreshChart();
+    }
+
+    private void activateMonthView(LocalDateTime now, int currentDayOfYear) {
+        int currentDayOfMonth = now.getDayOfMonth();
+        int startOfCurrentMonth = currentDayOfYear - currentDayOfMonth;
+        int amountDaysInMonth = Calendar.getInstance().getActualMaximum(Calendar.DATE);
+
+        // Adjust the axis min & max
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentMonth);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentMonth + amountDaysInMonth);
+
+        // Format the labels according to days in a month
+        this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                // Chart x-axis granularity has to be set to 1 for this to work:
+                // MPAndroidChart iterates through every x-value so float values should not
+                // be a possibility!
+                return String.valueOf(now.withDayOfYear((int)value).getDayOfMonth());
+            }
+        });
+
+        // Displaying 30 dates would not fit the chart space
+        if (this.chart.getXAxis().getLabelCount() != 15) {
+            this.chart.getXAxis().setLabelCount(15);
+            this.chart.getBarData().setBarWidth(0.5f);
+        }
+        refreshChart();
+    }
+
+    private void activateWeekView(LocalDateTime now, int currentDayOfYear) {
+        int currentDayOfWeek = now.getDayOfWeek().getValue();
+        int startOfCurrentWeek = currentDayOfYear - currentDayOfWeek + 1;
+
+        // Adjust the axis min & max
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6); // 6 more days
+
+        Log.d("TAG", "min: " + this.chart.getXAxis().getAxisMinimum() + " max: " + this.chart.getXAxis().getAxisMaximum());
+
+        // Format the labels according to weekdays
+        this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                // Chart x-axis granularity has to be set to 1 for this to work:
+                // MPAndroidChart iterates through every x-value so float values should not
+                // be a possibility!
+                try {
+                    DayOfWeek dayOfWeek = DayOfWeek.of((int) value - startOfCurrentWeek + 1);
+                    return dayOfWeek.getDisplayName(TextStyle.SHORT_STANDALONE, Locale.getDefault());
+                } catch (RuntimeException exception) {
+                    // Possibly an MPANdroid bug: value provided for the formatter is > than the
+                    // previously set minimum and maximum of the charts
+                    // Workaround: Catch exception for these cases...
+                    Log.d("MPAndroidChart Initialization", "getAxisLabel: " + exception.getMessage());
+                    return "";
+                }
+            }
+        });
+
+        if (this.chart.getXAxis().getLabelCount() != 7) {
+            this.chart.getBarData().setBarWidth(0.3f);
+            this.chart.getXAxis().setLabelCount(7);
+        }
+
+        refreshChart();
+    }
+
+    private void refreshChart() {
+        this.chart.fitScreen();
+        this.chart.invalidate();
+    }
+
+    private void initializeChart() {
         this.chart = findViewById(R.id.insight_chart);
 
-        ReadingDay exampleDayMon = new ReadingDay(DayOfWeek.MONDAY, 12);
-        ReadingDay exampleDayTue = new ReadingDay(DayOfWeek.TUESDAY, 0);
-        ReadingDay exampleDayThu = new ReadingDay(DayOfWeek.THURSDAY, 24);
-        ReadingDay exampleDayWed = new ReadingDay(DayOfWeek.WEDNESDAY, 11);
-        ReadingDay exampleDayFri = new ReadingDay(DayOfWeek.FRIDAY, 8);
-        ReadingDay exampleDaySat = new ReadingDay(DayOfWeek.SATURDAY, 0);
-        ReadingDay exampleDaySun = new ReadingDay(DayOfWeek.SUNDAY, 0);
-
-
-        List<ReadingDay> dataObjects = Arrays.asList(
-                exampleDayMon, exampleDayTue, exampleDayThu, exampleDayWed, exampleDayFri
-//                exampleDaySat, exampleDaySun
-        );
-
-        List<BarEntry> entries = new ArrayList<BarEntry>();
-        for (ReadingDay data : dataObjects) {
-            entries.add(new BarEntry(data.getDayOfWeek().getValue(), data.getAmountArticlesRead()));
-        }
-        BarDataSet dataSet = new BarDataSet(entries, "Gelesene Artikel");
+        // Data
+        List<BarEntry> sampleEntries = generateSampleEntries();
+        BarDataSet dataSet = new BarDataSet(sampleEntries, "");
         dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
+        // - axis dependency is required because the axis is being adjusted
         dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());
 
         // Bar settings
@@ -80,45 +195,55 @@ public class InsightActivity extends AppCompatActivity {
         barData.setBarWidth(0.3f);
 
         // Axis settings
+        // - Disable unused axis
         this.chart.getAxisLeft().setEnabled(false);
-        this.chart.getAxisRight().setAxisMinimum(0);
+
+        // - Dashed lines
         this.chart.getAxisRight().enableGridDashedLine(4, 4, 0);
         this.chart.getXAxis().enableGridDashedLine(4, 4, 0);
+
+        // - x axis
         this.chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         this.chart.getXAxis().setGranularity(1);
-        this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                // Chart x-axis granularity has to be set to 1 for this to work:
-                // MPAndroidChart iterates through every x-value so float values should not
-                // be a possibility!
-                DayOfWeek dow = DayOfWeek.of((int) value);
-                return dow.getDisplayName(TextStyle.SHORT_STANDALONE, Locale.getDefault());
-            }
-        });
 
-        // Description settings
-//        Description description = new Description();
-//        description.setText("Gelesene Artikel");
-//        description.setTextSize(16);
-//        description.setPosition(0, 0);
-//        description.setPosition(this.chart.getCenter().x, 0);
-//        description.setTextAlign(Paint.Align.RIGHT);
-//        description.setEnabled(false);
-//        description.setTextColor(MaterialColors.getColor(chart, com.google.android.material.R.attr.colorOnSurfaceVariant));
+        // y axis
+        this.chart.getAxisRight().setAxisMinimum(0);
 
         // Chart settings
         this.chart.setData(barData);
-//        this.chart.setDescription(description);
         this.chart.getLegend().setEnabled(false);
         this.chart.getDescription().setEnabled(false);
 
         // Viewport settings
+        // - viewport has to be adjusted after the data has been loaded (setData) to work
         this.chart.fitScreen();
         this.chart.setVisibleXRange(0, 7);
         this.chart.setTouchEnabled(false);
         this.chart.setFitBars(true);
 
-        this.chart.invalidate();
+        activateWeekView(LocalDateTime.now(), LocalDateTime.now().getDayOfYear());
+    }
+
+    @NonNull
+    private List<BarEntry> generateSampleEntries() {
+        LocalDateTime now = LocalDateTime.now();
+        ReadingDay exampleDayToday = new ReadingDay(now.getDayOfYear(), 12);
+        ReadingDay exampleDayYesterday = new ReadingDay(now.getDayOfYear()-1, 0);
+        ReadingDay exampleDayMinus3 = new ReadingDay(now.getDayOfYear()-2, 24);
+        ReadingDay exampleDayMinus4 = new ReadingDay(now.getDayOfYear()-3, 11);
+        ReadingDay exampleDayMinus5 = new ReadingDay(now.getDayOfYear()-4, 8);
+        ReadingDay exampleDayPlus2 = new ReadingDay(now.getDayOfYear()+2, 8);
+        ReadingDay exampleDayEndOfMonth = new ReadingDay(now.getDayOfYear()+22, 8);
+
+        List<ReadingDay> dataObjects = Arrays.asList(
+                exampleDayToday, exampleDayYesterday, exampleDayMinus3, exampleDayMinus4, exampleDayPlus2, exampleDayEndOfMonth
+        );
+
+        List<BarEntry> entries = new ArrayList<BarEntry>();
+        for (ReadingDay data : dataObjects) {
+            entries.add(new BarEntry(data.getDayOfYear(), data.getAmountArticlesRead()));
+        }
+        
+        return entries;
     }
 }

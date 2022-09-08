@@ -1,22 +1,20 @@
 package com.example.myapplication.data.insight;
 
-import java.time.DayOfWeek;
-
 public class ReadingDay {
-    private DayOfWeek dayOfWeek;
+    private int dayOfYear;
     private int amountArticlesRead;
 
-    public ReadingDay(DayOfWeek dayOfWeek, int amountArticlesRead) {
-        this.dayOfWeek = dayOfWeek;
+    public ReadingDay(int dayOfYear, int amountArticlesRead) {
+        this.dayOfYear = dayOfYear;
         this.amountArticlesRead = amountArticlesRead;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public int getDayOfYear() {
+        return dayOfYear;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDayOfYear(int dayOfYear) {
+        this.dayOfYear = dayOfYear;
     }
 
     public int getAmountArticlesRead() {

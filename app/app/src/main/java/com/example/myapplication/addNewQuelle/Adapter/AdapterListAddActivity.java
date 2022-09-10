@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddActivity> {
 
     public interface OnItemClickListener{
-        void onItemClick(SourceAdd quellen);
+        void onItemClick(SourceAdd source);
     }
 
     public interface longItemClickListener{
-        void onLongClick(SourceAdd quellen);
+        void onLongClick(SourceAdd source);
     }
 
     private ArrayList<SourceAdd> sourceArrayList;

@@ -9,59 +9,58 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.addNewQuelle.Quellen;
+import com.example.myapplication.addNewQuelle.SourceAdd;
 
 import java.util.ArrayList;
 
-public class AdapterListAddActivity extends RecyclerView.Adapter<ViewholderAddActivity> {
-
-    int id = R.layout.icons_quellen;
+public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddActivity> {
 
     public interface OnItemClickListener{
-        void onItemClick(Quellen quellen);
+        void onItemClick(SourceAdd quellen);
     }
 
     public interface longItemClickListener{
-        void onLongClick(Quellen quellen);
+        void onLongClick(SourceAdd quellen);
     }
 
-    private ArrayList<Quellen> quellenArrayList;
+    private ArrayList<SourceAdd> sourceArrayList;
     private final OnItemClickListener listener;
     private final longItemClickListener longItemClickListener;
 
     public AdapterListAddActivity(OnItemClickListener listener,
                                   longItemClickListener longItemClickListener,
-                                  ArrayList<Quellen> quellenArrayList){
+                                  ArrayList<SourceAdd> sourceArrayList){
 
         this.listener=listener;
         this.longItemClickListener = longItemClickListener;
-        this.quellenArrayList=quellenArrayList;
+        this.sourceArrayList =sourceArrayList;
     }
 
     @SuppressLint("ResourceType")
     @NonNull
     @Override
-    public ViewholderAddActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(id,parent,false);
-
-        return new ViewholderAddActivity(view);
+    public ViewHolderAddActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.icons_quellen,
+                parent,
+                false);
+        return new ViewHolderAddActivity(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewholderAddActivity holder, int position) {
-        holder.bind(quellenArrayList.get(position), listener);
-        holder.bindlong(quellenArrayList.get(position), longItemClickListener);
-
+    public void onBindViewHolder(@NonNull ViewHolderAddActivity holder, int position) {
+        holder.bind(sourceArrayList.get(position), listener);
+        holder.bindLong(sourceArrayList.get(position), longItemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return quellenArrayList.size();
+        return sourceArrayList.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setQuellenArrayList(ArrayList<Quellen> quellenArrayList){
-        this.quellenArrayList= quellenArrayList;
+    public void setSourceArrayList(ArrayList<SourceAdd> sourceArrayList){
+        this.sourceArrayList = sourceArrayList;
         notifyDataSetChanged();
     }
 }

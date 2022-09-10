@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 
 
-public class Notification_permission_fragement extends Fragment {
+public class NotificationPermissionFragment extends Fragment {
 
     /*
     This fragment shows the text of the permissions needed to send notifications

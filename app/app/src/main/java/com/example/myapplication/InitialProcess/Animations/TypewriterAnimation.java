@@ -7,10 +7,10 @@ import androidx.annotation.Nullable;
 import android.os.Handler;
 
 
-public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTextView {
+public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatTextView {
 
     /*
-        this class is responsible for providing the animation for the Willkommen fragement
+        this class is responsible for providing the animation for the Welcome fragment
      */
 
     private CharSequence myText;
@@ -19,11 +19,11 @@ public class TypriwriterAnimation extends androidx.appcompat.widget.AppCompatTex
     private final Handler myHandler = new Handler();
 
 
-    public TypriwriterAnimation(@NonNull Context context) {
+    public TypewriterAnimation(@NonNull Context context) {
         super(context);
     }
 
-    public TypriwriterAnimation(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TypewriterAnimation(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -7,19 +7,19 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.myapplication.InitialProcess.FragementsUI.Interests_fragement;
-import com.example.myapplication.InitialProcess.FragementsUI.SocialMedia_Fragement;
-import com.example.myapplication.InitialProcess.FragementsUI.Welcome_fragement;
+import com.example.myapplication.InitialProcess.FragementsUI.InterestsFragment;
+import com.example.myapplication.InitialProcess.FragementsUI.SocialMediaFragment;
+import com.example.myapplication.InitialProcess.FragementsUI.WelcomeFragment;
 import com.example.myapplication.InitialProcess.InitialData;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class InitialActivity extends AppCompatActivity implements Interests_fragement.OnDataPass{
+public class InitialActivity extends AppCompatActivity implements InterestsFragment.OnDataPass{
 
     /*
     This activity is responsible for the entire setup process.
-     Here the individual setup steps and the further development of Permissions Activits are completed
+     Here the individual setup steps and the further development of Permissions Activities are completed
      */
 
      private FragmentManager fragmentManager;
@@ -32,11 +32,11 @@ public class InitialActivity extends AppCompatActivity implements Interests_frag
             initUI();
         }
 
-    // Set up the fragement Manager
+    // Set up the Fragment Manager
     private void initUI() {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, Welcome_fragement.class, null)
+                .replace(R.id.frameLayout, WelcomeFragment.class, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("")
                 .commit();
@@ -50,14 +50,14 @@ public class InitialActivity extends AppCompatActivity implements Interests_frag
             switch (fragmentManager.getBackStackEntryCount()){
                 case 1:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, Interests_fragement.class, null)
+                            .replace(R.id.frameLayout, InterestsFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();
                     return;
                 case 2:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, SocialMedia_Fragement.class, null)
+                            .replace(R.id.frameLayout, SocialMediaFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();
@@ -76,7 +76,7 @@ public class InitialActivity extends AppCompatActivity implements Interests_frag
 
     // This method grabs the Interests ArrayList from the Interests Query
     @Override
-    public void onDataPass(ArrayList<String> interessenList) {
-        interests = interessenList;
+    public void onDataPass(ArrayList<String> interestsList) {
+        interests = interestsList;
     }
 }

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".InitialProcess.FragementsUI.Welcome_fragement">
+    tools:context=".InitialProcess.FragementsUI.WelcomeFragment">
 
-    <com.example.myapplication.InitialProcess.Animations.TypriwriterAnimation
+    <com.example.myapplication.InitialProcess.Animations.TypewriterAnimation
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

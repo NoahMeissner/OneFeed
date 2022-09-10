@@ -1,5 +1,6 @@
 package com.example.myapplication.addNewQuelle.Fragement;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.addNewQuelle.Categories;
-import com.example.myapplication.addNewQuelle.Adapter.AdapterEditQuellenFragement;
-import com.example.myapplication.addNewQuelle.Quellen;
+import com.example.myapplication.addNewQuelle.Adapter.AdapterEditSourceFragment;
+import com.example.myapplication.addNewQuelle.SourceAdd;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class EditQuellenFragement extends DialogFragment implements AdapterEditQuellenFragement.QuelleSettingsChanged {
+public class EditSourceFragment extends DialogFragment implements AdapterEditSourceFragment.SourceSettingsChanged {
 
 
     /*
@@ -33,19 +34,13 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
      */
 
     public interface SettingsChanges{
-        void getChangedQuellenArrayList(ArrayList<Quellen> quellenArrayList,Categories categories);
+        void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Categories categories);
     }
 
 
-    private ArrayList<Quellen> settings = new ArrayList<>();
-    private Quellen quellen;
-    private ArrayList<Quellen> recyclerArrayList = new ArrayList<>();
-    private Button safeButton;
-
-    public EditQuellenFragement (SettingsChanges settingsChanges){
-        //this.settingsChanges = settingsChanges;
-    }
-
+    private ArrayList<SourceAdd> settings = new ArrayList<>();
+    private SourceAdd source;
+    private final ArrayList<SourceAdd> recyclerArrayList = new ArrayList<>();
 
 
 
@@ -58,38 +53,38 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_edit_quellen, container, false);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initUI(view);
         initRecyclerArrayList();
         initRecyclerView(view);
-        //initButton(view);
         return view;
     }
 
 
 
     private void initRecyclerArrayList() {
-        if(quellen.getName()==Categories.ADDButton.name()){
-            for(Quellen quellen: settings) {
-                if (quellen.getName() != Categories.ADDButton.name())
-                    recyclerArrayList.add(quellen);
+        if(Objects.equals(source.getName(), Categories.ADDButton.name())){
+            for(SourceAdd source: settings) {
+                if (!Objects.equals(source.getName(), Categories.ADDButton.name()))
+                    recyclerArrayList.add(source);
             }
             return;
         }
-        recyclerArrayList.add(quellen);
+        recyclerArrayList.add(source);
     }
 
-    // This Method initialise the Fragement items
+    // This Method initialise the Fragment items
+    @SuppressLint("SetTextI18n")
     private void initUI(View view){
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
-        imageView.setImageDrawable(quellen.getImage());
-        if(quellen.getName() != Categories.ADDButton.name()){
-            textView.setText(quellen.getName());
+        imageView.setImageDrawable(source.getImage());
+        if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+            textView.setText(source.getName());
         }
         else{
-            textView.setText("Neue Quelle");
+            textView.setText("");
             underline.setText("");
         }
     }
@@ -99,30 +94,32 @@ public class EditQuellenFragement extends DialogFragment implements AdapterEditQ
     // This method initializes the RecyclerView for the settings
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewEditQuellenFragement);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+
         layoutManager.canScrollVertically();
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
         recyclerView.setLayoutManager(layoutManager);
-        AdapterEditQuellenFragement adapterEditQuellenFragement = new AdapterEditQuellenFragement(recyclerArrayList,this);
-        recyclerView.setAdapter(adapterEditQuellenFragement);
+        AdapterEditSourceFragment adapterEditSourceFragment = new AdapterEditSourceFragment(recyclerArrayList,this);
+        recyclerView.setAdapter(adapterEditSourceFragment);
     }
 
-    // With the following Methods it is possible to set the Materials for the Fragement Items
+    // With the following Methods it is possible to set the Materials for the Fragment Items
 
 
     @Override
-    public void changedQuelle(Quellen quellen) {
-            settings.remove(quellen);
-            settings.add(quellen);
+    public void changedSource(SourceAdd source) {
+            settings.remove(source);
+            settings.add(source);
     }
 
-    public void setQuellen(Quellen quellen) {
-        this.quellen = quellen;
+    public void setSource(SourceAdd source) {
+        this.source = source;
     }
 
 
-    public void setSettings(ArrayList<Quellen> settings) {
+    public void setSettings(ArrayList<SourceAdd> settings) {
         this.settings = settings;
     }
 }

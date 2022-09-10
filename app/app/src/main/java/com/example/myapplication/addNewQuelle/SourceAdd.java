@@ -3,7 +3,7 @@ package com.example.myapplication.addNewQuelle;
 import android.graphics.drawable.Drawable;
 
 
-public class Quellen {
+public class SourceAdd {
 
     /*
     This Method create an object, which is necessary for the ADD Activity
@@ -13,10 +13,10 @@ public class Quellen {
     private final String name;
     private final Categories categories;
     private boolean notification;
-    private boolean enabeld;
+    private boolean enabled;
     private boolean setAnimation = false;
 
-    public Quellen(String name, Drawable image,Categories categories){
+    public SourceAdd(String name, Drawable image, Categories categories){
         this.name = name;
         this.image = image;
         this.categories = categories;
@@ -30,16 +30,16 @@ public class Quellen {
         return notification;
     }
 
-    public boolean isEnabeld() {
-        return enabeld;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public void setNotification(boolean notification) {
         this.notification = notification;
     }
 
-    public void setEnabeld(boolean enabeld) {
-        this.enabeld = enabeld;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Drawable getImage() {

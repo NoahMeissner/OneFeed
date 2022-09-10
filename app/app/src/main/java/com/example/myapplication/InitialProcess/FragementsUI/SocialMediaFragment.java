@@ -1,7 +1,6 @@
 package com.example.myapplication.InitialProcess.FragementsUI;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,7 @@ import android.view.WindowManager;
 import com.example.myapplication.InitialProcess.Animations.SocialMediaAnimation;
 import com.example.myapplication.R;
 
-public class SocialMedia_Fragement extends Fragment {
+public class SocialMediaFragment extends Fragment {
 
     private final Point size = new Point();
     private final int xSpeed =1;
@@ -48,15 +46,15 @@ public class SocialMedia_Fragement extends Fragment {
         windowManager.getDefaultDisplay().getSize(size);
         SocialMediaAnimation bubbleAnimation = view.findViewById(id);
         // Todo: simplify attr resolution?
-        TypedArray a = getContext().getTheme().obtainStyledAttributes(
+        TypedArray a = requireContext().getTheme().obtainStyledAttributes(
                 R.style.AppTheme, new int[] {androidx.appcompat.R.attr.colorPrimary}
         );
         int attributeResourceId = a.getResourceId(0, 0);
-        DrawableCompat.setTint(bubbleAnimation.getDrawable(),getContext().getColor(attributeResourceId));
+        DrawableCompat.setTint(bubbleAnimation.getDrawable(), requireContext().getColor(attributeResourceId));
         bubbleAnimation.setX(startPoint,size.x-spacing);
         bubbleAnimation.setY(spacing,size.y-spacing-spacing);
-        bubbleAnimation.setxSpeed(xSpeed);
-        bubbleAnimation.setySpeed(ySpeed);
+        bubbleAnimation.setXSpeed(xSpeed);
+        bubbleAnimation.setYSpeed(ySpeed);
         bubbleAnimation.animateBubbles();
         stopAnimation(bubbleAnimation);
     }

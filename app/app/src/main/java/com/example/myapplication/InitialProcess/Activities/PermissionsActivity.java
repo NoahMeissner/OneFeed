@@ -2,14 +2,12 @@ package com.example.myapplication.InitialProcess.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import com.example.myapplication.FeedActivity;
-import com.example.myapplication.InitialProcess.FragementsUI.Consumption_permission_fragement;
-import com.example.myapplication.InitialProcess.FragementsUI.Notification_permission_fragement;
+import com.example.myapplication.InitialProcess.FragementsUI.ConsumptionPermissionFragment;
+import com.example.myapplication.InitialProcess.FragementsUI.NotificationPermissionFragment;
 import com.example.myapplication.InitialProcess.InitialData;
 import com.example.myapplication.R;
 
@@ -24,7 +22,7 @@ public class PermissionsActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private boolean notifications = false;
-    private boolean consumptionanalysis = false;
+    private boolean consumptionAnalyse = false;
     private ArrayList<String> interests = new ArrayList<>();
 
     @Override
@@ -32,7 +30,7 @@ public class PermissionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
         getIntentInformation();
-        initFragement();
+        initFragment();
         initUI();
     }
 
@@ -42,11 +40,11 @@ public class PermissionsActivity extends AppCompatActivity {
         interests = intent.getStringArrayListExtra(String.valueOf(InitialData.interestsArrayList));
     }
 
-    // This Method initialise the fragement Manager for the first Fragement
-    private void initFragement() {
+    // This Method initialise the Fragment Manager for the first Fragment
+    private void initFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayoutPermissions, Consumption_permission_fragement.class, null)
+                .replace(R.id.frameLayoutPermissions, ConsumptionPermissionFragment.class, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("backstack")
                 .commit();
@@ -70,38 +68,29 @@ public class PermissionsActivity extends AppCompatActivity {
         button.setOnClickListener(view -> {
             switch (fragmentManager.getBackStackEntryCount()){
             case 1:
-                this.consumptionanalysis=result;
+                this.consumptionAnalyse =result;
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frameLayoutPermissions, Notification_permission_fragement.class, null)
+                        .replace(R.id.frameLayoutPermissions, NotificationPermissionFragment.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("backtack")
+                        .addToBackStack("")
                         .commit();
 
                 return;
             case 2:
                 this.notifications=result;
-                setIntent(consumptionanalysis,notifications);
+                setIntent(consumptionAnalyse,notifications);
         }
         });
     }
 
-    // the Method hands over all Informations of the Set Up Process to the Intent and the new Activity
-    private void setIntent(boolean consumptionanalysis, boolean notifications){
+    // the Method hands over all Information of the Set Up Process to the Intent and the new Activity
+    private void setIntent(boolean consumptionAnalysis, boolean notifications){
         Intent intent = new Intent(this, FeedActivity.class);
-        intent.putExtra(String.valueOf(InitialData.consumptionAnalysePermission),consumptionanalysis);
+        intent.putExtra(String.valueOf(InitialData.consumptionAnalysePermission),consumptionAnalysis);
         intent.putExtra(String.valueOf(InitialData.notificationAnalysePermission),notifications);
         intent.putExtra(String.valueOf(InitialData.interestsArrayList),interests);
-        //@TODO Social Media Array Liste übergeben
-        //initBeispiel();
-        //intent.putExtra(String.valueOf(InitialData.socialMediaArrayList),null);
+        //@TODO Social Media Arraylist übergeben
         startActivity(intent);
-    }
-
-    private void initBeispiel() {
-            SharedPreferences pref = getSharedPreferences("APP",0);
-            SharedPreferences.Editor ed = pref.edit();
-            ed.putBoolean("isInitalised",true);
-            ed.commit();
     }
 }
 

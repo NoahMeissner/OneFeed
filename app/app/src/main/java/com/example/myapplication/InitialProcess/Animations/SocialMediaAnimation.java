@@ -4,26 +4,24 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.os.Handler;
-import android.widget.ImageButton;
 
-import com.google.android.material.button.MaterialButton;
 
 
 @SuppressLint("ViewConstructor")
-public class SocialMediaAnimation extends ImageButton {
+public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatImageButton {
 
     /*
-    this class is responsible for providing the animation for the social media Fragement
+    this class is responsible for providing the animation for the social media Fragment
      */
 
-    private final Handler myhandler  = new Handler();
+    private final Handler myHandler = new Handler();
     private int minX =0;
     private int maxX =0;
     private int minY=0;
     private int maxY=0;
     private int xSpeed;
     private int ySpeed;
-    private long myDelay =70;
+    private final long myDelay =70;
 
     private final Runnable runnable = new Runnable() {
         @Override
@@ -38,7 +36,7 @@ public class SocialMediaAnimation extends ImageButton {
             }
             setX(getX()+xSpeed);
             setY(getY()+ySpeed);
-            myhandler.postDelayed(runnable,myDelay);
+            myHandler.postDelayed(runnable,myDelay);
         }
     };
 
@@ -54,21 +52,21 @@ public class SocialMediaAnimation extends ImageButton {
     }
 
 
-    public void setxSpeed(int xSpeed) {
+    public void setXSpeed(int xSpeed) {
         this.xSpeed = xSpeed;
     }
 
-    public void setySpeed(int ySpeed) {
+    public void setYSpeed(int ySpeed) {
         this.ySpeed = ySpeed;
     }
 
     public void animateBubbles(){
-        myhandler.removeCallbacks(runnable);
-        myhandler.postDelayed(runnable, myDelay);
+        myHandler.removeCallbacks(runnable);
+        myHandler.postDelayed(runnable, myDelay);
     }
 
     public void stopAnimation(){
-        myhandler.removeCallbacks(runnable);
+        myHandler.removeCallbacks(runnable);
     }
 
     public SocialMediaAnimation(Context context) {

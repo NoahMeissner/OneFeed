@@ -2,7 +2,6 @@ package com.example.myapplication.addNewQuelle.Fragement;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +15,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
-import com.example.myapplication.addNewQuelle.Quellen;
+import com.example.myapplication.addNewQuelle.SourceAdd;
 
-public class DeleteSourceFragement extends DialogFragment {
+import java.util.Objects;
+
+public class DeleteSourceFragment extends DialogFragment {
 
 
 
-    private Quellen quellen;
-    private InputDeleteSourceFragement inputDeleteSourceFragement;
+    private SourceAdd source;
+    private final InputDeleteSourceFragment inputDeleteSourceFragment;
 
-    public interface InputDeleteSourceFragement{
-        void inputDeleteSource(boolean result,Quellen quellen);
+    public interface InputDeleteSourceFragment {
+        void inputDeleteSource(boolean result, SourceAdd source);
     }
 
-    public DeleteSourceFragement(InputDeleteSourceFragement inputDeleteSourceFragement){
-        this.inputDeleteSourceFragement = inputDeleteSourceFragement;
+    public DeleteSourceFragment(InputDeleteSourceFragment inputDeleteSourceFragment){
+        this.inputDeleteSourceFragment = inputDeleteSourceFragment;
     }
 
 
@@ -41,9 +42,12 @@ public class DeleteSourceFragement extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View view =inflater.inflate(R.layout.delete_source_fragement, container, false);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initUI(view);
         initButtons(view);
         return view;
@@ -53,11 +57,11 @@ public class DeleteSourceFragement extends DialogFragment {
         Button buttonNo = view.findViewById(R.id.buttonND);
         Button buttonYes = view.findViewById(R.id.buttonYD);
         buttonNo.setOnClickListener(view1 -> {
-            inputDeleteSourceFragement.inputDeleteSource(false,quellen);
+            inputDeleteSourceFragment.inputDeleteSource(false, source);
             onStop();
         });
         buttonYes.setOnClickListener(view1 -> {
-            inputDeleteSourceFragement.inputDeleteSource(true,quellen);
+            inputDeleteSourceFragment.inputDeleteSource(true, source);
             onStop();
         });
     }
@@ -65,11 +69,11 @@ public class DeleteSourceFragement extends DialogFragment {
     private void initUI(View view) {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
         ImageView imageView = view.findViewById(R.id.deleteSourceImage);
-        textView.setText(quellen.getName());
-        imageView.setImageDrawable(quellen.getImage());
+        textView.setText(source.getName());
+        imageView.setImageDrawable(source.getImage());
     }
 
-    public void setQuellen(Quellen quellen) {
-        this.quellen = quellen;
+    public void setSource(SourceAdd source) {
+        this.source = source;
     }
 }

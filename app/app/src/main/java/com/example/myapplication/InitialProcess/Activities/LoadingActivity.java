@@ -3,13 +3,9 @@ package com.example.myapplication.InitialProcess.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.myapplication.FeedActivity;
-import com.example.myapplication.R;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -18,7 +14,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
 
 
-    private boolean isInitalised =false;
+    private boolean isInitialized =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +23,7 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     private void initUi() {
-        if(!isInitalised){
+        if(!isInitialized){
             Intent intent = new Intent(this, InitialActivity.class);
             startActivity(intent);
             return;

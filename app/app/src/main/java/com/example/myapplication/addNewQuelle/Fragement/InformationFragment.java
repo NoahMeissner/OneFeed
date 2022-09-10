@@ -15,7 +15,7 @@ import com.example.myapplication.R;
 
 import java.util.Objects;
 
-public class InformationenFragement extends DialogFragment {
+public class InformationFragment extends DialogFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

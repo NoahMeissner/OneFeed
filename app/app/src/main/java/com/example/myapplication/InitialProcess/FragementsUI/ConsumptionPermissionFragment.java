@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 
 
-public class Consumption_permission_fragement extends Fragment {
+public class ConsumptionPermissionFragment extends Fragment {
 
     /*
         This fragment shows the text of the permissions needed to analyse the consumption

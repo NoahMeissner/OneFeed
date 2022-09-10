@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragement;
-import com.example.myapplication.addNewQuelle.Fragement.EditQuellenFragement;
+import com.example.myapplication.addNewQuelle.Fragement.DeleteSourceFragment;
+import com.example.myapplication.addNewQuelle.Fragement.EditSourceFragment;
 import com.example.myapplication.addNewQuelle.Adapter.AdapterListAddActivity;
-import com.example.myapplication.addNewQuelle.Fragement.InformationenFragement;
+import com.example.myapplication.addNewQuelle.Fragement.InformationFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,48 +24,45 @@ import java.util.Objects;
 public class ADDActivity extends AppCompatActivity implements
         AdapterListAddActivity.OnItemClickListener,
         AdapterListAddActivity.longItemClickListener,
-        DeleteSourceFragement.InputDeleteSourceFragement,
-        EditQuellenFragement.SettingsChanges {
+        DeleteSourceFragment.InputDeleteSourceFragment,
+        EditSourceFragment.SettingsChanges {
 
     private final HashMap<String[],Drawable> hashMap = new HashMap<>();
-    private final HashMap<Categories,ArrayList<Quellen>> arrayListHashMap = new HashMap<>();
+    private final HashMap<Categories,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
-    private AdapterListAddActivity adapterInteressen;
+    private AdapterListAddActivity adapterInterests;
     private boolean click = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_addactivity);
         initUI();
     }
 
 
     // in this method all elements are initialized
     private void initUI() {
-        setContentView(R.layout.activity_addactivity);
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initHashMap();
-        editpictures();
-        initQuellen();
+        editPictures();
+        initSource();
         declareRecyclerView();
         initButton();
     }
 
 
-    // This Method initialise the Buttons to close the Actitivity and show the Information Fragement
+    // This Method initialise the Buttons to close the Activity and show the Information Fragment
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
         ImageButton backButton = findViewById(R.id.addback);
         buttonInformation.setOnClickListener(view -> {
-            InformationenFragement informationenFragement = new InformationenFragement();
-            informationenFragement.show(getSupportFragmentManager(),"openInformationFragement");
+            InformationFragment informationFragment = new InformationFragment();
+            informationFragment.show(getSupportFragmentManager(),"");
         });
-        backButton.setOnClickListener(view -> {
-            //@TODO zurück zum Home FEED
-            finish();
-        });
+        backButton.setOnClickListener(view -> finish());
     }
 
 
@@ -79,15 +76,15 @@ public class ADDActivity extends AppCompatActivity implements
                 recylerViewNP,
                 arrayListHashMap.get(Categories.Newspaper));
 
-        adapterInteressen = initRecyclerView(
+        adapterInterests = initRecyclerView(
                 recyclerViewIn,
-                arrayListHashMap.get(Categories.Interessen));
+                arrayListHashMap.get(Categories.Interests));
 
         adapterSocialMedia = initRecyclerView(
                 recylerViewSM,
                 arrayListHashMap.get(Categories.SocialMedia));
 
-        recyclerViewIn.setAdapter(adapterInteressen);
+        recyclerViewIn.setAdapter(adapterInterests);
         recylerViewSM.setAdapter(adapterSocialMedia);
         recylerViewNP.setAdapter(adapterNews);
     }
@@ -115,27 +112,27 @@ public class ADDActivity extends AppCompatActivity implements
                 Categories.news.Spiegel.name()},
                 getDrawable(R.drawable.spiegel));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Politik.name()},
                 getDrawable(R.drawable.world));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Wirtschaft.name()},
                 getDrawable(R.drawable.business));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Corona.name()},
                 getDrawable(R.drawable.coronavirus));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Technik.name()},
                 getDrawable(R.drawable.tech));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Gaming.name()},
                 getDrawable(R.drawable.sports));
 
-        hashMap.put(new String[]{Categories.Interessen.name(),
+        hashMap.put(new String[]{Categories.Interests.name(),
                 Categories.interests.Sport.name()},
                 getDrawable(R.drawable.sport));
     }
@@ -143,7 +140,7 @@ public class ADDActivity extends AppCompatActivity implements
 
     // With this method you can easily edit the images of the buttons
     @SuppressLint("ResourceAsColor")
-    private void editpictures(){
+    private void editPictures(){
         // Todo: simplify attr resolution?
         TypedArray a = getTheme().obtainStyledAttributes(
                 R.style.AppTheme, new int[] {androidx.appcompat.R.attr.colorPrimary}
@@ -159,43 +156,43 @@ public class ADDActivity extends AppCompatActivity implements
 
     //in this method the source objects are created
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initQuellen(){
-        arrayListHashMap.put(Categories.Interessen,new ArrayList<>());
+    private void initSource(){
+        arrayListHashMap.put(Categories.Interests,new ArrayList<>());
         arrayListHashMap.put(Categories.SocialMedia,new ArrayList<>());
         arrayListHashMap.put(Categories.Newspaper,new ArrayList<>());
         for(String[]s : hashMap.keySet()){
             if(s[0].equals(String.valueOf(Categories.SocialMedia))){
                 Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
-                        .add(new Quellen(s[1],hashMap.get(s),Categories.SocialMedia));
+                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.SocialMedia));
             }
             if(s[0].equals(String.valueOf(Categories.Newspaper))){
                 Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
-                        .add(new Quellen(s[1],hashMap.get(s),Categories.Newspaper));
+                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.Newspaper));
             }
-            if(s[0].equals(String.valueOf(Categories.Interessen))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen))
-                        .add(new Quellen(s[1],hashMap.get(s),Categories.Interessen));
+            if(s[0].equals(String.valueOf(Categories.Interests))){
+                Objects.requireNonNull(arrayListHashMap.get(Categories.Interests))
+                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.Interests));
             }
         }
         Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
-                .add(new Quellen(Categories.ADDButton.name(),
+                .add(new SourceAdd(Categories.ADDButton.name(),
                         getDrawable(R.drawable.add),
                         Categories.Newspaper));
 
         Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
-                .add(new Quellen(Categories.ADDButton.name(),
+                .add(new SourceAdd(Categories.ADDButton.name(),
                         getDrawable(R.drawable.add ),
                         Categories.SocialMedia));
 
-        Objects.requireNonNull(arrayListHashMap.get(Categories.Interessen))
-                .add(new Quellen(Categories.ADDButton.name(),
+        Objects.requireNonNull(arrayListHashMap.get(Categories.Interests))
+                .add(new SourceAdd(Categories.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Categories.Interessen));
+                        Categories.Interests));
     }
 
 
     // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
-    private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<Quellen> arrayList) {
+    private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
         return new AdapterListAddActivity(this, this,arrayList);
     }
@@ -204,55 +201,55 @@ public class ADDActivity extends AppCompatActivity implements
     //this method is inherited from the onclick listener here and
     // using it we can open the fragment depending on the button clicked
     @Override
-    public void onItemClick(Quellen quellen) {
+    public void onItemClick(SourceAdd source) {
         if(!click){
-            EditQuellenFragement edf = new EditQuellenFragement(this);
-            edf.setQuellen(quellen);
-            edf.setSettings(arrayListHashMap.get(quellen.getCategories()));
+            EditSourceFragment edf = new EditSourceFragment();
+            edf.setSource(source);
+            edf.setSettings(arrayListHashMap.get(source.getCategories()));
             edf.show(getSupportFragmentManager(),"");
             return;
         }
-        if(quellen.getName().equals(Categories.ADDButton.name())) return;
-        DeleteSourceFragement dSf = new DeleteSourceFragement(this);
-        dSf.setQuellen(quellen);
+        if(source.getName().equals(Categories.ADDButton.name())) return;
+        DeleteSourceFragment dSf = new DeleteSourceFragment(this);
+        dSf.setSource(source);
         dSf.show(getSupportFragmentManager(),"");
     }
 
 
     @Override
-    public void inputDeleteSource(boolean result, Quellen quellen) {
+    public void inputDeleteSource(boolean result, SourceAdd source) {
         setAnimation(false);
         click = false;
         if(result){
-            Objects.requireNonNull(arrayListHashMap.get(quellen.getCategories())).remove(quellen);
-            if(quellen.getCategories()== Categories.Interessen){
-                adapterInteressen.setQuellenArrayList(arrayListHashMap.get(quellen.getCategories()));
+            Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
+            if(source.getCategories()== Categories.Interests){
+                adapterInterests.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
                 return;
             }
-            if(quellen.getCategories()== Categories.SocialMedia){
-                adapterSocialMedia.setQuellenArrayList(arrayListHashMap.get(quellen.getCategories()));
+            if(source.getCategories()== Categories.SocialMedia){
+                adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
                 return;
             }
-            adapterNews.setQuellenArrayList(arrayListHashMap.get(quellen.getCategories()));
+            adapterNews.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
         }
     }
 
 
     private void setAnimation(boolean boo){
         for(Categories categories: arrayListHashMap.keySet()){
-            for(Quellen quellen: Objects.requireNonNull(arrayListHashMap.get(categories))){
-                quellen.setSetAnimation(boo);
+            for(SourceAdd source: Objects.requireNonNull(arrayListHashMap.get(categories))){
+                source.setSetAnimation(boo);
             }
             arrayListHashMap.put(categories,arrayListHashMap.get(categories));
         }
-        adapterSocialMedia.setQuellenArrayList(arrayListHashMap.get(Categories.SocialMedia));
-        adapterInteressen.setQuellenArrayList(arrayListHashMap.get(Categories.Interessen));
-        adapterNews.setQuellenArrayList(arrayListHashMap.get(Categories.Newspaper));
+        adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(Categories.SocialMedia));
+        adapterInterests.setSourceArrayList(arrayListHashMap.get(Categories.Interests));
+        adapterNews.setSourceArrayList(arrayListHashMap.get(Categories.Newspaper));
     }
 
 
     @Override
-    public void onLongClick(Quellen quellen) {
+    public void onLongClick(SourceAdd source) {
         if(!click){
             click = true;
             setAnimation(true);
@@ -264,7 +261,7 @@ public class ADDActivity extends AppCompatActivity implements
 
     
     @Override
-    public void getChangedQuellenArrayList(ArrayList<Quellen> quellenArrayList,Categories c) {
-        arrayListHashMap.put(c,quellenArrayList);
+    public void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Categories c) {
+        arrayListHashMap.put(c, sourceArrayList);
     }
 }

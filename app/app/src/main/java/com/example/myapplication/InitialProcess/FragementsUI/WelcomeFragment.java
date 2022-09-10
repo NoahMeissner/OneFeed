@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
-import com.example.myapplication.InitialProcess.Animations.TypriwriterAnimation;
+import com.example.myapplication.InitialProcess.Animations.TypewriterAnimation;
 
 
-public class Welcome_fragement extends Fragment {
+public class WelcomeFragment extends Fragment {
 
 
     @Override
@@ -29,10 +29,10 @@ public class Welcome_fragement extends Fragment {
     }
 
     private void initAnimation(View view){
-        TypriwriterAnimation typriwriterAnimation = view.findViewById(R.id.welcomeText);
-        typriwriterAnimation.setText("");
+        TypewriterAnimation typewriterAnimation = view.findViewById(R.id.welcomeText);
+        typewriterAnimation.setText("");
         long animationDelay = 150;
-        typriwriterAnimation.setCharacterDelay(animationDelay);
-        typriwriterAnimation.animateText(getResources().getString(R.string.willkommen));
+        typewriterAnimation.setCharacterDelay(animationDelay);
+        typewriterAnimation.animateText(getResources().getString(R.string.willkommen));
     }
 }

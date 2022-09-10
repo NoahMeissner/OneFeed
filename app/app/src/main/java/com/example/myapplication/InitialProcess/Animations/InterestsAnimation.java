@@ -4,19 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.google.android.material.button.MaterialButton;
 
 @SuppressLint("AppCompatCustomView")
-public class InteressenAnimation extends MaterialButton {
+public class InterestsAnimation extends MaterialButton {
 
     /*
-        this class is responsible for providing the animation for the InteressenFragement
+        this class is responsible for providing the animation for the InterestsFragment
 
      */
 
-    private final Handler myhandlerClick  = new Handler();
+    private final Handler myHandlerClick = new Handler();
     private long myDelay =5;
     private int minX =0;
     private int maxX =0;
@@ -26,13 +25,13 @@ public class InteressenAnimation extends MaterialButton {
     private int ySpeed=0;
     private final int spacing = 330;
 
-    // Animation wenn geklickt wird
+    // Animation wen geklickt wird
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
                 if(getX()>=minX && getX()<=maxX){
                     if (!(getY() >= minY) || !(getY() <= maxY)) {
-                        ySpeed = (int) (ySpeed * (-1));
+                        ySpeed = (ySpeed * (-1));
                     }
                 }
                 else{
@@ -40,14 +39,14 @@ public class InteressenAnimation extends MaterialButton {
                 }
                 setX(getX()+xSpeed);
                 setY(getY()+ySpeed);
-                myhandlerClick.postDelayed(runnable,myDelay);
+                myHandlerClick.postDelayed(runnable,myDelay);
                 myDelay++;
         }
     };
 
-    public void animateInteressenClick(){
-        myhandlerClick.removeCallbacks(runnable);
-        myhandlerClick.postDelayed(runnable, myDelay);
+    public void animateInterestsClick(){
+        myHandlerClick.removeCallbacks(runnable);
+        myHandlerClick.postDelayed(runnable, myDelay);
     }
 
     public void setDelay(long myDelay){
@@ -64,19 +63,19 @@ public class InteressenAnimation extends MaterialButton {
         this.maxY = maxY-2*spacing;
     }
 
-    public void setxSpeed(int xSpeed) {
+    public void setXSpeed(int xSpeed) {
         this.xSpeed = xSpeed;
     }
 
-    public void setySpeed(int ySpeed) {
+    public void setYSpeed(int ySpeed) {
         this.ySpeed =  ySpeed;
     }
 
-    public InteressenAnimation(Context context) {
+    public InterestsAnimation(Context context) {
         super(context);
     }
 
-    public InteressenAnimation(Context context, AttributeSet attrs) {
+    public InterestsAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

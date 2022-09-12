@@ -16,7 +16,7 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
     // Constants
     private CharSequence myText;
     private int myIndex;
-    private long myDelay = 150;
+    private final long myDelay = 150;
     private final Handler myHandler = new Handler();
 
 

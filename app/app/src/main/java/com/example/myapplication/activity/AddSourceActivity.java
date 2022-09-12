@@ -205,10 +205,10 @@ public class AddSourceActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(SourceAdd source) {
         if(!longSourceClick){
-            EditSourceFragment editSourceFragement = new EditSourceFragment();
-            editSourceFragement.setSource(source);
-            editSourceFragement.setSettings(arrayListHashMap.get(source.getCategories()));
-            editSourceFragement.show(getSupportFragmentManager(),"");
+            EditSourceFragment editSourceFragment = new EditSourceFragment();
+            editSourceFragment.setSource(source);
+            editSourceFragment.setSettings(arrayListHashMap.get(source.getCategories()));
+            editSourceFragment.show(getSupportFragmentManager(),"");
             return;
         }
         if(source.getName().equals(Category.ADDButton.name())) return;

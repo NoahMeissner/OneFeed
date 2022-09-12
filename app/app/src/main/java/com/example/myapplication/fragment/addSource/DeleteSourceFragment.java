@@ -46,7 +46,7 @@ public class DeleteSourceFragment extends DialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.delete_source_fragement, container, false);
+        View view =inflater.inflate(R.layout.fragement_delete_source, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initUI(view);
         initButtons(view);

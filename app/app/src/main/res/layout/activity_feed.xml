@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:toolbar="@layout/toolbar_feed"
+    app:toolbar="@layout/component_toolbar_feed"
     app:pageContentView="@layout/view_news_cards_recycler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

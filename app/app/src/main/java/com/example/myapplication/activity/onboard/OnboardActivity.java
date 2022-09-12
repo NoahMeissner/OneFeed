@@ -36,7 +36,7 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
     private void initUI() {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, WelcomeFragment.class, null)
+                .replace(R.id.initialframeLayout, WelcomeFragment.class, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("")
                 .commit();
@@ -45,19 +45,19 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
 
     // This Method ist responsible for the forwarding to the different set up steps
     private void initButton() {
-        Button button = findViewById(R.id.buttonWeiter);
+        Button button = findViewById(R.id.buttonFurther);
         button.setOnClickListener(view -> {
             switch (fragmentManager.getBackStackEntryCount()){
                 case 1:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, InterestsFragment.class, null)
+                            .replace(R.id.initialframeLayout, InterestsFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();
                     return;
                 case 2:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.frameLayout, SocialMediaFragment.class, null)
+                            .replace(R.id.initialframeLayout, SocialMediaFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();

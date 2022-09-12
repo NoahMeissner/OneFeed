@@ -65,7 +65,7 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
     private void initRecyclerArrayList() {
         if(Objects.equals(source.getName(), Category.ADDButton.name())){
             for(SourceAdd source: settings) {
-                if (!Objects.equals(source.getName(), Category.ADDButton.name()))
+                if (!source.getName().equals(Category.ADDButton.name()))
                     recyclerArrayList.add(source);
             }
             return;
@@ -84,7 +84,7 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
             textView.setText(source.getName());
         }
         else{
-            textView.setText("");
+            textView.setText(getResources().getString(R.string.newSourceHeadline));
             underline.setText("");
         }
     }

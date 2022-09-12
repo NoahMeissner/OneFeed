@@ -27,9 +27,12 @@ public class InterestsFragment extends Fragment {
     This method is responsible for querying interests
      */
 
+    // Constants
     private final Point size = new Point();
     private final HashMap<String, InterestsAnimation> buttons = new HashMap<>();
     private final ArrayList<String> results = new ArrayList<>();
+    private final int xSpeed = 1;
+    private final int ySpeed = 1;
     private int buttonSize=0;
     private OnDataPass dataPasser;
 
@@ -86,24 +89,25 @@ public class InterestsFragment extends Fragment {
 
     // This method sets the parameters for the animation, which is implemented in the Interests Animation class
     private void setAnimation(InterestsAnimation interestsAnimation, float x, float y){
-        int speedX =1;
-        int speedY =1;
-        interestsAnimation.setDelay(10);
+        /*
+        The field size for the animation is transferred here
+         */
         WindowManager windowManager = requireActivity().getWindowManager();
         windowManager.getDefaultDisplay().getSize(size);
         interestsAnimation.setXField(0,size.x);
         interestsAnimation.setYField(0,size.y);
+
         if(x<=interestsAnimation.getX()){
-            interestsAnimation.setXSpeed(speedX);
+            interestsAnimation.setXSpeed(xSpeed);
         }
         if(x>interestsAnimation.getX()){
-            interestsAnimation.setXSpeed(-speedX);
+            interestsAnimation.setXSpeed(-xSpeed);
         }
         if(y<=interestsAnimation.getY()){
-            interestsAnimation.setYSpeed(speedY);
+            interestsAnimation.setYSpeed(ySpeed);
         }
         if(y>interestsAnimation.getY()){
-            interestsAnimation.setYSpeed(-speedY);
+            interestsAnimation.setYSpeed(-ySpeed);
         }
         interestsAnimation.animateInterestsClick();
     }

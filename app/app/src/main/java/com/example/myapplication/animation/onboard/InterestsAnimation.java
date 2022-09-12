@@ -16,7 +16,7 @@ public class InterestsAnimation extends MaterialButton {
      */
 
     private final Handler myHandlerClick = new Handler();
-    private long myDelay =5;
+    private long myDelay =10;
     private int minX =0;
     private int maxX =0;
     private int minY=0;
@@ -49,9 +49,12 @@ public class InterestsAnimation extends MaterialButton {
         myHandlerClick.postDelayed(runnable, myDelay);
     }
 
+    /*
     public void setDelay(long myDelay){
         this.myDelay = myDelay;
     }
+
+     */
 
     public void setXField(int minX, int maxX) {
         this.minX = minX;

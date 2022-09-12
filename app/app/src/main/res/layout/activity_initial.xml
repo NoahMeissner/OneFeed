@@ -7,29 +7,19 @@
     tools:context=".activity.onboard.OnboardActivity">
 
     <Button
-        android:id="@+id/buttonWeiter"
-        android:layout_width="226dp"
-        android:layout_height="57dp"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/buttonFurther"
+        style="@style/initial_further_button_style"
         android:text="@string/buttonText"
-        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-        android:textAllCaps="false"
-        android:textAlignment="center"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="397dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="96dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/initialframeLayout"
+        style="@style/initial_framelayout_style"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="10dp">
-
+        tools:layout_editor_absoluteX="10dp"
+        app:layout_constraintBottom_toBottomOf="parent">
     </FrameLayout>
 
 

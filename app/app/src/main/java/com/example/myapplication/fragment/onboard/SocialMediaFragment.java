@@ -32,39 +32,51 @@ public class SocialMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_social_media_fragement, container, false);
-        initAnimation(view,R.id.imageRedditButton,xSpeed,ySpeed);
-        initAnimation(view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
+        organizeAnimation(view,R.id.imageRedditButton,xSpeed,ySpeed);
+        organizeAnimation(view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
         return view;
     }
 
 
-
-
+    /*
+    This class organises the animation of the social media buttons
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initAnimation(View view, int id, int xSpeed, int ySpeed){
+    private void organizeAnimation(View view, int id, int xSpeed, int ySpeed){
         WindowManager windowManager = requireActivity().getWindowManager();
         windowManager.getDefaultDisplay().getSize(size);
-        SocialMediaAnimation bubbleAnimation = view.findViewById(id);
-        // Todo: simplify attr resolution?
+        SocialMediaAnimation socialMediaAnimation = view.findViewById(id);
+        setBubbleAnimation(socialMediaAnimation, xSpeed,ySpeed );
+    }
+
+
+    /*
+    This method sets the animations for each individual object
+     */
+    private void setBubbleAnimation(SocialMediaAnimation socialMediaAnimation,int xSpeed, int ySpeed){
         TypedArray a = requireContext().getTheme().obtainStyledAttributes(
                 R.style.AppTheme, new int[] {androidx.appcompat.R.attr.colorPrimary}
         );
         int attributeResourceId = a.getResourceId(0, 0);
-        DrawableCompat.setTint(bubbleAnimation.getDrawable(), requireContext().getColor(attributeResourceId));
-        bubbleAnimation.setX(startPoint,size.x-spacing);
-        bubbleAnimation.setY(spacing,size.y-spacing-spacing);
-        bubbleAnimation.setXSpeed(xSpeed);
-        bubbleAnimation.setYSpeed(ySpeed);
-        bubbleAnimation.animateBubbles();
-        stopAnimation(bubbleAnimation);
+        DrawableCompat.setTint(socialMediaAnimation.getDrawable(), requireContext().getColor(attributeResourceId));
+        socialMediaAnimation.setX(startPoint,size.x-spacing);
+        socialMediaAnimation.setY(spacing,size.y-spacing-spacing);
+        socialMediaAnimation.setXSpeed(xSpeed);
+        socialMediaAnimation.setYSpeed(ySpeed);
+        socialMediaAnimation.animateBubbles();
+        stopAnimation(socialMediaAnimation);
     }
 
+
+    /*
+    This method stops the animation, with an clickListener
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void stopAnimation(SocialMediaAnimation bubbleAnimation) {
-        bubbleAnimation.setOnClickListener(view1 -> {
-            DrawableCompat.setTint(bubbleAnimation.getDrawable(),ContextCompat.getColor(requireContext(),R.color.white));
-            bubbleAnimation.stopAnimation();
-            bubbleAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
+    private void stopAnimation(SocialMediaAnimation socialMediaAnimation) {
+        socialMediaAnimation.setOnClickListener(view1 -> {
+            DrawableCompat.setTint(socialMediaAnimation.getDrawable(),ContextCompat.getColor(requireContext(),R.color.white));
+            socialMediaAnimation.stopAnimation();
+            socialMediaAnimation.setBackground(getResources().getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
         });
     }
 }

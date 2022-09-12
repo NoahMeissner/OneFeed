@@ -24,13 +24,6 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="article_card_source_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
     <style name="source_icon">
         <item name="android:layout_width">@dimen/article_source_dimensions</item>
         <item name="android:layout_height">@dimen/article_source_dimensions</item>

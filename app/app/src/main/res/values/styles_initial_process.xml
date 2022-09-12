@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="initial_further_button_style" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">226dp</item>
+        <item name="android:layout_height">57dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.ActionBar.Title</item>
+    </style>
+
+    <style name="initial_framelayout_style">
+        <item name="android:layout_width">397dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">96dp</item>
+    </style>
+
+    <style name="permission_button_yes">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="permission_button_no" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>

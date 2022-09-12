@@ -34,7 +34,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInterests;
-    private boolean click = false;
+    private boolean longSourceClick = false;
 
 
     @Override
@@ -70,25 +70,25 @@ public class AddSourceActivity extends AppCompatActivity implements
 
     // in this method the recycler view is initialized and passed to the initRecyclerView method
     private void declareRecyclerView(){
-        RecyclerView recylerViewSM = findViewById(R.id.recyclerViewQuellenSM);
-        RecyclerView recylerViewNP = findViewById(R.id.recyclerViewQuellenNP);
-        RecyclerView recyclerViewIn = findViewById(R.id.recyclerViewQuellenIn);
+        RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
+        RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
+        RecyclerView recyclerInterests = findViewById(R.id.recyclerViewQuellenIn);
 
         adapterNews = initRecyclerView(
-                recylerViewNP,
+                recyclerNewsPaper,
                 arrayListHashMap.get(Category.Newspaper));
 
         adapterInterests = initRecyclerView(
-                recyclerViewIn,
+                recyclerInterests,
                 arrayListHashMap.get(Category.Interests));
 
         adapterSocialMedia = initRecyclerView(
-                recylerViewSM,
+                recyclerSocialMedia,
                 arrayListHashMap.get(Category.SocialMedia));
 
-        recyclerViewIn.setAdapter(adapterInterests);
-        recylerViewSM.setAdapter(adapterSocialMedia);
-        recylerViewNP.setAdapter(adapterNews);
+        recyclerInterests.setAdapter(adapterInterests);
+        recyclerSocialMedia.setAdapter(adapterSocialMedia);
+        recyclerNewsPaper.setAdapter(adapterNews);
     }
 
 
@@ -204,11 +204,11 @@ public class AddSourceActivity extends AppCompatActivity implements
     // using it we can open the fragment depending on the button clicked
     @Override
     public void onItemClick(SourceAdd source) {
-        if(!click){
-            EditSourceFragment edf = new EditSourceFragment();
-            edf.setSource(source);
-            edf.setSettings(arrayListHashMap.get(source.getCategories()));
-            edf.show(getSupportFragmentManager(),"");
+        if(!longSourceClick){
+            EditSourceFragment editSourceFragement = new EditSourceFragment();
+            editSourceFragement.setSource(source);
+            editSourceFragement.setSettings(arrayListHashMap.get(source.getCategories()));
+            editSourceFragement.show(getSupportFragmentManager(),"");
             return;
         }
         if(source.getName().equals(Category.ADDButton.name())) return;
@@ -221,7 +221,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     @Override
     public void inputDeleteSource(boolean result, SourceAdd source) {
         setAnimation(false);
-        click = false;
+        longSourceClick = false;
         if(result){
             Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
             if(source.getCategories()== Category.Interests){
@@ -252,12 +252,12 @@ public class AddSourceActivity extends AppCompatActivity implements
 
     @Override
     public void onLongClick(SourceAdd source) {
-        if(!click){
-            click = true;
+        if(!longSourceClick){
+            longSourceClick = true;
             setAnimation(true);
             return;
         }
-        click = false;
+        longSourceClick = false;
         setAnimation(false);
     }
 

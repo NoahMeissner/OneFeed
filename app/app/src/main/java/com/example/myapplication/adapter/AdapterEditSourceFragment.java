@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AdapterEditSourceFragment extends
         RecyclerView.Adapter<ViewHolderEditSourceFragment>{
 
-    private ArrayList<SourceAdd> categories;
+    private ArrayList<SourceAdd> source;
     private final SourceSettingsChanged sourceSettingsChanged;
 
     public interface SourceSettingsChanged {
@@ -26,7 +26,7 @@ public class AdapterEditSourceFragment extends
 
 
     public AdapterEditSourceFragment(ArrayList<SourceAdd> categories, SourceSettingsChanged qSC){
-        this.categories = categories;
+        this.source = categories;
         this.sourceSettingsChanged = qSC;
     }
 
@@ -34,24 +34,24 @@ public class AdapterEditSourceFragment extends
     @Override
     public ViewHolderEditSourceFragment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.edit_quellen_icon,parent,false);
+                .inflate(R.layout.component_edit_quellen_icon,parent,false);
 
         return new ViewHolderEditSourceFragment(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderEditSourceFragment holder, int position) {
-        holder.bind(categories.get(position), sourceSettingsChanged,categories.size());
+        holder.bind(source.get(position), sourceSettingsChanged, source.size());
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setCategories(ArrayList<SourceAdd> categories) {
-        this.categories = categories;
+    public void setSource(ArrayList<SourceAdd> source) {
+        this.source = source;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return source.size();
     }
 }

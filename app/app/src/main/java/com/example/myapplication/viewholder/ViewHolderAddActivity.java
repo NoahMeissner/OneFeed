@@ -21,7 +21,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
     private final ImageView imageView;
     private final TextView textView;
     private final LinearLayout linearLayout;
-    private boolean click;
+    private boolean longSourceClick;
     private boolean setAnimation;
     private final AnimateLinearLayout animateLinearLayout = itemView
             .findViewById(R.id.frameLayout_icons_Quellen);
@@ -35,9 +35,10 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
     }
 
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {
-        textView.setText("");
+        imageView.setImageDrawable(source.getImage());
+        itemView.setOnClickListener( view -> listener.onItemClick(source));
         if(source.getAnimation()&&!Objects.equals(source.getName(), Category.ADDButton.name())){
-                animateLinearLayout.animateText();
+                animateLinearLayout.animateItems();
                 linearLayout.setVisibility(View.VISIBLE);
                 setAnimation = true;
             }
@@ -48,8 +49,9 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             if(!Objects.equals(source.getName(), Category.ADDButton.name())){
                 textView.setText(source.getName());
             }
-            imageView.setImageDrawable(source.getImage());
-            itemView.setOnClickListener( view -> listener.onItemClick(source));
+            if(Objects.equals(source.getName(), Category.ADDButton.name())){
+                textView.setText("");
+            }
     }
 
     public void bindLong(SourceAdd source, AdapterListAddActivity.
@@ -59,15 +61,15 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             if (Objects.equals(source.getName(), Category.ADDButton.name())){
                 return false;
             }
-            if(!click){
+            if(!longSourceClick){
                 longItemClickListener.onLongClick(source);
                 if(!Objects.equals(source.getName(), Category.ADDButton.name())){
                     linearLayout.setVisibility(View.VISIBLE);
                 }
-                click = true;
+                longSourceClick = true;
                 return true;
             }
-            click = false;
+            longSourceClick = false;
             longItemClickListener.onLongClick(source);
             return false;
         });

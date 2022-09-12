@@ -42,7 +42,7 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     @Override
     public ViewHolderAddActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.icons_quellen,
+                R.layout.component_icons_quellen,
                 parent,
                 false);
         return new ViewHolderAddActivity(view);

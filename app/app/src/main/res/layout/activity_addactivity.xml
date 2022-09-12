@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:title="@string/headlineQuellenActivity"
-        app:toolbar="@layout/addsite_component_toolbar"
+        app:toolbar="@layout/component_addsite_toolbar"
         app:pageContentView="@layout/view_add_activity">
 
     </com.example.myapplication.customView.AppBarCollapse>

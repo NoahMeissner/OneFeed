@@ -1,5 +1,6 @@
 package com.example.myapplication.viewholder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class ArticleCardViewHolder extends RecyclerView.ViewHolder {
         // Todo: Implement cards without image
         if (data.getImage() != null) {
             this.imageView.setImageBitmap(data.getImage());
+            Log.d("ArticleCardViewHolder", "bind: " + "image was loaded");
+        } else {
+            Log.d("ArticleCardViewHolder", "bind: " + "image is null");
         }
     }
 

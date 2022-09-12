@@ -3,9 +3,12 @@ package com.example.myapplication.activity.onboard;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
+import com.example.myapplication.data.addSource.Category;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -19,7 +22,15 @@ public class LoadingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initSharedPreferences();
         initUi();
+    }
+
+    private void initSharedPreferences() {
+        SharedPreferences pref = getSharedPreferences(getResources()
+                .getString(R.string.initProcesBoolean), 0);
+
+        isInitialized = pref.getBoolean(Category.initial.Process.name(),false);
     }
 
     private void initUi() {

@@ -23,23 +23,24 @@
             android:exported="false" />
         <activity
             android:name=".activity.onboard.OnboardActivity"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".activity.AddSourceActivity"
             android:exported="false" />
         <activity
             android:name=".activity.FeedActivity"
-            android:exported="true" >
+            android:exported="false" >
         </activity>
         <activity
             android:name=".activity.onboard.LoadingActivity"
             android:exported="true">
             android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>

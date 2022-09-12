@@ -2,10 +2,12 @@ package com.example.myapplication.activity.onboard;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.myapplication.activity.FeedActivity;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.fragment.onboard.ConsumptionPermissionFragment;
 import com.example.myapplication.fragment.onboard.NotificationPermissionFragment;
 import com.example.myapplication.data.onboard.OnboardingUserData;
@@ -86,11 +88,23 @@ public class PermissionsActivity extends AppCompatActivity {
     // the Method hands over all Information of the Set Up Process to the Intent and the new Activity
     private void setIntent(boolean consumptionAnalysis, boolean notifications){
         Intent intent = new Intent(this, FeedActivity.class);
-        intent.putExtra(String.valueOf(OnboardingUserData.consumptionAnalysePermission),consumptionAnalysis);
-        intent.putExtra(String.valueOf(OnboardingUserData.notificationAnalysePermission),notifications);
+        initSharedPreferences(consumptionAnalyse,notifications);
         intent.putExtra(String.valueOf(OnboardingUserData.interestsArrayList),interests);
         //@TODO Social Media Arraylist übergeben
         startActivity(intent);
+    }
+
+
+
+    private void initSharedPreferences(boolean consumptionAnalyse, boolean notifications) {
+        SharedPreferences pref = getSharedPreferences(getResources()
+                .getString(R.string.initProcesBoolean), 0);
+
+        SharedPreferences.Editor editPreferences = pref.edit();
+        editPreferences.putBoolean(Category.initial.Process.name(), true);
+        editPreferences.putBoolean(Category.initial.Notification.name(), notifications);
+        editPreferences.putBoolean(Category.initial.Consumptionanalyse.name(), consumptionAnalyse);
+        editPreferences.apply();
     }
 }
 

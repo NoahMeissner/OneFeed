@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,6 +53,17 @@ public class FeedActivity extends AppCompatActivity {
         // Dummy data setup
 //        setupDummyCards();
         initApi();
+        //@TODO Löschen
+        //killPreferences();
+    }
+
+    private void killPreferences() {
+        SharedPreferences pref = getSharedPreferences(getResources()
+                .getString(R.string.initProcesBoolean), 0);
+
+        SharedPreferences.Editor editPreferences = pref.edit();
+        editPreferences.clear();
+        editPreferences.commit();
     }
 
     private void initializeNavigationButtons() {

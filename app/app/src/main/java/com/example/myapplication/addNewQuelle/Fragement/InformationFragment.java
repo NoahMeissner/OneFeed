@@ -27,10 +27,6 @@ public class InformationFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.informationen_fragement, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        initUI();
         return view;
-    }
-
-    private void initUI() {
     }
 }

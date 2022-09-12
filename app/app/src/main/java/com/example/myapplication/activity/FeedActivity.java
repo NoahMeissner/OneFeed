@@ -50,7 +50,7 @@ public class FeedActivity extends AppCompatActivity {
         this.recycler.setAdapter(this.adapter);
 
         // Dummy data setup
-        setupDummyCards();
+//        setupDummyCards();
         initApi();
     }
 
@@ -76,7 +76,7 @@ public class FeedActivity extends AppCompatActivity {
                 "Twitter", "https://twitter.com/"
         );
         ArticleCard sampleArticleCard = new ArticleCard(
-                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now()
+                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now(), null
         );
         TwitterCard sampleTwitterCard = new TwitterCard(
             sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
@@ -109,7 +109,8 @@ public class FeedActivity extends AppCompatActivity {
                     NewsCard card = new ArticleCard(
                             rssArticle.getTitle(),
                             sampleArticleSource,
-                            LocalDateTime.now()
+                            LocalDateTime.now(),
+                            rssArticle.getBitmap()
                     );
                     cards.add(card);
                 }

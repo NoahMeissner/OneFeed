@@ -14,19 +14,19 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".InsightActivity"
+            android:name=".activity.InsightActivity"
             android:exported="false" />
         <activity
-            android:name=".InitialProcess.Activities.PermissionsActivity"
+            android:name=".activity.onboard.PermissionsActivity"
             android:exported="false" />
         <activity
-            android:name=".InitialProcess.Activities.InitialActivity"
+            android:name=".activity.onboard.OnboardActivity"
             android:exported="false" />
         <activity
-            android:name=".addNewQuelle.ADDActivity"
+            android:name=".activity.AddSourceActivity"
             android:exported="false" />
         <activity
-            android:name=".FeedActivity"
+            android:name=".activity.FeedActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InitialProcess.Activities.LoadingActivity"
+            android:name=".activity.onboard.LoadingActivity"
             android:exported="true">
             android:exported="true">
         </activity>

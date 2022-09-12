@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     >
 
-    <com.example.myapplication.addNewQuelle.AnimateLinearLayout
+    <com.example.myapplication.animation.addSource.AnimateLinearLayout
         android:layout_width="wrap_content"
         android:id="@+id/frameLayout_icons_Quellen"
         android:layout_height="wrap_content">
@@ -69,6 +69,6 @@
                 android:layout_weight="1"
                 app:srcCompat="@drawable/close" />
         </LinearLayout>
-    </com.example.myapplication.addNewQuelle.AnimateLinearLayout>
+    </com.example.myapplication.animation.addSource.AnimateLinearLayout>
 
 </FrameLayout>

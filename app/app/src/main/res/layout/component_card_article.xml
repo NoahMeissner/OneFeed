@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="@id/tweet_card_content_layout"
                 app:layout_constraintTop_toTopOf="@id/tweet_card_content_layout"/>
 
-            <com.example.myapplication.ui.components.NewsSource
+            <com.example.myapplication.customView.NewsSource
                 app:name="@string/sample_source_name"
                 app:sourceIcon="@drawable/sample_source_icon"
                 android:layout_width="match_parent"

@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".InsightActivity">
+    tools:context=".activity.InsightActivity">
 
-    <com.example.myapplication.ui.components.AppBar
+    <com.example.myapplication.customView.AppBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:title="@string/insight_activity_title"

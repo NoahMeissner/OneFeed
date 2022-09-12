@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.myapplication.data.insight.ReadingDay;
 import com.github.mikephil.charting.charts.BarChart;
@@ -16,10 +17,14 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.slider.Slider;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,19 +52,37 @@ public class InsightActivity extends AppCompatActivity {
         // Chart
         initializeChart();
         initializeChartControls();
+
+        // Settings
+        initializeSettings();
+    }
+
+    private void initializeSettings() {
+        MaterialSwitch limitArticlesSwitch = findViewById(R.id.insight_limit_articles_switch);
+        Slider limitArticlesSlider = findViewById(R.id.insight_limit_articles_slider);
+        TextView limitArticlesDescription = findViewById(R.id.insight_limit_articles_description);
+
+        // Todo: load preferences from settings
+        limitArticlesSwitch.setChecked(true);
+
+        limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) -> {
+            limitArticlesSlider.setEnabled(newValue);
+            limitArticlesDescription.setEnabled(newValue);
+        });
     }
 
     private void initializeChartControls() {
         // Views
-        Button chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
-        Button chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
-        Button chartYearButton = findViewById(R.id.insight_chart_toggle_year);
+        MaterialButton chartWeekButton = findViewById(R.id.insight_chart_toggle_week);
+        MaterialButton chartMonthButton = findViewById(R.id.insight_chart_toggle_month);
+        MaterialButton chartYearButton = findViewById(R.id.insight_chart_toggle_year);
 
         // Listeners
         LocalDateTime now = LocalDateTime.now();
         int currentDayOfYear = now.getDayOfYear();
 
         // Week button
+        chartWeekButton.setChecked(true);
         chartWeekButton.setOnClickListener(l -> activateWeekView(now, currentDayOfYear));
 
         // Month button
@@ -70,20 +93,25 @@ public class InsightActivity extends AppCompatActivity {
     }
 
     private void activateYearView(LocalDateTime now) {
+        float barWidth = ResourcesCompat.getFloat(
+                this.getResources(), R.dimen.insight_chart_bar_width_year
+        );
+
         int amountDaysInYear = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_YEAR);
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(1);
+        // no padding (value too large / small for chart because out of current year)
+        this.chart.getXAxis().setAxisMinimum(1); // barwidth for padding
         this.chart.getXAxis().setAxisMaximum(amountDaysInYear);
 
         // Format the labels according to months
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
-                LocalDateTime providedDate = now.withDayOfYear((int)value);
                 // Chart x-axis granularity has to be set to 1 for this to work:
                 // MPAndroidChart iterates through every x-value so float values should not
                 // be a possibility!
+                LocalDateTime providedDate = now.withDayOfYear((int)value);
                 return providedDate.getMonth().getDisplayName(
                         TextStyle.SHORT_STANDALONE, Locale.getDefault()
                 );
@@ -92,21 +120,26 @@ public class InsightActivity extends AppCompatActivity {
 
         if (this.chart.getXAxis().getLabelCount() != 12) {
             this.chart.getXAxis().setLabelCount(12);
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_year)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
         }
         refreshChart();
     }
 
     private void activateMonthView(LocalDateTime now, int currentDayOfYear) {
+        float barWidth = ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_month);
+
         int currentDayOfMonth = now.getDayOfMonth();
         int startOfCurrentMonth = currentDayOfYear - currentDayOfMonth;
         int amountDaysInMonth = Calendar.getInstance().getActualMaximum(Calendar.DATE);
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(startOfCurrentMonth);
-        this.chart.getXAxis().setAxisMaximum(startOfCurrentMonth + amountDaysInMonth);
+        float chartPaddingLeft = barWidth;
+        float chartPaddingRight = barWidth;
+        if (now.getMonth() == Month.JANUARY) chartPaddingLeft = 0;
+        if (now.getMonth() == Month.DECEMBER) chartPaddingRight = 0;
+
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentMonth - chartPaddingLeft);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentMonth + amountDaysInMonth + chartPaddingRight);
 
         // Format the labels according to days in a month
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -122,20 +155,25 @@ public class InsightActivity extends AppCompatActivity {
         // Displaying 30 dates would not fit the chart space
         if (this.chart.getXAxis().getLabelCount() != 15) {
             this.chart.getXAxis().setLabelCount(15);
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_month)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
         }
         refreshChart();
     }
 
     private void activateWeekView(LocalDateTime now, int currentDayOfYear) {
+        float barWidth = ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_week);
+
         int currentDayOfWeek = now.getDayOfWeek().getValue();
         int startOfCurrentWeek = currentDayOfYear - currentDayOfWeek + 1;
 
         // Adjust the axis min & max
-        this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek);
-        this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6); // 6 more days
+        float chartPaddingLeft = barWidth;
+        float chartPaddingRight = barWidth;
+        if (now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 7) chartPaddingLeft = 0;
+        if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 25) chartPaddingRight = 0;
+
+        this.chart.getXAxis().setAxisMinimum(startOfCurrentWeek - chartPaddingLeft);
+        this.chart.getXAxis().setAxisMaximum(startOfCurrentWeek + 6 + chartPaddingRight); // 6 more days
 
         // Format the labels according to weekdays
         this.chart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -157,9 +195,7 @@ public class InsightActivity extends AppCompatActivity {
         });
 
         if (this.chart.getXAxis().getLabelCount() != 7) {
-            this.chart.getBarData().setBarWidth(
-                    ResourcesCompat.getFloat(this.getResources(), R.dimen.insight_chart_bar_width_week)
-            );
+            this.chart.getBarData().setBarWidth(barWidth);
             this.chart.getXAxis().setLabelCount(7);
         }
 
@@ -177,6 +213,8 @@ public class InsightActivity extends AppCompatActivity {
         // Data
         List<BarEntry> sampleEntries = generateSampleEntries();
         BarDataSet dataSet = new BarDataSet(sampleEntries, "");
+        // Todo: set text color for night mode
+        dataSet.setValueTextColor(MaterialColors.getColor(chart, com.google.android.material.R.attr.colorOnSurface));
         dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
         // - axis dependency is required because the axis is being adjusted
         dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());

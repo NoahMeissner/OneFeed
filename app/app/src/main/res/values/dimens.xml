@@ -9,7 +9,8 @@
     <!--Feed Cards-->
     <dimen name="article_source_dimensions">17dp</dimen>
     <dimen name="article_card_height">136dp</dimen>
-    <dimen name="news_card_padding">16dp</dimen>
+    <dimen name="card_padding_horizontal">16dp</dimen>
+    <dimen name="card_padding_vertical">8dp</dimen>
     <dimen name="news_card_item_margin">12dp</dimen>
     <dimen name="tweet_card_profile_picture_dimensions">40dp</dimen>
 

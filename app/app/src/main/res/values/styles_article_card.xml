@@ -14,7 +14,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/news_card_padding</item>
+        <item name="android:padding">@dimen/card_padding_horizontal</item>
     </style>
 
     <style name="article_card_title" parent="TextAppearance.Material3.TitleSmall">

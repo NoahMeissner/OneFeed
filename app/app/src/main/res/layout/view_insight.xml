@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/app_padding">
 
+    <!--Chart-->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="420dp"
@@ -41,29 +42,74 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:singleSelection="true"
-                app:selectionRequired="true">
+                app:selectionRequired="true" >
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/insight_chart_toggle_week"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Woche" />
+                    android:text="@string/insight_chart_toggle_week"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/insight_chart_toggle_month"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monat" />
+                    android:text="@string/insight_chart_toggle_month" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/insight_chart_toggle_year"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jahr" />
+                    android:text="@string/insight_chart_toggle_year" />
+                
             </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--Settings-->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/insight_show_articles_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/card_padding_horizontal"
+            android:paddingVertical="@dimen/card_padding_vertical">
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/insight_limit_articles_switch"
+                android:text="Angezeigte Artikel pro Tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/insight_limit_articles_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:valueFrom="1"
+                android:value="10"
+                android:valueTo="50"
+                android:stepSize="1"/>
+
+            <TextView
+                android:id="@+id/insight_limit_articles_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/insight_shown_articles_tooltip"
+                style="@style/TextAppearance.Material3.LabelSmall"
+                android:layout_marginBottom="8dp"/>
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

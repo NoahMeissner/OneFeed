@@ -6,10 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
+import com.example.myapplication.api.rss.RSSApiRequest;
+import com.example.myapplication.api.rss.RSSArticle;
+import com.example.myapplication.api.rss.RSSUrls;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.feed.NewsSource;
 import com.example.myapplication.data.card.NewsCard;
@@ -19,6 +24,7 @@ import com.example.myapplication.adapter.NewsCardListAdapter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -45,6 +51,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // Dummy data setup
         setupDummyCards();
+        initApi();
     }
 
     private void initializeNavigationButtons() {
@@ -81,6 +88,21 @@ public class FeedActivity extends AppCompatActivity {
                 sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
                 ));
         this.adapter.updateItems(sampleCards);
+    }
+
+
+    private void initApi() {
+        HashMap<Category,String> url = new HashMap<>();
+        RSSUrls rssUrls = new RSSUrls();
+        HashMap<Category.news,String> corona = rssUrls.getCategory(Category.interests.Politik);
+
+        RSSApiRequest rssApiRequest = new RSSApiRequest();
+        rssApiRequest.makeRSSCategory(corona, this, new RSSApiRequest.onResult() {
+            @Override
+            public void result(ArrayList<RSSArticle> rssArticles) {
+                Log.d("Hello", String.valueOf(rssArticles.size()));
+            }
+        });
     }
 
     @Override

@@ -11,18 +11,18 @@ public class SourceAdd {
 
     private final Drawable image;
     private final String name;
-    private final Categories categories;
+    private final Category categories;
     private boolean notification;
     private boolean enabled;
     private boolean setAnimation = false;
 
-    public SourceAdd(String name, Drawable image, Categories categories){
+    public SourceAdd(String name, Drawable image, Category categories){
         this.name = name;
         this.image = image;
         this.categories = categories;
     }
 
-    public Categories getCategories() {
+    public Category getCategories() {
         return categories;
     }
 

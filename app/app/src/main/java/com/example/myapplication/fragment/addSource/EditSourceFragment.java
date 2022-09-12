@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Categories;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
 import com.example.myapplication.data.addSource.SourceAdd;
 
@@ -34,7 +34,7 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
      */
 
     public interface SettingsChanges{
-        void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Categories categories);
+        void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Category categories);
     }
 
 
@@ -63,9 +63,9 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
 
 
     private void initRecyclerArrayList() {
-        if(Objects.equals(source.getName(), Categories.ADDButton.name())){
+        if(Objects.equals(source.getName(), Category.ADDButton.name())){
             for(SourceAdd source: settings) {
-                if (!Objects.equals(source.getName(), Categories.ADDButton.name()))
+                if (!Objects.equals(source.getName(), Category.ADDButton.name()))
                     recyclerArrayList.add(source);
             }
             return;
@@ -80,7 +80,7 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
         imageView.setImageDrawable(source.getImage());
-        if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+        if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
         }
         else{

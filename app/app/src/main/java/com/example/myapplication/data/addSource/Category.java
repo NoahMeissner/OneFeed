@@ -1,6 +1,6 @@
 package com.example.myapplication.data.addSource;
 
-public enum Categories {
+public enum Category {
     SocialMedia,
     Newspaper,
     Interests,

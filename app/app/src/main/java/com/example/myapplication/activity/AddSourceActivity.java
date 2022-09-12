@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Categories;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
@@ -30,7 +30,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         EditSourceFragment.SettingsChanges {
 
     private final HashMap<String[],Drawable> hashMap = new HashMap<>();
-    private final HashMap<Categories,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
+    private final HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInterests;
@@ -76,15 +76,15 @@ public class AddSourceActivity extends AppCompatActivity implements
 
         adapterNews = initRecyclerView(
                 recylerViewNP,
-                arrayListHashMap.get(Categories.Newspaper));
+                arrayListHashMap.get(Category.Newspaper));
 
         adapterInterests = initRecyclerView(
                 recyclerViewIn,
-                arrayListHashMap.get(Categories.Interests));
+                arrayListHashMap.get(Category.Interests));
 
         adapterSocialMedia = initRecyclerView(
                 recylerViewSM,
-                arrayListHashMap.get(Categories.SocialMedia));
+                arrayListHashMap.get(Category.SocialMedia));
 
         recyclerViewIn.setAdapter(adapterInterests);
         recylerViewSM.setAdapter(adapterSocialMedia);
@@ -97,45 +97,45 @@ public class AddSourceActivity extends AppCompatActivity implements
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initHashMap(){
         hashMap.put( new String[]{
-                        Categories.SocialMedia.name(),
-                        Categories.socialMedia.Twitter.name()},
+                        Category.SocialMedia.name(),
+                        Category.socialMedia.Twitter.name()},
                 getDrawable(R.drawable.twitter_icon)
         );
 
-        hashMap.put(new String[]{Categories.SocialMedia.name(),
-                        Categories.socialMedia.Reddit.name()},
+        hashMap.put(new String[]{Category.SocialMedia.name(),
+                        Category.socialMedia.Reddit.name()},
                         getDrawable(R.drawable.reddit));
 
-        hashMap.put(new String[]{Categories.Newspaper.name(),
-                Categories.news.FAZ.name()},
+        hashMap.put(new String[]{Category.Newspaper.name(),
+                Category.news.FAZ.name()},
                 getDrawable(R.drawable.faz));
 
-        hashMap.put(new String[]{Categories.Newspaper.name(),
-                Categories.news.Spiegel.name()},
+        hashMap.put(new String[]{Category.Newspaper.name(),
+                Category.news.Spiegel.name()},
                 getDrawable(R.drawable.spiegel));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Politik.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Politik.name()},
                 getDrawable(R.drawable.world));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Wirtschaft.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Wirtschaft.name()},
                 getDrawable(R.drawable.business));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Corona.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Corona.name()},
                 getDrawable(R.drawable.coronavirus));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Technik.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Technik.name()},
                 getDrawable(R.drawable.tech));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Gaming.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Gaming.name()},
                 getDrawable(R.drawable.sports));
 
-        hashMap.put(new String[]{Categories.Interests.name(),
-                Categories.interests.Sport.name()},
+        hashMap.put(new String[]{Category.Interests.name(),
+                Category.interests.Sport.name()},
                 getDrawable(R.drawable.sport));
     }
 
@@ -149,7 +149,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         );
         int attributeResourceId = a.getResourceId(0, 0);
         for(String[] s: hashMap.keySet()){
-            if(!Objects.equals(s[0], String.valueOf(Categories.Newspaper))){
+            if(!Objects.equals(s[0], String.valueOf(Category.Newspaper))){
                 Objects.requireNonNull(hashMap.get(s)).setTint(getColor(attributeResourceId));
             }
         }
@@ -159,37 +159,37 @@ public class AddSourceActivity extends AppCompatActivity implements
     //in this method the source objects are created
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initSource(){
-        arrayListHashMap.put(Categories.Interests,new ArrayList<>());
-        arrayListHashMap.put(Categories.SocialMedia,new ArrayList<>());
-        arrayListHashMap.put(Categories.Newspaper,new ArrayList<>());
+        arrayListHashMap.put(Category.Interests,new ArrayList<>());
+        arrayListHashMap.put(Category.SocialMedia,new ArrayList<>());
+        arrayListHashMap.put(Category.Newspaper,new ArrayList<>());
         for(String[]s : hashMap.keySet()){
-            if(s[0].equals(String.valueOf(Categories.SocialMedia))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
-                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.SocialMedia));
+            if(s[0].equals(String.valueOf(Category.SocialMedia))){
+                Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia))
+                        .add(new SourceAdd(s[1],hashMap.get(s), Category.SocialMedia));
             }
-            if(s[0].equals(String.valueOf(Categories.Newspaper))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
-                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.Newspaper));
+            if(s[0].equals(String.valueOf(Category.Newspaper))){
+                Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper))
+                        .add(new SourceAdd(s[1],hashMap.get(s), Category.Newspaper));
             }
-            if(s[0].equals(String.valueOf(Categories.Interests))){
-                Objects.requireNonNull(arrayListHashMap.get(Categories.Interests))
-                        .add(new SourceAdd(s[1],hashMap.get(s),Categories.Interests));
+            if(s[0].equals(String.valueOf(Category.Interests))){
+                Objects.requireNonNull(arrayListHashMap.get(Category.Interests))
+                        .add(new SourceAdd(s[1],hashMap.get(s), Category.Interests));
             }
         }
-        Objects.requireNonNull(arrayListHashMap.get(Categories.Newspaper))
-                .add(new SourceAdd(Categories.ADDButton.name(),
+        Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper))
+                .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Categories.Newspaper));
+                        Category.Newspaper));
 
-        Objects.requireNonNull(arrayListHashMap.get(Categories.SocialMedia))
-                .add(new SourceAdd(Categories.ADDButton.name(),
+        Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia))
+                .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add ),
-                        Categories.SocialMedia));
+                        Category.SocialMedia));
 
-        Objects.requireNonNull(arrayListHashMap.get(Categories.Interests))
-                .add(new SourceAdd(Categories.ADDButton.name(),
+        Objects.requireNonNull(arrayListHashMap.get(Category.Interests))
+                .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Categories.Interests));
+                        Category.Interests));
     }
 
 
@@ -211,7 +211,7 @@ public class AddSourceActivity extends AppCompatActivity implements
             edf.show(getSupportFragmentManager(),"");
             return;
         }
-        if(source.getName().equals(Categories.ADDButton.name())) return;
+        if(source.getName().equals(Category.ADDButton.name())) return;
         DeleteSourceFragment dSf = new DeleteSourceFragment(this);
         dSf.setSource(source);
         dSf.show(getSupportFragmentManager(),"");
@@ -224,11 +224,11 @@ public class AddSourceActivity extends AppCompatActivity implements
         click = false;
         if(result){
             Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
-            if(source.getCategories()== Categories.Interests){
+            if(source.getCategories()== Category.Interests){
                 adapterInterests.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
                 return;
             }
-            if(source.getCategories()== Categories.SocialMedia){
+            if(source.getCategories()== Category.SocialMedia){
                 adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
                 return;
             }
@@ -238,15 +238,15 @@ public class AddSourceActivity extends AppCompatActivity implements
 
 
     private void setAnimation(boolean boo){
-        for(Categories categories: arrayListHashMap.keySet()){
+        for(Category categories: arrayListHashMap.keySet()){
             for(SourceAdd source: Objects.requireNonNull(arrayListHashMap.get(categories))){
                 source.setSetAnimation(boo);
             }
             arrayListHashMap.put(categories,arrayListHashMap.get(categories));
         }
-        adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(Categories.SocialMedia));
-        adapterInterests.setSourceArrayList(arrayListHashMap.get(Categories.Interests));
-        adapterNews.setSourceArrayList(arrayListHashMap.get(Categories.Newspaper));
+        adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(Category.SocialMedia));
+        adapterInterests.setSourceArrayList(arrayListHashMap.get(Category.Interests));
+        adapterNews.setSourceArrayList(arrayListHashMap.get(Category.Newspaper));
     }
 
 
@@ -263,7 +263,7 @@ public class AddSourceActivity extends AppCompatActivity implements
 
     
     @Override
-    public void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Categories c) {
+    public void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Category c) {
         arrayListHashMap.put(c, sourceArrayList);
     }
 }

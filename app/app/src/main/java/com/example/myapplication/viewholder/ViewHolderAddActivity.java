@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.animation.addSource.AnimateLinearLayout;
-import com.example.myapplication.data.addSource.Categories;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
 
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {
         textView.setText("");
-        if(source.getAnimation()&&!Objects.equals(source.getName(), Categories.ADDButton.name())){
+        if(source.getAnimation()&&!Objects.equals(source.getName(), Category.ADDButton.name())){
                 animateLinearLayout.animateText();
                 linearLayout.setVisibility(View.VISIBLE);
                 setAnimation = true;
@@ -45,7 +45,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
                 animateLinearLayout.stopAnimation();
                 linearLayout.setVisibility(View.GONE);
             }
-            if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+            if(!Objects.equals(source.getName(), Category.ADDButton.name())){
                 textView.setText(source.getName());
             }
             imageView.setImageDrawable(source.getImage());
@@ -56,12 +56,12 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             longItemClickListener longItemClickListener) {
 
         itemView.setOnLongClickListener(view -> {
-            if (Objects.equals(source.getName(), Categories.ADDButton.name())){
+            if (Objects.equals(source.getName(), Category.ADDButton.name())){
                 return false;
             }
             if(!click){
                 longItemClickListener.onLongClick(source);
-                if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+                if(!Objects.equals(source.getName(), Category.ADDButton.name())){
                     linearLayout.setVisibility(View.VISIBLE);
                 }
                 click = true;

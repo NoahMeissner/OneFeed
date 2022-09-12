@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
-import com.example.myapplication.data.addSource.Categories;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
@@ -30,7 +30,7 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
     public void bind(SourceAdd source, AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged, int size) {
         //@TODO Bug wen nur ein Element in Reihe Add Button zeigt nicht das richtige an
         //@TODO switch bearbeiten switch eintrag zu speichern
-        if(size<=1 && !Objects.equals(source.getName(), Categories.ADDButton.name())){
+        if(size<=1 && !Objects.equals(source.getName(), Category.ADDButton.name())){
             String setNotification = "Notification";
             textView.setText(setNotification);
                 aSwitch.setChecked(source.isNotification());

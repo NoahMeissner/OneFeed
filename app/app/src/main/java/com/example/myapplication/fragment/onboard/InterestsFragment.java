@@ -14,7 +14,7 @@ import android.view.WindowManager;
 
 import com.example.myapplication.animation.onboard.InterestsAnimation;
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Categories;
+import com.example.myapplication.data.addSource.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,27 +56,27 @@ public class InterestsFragment extends Fragment {
     // This method initializes all buttons representing the interests
     private void initButtons(View view){
         buttons.put(
-                String.valueOf(Categories.interests.Politik),
+                String.valueOf(Category.interests.Politik),
                 view.findViewById(R.id.buttonKategoriePolitik));
 
         buttons.put(
-                String.valueOf(Categories.interests.Corona),
+                String.valueOf(Category.interests.Corona),
                 view.findViewById(R.id.buttonKategorieCorona));
 
         buttons.put(
-                String.valueOf(Categories.interests.Gaming),
+                String.valueOf(Category.interests.Gaming),
                 view.findViewById(R.id.buttonKategorieGaming));
 
         buttons.put(String.valueOf(
-                Categories.interests.Technik),
+                Category.interests.Technik),
                 view.findViewById(R.id.buttonKategorieTechnik));
 
         buttons.put(
-                String.valueOf(Categories.interests.Wirtschaft),
+                String.valueOf(Category.interests.Wirtschaft),
                 view.findViewById(R.id.buttonKategorieWirtschaft));
 
         buttons.put(
-                String.valueOf(Categories.interests.Sport),
+                String.valueOf(Category.interests.Sport),
                 view.findViewById(R.id.buttonKategorieSport));
 
         for(String s:buttons.keySet()){

@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.myapplication.ui.components.AppBarCollapse
+    <com.example.myapplication.customView.AppBarCollapse
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:title="@string/headlineQuellenActivity"
         app:toolbar="@layout/addsite_component_toolbar"
         app:pageContentView="@layout/view_add_activity">
 
-    </com.example.myapplication.ui.components.AppBarCollapse>
+    </com.example.myapplication.customView.AppBarCollapse>
 
 
 

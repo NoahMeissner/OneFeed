@@ -1,6 +1,6 @@
 package com.example.myapplication.data.card;
 
-import com.example.myapplication.data.NewsSource;
+import com.example.myapplication.data.feed.NewsSource;
 
 import java.time.LocalDateTime;
 

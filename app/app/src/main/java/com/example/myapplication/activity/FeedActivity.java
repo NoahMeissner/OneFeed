@@ -100,9 +100,24 @@ public class FeedActivity extends AppCompatActivity {
         rssApiRequest.makeRSSCategory(corona, this, new RSSApiRequest.onResult() {
             @Override
             public void result(ArrayList<RSSArticle> rssArticles) {
-                Log.d("Hello", String.valueOf(rssArticles.size()));
+                NewsSource sampleArticleSource = new NewsSource(
+                        "Spiegel", "https://www.spiegel.de/"
+                );
+
+                ArrayList<NewsCard> cards = new ArrayList<>();
+                for (RSSArticle rssArticle : rssArticles) {
+                    NewsCard card = new ArticleCard(
+                            rssArticle.getTitle(),
+                            sampleArticleSource,
+                            LocalDateTime.now()
+                    );
+                    cards.add(card);
+                }
+                adapter.updateItems(cards);
             }
         });
+
+
     }
 
     @Override

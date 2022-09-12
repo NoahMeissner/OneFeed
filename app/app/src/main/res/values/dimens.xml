@@ -1,0 +1,20 @@
+<resources>
+    <dimen name="app_padding">16dp</dimen>
+
+    <!--Title bar-->
+    <dimen name="app_bar_height">320dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <!--Feed Cards-->
+    <dimen name="article_source_dimensions">17dp</dimen>
+    <dimen name="article_card_height">136dp</dimen>
+    <dimen name="news_card_padding">16dp</dimen>
+    <dimen name="news_card_item_margin">12dp</dimen>
+    <dimen name="tweet_card_profile_picture_dimensions">40dp</dimen>
+
+    <!--Chart-->
+    <dimen name="insight_chart_bar_width_week" format="float">0.3</dimen>
+    <dimen name="insight_chart_bar_width_month" format="float">0.5</dimen>
+    <dimen name="insight_chart_bar_width_year" format="float">1.5</dimen>
+</resources>

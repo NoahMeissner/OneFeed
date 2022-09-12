@@ -7,21 +7,37 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/onefeedpicture"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/onefeedpicture"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".InsightActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InitialProcess.Activities.PermissionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InitialProcess.Activities.InitialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".addNewQuelle.ADDActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FeedActivity"
+            android:exported="true" />
+        <activity
+            android:name=".InitialProcess.Activities.LoadingActivity"
+            android:exported="true">
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="380dp"
+    android:layout_height="250dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="28dp"
+    app:shapeAppearanceOverlay="?attr/shapeAppearanceMediumComponent"
+    app:backgroundInsetStart="24dp"
+    app:backgroundInsetEnd="24dp"
+    app:backgroundInsetTop="80dp"
+    app:backgroundInsetBottom="80dp"
+    android:background="?attr/colorSurface"
+    app:shapeAppearance="?attr/shapeAppearanceMediumComponent">
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/imageQuellenAdd"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+
+            <TextView
+                android:id="@+id/headlineQuellenAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="faslkjfaslkfj"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewHeadlineQuellenAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/settings"
+            android:textColor="?attr/colorPrimary"
+            style="@style/TextAppearance.Material3.ActionBar.Title"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/space"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEditQuellenFragement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHeadlineQuellenAdd">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

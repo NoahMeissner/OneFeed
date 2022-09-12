@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/article_card_layout"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            style="@style/article_card_image"
+            android:id="@+id/tweet_card_profile_picture"
+            android:src="@drawable/sample_picture"
+            android:contentDescription="@string/content_description_article_image" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/article_card_content"
+            android:id="@+id/tweet_card_content_layout">
+
+            <TextView
+                style="@style/article_card_title"
+                android:id="@+id/article_card_title"
+                android:text="@string/lorem_ipsum"
+                app:layout_constraintStart_toStartOf="@id/tweet_card_content_layout"
+                app:layout_constraintTop_toTopOf="@id/tweet_card_content_layout"/>
+
+            <com.example.myapplication.ui.components.NewsSource
+                app:name="@string/sample_source_name"
+                app:sourceIcon="@drawable/sample_source_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/tweet_card_content_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

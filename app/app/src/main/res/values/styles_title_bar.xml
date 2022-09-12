@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="toolbar_icon_button">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:tint">?attr/colorSecondaryVariant</item>
+    </style>
+
+    <style name="app_bar_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:paddingHorizontal">@dimen/app_padding</item>
+    </style>
+
+    <style name="app_bar_collapse_layout" parent="app_bar_layout">
+        <item name="android:layout_height">@dimen/app_bar_height</item>
+    </style>
+
+    <style name="title_bar_collapse_toolbar_layout"
+        parent="Widget.Material3.CollapsingToolbar.Large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="title_bar_title_style" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

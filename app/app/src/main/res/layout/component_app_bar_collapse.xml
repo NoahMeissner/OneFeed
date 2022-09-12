@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        style="@style/app_bar_collapse_layout">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="@style/title_bar_collapse_toolbar_layout"
+            android:id="@+id/toolbar_collapse_layout"
+            app:collapsedTitleGravity="center|center"
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:expandedTitleTextAppearance="@style/title_bar_title_style"
+            app:expandedTitleGravity="center|center"
+            app:expandedTitleTextColor="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="scale"
+            app:toolbarId="@+id/toolbar_collapse">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_collapse"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_collapseMode="pin">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!--Toolbar icons-->
+                <ViewStub
+                    android:id="@+id/toolbar_collapse_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ViewStub
+        android:id="@+id/app_bar_collapse_page_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

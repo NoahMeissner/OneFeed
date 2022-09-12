@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tweet_card_source_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        style="@style/source_icon"
+        android:id="@+id/fragment_source_icon"
+        android:contentDescription="@string/content_description_article_source"
+        android:src="@drawable/ic_twitter"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        style="@style/source_name"
+        android:id="@+id/fragment_source_name"
+        android:text="@string/source_twitter" />
+
+</LinearLayout>

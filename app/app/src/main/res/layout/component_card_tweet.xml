@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/tweet_card_card_layout"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/news_card_padding">
+
+        <!--Container for the image to provide circular shape-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                style="@style/tweet_card_profile_picture"
+                android:id="@+id/tweet_card_profile_picture"
+                android:src="@drawable/sample_picture" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Space
+            android:layout_width="@dimen/news_card_padding"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            style="@style/tweet_card_content_layout"
+            android:id="@+id/tweet_card_content_layout">
+
+            <!--Author information-->
+            <LinearLayout
+                style="@style/tweet_card_author_layout"
+                android:id="@+id/tweet_card_author_layout">
+
+                <!--Tweet author-->
+                <TextView
+                    style="@style/tweet_card_author_name"
+                    android:id="@+id/tweet_card_author_name"
+                    android:text="@string/lorem_ipsum" />
+
+                <Space
+                    android:layout_width="4dp"
+                    android:layout_height="0dp" />
+
+                <!--Twitter handle-->
+                <TextView
+                    style="@style/tweet_card_author_tag"
+                    android:id="@+id/tweet_card_author_handle"
+                    android:text="@string/lorem_ipsum" />
+
+            </LinearLayout>
+
+            <!--Content-->
+            <TextView
+                style="@style/tweet_card_content"
+                android:id="@+id/article_card_title"
+                android:text="@string/lorem_ipsum_long" />
+
+            <!--Source-->
+            <com.example.myapplication.ui.components.NewsSource
+                app:name="@string/source_twitter"
+                app:sourceIcon="@drawable/ic_twitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

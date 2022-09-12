@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/addback"
+        style="@style/toolbar_icon_button"
+        android:src="@drawable/back_arrow"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/addInfo"
+        style="@style/toolbar_icon_button"
+        android:src="@drawable/informationicon"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</LinearLayout>

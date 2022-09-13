@@ -97,22 +97,8 @@ public class FeedActivity extends AppCompatActivity {
         HashMap<Category.news,String> corona = rssUrls.getCategory(Category.interests.Politik);
 
         RSSApiRequest rssApiRequest = new RSSApiRequest();
-        rssApiRequest.makeRSSCategory(corona, this, rssArticles -> {
-            NewsSource sampleArticleSource = new NewsSource(
-                    "Spiegel", "https://www.spiegel.de/"
-            );
-
-            ArrayList<NewsCard> cards = new ArrayList<>();
-            for (RSSArticle rssArticle : rssArticles) {
-                NewsCard card = new ArticleCard(
-                        rssArticle.getTitle(),
-                        sampleArticleSource,
-                        LocalDateTime.now(),
-                        rssArticle.getBitmap()
-                );
-                cards.add(card);
-            }
-            adapter.updateItems(cards);
+        rssApiRequest.makeRSSCategory(corona, this, articleResults -> {
+            adapter.updateItems(articleResults);
         });
 
 

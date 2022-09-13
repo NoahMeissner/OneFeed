@@ -4,25 +4,21 @@ import android.graphics.Bitmap;
 
 import com.example.myapplication.data.addSource.Category;
 
+import java.time.LocalDateTime;
+
 public class RSSArticle {
 
     private String title;
     private Category.news category;
     private String iconUrl;
-    private Bitmap bitmap;
 
-    public RSSArticle(String title, Category.news category, String iconUrl){
+    private LocalDateTime publicationDate;
+
+    public RSSArticle(String title, Category.news category, String iconUrl, LocalDateTime publicationDate) {
+        this.title = title;
         this.category = category;
         this.iconUrl = iconUrl;
-        this.title = title;
-    }
-
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        this.publicationDate = publicationDate;
     }
 
     public String getTitle() {
@@ -35,5 +31,13 @@ public class RSSArticle {
 
     public String getIconUrl() {
         return iconUrl;
+    }
+
+    public LocalDateTime getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }

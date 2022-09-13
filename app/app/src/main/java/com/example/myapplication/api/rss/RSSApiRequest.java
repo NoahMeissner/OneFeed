@@ -1,11 +1,6 @@
 package com.example.myapplication.api.rss;
-import com.example.myapplication.data.addSource.Category;
-
-
-
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -13,6 +8,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.card.ArticleCard;
+import com.example.myapplication.data.card.NewsCard;
+import com.example.myapplication.data.feed.NewsSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +19,14 @@ import java.util.Map;
 
 
 public class RSSApiRequest {
+    NewsSource sampleArticleSource = new NewsSource(
+            "Spiegel", "https://www.spiegel.de/"
+    );
 
     private onResult listener;
 
     public interface onResult{
-        void result(ArrayList<RSSArticle> rssArticles);
+        void result(ArrayList<NewsCard> articleResults);
     }
 
     public void  makeRSSCategory(HashMap<Category.news,String> url,Context context,onResult listener){
@@ -61,14 +63,23 @@ public class RSSApiRequest {
 
         Log.d("TAG", "Amount of articles " + articles.size());
 
+        ArrayList<NewsCard> articleCards = new ArrayList<>();
         for (RSSArticle article : articles) {
             if (!article.getIconUrl().equals("")) {
                 ImageRequest imageRequest = new ImageRequest(article.getIconUrl(), context);
-                imageRequest.run(new ImageRequest.RequestListener() {
-                    @Override
-                    public void onResult(Bitmap icon) {
-                        article.setBitmap(icon);
-                        listener.result(articles);
+                imageRequest.run(icon -> {
+                    // Todo: move conversion into viewmodel
+                    articleCards.add(
+                            new ArticleCard(
+                                    article.getTitle(),
+                                    sampleArticleSource,
+                                    article.getPublicationDate(),
+                                    icon
+                    ));
+
+                    // Return if loading all articles is complete
+                    if (articles.indexOf(article) == articles.size() - 1){
+                        listener.result(articleCards);
                     }
                 });
             }

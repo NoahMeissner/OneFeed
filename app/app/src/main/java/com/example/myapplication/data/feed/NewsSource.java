@@ -6,9 +6,8 @@ public class NewsSource {
     private String name;
     private Bitmap icon;
 
-    public NewsSource(String name, Bitmap iconUrl) {
+    public NewsSource(String name) {
         this.name = name;
-        this.icon = iconUrl;
     }
 
     public String getName() {

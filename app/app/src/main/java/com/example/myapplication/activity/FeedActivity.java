@@ -54,10 +54,13 @@ public class FeedActivity extends AppCompatActivity {
         this.recycler = findViewById(R.id.recycler_news_cards);
         this.recycler.setLayoutManager(new LinearLayoutManager(this));
         this.recycler.setAdapter(this.adapter);
+        this.recycler.setItemAnimator(null); // Disable animation
 
         // Cards listeners
         this.viewModel.getNewsCards().observe(this, newsCards -> {
             this.adapter.updateItems(newsCards);
+            // Todo: change comparable in adapter?
+            this.adapter.notifyDataSetChanged();
         });
     }
 

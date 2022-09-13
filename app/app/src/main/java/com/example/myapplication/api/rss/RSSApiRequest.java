@@ -19,7 +19,9 @@ import java.util.Map;
 public class RSSApiRequest {
 
     public interface OnResult {
-        void result(ArrayList<NewsCard> articleResults);
+        void titlesLoaded(ArrayList<NewsCard> articleResults);
+        void iconsLoaded(ArrayList<NewsCard> articleResults);
+        void imagesLoaded(ArrayList<NewsCard> articleResults);
     }
 
     public void loadArticlesForCategories(
@@ -27,8 +29,45 @@ public class RSSApiRequest {
             Context context,
             OnResult listener
     ) {
+        ArrayList<NewsCard> cardsTitles = new ArrayList<>();
+        ArrayList<NewsCard> cardsWithImages = new ArrayList<>();
+        ArrayList<NewsCard> cardsWithIcons = new ArrayList<>();
+
+        int currentIndex = 0;
         for (Map.Entry<Category.news, String> entry : url.entrySet()) {
-            loadArticlesForCategory(entry.getValue(), entry.getKey(), context, listener);
+            boolean isFinalRun = currentIndex == url.entrySet().size() - 1;
+
+            loadArticlesForCategory(entry.getValue(), entry.getKey(), context, new OnResult() {
+                @Override
+                public void titlesLoaded(ArrayList<NewsCard> articleResults) {
+                    cardsTitles.addAll(articleResults);
+                    if (isFinalRun) {
+                        listener.titlesLoaded(cardsTitles);
+                    }
+                }
+
+                @Override
+                public void iconsLoaded(ArrayList<NewsCard> articleResults) {
+                    cardsWithIcons.addAll(articleResults);
+
+                    // If all icons are loaded return to viewmodel
+                    if (cardsWithImages.size() == cardsWithIcons.size()) {
+                        listener.iconsLoaded(cardsWithIcons);
+                    }
+                }
+
+                @Override
+                public void imagesLoaded(ArrayList<NewsCard> articleResults) {
+                    cardsWithImages.addAll(articleResults);
+
+                    // If all images are loaded return to viewmodel
+                    if (cardsWithImages.size() == cardsTitles.size()) {
+                        listener.imagesLoaded(cardsWithImages);
+                    }
+                }
+            });
+
+            currentIndex++;
         }
     }
 
@@ -39,9 +78,11 @@ public class RSSApiRequest {
             OnResult listener) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest jsonObjectRequest = new StringRequest(url, response -> {
-            createArticles(response, category, context, listener);
-        }, error -> Log.d("Error", "Erros"));
+        StringRequest jsonObjectRequest = new StringRequest(
+                url,
+                response -> createArticles(response, category, context, listener),
+                error -> Log.d("Error", "Erros")
+        );
         queue.add(jsonObjectRequest);
     }
 
@@ -59,32 +100,36 @@ public class RSSApiRequest {
 
         ArrayList<NewsCard> articleCards = new ArrayList<>();
         for (RSSArticle article : articles) {
-            if (!article.getImageUrl().equals("")) {
-                // Todo: Solve without nested runnables and cache icons / images
-                ImageRequest imageRequest = new ImageRequest(article.getImageUrl(), context);
-                imageRequest.run(image -> {
-                    ImageRequest sourceIconRequest = new ImageRequest(article.getSourceIconUrl(), context);
-                    sourceIconRequest.run(icon -> {
-                        // Todo: use dynamic source for article
-                        articleCards.add(
-                                new ArticleCard(
-                                        article.getTitle(),
-                                        new NewsSource(
-                                            article.getSourceName(),
-                                            icon
-                                        ),
-                                        article.getPublicationDate(),
-                                        image,
-                                        article.getWebUrl()
-                                ));
+            ArticleCard card = new ArticleCard(
+                    article.getTitle(),
+                    new NewsSource(article.getSourceName()),
+                    article.getPublicationDate(),
+                    article.getWebUrl()
+            );
 
-                        // Return if loading all articles is complete
-                        if (articles.indexOf(article) == articles.size() - 1) {
-                            listener.result(articleCards);
-                        }
-                    });
+            if (!article.getImageUrl().equals("")) {
+                CustomImageRequest imageRequest = new CustomImageRequest(article.getImageUrl(), context);
+                imageRequest.run(image -> {
+                    card.setImage(image);
+                    // Callback if this is the final image to load
+                    if (articles.indexOf(article) == articles.size() - 1) {
+                        listener.imagesLoaded(articleCards);
+                }
                 });
             }
+
+            CustomImageRequest sourceIconRequest = new CustomImageRequest(article.getSourceIconUrl(), context);
+            sourceIconRequest.run(icon -> {
+                card.getSource().setIcon(icon);
+                // Callback if this is the final icon to load
+                if (articles.indexOf(article) == articles.size() - 1) {
+                    listener.iconsLoaded(articleCards);
+                }
+            });
+
+            articleCards.add(card);
         }
+
+        listener.titlesLoaded(articleCards);
     }
 }

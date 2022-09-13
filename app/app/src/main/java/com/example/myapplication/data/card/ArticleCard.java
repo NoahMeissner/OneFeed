@@ -14,13 +14,11 @@ public class ArticleCard extends NewsCard{
             String title,
             NewsSource source,
             LocalDateTime publicationDate,
-            Bitmap image,
             String webUrl
     ) {
         super(source, publicationDate, webUrl);
 
         this.title = title;
-        this.image = image;
     }
 
     public String getTitle() {

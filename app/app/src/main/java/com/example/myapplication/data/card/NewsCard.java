@@ -7,10 +7,12 @@ import java.time.LocalDateTime;
 public class NewsCard {
     private NewsSource source;
     private LocalDateTime publicationDate;
+    private String webUrl;
 
-    public NewsCard(NewsSource source, LocalDateTime publicationDate) {
+    public NewsCard(NewsSource source, LocalDateTime publicationDate, String contentUrl) {
         this.source = source;
         this.publicationDate = publicationDate;
+        this.webUrl = contentUrl;
     }
 
     public NewsSource getSource() {
@@ -27,5 +29,13 @@ public class NewsCard {
 
     public void setPublicationDate(LocalDateTime publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
     }
 }

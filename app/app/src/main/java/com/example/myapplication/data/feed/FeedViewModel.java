@@ -12,18 +12,18 @@ import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.NewsCard;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class FeedViewModel extends AndroidViewModel {
 
-    private MutableLiveData<ArrayList<NewsCard>> newsCards;
+    private final MutableLiveData<ArrayList<NewsCard>> newsCards;
 
     public FeedViewModel(Application application) {
         super(application);
 
         // Initialize
-        this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {
-        });
+        this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load
         this.loadNewsCards(application);
@@ -41,9 +41,14 @@ public class FeedViewModel extends AndroidViewModel {
         RSSApiRequest rssApiRequest = new RSSApiRequest();
         rssApiRequest.loadArticlesForCategories(corona, context, articleResults -> {
             ArrayList<NewsCard> newValues = newsCards.getValue();
-            newValues.addAll(articleResults);
+            if (newValues != null) {
+                newValues.addAll(articleResults);
 
-            this.newsCards.setValue(newValues);
+                // Sort by latest article
+                newValues.sort(Comparator.comparing(NewsCard::getPublicationDate).reversed());
+
+                this.newsCards.setValue(newValues);
+            }
         });
     }
 }

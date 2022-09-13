@@ -9,8 +9,8 @@ public class TwitterCard extends NewsCard{
     private String authorName; // e.g. Elon Musk
     private String authorHandle; // e.g. @elonmusk
 
-    public TwitterCard(NewsSource source, LocalDateTime publicationDate, String content, String authorName, String authorHandle) {
-        super(source, publicationDate);
+    public TwitterCard(NewsSource source, LocalDateTime publicationDate, String content, String authorName, String authorHandle, String webUrl) {
+        super(source, publicationDate, webUrl);
         this.content = content;
         this.authorName = authorName;
         this.authorHandle = authorHandle;

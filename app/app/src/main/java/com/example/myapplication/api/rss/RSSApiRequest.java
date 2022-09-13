@@ -17,9 +17,6 @@ import java.util.Map;
 
 
 public class RSSApiRequest {
-    NewsSource sampleArticleSource = new NewsSource(
-            "Spiegel", "https://www.spiegel.de/"
-    );
 
     public interface OnResult {
         void result(ArrayList<NewsCard> articleResults);
@@ -62,23 +59,30 @@ public class RSSApiRequest {
 
         ArrayList<NewsCard> articleCards = new ArrayList<>();
         for (RSSArticle article : articles) {
-            if (!article.getIconUrl().equals("")) {
-                ImageRequest imageRequest = new ImageRequest(article.getIconUrl(), context);
-                imageRequest.run(icon -> {
-                    // Todo: move conversion into viewmodel
-                    // Todo: use dynamic source for article
-                    articleCards.add(
-                            new ArticleCard(
-                                    article.getTitle(),
-                                    sampleArticleSource,
-                                    article.getPublicationDate(),
-                                    icon
-                            ));
+            if (!article.getImageUrl().equals("")) {
+                // Todo: Solve without nested runnables and cache icons / images
+                ImageRequest imageRequest = new ImageRequest(article.getImageUrl(), context);
+                imageRequest.run(image -> {
+                    ImageRequest sourceIconRequest = new ImageRequest(article.getSourceIconUrl(), context);
+                    sourceIconRequest.run(icon -> {
+                        // Todo: use dynamic source for article
+                        articleCards.add(
+                                new ArticleCard(
+                                        article.getTitle(),
+                                        new NewsSource(
+                                            article.getSourceName(),
+                                            icon
+                                        ),
+                                        article.getPublicationDate(),
+                                        image,
+                                        article.getWebUrl()
+                                ));
 
-                    // Return if loading all articles is complete
-                    if (articles.indexOf(article) == articles.size() - 1) {
-                        listener.result(articleCards);
-                    }
+                        // Return if loading all articles is complete
+                        if (articles.indexOf(article) == articles.size() - 1) {
+                            listener.result(articleCards);
+                        }
+                    });
                 });
             }
         }

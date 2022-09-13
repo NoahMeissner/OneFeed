@@ -1,7 +1,11 @@
 package com.example.myapplication.api.rss;
+
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.myapplication.data.addSource.Category;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,19 +18,26 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class RSSHelper {
-    public ArrayList<RSSArticle> createArticlesFromResponse(String rssResponse, Category.news category) {
+    public ArrayList<RSSArticle> createArticlesFromResponse(
+            String rssResponse,
+            Category.news category
+    ) {
         ArrayList<RSSArticle> articles = new ArrayList<>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(new InputSource(new ByteArrayInputStream(rssResponse.getBytes("utf-8"))));
+            Document doc = builder.parse(new InputSource(
+                    new ByteArrayInputStream(rssResponse.getBytes("utf-8"))
+            ));
 
             NodeList list = doc.getElementsByTagName("item");
             for (int i = 0; i < list.getLength(); i++) {
@@ -37,6 +48,21 @@ public class RSSHelper {
                     String title = getContent(element, "title");
                     String publicationDateString = getContent(element, "pubDate");
                     LocalDateTime publicationDate = parsePublicationDate(publicationDateString);
+                    String webUrl = getContent(element, "link");
+                    String sourceIconUrl = getSourceIconUrl(doc);
+
+                    // Todo: Evaluate if using try-until-match is better fit than individual
+                    //   implementations for specific sources.
+                    String sourceName = "";
+                    Element sourceInfoElement = ((Element) doc.getElementsByTagName("image").item(0));
+                    switch (category) {
+                        case Spiegel:
+                            sourceName = getContent(sourceInfoElement, "title");
+                            break;
+                        case FAZ:
+                            sourceName = getContent(doc.getDocumentElement(), "generator");
+                            break;
+                    }
 
                     String pictureUrl = "";
                     switch (category) {
@@ -47,10 +73,18 @@ public class RSSHelper {
                             pictureUrl = getImageUrl(element, "media:thumbnail");
                             break;
                         default:
-                            Log.d("RSSHelper", "Unexpected category: " + category);;
+                            Log.d("RSSHelper", "Unexpected category: " + category);
                     }
 
-                    articles.add(new RSSArticle(title, category, pictureUrl, publicationDate));
+                    articles.add(new RSSArticle(
+                            title,
+                            category,
+                            pictureUrl,
+                            publicationDate,
+                            sourceName,
+                            sourceIconUrl,
+                            webUrl
+                    ));
                 }
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
@@ -58,6 +92,23 @@ public class RSSHelper {
         }
 
         return articles;
+    }
+
+    @NonNull
+    private String getSourceIconUrl(Document doc) {
+        String rssUrl = getContent(doc.getDocumentElement(), "link");
+
+        // Pattern find the base url of an given url:
+        //   e.g. "https://www.faz.net/rss/aktuell" -> ["https://www.faz.net/", "rss/aktuell"]
+        Pattern baseUrlPattern = Pattern.compile("http\\w*:\\/\\/[^\\/]+\\/");
+        Matcher baseUrlMatcher = baseUrlPattern.matcher(rssUrl);
+
+        String iconUrl = "";
+        if (baseUrlMatcher.find()) {
+            iconUrl = baseUrlMatcher.group(0) + "favicon.ico";
+        }
+
+        return iconUrl;
     }
 
     private String getImageUrl(Element element, String tagName) {

@@ -9,14 +9,14 @@
 
     <ImageView
         style="@style/source_icon"
-        android:id="@+id/fragment_source_icon"
+        android:id="@+id/source_icon"
         android:contentDescription="@string/content_description_article_source"
         android:src="@drawable/ic_twitter"
         tools:ignore="ImageContrastCheck" />
 
     <TextView
         style="@style/source_name"
-        android:id="@+id/fragment_source_name"
+        android:id="@+id/source_name"
         android:text="@string/source_twitter" />
 
 </LinearLayout>

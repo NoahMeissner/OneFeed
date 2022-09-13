@@ -24,11 +24,14 @@ public class RSSApiRequest {
         void imagesLoaded(ArrayList<NewsCard> articleResults);
     }
 
+    // Todo: do not block UI thread
     public void loadArticlesForCategories(
             HashMap<Category.news, String> url,
             Context context,
             OnResult listener
     ) {
+        // Todo: simplify callbacks and variables structure if possible
+        //  and also eliminate bugs if there are some
         ArrayList<NewsCard> cardsTitles = new ArrayList<>();
         ArrayList<NewsCard> cardsWithImages = new ArrayList<>();
         ArrayList<NewsCard> cardsWithIcons = new ArrayList<>();

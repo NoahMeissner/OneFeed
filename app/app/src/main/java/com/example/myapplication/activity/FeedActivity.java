@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 public class FeedActivity extends AppCompatActivity {
 
     private FeedViewModel viewModel;
+    SwipeRefreshLayout refreshLayout;
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
     private ImageButton sourcesNavigationButton;
@@ -49,6 +51,10 @@ public class FeedActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
 
+        // Swipe to refresh
+        this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
+        refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
+
         // News cards recycler
         this.adapter = new NewsCardListAdapter();
         this.recycler = findViewById(R.id.recycler_news_cards);
@@ -61,6 +67,7 @@ public class FeedActivity extends AppCompatActivity {
             this.adapter.updateItems(newsCards);
             // Todo: change comparable in adapter?
             this.adapter.notifyDataSetChanged();
+            refreshLayout.setRefreshing(false);
         });
     }
 

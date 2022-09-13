@@ -1,11 +1,10 @@
 package com.example.myapplication.data.feed;
 
 import android.app.Application;
-import android.view.View;
+import android.content.Context;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.api.rss.RSSApiRequest;
 import com.example.myapplication.api.rss.RSSUrls;
@@ -22,22 +21,29 @@ public class FeedViewModel extends AndroidViewModel {
     public FeedViewModel(Application application) {
         super(application);
 
-        this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
-
-        RSSUrls rssUrls = new RSSUrls();
-        HashMap<Category.news,String> corona = rssUrls.getCategory(Category.interests.Politik);
-
-        RSSApiRequest rssApiRequest = new RSSApiRequest();
-        rssApiRequest.makeRSSCategory(corona, application, articleResults -> {
-            setNewsCards(articleResults);
+        // Initialize
+        this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {
         });
+
+        // Initial load
+        this.loadNewsCards(application);
     }
 
     public MutableLiveData<ArrayList<NewsCard>> getNewsCards() {
         return newsCards;
     }
 
-    public void setNewsCards(ArrayList<NewsCard> newsCards) {
-        this.newsCards.setValue(newsCards);
+    public void loadNewsCards(Context context) {
+        // Todo: Use categories provided by user preferences
+        RSSUrls rssUrls = new RSSUrls();
+        HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
+
+        RSSApiRequest rssApiRequest = new RSSApiRequest();
+        rssApiRequest.loadArticlesForCategories(corona, context, articleResults -> {
+            ArrayList<NewsCard> newValues = newsCards.getValue();
+            newValues.addAll(articleResults);
+
+            this.newsCards.setValue(newValues);
+        });
     }
 }

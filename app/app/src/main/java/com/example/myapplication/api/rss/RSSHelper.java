@@ -1,4 +1,6 @@
 package com.example.myapplication.api.rss;
+import android.util.Log;
+
 import com.example.myapplication.data.addSource.Category;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,20 +34,20 @@ public class RSSHelper {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    String title = element.getElementsByTagName("title").item(0).getTextContent();
-                    String publicationDateString = element.getElementsByTagName("pubDate").item(0).getTextContent();
-                    LocalDateTime publicationDate = LocalDateTime.parse(
-                            // e.g. Tue, 13 Sep 2022 10:17:05 +0200
-                            publicationDateString,
-                            DateTimeFormatter.RFC_1123_DATE_TIME
+                    String title = getContent(element, "title");
+                    String publicationDateString = getContent(element, "pubDate");
+                    LocalDateTime publicationDate = parsePublicationDate(publicationDateString);
 
-                    );
-
-                    // Picture url is optional
-                    Element pictureElement = (Element) element.getElementsByTagName("enclosure").item(0);
                     String pictureUrl = "";
-                    if (pictureElement != null) {
-                        pictureUrl = pictureElement.getAttribute("url");
+                    switch (category) {
+                        case Spiegel:
+                            pictureUrl = getImageUrl(element, "enclosure");
+                            break;
+                        case FAZ:
+                            pictureUrl = getImageUrl(element, "media:thumbnail");
+                            break;
+                        default:
+                            Log.d("RSSHelper", "Unexpected category: " + category);;
                     }
 
                     articles.add(new RSSArticle(title, category, pictureUrl, publicationDate));
@@ -56,5 +58,29 @@ public class RSSHelper {
         }
 
         return articles;
+    }
+
+    private String getImageUrl(Element element, String tagName) {
+        String url = "";
+        Element pictureElement = (Element) element.getElementsByTagName(tagName).item(0);
+        // Picture url is optional
+        if (pictureElement != null) {
+            url = pictureElement.getAttribute("url");
+        }
+
+        return url;
+    }
+
+    private LocalDateTime parsePublicationDate(String publicationDateString) {
+        return LocalDateTime.parse(
+                // e.g. Tue, 13 Sep 2022 10:17:05 +0200
+                publicationDateString,
+                DateTimeFormatter.RFC_1123_DATE_TIME
+
+        );
+    }
+
+    private String getContent(Element element, String tagName) {
+        return element.getElementsByTagName(tagName).item(0).getTextContent();
     }
 }

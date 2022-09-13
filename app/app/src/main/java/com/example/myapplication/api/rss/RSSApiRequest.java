@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.data.addSource.Category;
@@ -23,45 +21,44 @@ public class RSSApiRequest {
             "Spiegel", "https://www.spiegel.de/"
     );
 
-    private onResult listener;
-
-    public interface onResult{
+    public interface OnResult {
         void result(ArrayList<NewsCard> articleResults);
     }
 
-    public void  makeRSSCategory(HashMap<Category.news,String> url,Context context,onResult listener){
-
-        for(Map.Entry<Category.news, String> entry : url.entrySet()){
-            initialCategoryAPIRequest(entry.getValue(), entry.getKey(), context,listener);
+    public void loadArticlesForCategories(
+            HashMap<Category.news, String> url,
+            Context context,
+            OnResult listener
+    ) {
+        for (Map.Entry<Category.news, String> entry : url.entrySet()) {
+            loadArticlesForCategory(entry.getValue(), entry.getKey(), context, listener);
         }
     }
 
-    private void initialCategoryAPIRequest(
-            String url ,
+    private void loadArticlesForCategory(
+            String url,
             Category.news category,
             Context context,
-            onResult listener){
+            OnResult listener) {
 
-            RequestQueue queue = Volley.newRequestQueue(context);
-            StringRequest jsonObjectRequest = new StringRequest(url, response -> {
-                getFeed(response,category,context,listener);
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Error","Erros");
-                }
-            });
-            queue.add(jsonObjectRequest);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest jsonObjectRequest = new StringRequest(url, response -> {
+            createArticles(response, category, context, listener);
+        }, error -> Log.d("Error", "Erros"));
+        queue.add(jsonObjectRequest);
     }
 
-    private void getFeed(String xmlFile, Category.news newsCategory, Context context,onResult listener) {
+    private void createArticles(
+            String xmlFile,
+            Category.news newsCategory,
+            Context context,
+            OnResult listener
+    ) {
         RSSHelper helper = new RSSHelper();
         ArrayList<RSSArticle> articles = helper.createArticlesFromResponse(
                 xmlFile,
                 newsCategory
         );
-
-        Log.d("TAG", "Amount of articles " + articles.size());
 
         ArrayList<NewsCard> articleCards = new ArrayList<>();
         for (RSSArticle article : articles) {
@@ -69,16 +66,17 @@ public class RSSApiRequest {
                 ImageRequest imageRequest = new ImageRequest(article.getIconUrl(), context);
                 imageRequest.run(icon -> {
                     // Todo: move conversion into viewmodel
+                    // Todo: use dynamic source for article
                     articleCards.add(
                             new ArticleCard(
                                     article.getTitle(),
                                     sampleArticleSource,
                                     article.getPublicationDate(),
                                     icon
-                    ));
+                            ));
 
                     // Return if loading all articles is complete
-                    if (articles.indexOf(article) == articles.size() - 1){
+                    if (articles.indexOf(article) == articles.size() - 1) {
                         listener.result(articleCards);
                     }
                 });

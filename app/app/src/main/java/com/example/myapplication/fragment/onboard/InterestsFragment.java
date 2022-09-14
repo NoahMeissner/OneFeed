@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.view.WindowManager;
 import com.example.myapplication.animation.onboard.InterestsAnimation;
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,7 +122,11 @@ public class InterestsFragment extends Fragment {
                 buttonSize=interestsAnimation.getHeight();
             }
             if(interestsAnimation.getHeight()>=buttonSize){
-                buttonAnimationReset(interestsAnimation,category);
+                for(String s:buttons.keySet()){
+                    buttons.get(s).stopAnimation();
+                }
+                //detecButtonAnimation(interestsAnimation,category);
+                detecButtonAnimation(interestsAnimation,category);
             }
             if(interestsAnimation.getHeight()==buttonSize){
                 detecButtonAnimation(interestsAnimation,category);
@@ -127,19 +134,20 @@ public class InterestsFragment extends Fragment {
         });
     }
 
-    //This method rolls back a user's answer if he revises it
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void buttonAnimationReset(InterestsAnimation interestsAnimation, String category) {
-        interestsAnimation.getLayoutParams().width= buttonSize;
-        interestsAnimation.getLayoutParams().height= buttonSize;
-        interestsAnimation.setBackground(getResources()
-                .getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
+    private void beispiel(InterestsAnimation interestsAnimation, String category) {
+        double magnificationFactor = 1.1;
+        interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
+        interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
+        interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
+        interestsAnimation.setBackground(getResources().getDrawable(
+                R.drawable.ovalbutton, requireActivity().getTheme()));
 
-        interestsAnimation.setTextColor(getResources()
-                .getColor(R.color.black, requireActivity().getTheme()));
-
-        results.remove(category);
-        dataPasser.onDataPass(results);
+        for(String s:buttons.keySet()){
+            if(!Objects.equals(s, category)){
+                setAnimation(Objects.requireNonNull(
+                        buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+            }
+        }
     }
 
     //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
@@ -150,15 +158,14 @@ public class InterestsFragment extends Fragment {
         interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
         interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
 
-        interestsAnimation.setBackground(getResources()
-                .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
+        interestsAnimation.setBackground(getResources().getDrawable(
+                R.drawable.ovalbutton, requireActivity().getTheme()));
 
-        results.add(category);
-        dataPasser.onDataPass(results);
         for(String s:buttons.keySet()){
-            if(!Objects.equals(s, category)){
-                setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
-            }
+           if(!Objects.equals(s, category)){
+                setAnimation(Objects.requireNonNull(
+                        buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+           }
         }
     }
 

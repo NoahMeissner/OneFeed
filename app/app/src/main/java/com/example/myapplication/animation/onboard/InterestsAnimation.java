@@ -1,14 +1,18 @@
 package com.example.myapplication.animation.onboard;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.PathDashPathEffect;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.widget.Button;
 
 import com.google.android.material.button.MaterialButton;
 
 @SuppressLint("AppCompatCustomView")
-public class InterestsAnimation extends MaterialButton {
+public class InterestsAnimation extends Button {
 
     /*
         this class is responsible for providing the animation for the InterestsFragment
@@ -66,6 +70,12 @@ public class InterestsAnimation extends MaterialButton {
         this.maxY = maxY-2*spacing;
     }
 
+    public void stopAnimation(){
+        myHandlerClick.removeCallbacksAndMessages(null);
+    }
+
+
+
     public void setXSpeed(int xSpeed) {
         this.xSpeed = xSpeed;
     }
@@ -77,6 +87,7 @@ public class InterestsAnimation extends MaterialButton {
     public InterestsAnimation(Context context) {
         super(context);
     }
+
 
     public InterestsAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);

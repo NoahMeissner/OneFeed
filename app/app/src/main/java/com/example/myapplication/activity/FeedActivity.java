@@ -54,7 +54,7 @@ public class FeedActivity extends AppCompatActivity {
 //        setupDummyCards();
         initApi();
         //@TODO Löschen
-        //killPreferences();
+        killPreferences();
     }
 
     private void killPreferences() {

@@ -65,7 +65,6 @@ public class FeedActivity extends AppCompatActivity {
         // Cards listeners
         this.viewModel.getNewsCards().observe(this, newsCards -> {
             this.adapter.updateItems(newsCards);
-            // Todo: change comparable in adapter?
             this.adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
         });

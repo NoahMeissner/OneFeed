@@ -1,7 +1,6 @@
 package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,28 +8,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
-import com.example.myapplication.api.rss.RSSApiRequest;
-import com.example.myapplication.api.rss.RSSArticle;
-import com.example.myapplication.api.rss.RSSUrls;
-import com.example.myapplication.data.addSource.Category;
-import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.feed.FeedViewModel;
-import com.example.myapplication.data.feed.NewsSource;
-import com.example.myapplication.data.card.NewsCard;
-import com.example.myapplication.data.card.TwitterCard;
 import com.example.myapplication.adapter.NewsCardListAdapter;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class FeedActivity extends AppCompatActivity {
 

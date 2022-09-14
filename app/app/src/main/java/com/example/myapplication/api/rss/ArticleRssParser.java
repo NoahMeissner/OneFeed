@@ -25,12 +25,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class RSSHelper {
-    public ArrayList<RSSArticle> createArticlesFromResponse(
+public class ArticleRssParser {
+    public ArrayList<RssArticle> parseArticles(
             String rssResponse,
             Category.news category
     ) {
-        ArrayList<RSSArticle> articles = new ArrayList<>();
+        ArrayList<RssArticle> articles = new ArrayList<>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -76,7 +76,7 @@ public class RSSHelper {
                             Log.d("RSSHelper", "Unexpected category: " + category);
                     }
 
-                    articles.add(new RSSArticle(
+                    articles.add(new RssArticle(
                             title,
                             category,
                             pictureUrl,

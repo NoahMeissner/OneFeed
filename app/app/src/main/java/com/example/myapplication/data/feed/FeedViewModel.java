@@ -10,7 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.R;
-import com.example.myapplication.api.rss.RSSApiRequest;
+import com.example.myapplication.api.rss.ArticlesRepository;
 import com.example.myapplication.api.rss.RSSUrls;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
@@ -23,12 +23,16 @@ import java.util.concurrent.Executors;
 
 public class FeedViewModel extends AndroidViewModel {
 
+    ArticlesRepository articlesRepository;
+
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
 
     public FeedViewModel(Application application) {
         super(application);
 
         // Initialize
+        // Todo: di
+        this.articlesRepository = new ArticlesRepository(Executors.newSingleThreadExecutor());
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load
@@ -44,8 +48,7 @@ public class FeedViewModel extends AndroidViewModel {
         RSSUrls rssUrls = new RSSUrls();
         HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
 
-        RSSApiRequest rssApiRequest = new RSSApiRequest(Executors.newSingleThreadExecutor());
-        rssApiRequest.loadArticlesForCategories(corona, context, cards -> {
+        articlesRepository.loadArticlesForRssEndpoints(corona, context, cards -> {
             setLoadingImages(cards, context);
             setNewsCards(cards);
         });
@@ -53,15 +56,15 @@ public class FeedViewModel extends AndroidViewModel {
 
     // Sets a plain color as the content of the images and icons while loading
     // https://blog.prototypr.io/skeleton-loader-an-overview-purpose-usage-and-design-173b5340d0e1
-    private void setLoadingImages(ArrayList<NewsCard> cards, Context context) {
+    private void setLoadingImages(ArrayList<ArticleCard> cards, Context context) {
         Bitmap loadingImage = generateLoadingImage(context);
-        for (NewsCard card : cards) {
+        for (ArticleCard card : cards) {
             if (card.getClass() == ArticleCard.class) {
-                if (((ArticleCard) card).getImage() == null) {
-                    ((ArticleCard) card).setImage(loadingImage);
+                if (card.getImage() == null) {
+                    card.setImage(loadingImage);
                 }
                 if (card.getSource().getIcon() == null) {
-                    ((ArticleCard) card).getSource().setIcon(loadingImage);
+                    card.getSource().setIcon(loadingImage);
                 }
             }
         }
@@ -78,7 +81,7 @@ public class FeedViewModel extends AndroidViewModel {
         return loadingImage;
     }
 
-    private void setNewsCards(ArrayList<NewsCard> articleResults) {
+    private void setNewsCards(ArrayList<ArticleCard> articleResults) {
         ArrayList<NewsCard> newValues = new ArrayList<>();
         if (articleResults != null) {
             newValues.addAll(articleResults);

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplication.OneFeed;
 import com.example.myapplication.R;
 import com.example.myapplication.api.rss.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
@@ -31,8 +32,7 @@ public class FeedViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize
-        // Todo: di
-        this.articlesRepository = new NewsRepository(Executors.newSingleThreadExecutor());
+        this.articlesRepository = new NewsRepository(((OneFeed) getApplication()).executorService);
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load

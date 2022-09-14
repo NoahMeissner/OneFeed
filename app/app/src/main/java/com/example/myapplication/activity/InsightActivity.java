@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.insight.ReadingDay;
+import com.example.myapplication.fragment.analysis.PermissionsDialogFragement;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -56,6 +59,20 @@ public class InsightActivity extends AppCompatActivity {
 
         // Settings
         initializeSettings();
+        initialFragement();
+    }
+
+    private void initialFragement() {
+        if(getPermission() == false){
+            PermissionsDialogFragement permissionsDialogFragement = new PermissionsDialogFragement();
+            permissionsDialogFragement.show(getSupportFragmentManager(),"");
+        }
+    }
+
+    private boolean getPermission() {
+        SharedPreferences pref = getSharedPreferences(getResources()
+                    .getString(R.string.initProcesBoolean), 0);
+        return pref.getBoolean(Category.initial.Consumptionanalyse.name(),false);
     }
 
     private void initializeSettings() {

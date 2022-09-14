@@ -122,11 +122,7 @@ public class InterestsFragment extends Fragment {
                 buttonSize=interestsAnimation.getHeight();
             }
             if(interestsAnimation.getHeight()>=buttonSize){
-                for(String s:buttons.keySet()){
-                    buttons.get(s).stopAnimation();
-                }
-                //detecButtonAnimation(interestsAnimation,category);
-                detecButtonAnimation(interestsAnimation,category);
+                buttonAnimationReset(interestsAnimation,category);
             }
             if(interestsAnimation.getHeight()==buttonSize){
                 detecButtonAnimation(interestsAnimation,category);
@@ -134,20 +130,19 @@ public class InterestsFragment extends Fragment {
         });
     }
 
-    private void beispiel(InterestsAnimation interestsAnimation, String category) {
-        double magnificationFactor = 1.1;
-        interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
-        interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
-        interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
-        interestsAnimation.setBackground(getResources().getDrawable(
-                R.drawable.ovalbutton, requireActivity().getTheme()));
+    //This method rolls back a user's answer if he revises it
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void buttonAnimationReset(InterestsAnimation interestsAnimation, String category) {
+        interestsAnimation.getLayoutParams().width= buttonSize;
+        interestsAnimation.getLayoutParams().height= buttonSize;
+        interestsAnimation.setBackground(getResources()
+                .getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
 
-        for(String s:buttons.keySet()){
-            if(!Objects.equals(s, category)){
-                setAnimation(Objects.requireNonNull(
-                        buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
-            }
-        }
+        interestsAnimation.setTextColor(getResources()
+                .getColor(R.color.black, requireActivity().getTheme()));
+
+        results.remove(category);
+        dataPasser.onDataPass(results);
     }
 
     //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
@@ -158,14 +153,15 @@ public class InterestsFragment extends Fragment {
         interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
         interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
 
-        interestsAnimation.setBackground(getResources().getDrawable(
-                R.drawable.ovalbutton, requireActivity().getTheme()));
+        interestsAnimation.setBackground(getResources()
+                .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
 
+        results.add(category);
+        dataPasser.onDataPass(results);
         for(String s:buttons.keySet()){
-           if(!Objects.equals(s, category)){
-                setAnimation(Objects.requireNonNull(
-                        buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
-           }
+            if(!Objects.equals(s, category)){
+                setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+            }
         }
     }
 

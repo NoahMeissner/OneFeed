@@ -1,5 +1,6 @@
 package com.example.myapplication.fragment.analysis;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,7 +21,7 @@ import com.example.myapplication.data.addSource.Category;
 
 import java.util.Objects;
 
-public class PermissionsDialogFragement extends DialogFragment {
+public class PermissionsDialogFragment extends DialogFragment {
 
 
     @Override
@@ -30,37 +31,58 @@ public class PermissionsDialogFragement extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragement_consumption_permission, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initButtons(view);
         return view;
     }
 
+    /*
+    This Method initialise the Data and sets the onClick Listener
+     */
     private void initButtons(View view) {
         Button buttonYes = view.findViewById(R.id.buttonYPermisson);
         Button buttonNo = view.findViewById(R.id.buttonNPermission);
-        buttonYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        setButtonChanges(buttonYes,true);
+        setButtonChanges(buttonNo,false);
+    }
+
+    /*
+    This Method set an OnClickListener to the Buttons
+     */
+    private void setButtonChanges(Button button, boolean decision){
+        button.setOnClickListener(view -> {
+            if (decision){
+                /*
+                calls the editSharedPreferences() Method
+                    stops the Fragment
+                    and return the Method
+                 */
                 editSharedPreferences();
                 onStop();
+                return;
             }
-        });
-        buttonNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), FeedActivity.class);
-                startActivity(intent);
-                onStop();
-            }
+            /*
+            If you click NO the Intent will start a new Activity and stops the Fragment
+             */
+            Intent intent = new Intent(getContext(), FeedActivity.class);
+            startActivity(intent);
+            onStop();
         });
     }
 
+    /*
+    This Method edit the Shared Preferences
+     */
     private void editSharedPreferences() {
-        SharedPreferences pref = getContext().getSharedPreferences(getResources()
+        SharedPreferences pref = requireContext().getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
-        SharedPreferences.Editor editPreferences = pref.edit();
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editPreferences = pref.edit();
         editPreferences.putBoolean(Category.initial.Consumptionanalyse.name(), true);
     }
 }

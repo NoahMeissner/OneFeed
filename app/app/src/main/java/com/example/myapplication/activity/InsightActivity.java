@@ -6,13 +6,12 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.insight.ReadingDay;
-import com.example.myapplication.fragment.analysis.PermissionsDialogFragement;
+import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -62,13 +61,20 @@ public class InsightActivity extends AppCompatActivity {
         initialFragement();
     }
 
+    /*
+    This Method initial the Permissions Dialog Fragment,
+     which asks the User to accept the consumption analysis
+     */
     private void initialFragement() {
         if(getPermission() == false){
-            PermissionsDialogFragement permissionsDialogFragement = new PermissionsDialogFragement();
+            PermissionsDialogFragment permissionsDialogFragement = new PermissionsDialogFragment();
             permissionsDialogFragement.show(getSupportFragmentManager(),"");
         }
     }
 
+    /*
+    This Method gets the Permission Data from the Shared Preferences
+     */
     private boolean getPermission() {
         SharedPreferences pref = getSharedPreferences(getResources()
                     .getString(R.string.initProcesBoolean), 0);

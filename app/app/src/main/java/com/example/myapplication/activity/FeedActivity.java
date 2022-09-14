@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
 
@@ -58,12 +57,12 @@ public class FeedActivity extends AppCompatActivity {
     }
 
     private void killPreferences() {
+        // This Method clear shared Preferences
         SharedPreferences pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
-
         SharedPreferences.Editor editPreferences = pref.edit();
         editPreferences.clear();
-        editPreferences.commit();
+        editPreferences.apply();
     }
 
     private void initializeNavigationButtons() {
@@ -115,7 +114,6 @@ public class FeedActivity extends AppCompatActivity {
                 NewsSource sampleArticleSource = new NewsSource(
                         "Spiegel", "https://www.spiegel.de/"
                 );
-
                 ArrayList<NewsCard> cards = new ArrayList<>();
                 for (RSSArticle rssArticle : rssArticles) {
                     NewsCard card = new ArticleCard(
@@ -129,8 +127,6 @@ public class FeedActivity extends AppCompatActivity {
                 adapter.updateItems(cards);
             }
         });
-
-
     }
 
     @Override

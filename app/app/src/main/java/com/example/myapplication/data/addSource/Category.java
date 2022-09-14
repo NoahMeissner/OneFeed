@@ -9,4 +9,5 @@ public enum Category {
     public enum news{FAZ,Spiegel}
     public enum socialMedia{Twitter,Reddit}
     public enum initial{Notification, Process, Consumptionanalyse}
+    public enum source{Twitter,Reddit,FAZ,Spiegel}
 }

@@ -20,7 +20,6 @@ import java.util.concurrent.Executor;
 public class ArticlesRepository {
 
     private final Executor executor;
-//    HashMap<String, Bitmap> sourceIconCache = new HashMap<>();
 
     public ArticlesRepository(Executor executor) {
         this.executor = executor;

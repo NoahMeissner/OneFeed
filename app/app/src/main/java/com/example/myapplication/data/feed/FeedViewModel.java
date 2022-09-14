@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -20,6 +19,7 @@ import com.example.myapplication.data.card.NewsCard;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
 
 public class FeedViewModel extends AndroidViewModel {
 
@@ -44,25 +44,10 @@ public class FeedViewModel extends AndroidViewModel {
         RSSUrls rssUrls = new RSSUrls();
         HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
 
-        RSSApiRequest rssApiRequest = new RSSApiRequest();
-        rssApiRequest.loadArticlesForCategories(corona, context, new RSSApiRequest.OnResult() {
-            @Override
-            public void titlesLoaded(ArrayList<NewsCard> cards) {
-                setLoadingImages(cards, context);
-                setNewsCards(cards);
-            }
-
-            @Override
-            public void iconsLoaded(ArrayList<NewsCard> cards) {
-                setLoadingImages(cards, context);
-                setNewsCards(cards);
-            }
-
-            @Override
-            public void imagesLoaded(ArrayList<NewsCard> cards) {
-                setLoadingImages(cards, context);
-                setNewsCards(cards);
-            }
+        RSSApiRequest rssApiRequest = new RSSApiRequest(Executors.newSingleThreadExecutor());
+        rssApiRequest.loadArticlesForCategories(corona, context, cards -> {
+            setLoadingImages(cards, context);
+            setNewsCards(cards);
         });
     }
 
@@ -101,7 +86,7 @@ public class FeedViewModel extends AndroidViewModel {
             // Sort by latest article
             newValues.sort(Comparator.comparing(NewsCard::getPublicationDate).reversed());
 
-            newsCards.setValue(newValues);
+            newsCards.postValue(newValues);
         }
     }
 }

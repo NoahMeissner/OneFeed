@@ -29,6 +29,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -64,8 +66,9 @@ public class FeedActivity extends AppCompatActivity {
 
         // Cards listeners
         this.viewModel.getNewsCards().observe(this, newsCards -> {
-            this.adapter.updateItems(newsCards);
-            this.adapter.notifyDataSetChanged();
+            adapter.updateItems(newsCards);
+            // Todo: fix diff
+            adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
         });
     }

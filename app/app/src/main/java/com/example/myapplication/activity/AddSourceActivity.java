@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
+import com.example.myapplication.database.AddActivityIcons;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
@@ -29,7 +30,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         DeleteSourceFragment.InputDeleteSourceFragment,
         EditSourceFragment.SettingsChanges {
 
-    private final HashMap<String[],Drawable> hashMap = new HashMap<>();
     private final HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
@@ -48,8 +48,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     // in this method all elements are initialized
     private void initUI() {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
-        initHashMap();
-        editPictures();
         initSource();
         declareRecyclerView();
         initButton();
@@ -91,91 +89,41 @@ public class AddSourceActivity extends AppCompatActivity implements
         recyclerNewsPaper.setAdapter(adapterNews);
     }
 
-
-    //In this method, the hashmap is initialized in which the category and the image
-    // are located in order to assign them quickly
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void initHashMap(){
-        hashMap.put( new String[]{
-                        Category.SocialMedia.name(),
-                        Category.socialMedia.Twitter.name()},
-                getDrawable(R.drawable.twitter_icon)
-        );
-
-        hashMap.put(new String[]{Category.SocialMedia.name(),
-                        Category.socialMedia.Reddit.name()},
-                        getDrawable(R.drawable.reddit));
-
-        hashMap.put(new String[]{Category.Newspaper.name(),
-                Category.news.FAZ.name()},
-                getDrawable(R.drawable.faz));
-
-        hashMap.put(new String[]{Category.Newspaper.name(),
-                Category.news.Spiegel.name()},
-                getDrawable(R.drawable.spiegel));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Politik.name()},
-                getDrawable(R.drawable.world));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Wirtschaft.name()},
-                getDrawable(R.drawable.business));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Corona.name()},
-                getDrawable(R.drawable.coronavirus));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Technik.name()},
-                getDrawable(R.drawable.tech));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Gaming.name()},
-                getDrawable(R.drawable.sports));
-
-        hashMap.put(new String[]{Category.Interests.name(),
-                Category.interests.Sport.name()},
-                getDrawable(R.drawable.sport));
-    }
-
-
-    // With this method you can easily edit the images of the buttons
-    @SuppressLint("ResourceAsColor")
-    private void editPictures(){
-        // Todo: simplify attr resolution?
-        TypedArray a = getTheme().obtainStyledAttributes(
-                R.style.AppTheme, new int[] {androidx.appcompat.R.attr.colorPrimary}
-        );
-        int attributeResourceId = a.getResourceId(0, 0);
-        for(String[] s: hashMap.keySet()){
-            if(!Objects.equals(s[0], String.valueOf(Category.Newspaper))){
-                Objects.requireNonNull(hashMap.get(s)).setTint(getColor(attributeResourceId));
-            }
-        }
-    }
-
-
-    //in this method the source objects are created
+    /*
+    This Method initialise the arrayListHashMap
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initSource(){
-        arrayListHashMap.put(Category.Interests,new ArrayList<>());
+        arrayListHashMap.put(Category.Interests, new ArrayList<>());
         arrayListHashMap.put(Category.SocialMedia,new ArrayList<>());
-        arrayListHashMap.put(Category.Newspaper,new ArrayList<>());
-        for(String[]s : hashMap.keySet()){
-            if(s[0].equals(String.valueOf(Category.SocialMedia))){
-                Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia))
-                        .add(new SourceAdd(s[1],hashMap.get(s), Category.SocialMedia));
-            }
-            if(s[0].equals(String.valueOf(Category.Newspaper))){
-                Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper))
-                        .add(new SourceAdd(s[1],hashMap.get(s), Category.Newspaper));
-            }
-            if(s[0].equals(String.valueOf(Category.Interests))){
-                Objects.requireNonNull(arrayListHashMap.get(Category.Interests))
-                        .add(new SourceAdd(s[1],hashMap.get(s), Category.Interests));
-            }
+        arrayListHashMap.put(Category.Newspaper, new ArrayList<>());
+
+        AddActivityIcons addActivityIcons = new AddActivityIcons();
+
+        for(Category.interests categoryInterests: addActivityIcons.getInterestsHashMap().keySet()){
+            Objects.requireNonNull(arrayListHashMap.get(Category.Interests)).
+                    add(new SourceAdd(
+                            categoryInterests.name(),
+                            getDrawable(addActivityIcons.getInterestsHashMap().get(categoryInterests)),
+                            Category.Interests));
         }
+        for(Category.news categoryNews: addActivityIcons.getNewsHashMap().keySet()){
+            Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper)).
+                    add(new SourceAdd(
+                            categoryNews.name(),
+                            getDrawable(addActivityIcons.getNewsHashMap().get(categoryNews)),
+                            Category.Newspaper));
+        }
+        for(Category.socialMedia categorySocialMedia: addActivityIcons.getSocialMediaHashMap().keySet()){
+            Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia)).
+                    add(new SourceAdd(
+                            categorySocialMedia.name(),
+                            getDrawable(addActivityIcons.getSocialMediaHashMap().get(categorySocialMedia)),
+                            Category.Interests));
+        }
+
+        // TO add an ADD Button to each RecyclerView this three ADD Buttons will be
+        // add to the ARRAYList.
         Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper))
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),

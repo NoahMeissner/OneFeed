@@ -9,7 +9,7 @@ public class SourceAdd {
     This Method create an object, which is necessary for the ADD Activity
      */
 
-    private final Drawable image;
+    private Drawable image;
     private final String name;
     private final Category categories;
     private boolean notification;
@@ -20,6 +20,10 @@ public class SourceAdd {
         this.name = name;
         this.image = image;
         this.categories = categories;
+    }
+
+    public void setImage(Drawable image){
+        this.image = image;
     }
 
     public Category getCategories() {
@@ -57,4 +61,6 @@ public class SourceAdd {
     public String getName() {
         return name;
     }
+
+
 }

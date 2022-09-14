@@ -25,7 +25,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class ArticleRssParser {
+public class RssArticleParser {
     public ArrayList<RssArticle> parseArticles(
             String rssResponse,
             Category.news category

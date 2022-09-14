@@ -4,13 +4,13 @@ import com.example.myapplication.data.addSource.Category;
 
 import java.util.HashMap;
 
-public class RSSUrls {
+public class RssUrls {
 
     private HashMap<Category.interests,String> fazHashMap = new HashMap<>();
     private HashMap<Category.interests,String> spiegelHashMap = new HashMap<>();
 
 
-    public RSSUrls(){
+    public RssUrls(){
         initFaz();
         initSpiegel();
     }

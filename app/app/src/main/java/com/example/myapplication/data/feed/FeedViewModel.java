@@ -10,8 +10,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.R;
-import com.example.myapplication.api.rss.ArticlesRepository;
-import com.example.myapplication.api.rss.RSSUrls;
+import com.example.myapplication.api.rss.NewsRepository;
+import com.example.myapplication.api.rss.RssUrls;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.card.NewsCard;
@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 
 public class FeedViewModel extends AndroidViewModel {
 
-    ArticlesRepository articlesRepository;
+    NewsRepository articlesRepository;
 
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
 
@@ -32,7 +32,7 @@ public class FeedViewModel extends AndroidViewModel {
 
         // Initialize
         // Todo: di
-        this.articlesRepository = new ArticlesRepository(Executors.newSingleThreadExecutor());
+        this.articlesRepository = new NewsRepository(Executors.newSingleThreadExecutor());
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load
@@ -45,7 +45,7 @@ public class FeedViewModel extends AndroidViewModel {
 
     public void loadNewsCards(Context context) {
         // Todo: Use categories provided by user preferences
-        RSSUrls rssUrls = new RSSUrls();
+        RssUrls rssUrls = new RssUrls();
         HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
 
         articlesRepository.loadArticlesForRssEndpoints(corona, context, cards -> {

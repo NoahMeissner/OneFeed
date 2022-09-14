@@ -1,7 +1,6 @@
 package com.example.myapplication.api.rss;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -17,11 +16,11 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 
 
-public class ArticlesRepository {
+public class NewsRepository {
 
     private final Executor executor;
 
-    public ArticlesRepository(Executor executor) {
+    public NewsRepository(Executor executor) {
         this.executor = executor;
     }
 
@@ -117,7 +116,7 @@ public class ArticlesRepository {
             ArticleInformationCallback listener
     ) {
         executor.execute(() -> {
-            ArticleRssParser helper = new ArticleRssParser();
+            RssArticleParser helper = new RssArticleParser();
 
             // Parse rss response
             ArrayList<RssArticle> rssArticles = helper.parseArticles(xmlResponse, newsCategory);

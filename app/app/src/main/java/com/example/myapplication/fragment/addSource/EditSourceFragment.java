@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 0);
         recyclerView.setLayoutManager(layoutManager);
-        AdapterEditSourceFragment adapterEditSourceFragment = new AdapterEditSourceFragment(recyclerArrayList,this);
+        AdapterEditSourceFragment adapterEditSourceFragment = new AdapterEditSourceFragment(recyclerArrayList,source.getName(),this);
         recyclerView.setAdapter(adapterEditSourceFragment);
     }
 

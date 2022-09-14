@@ -1,6 +1,7 @@
 package com.example.myapplication.viewholder;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,10 +28,10 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.editQuellenIconText);
     }
 
-    public void bind(SourceAdd source, AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged, int size) {
+    public void bind(SourceAdd source, AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged, String name) {
         //@TODO Bug wen nur ein Element in Reihe Add Button zeigt nicht das richtige an
         //@TODO switch bearbeiten switch eintrag zu speichern
-        if(size<=1 && !Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(!name.equals(Category.ADDButton.name())){
             String setNotification = "Notification";
             textView.setText(setNotification);
                 aSwitch.setChecked(source.isNotification());

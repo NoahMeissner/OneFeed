@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAddActivity holder, int position) {
+        Log.d("CLICK",sourceArrayList.get(position).getName());
         holder.bind(sourceArrayList.get(position), listener);
         holder.bindLong(sourceArrayList.get(position), longItemClickListener);
     }
@@ -62,6 +64,9 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     @SuppressLint("NotifyDataSetChanged")
     public void setSourceArrayList(ArrayList<SourceAdd> sourceArrayList){
         this.sourceArrayList = sourceArrayList;
+        for(SourceAdd sourceAdd :sourceArrayList){
+            Log.d(sourceAdd.getName(), String.valueOf(sourceAdd.getCategories()));
+        }
         notifyDataSetChanged();
     }
 }

@@ -32,6 +32,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.quelleText);
         linearLayout = itemView.findViewById(R.id.deleteLayout);
         linearLayout.setVisibility(View.GONE);
+
     }
 
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {

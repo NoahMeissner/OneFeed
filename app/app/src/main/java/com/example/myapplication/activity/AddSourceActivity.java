@@ -5,16 +5,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
-import com.example.myapplication.database.AddActivityIcons;
+import com.example.myapplication.data.addSource.AddActivityIcons;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
@@ -104,22 +103,25 @@ public class AddSourceActivity extends AppCompatActivity implements
             Objects.requireNonNull(arrayListHashMap.get(Category.Interests)).
                     add(new SourceAdd(
                             categoryInterests.name(),
-                            getDrawable(addActivityIcons.getInterestsHashMap().get(categoryInterests)),
+                            getDrawable(Objects.requireNonNull(
+                                    addActivityIcons.getInterestsHashMap().get(categoryInterests))),
                             Category.Interests));
         }
         for(Category.news categoryNews: addActivityIcons.getNewsHashMap().keySet()){
             Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper)).
                     add(new SourceAdd(
                             categoryNews.name(),
-                            getDrawable(addActivityIcons.getNewsHashMap().get(categoryNews)),
+                            getDrawable(Objects.requireNonNull(
+                                    addActivityIcons.getNewsHashMap().get(categoryNews))),
                             Category.Newspaper));
         }
         for(Category.socialMedia categorySocialMedia: addActivityIcons.getSocialMediaHashMap().keySet()){
             Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia)).
                     add(new SourceAdd(
                             categorySocialMedia.name(),
-                            getDrawable(addActivityIcons.getSocialMediaHashMap().get(categorySocialMedia)),
-                            Category.Interests));
+                            getDrawable(Objects.requireNonNull(
+                                    addActivityIcons.getSocialMediaHashMap().get(categorySocialMedia))),
+                            Category.SocialMedia));
         }
 
         // TO add an ADD Button to each RecyclerView this three ADD Buttons will be
@@ -152,6 +154,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     // using it we can open the fragment depending on the button clicked
     @Override
     public void onItemClick(SourceAdd source) {
+        //@TODO erkennt den falschen an
         if(!longSourceClick){
             EditSourceFragment editSourceFragment = new EditSourceFragment();
             editSourceFragment.setSource(source);
@@ -172,16 +175,18 @@ public class AddSourceActivity extends AppCompatActivity implements
         longSourceClick = false;
         if(result){
             Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
+            Log.d("SC","Hallo");
             if(source.getCategories()== Category.Interests){
-                adapterInterests.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
-                return;
+                    adapterInterests.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
+                    return;
+                }
             }
             if(source.getCategories()== Category.SocialMedia){
                 adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
                 return;
             }
             adapterNews.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
-        }
+
     }
 
 

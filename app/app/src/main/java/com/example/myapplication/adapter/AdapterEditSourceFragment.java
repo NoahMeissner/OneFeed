@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,16 @@ public class AdapterEditSourceFragment extends
 
     private ArrayList<SourceAdd> source;
     private final SourceSettingsChanged sourceSettingsChanged;
+    private final String name;
 
     public interface SourceSettingsChanged {
         void changedSource(SourceAdd source);
     }
 
 
-    public AdapterEditSourceFragment(ArrayList<SourceAdd> categories, SourceSettingsChanged qSC){
+    public AdapterEditSourceFragment(ArrayList<SourceAdd> categories,String name, SourceSettingsChanged qSC){
         this.source = categories;
+        this.name = name;
         this.sourceSettingsChanged = qSC;
     }
 
@@ -41,7 +44,7 @@ public class AdapterEditSourceFragment extends
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderEditSourceFragment holder, int position) {
-        holder.bind(source.get(position), sourceSettingsChanged, source.size());
+        holder.bind(source.get(position), sourceSettingsChanged, name);
     }
 
     @SuppressLint("NotifyDataSetChanged")

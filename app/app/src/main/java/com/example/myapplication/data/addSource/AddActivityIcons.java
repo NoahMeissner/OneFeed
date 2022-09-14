@@ -1,4 +1,4 @@
-package com.example.myapplication.database;
+package com.example.myapplication.data.addSource;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 
 
@@ -154,7 +153,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     // using it we can open the fragment depending on the button clicked
     @Override
     public void onItemClick(SourceAdd source) {
-        //@TODO erkennt den falschen an
         if(!longSourceClick){
             EditSourceFragment editSourceFragment = new EditSourceFragment();
             editSourceFragment.setSource(source);
@@ -175,18 +173,19 @@ public class AddSourceActivity extends AppCompatActivity implements
         longSourceClick = false;
         if(result){
             Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
-            Log.d("SC","Hallo");
             if(source.getCategories()== Category.Interests){
-                    adapterInterests.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
+                    adapterInterests.setSourceArrayList(Objects.requireNonNull(
+                            arrayListHashMap.get(source.getCategories())));
                     return;
                 }
             }
             if(source.getCategories()== Category.SocialMedia){
-                adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
+                adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
+                        arrayListHashMap.get(source.getCategories())));
                 return;
             }
-            adapterNews.setSourceArrayList(arrayListHashMap.get(source.getCategories()));
-
+            adapterNews.setSourceArrayList(Objects.requireNonNull(
+                    arrayListHashMap.get(source.getCategories())));
     }
 
 
@@ -197,9 +196,14 @@ public class AddSourceActivity extends AppCompatActivity implements
             }
             arrayListHashMap.put(categories,arrayListHashMap.get(categories));
         }
-        adapterSocialMedia.setSourceArrayList(arrayListHashMap.get(Category.SocialMedia));
-        adapterInterests.setSourceArrayList(arrayListHashMap.get(Category.Interests));
-        adapterNews.setSourceArrayList(arrayListHashMap.get(Category.Newspaper));
+        adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
+                arrayListHashMap.get(Category.SocialMedia)));
+
+        adapterInterests.setSourceArrayList(Objects.requireNonNull(
+                arrayListHashMap.get(Category.Interests)));
+
+        adapterNews.setSourceArrayList(Objects.requireNonNull(
+                arrayListHashMap.get(Category.Newspaper)));
     }
 
 

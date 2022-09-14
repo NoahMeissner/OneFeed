@@ -7,10 +7,11 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.database.Data;
 import com.example.myapplication.fragment.onboard.InterestsFragment;
 import com.example.myapplication.fragment.onboard.SocialMediaFragment;
 import com.example.myapplication.fragment.onboard.WelcomeFragment;
-import com.example.myapplication.data.onboard.OnboardingUserData;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
      */
 
      private FragmentManager fragmentManager;
-     private ArrayList<String> interests = new ArrayList<>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +66,6 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
                     Intent intent = new Intent(
                             OnboardActivity.this,
                             PermissionsActivity.class);
-
-                    intent.putExtra(String.valueOf(OnboardingUserData.interestsArrayList),interests);
                     startActivity(intent);
             }
         });
@@ -76,7 +74,9 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
 
     // This method grabs the Interests ArrayList from the Interests Query
     @Override
-    public void onDataPass(ArrayList<String> interestsList) {
-        interests = interestsList;
+    public void onDataPass(ArrayList<Category.interests> interestsList) {
+        //@TODO DATABASE
+        Data data = new Data();
+        data.setSelectedInterests(interestsList);
     }
 }

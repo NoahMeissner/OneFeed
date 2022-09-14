@@ -32,8 +32,8 @@ public class InterestsFragment extends Fragment {
 
     // Constants
     private final Point size = new Point();
-    private final HashMap<String, InterestsAnimation> buttons = new HashMap<>();
-    private final ArrayList<String> results = new ArrayList<>();
+    private final HashMap<Category.interests, InterestsAnimation> buttons = new HashMap<>();
+    private final ArrayList<Category.interests> results = new ArrayList<>();
     private final int xSpeed = 1;
     private final int ySpeed = 1;
     private int buttonSize=0;
@@ -62,30 +62,30 @@ public class InterestsFragment extends Fragment {
     // This method initializes all buttons representing the interests
     private void initButtons(View view){
         buttons.put(
-                String.valueOf(Category.interests.Politik),
+                Category.interests.Politik,
                 view.findViewById(R.id.buttonKategoriePolitik));
 
         buttons.put(
-                String.valueOf(Category.interests.Corona),
+                Category.interests.Corona,
                 view.findViewById(R.id.buttonKategorieCorona));
 
         buttons.put(
-                String.valueOf(Category.interests.Gaming),
+                Category.interests.Gaming,
                 view.findViewById(R.id.buttonKategorieGaming));
 
-        buttons.put(String.valueOf(
-                Category.interests.Technik),
+        buttons.put(
+                Category.interests.Technik,
                 view.findViewById(R.id.buttonKategorieTechnik));
 
         buttons.put(
-                String.valueOf(Category.interests.Wirtschaft),
+                Category.interests.Wirtschaft,
                 view.findViewById(R.id.buttonKategorieWirtschaft));
 
         buttons.put(
-                String.valueOf(Category.interests.Sport),
+                Category.interests.Sport,
                 view.findViewById(R.id.buttonKategorieSport));
 
-        for(String s:buttons.keySet()){
+        for(Category.interests s:buttons.keySet()){
             setListener(Objects.requireNonNull(buttons.get(s)),s);
         }
     }
@@ -116,7 +116,7 @@ public class InterestsFragment extends Fragment {
     }
 
     //This method sets a listener on all buttons in the Fragment, to receive the user's responses
-    private void setListener(InterestsAnimation interestsAnimation, String category){
+    private void setListener(InterestsAnimation interestsAnimation, Category.interests category){
         interestsAnimation.setOnClickListener(view -> {
             if(buttonSize==0){
                 buttonSize=interestsAnimation.getHeight();
@@ -132,7 +132,7 @@ public class InterestsFragment extends Fragment {
 
     //This method rolls back a user's answer if he revises it
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void buttonAnimationReset(InterestsAnimation interestsAnimation, String category) {
+    private void buttonAnimationReset(InterestsAnimation interestsAnimation, Category.interests category) {
         interestsAnimation.getLayoutParams().width= buttonSize;
         interestsAnimation.getLayoutParams().height= buttonSize;
         interestsAnimation.setBackground(getResources()
@@ -147,7 +147,7 @@ public class InterestsFragment extends Fragment {
 
     //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void detecButtonAnimation(InterestsAnimation interestsAnimation, String category){
+    private void detecButtonAnimation(InterestsAnimation interestsAnimation, Category.interests category){
         double magnificationFactor = 1.1;
         interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
         interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
@@ -158,7 +158,7 @@ public class InterestsFragment extends Fragment {
 
         results.add(category);
         dataPasser.onDataPass(results);
-        for(String s:buttons.keySet()){
+        for(Category.interests s:buttons.keySet()){
             if(!Objects.equals(s, category)){
                 setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
             }
@@ -167,7 +167,7 @@ public class InterestsFragment extends Fragment {
 
     // This interface allows the activity to transmit the information
     public interface OnDataPass{
-         void onDataPass(ArrayList<String> interestsList);
+         void onDataPass(ArrayList<Category.interests> interestsList);
     }
 }
 

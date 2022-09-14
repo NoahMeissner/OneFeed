@@ -1,21 +1,35 @@
 package com.example.myapplication.database;
 
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
 
 public class Data {
 
-    private ArrayList<SourceAdd> interests = new ArrayList<>();
+    private ArrayList<SourceAdd> interests;
 
-    private ArrayList<SourceAdd> newsPaper = new ArrayList<>();
+    private ArrayList<SourceAdd> newsPaper;
 
-    private ArrayList<SourceAdd> socialMedia = new ArrayList<>();
+    private ArrayList<SourceAdd> socialMedia;
+
+    private ArrayList<Category.interests> selectedInterests = new ArrayList<>();
+
 
     public Data(){
 
     }
 
+    public void setSelectedInterests(ArrayList<Category.interests> selectedInterests) {
+        this.selectedInterests = selectedInterests;
+    }
+
+    public ArrayList<Category.interests> getSelectedInterests() {
+        if (interests == null){
+            return selectedInterests;
+        }
+        return null;
+    }
 
     public void setNewsPaper(ArrayList<SourceAdd> newsPaper) {
         this.newsPaper = newsPaper;

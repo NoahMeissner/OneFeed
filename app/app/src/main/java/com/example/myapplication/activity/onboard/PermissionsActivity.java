@@ -10,10 +10,7 @@ import com.example.myapplication.activity.FeedActivity;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.fragment.onboard.ConsumptionPermissionFragment;
 import com.example.myapplication.fragment.onboard.NotificationPermissionFragment;
-import com.example.myapplication.data.onboard.OnboardingUserData;
 import com.example.myapplication.R;
-
-import java.util.ArrayList;
 
 public class PermissionsActivity extends AppCompatActivity {
 
@@ -25,22 +22,16 @@ public class PermissionsActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private boolean notifications = false;
     private boolean consumptionAnalyse = false;
-    private ArrayList<String> interests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
-        getIntentInformation();
         initFragment();
         initUI();
     }
 
-    // this method queries the information passed through the intent
-    private void getIntentInformation(){
-        Intent intent = getIntent();
-        interests = intent.getStringArrayListExtra(String.valueOf(OnboardingUserData.interestsArrayList));
-    }
+
 
     // This Method initialise the Fragment Manager for the first Fragment
     private void initFragment() {
@@ -89,7 +80,6 @@ public class PermissionsActivity extends AppCompatActivity {
     private void setIntent(boolean consumptionAnalysis, boolean notifications){
         Intent intent = new Intent(this, FeedActivity.class);
         initSharedPreferences(consumptionAnalyse,notifications);
-        intent.putExtra(String.valueOf(OnboardingUserData.interestsArrayList),interests);
         //@TODO Social Media Arraylist übergeben
         startActivity(intent);
     }
@@ -99,7 +89,6 @@ public class PermissionsActivity extends AppCompatActivity {
     private void initSharedPreferences(boolean consumptionAnalyse, boolean notifications) {
         SharedPreferences pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
-
         SharedPreferences.Editor editPreferences = pref.edit();
         editPreferences.putBoolean(Category.initial.Process.name(), true);
         editPreferences.putBoolean(Category.initial.Notification.name(), notifications);

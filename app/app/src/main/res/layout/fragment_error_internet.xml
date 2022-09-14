@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="380dp"
+    android:layout_height="250dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="28dp"
+    app:shapeAppearanceOverlay="?attr/shapeAppearanceMediumComponent"
+    app:backgroundInsetStart="24dp"
+    app:backgroundInsetEnd="24dp"
+    app:backgroundInsetTop="80dp"
+    app:backgroundInsetBottom="80dp"
+    android:background="?attr/colorSurface"
+    app:shapeAppearance="?attr/shapeAppearanceMediumComponent"
+    >
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="230dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_gravity="center"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/informationicon"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                android:text="@string/mistakeHeadline" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:layout_height="wrap_content"
+            android:text="@string/errorFragmentText" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="3dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+
+            <Button
+                android:id="@+id/errorButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                app:layout_constraintEnd_toEndOf="@id/buttonND"
+                android:textAppearance="@style/toolbar_icon_button"
+                android:text="Erneut versuchen"
+                android:textSize="15sp"/>
+        </FrameLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

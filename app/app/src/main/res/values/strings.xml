@@ -61,4 +61,6 @@
     <string name="insight_chart_toggle_week">Woche</string>
     <string name="insight_chart_toggle_month">Monat</string>
     <string name="insight_chart_toggle_year">Jahr</string>
+    <string name="mistakeHeadline">Fehler 404</string>
+    <string name="errorFragmentText">Prüfen Sie Ihre Internetverbindung</string>
 </resources>

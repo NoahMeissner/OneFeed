@@ -2,8 +2,7 @@ package com.example.myapplication.api.rss;
 import com.example.myapplication.data.addSource.Category;
 
 
-
-
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -13,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.fragment.feed.ErrorFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +46,9 @@ public class RSSApiRequest {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("Error","Erros");
+                    Log.d("ERROR","ERROR");
+                    //@TODO Error Fragement aktivieren
+                    ErrorFragment errorFragment = new ErrorFragment();
                 }
             });
             queue.add(jsonObjectRequest);

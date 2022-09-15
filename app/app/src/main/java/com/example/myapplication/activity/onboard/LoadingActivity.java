@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
@@ -51,9 +50,14 @@ public class LoadingActivity extends AppCompatActivity {
     private void initSharedPreferences() {
         pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
-        isInitialized = pref.getBoolean(Category.initial.Process.name(),false);
-        notification = pref.getBoolean(Category.initial.Notification.name(), false);
-        interestsAreInitialized = pref.getBoolean(Category.initial.InterestsAreInitialised.name(), false);
+        isInitialized = pref.getBoolean(
+                Category.initial.Process.name(),false);
+
+        notification = pref.getBoolean(
+                Category.initial.Notification.name(), false);
+
+        interestsAreInitialized = pref.getBoolean(
+                Category.initial.InterestsAreInitialised.name(), false);
     }
 
     /*

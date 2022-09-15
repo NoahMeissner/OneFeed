@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
 
 import org.w3c.dom.Document;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +33,7 @@ public class RssArticleParser {
             String rssResponse,
             Category.news category
     ) {
+        // Todo: running async or not? nested functions!
         ArrayList<RssArticle> articles = new ArrayList<>();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

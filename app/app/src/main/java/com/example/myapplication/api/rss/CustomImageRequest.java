@@ -13,23 +13,18 @@ import com.android.volley.toolbox.Volley;
 public class CustomImageRequest {
 
         private final String iconurl;
-        private final Context context;
 
-        public CustomImageRequest(String iconurl, Context context) {
+        public CustomImageRequest(String iconurl) {
             this.iconurl = iconurl;
-            this.context = context;
         }
 
-        public void run(Response.Listener<Bitmap> listener) {
-            RequestQueue queue = Volley.newRequestQueue(context);
-            ImageRequest imageRequest = new ImageRequest(iconurl, listener, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
+        public void run(Response.Listener<Bitmap> listener, RequestQueue queue, Context context) {
+            ImageRequest imageRequest = new ImageRequest(iconurl, response -> {
+                listener.onResponse(response);
+            }, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
                 CharSequence sentence = "Bild konnte nicht geladen werden";
                 Toast.makeText(context.getApplicationContext(), sentence, Toast.LENGTH_LONG).show();
             });
             queue.add(imageRequest);
-        }
-
-        public interface RequestListener {
-            void onResult(Bitmap icon);
         }
 }

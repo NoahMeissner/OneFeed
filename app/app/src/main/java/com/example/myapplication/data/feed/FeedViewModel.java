@@ -32,7 +32,7 @@ public class FeedViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize
-        this.articlesRepository = new NewsRepository(((OneFeed) getApplication()).executorService);
+        this.articlesRepository = new NewsRepository();
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load

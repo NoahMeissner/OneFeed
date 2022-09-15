@@ -14,15 +14,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class NewsRepository {
 
-    private final Executor executor;
-
-    public NewsRepository(Executor executor) {
-        this.executor = executor;
-    }
+    private ExecutorService executor;
+    private RequestQueue requestQueue;
 
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
@@ -31,6 +30,10 @@ public class NewsRepository {
             Context context,
             ArticleCardsCallback listener
     ) {
+        // Todo: make safer e.g. pass via parameter
+        this.requestQueue = Volley.newRequestQueue(context);
+        this.executor = Executors.newSingleThreadExecutor();
+
         executor.execute(() -> {
             ArrayList<ArticleCard> cards = new ArrayList<>();
 
@@ -46,6 +49,8 @@ public class NewsRepository {
                             cards.addAll(articleResults);
                             if (isFinalRun) {
                                 listener.onComplete(cards);
+                                this.executor.shutdown();
+                                this.requestQueue.stop();
                             }
                         });
 
@@ -61,8 +66,6 @@ public class NewsRepository {
             Context context,
             ArticleCardsCallback listener) {
         executor.execute(() -> {
-            RequestQueue queue = Volley.newRequestQueue(context);
-
             // Loading all articles for an rss endpoint involves the following
             //    1. load the rss xml
             //    2. load and set the thumbnail images for all articles
@@ -105,7 +108,7 @@ public class NewsRepository {
                     }),
                     error -> Log.d("Error", "Erros") // Todo: Handle errors
             );
-            queue.add(rssRequest);
+            requestQueue.add(rssRequest);
         });
     }
 
@@ -137,31 +140,25 @@ public class NewsRepository {
                 //   Volley uses caching by default for every request so we can run this for every
                 //   article without performance loss
                 if (!article.getImageUrl().equals("")) {
-                    CustomImageRequest imageRequest = new CustomImageRequest(
-                            article.getImageUrl(),
-                            context
-                    );
+                    CustomImageRequest imageRequest = new CustomImageRequest(article.getImageUrl());
                     imageRequest.run(image -> {
                         card.setImage(image);
                         // Callback if this is the final image to load
                         if (rssArticles.indexOf(article) == rssArticles.size() - 1) {
                             listener.onAllImagesLoaded(articleCards);
                         }
-                    });
+                    }, requestQueue, context);
                 }
 
                 // Load source icon
                 //   Volley uses caching by default for every request so we can run this for every
                 //   article without performance loss
-                CustomImageRequest sourceIconRequest = new CustomImageRequest(
-                        article.getSourceIconUrl(),
-                        context
-                );
+                CustomImageRequest sourceIconRequest = new CustomImageRequest(article.getSourceIconUrl());
                 sourceIconRequest.run(icon -> {
                     card.getSource().setIcon(icon);
                     // Callback if this is the final icon to load
                     notifyAllIconsLoadedIfFinal(listener, rssArticles, articleCards, article);
-                });
+                }, requestQueue, context);
 
                 articleCards.add(card);
             }

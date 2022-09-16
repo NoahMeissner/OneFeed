@@ -13,6 +13,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.data.addSource.AddActivityIcons;
+import com.example.myapplication.database.GetData;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
@@ -29,14 +30,18 @@ public class AddSourceActivity extends AppCompatActivity implements
         EditSourceFragment.SettingsChanges {
 
     private final HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
+    private final HashMap<Category,ArrayList<SourceAdd>> selectedHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
+    private GetData data;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        data = new GetData(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addactivity);
         initUI();
@@ -46,9 +51,16 @@ public class AddSourceActivity extends AppCompatActivity implements
     // in this method all elements are initialized
     private void initUI() {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
+        iniSelectedHashMap();
         initSource();
         declareRecyclerView();
         initButton();
+    }
+
+    private void iniSelectedHashMap() {
+        selectedHashMap.put(Category.Interests,data.getCategory(Category.Interests));
+        selectedHashMap.put(Category.SocialMedia,data.getCategory(Category.SocialMedia));
+        selectedHashMap.put(Category.Newspaper,data.getCategory(Category.Newspaper));
     }
 
 
@@ -72,15 +84,15 @@ public class AddSourceActivity extends AppCompatActivity implements
 
         adapterNews = initRecyclerView(
                 recyclerNewsPaper,
-                arrayListHashMap.get(Category.Newspaper));
+                selectedHashMap.get(Category.Newspaper));
 
         adapterInterests = initRecyclerView(
                 recyclerInterests,
-                arrayListHashMap.get(Category.Interests));
+                selectedHashMap.get(Category.Interests));
 
         adapterSocialMedia = initRecyclerView(
                 recyclerSocialMedia,
-                arrayListHashMap.get(Category.SocialMedia));
+                selectedHashMap.get(Category.SocialMedia));
 
         recyclerInterests.setAdapter(adapterInterests);
         recyclerSocialMedia.setAdapter(adapterSocialMedia);
@@ -122,28 +134,64 @@ public class AddSourceActivity extends AppCompatActivity implements
                                     addActivityIcons.getSocialMediaHashMap().get(categorySocialMedia))),
                             Category.SocialMedia));
         }
+        updateSelectedHashMap();
+    }
+    //@TODO add image Path to DataBase to delete Loop
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void updateSelectedHashMap(){
+        /*
+        This for Loop sets all Images of the saved Source ADD Items
+         */
+        for (Category category: selectedHashMap.keySet()){
+            AddActivityIcons addActivityIcons = new AddActivityIcons();
+
+            for(SourceAdd sourceAdd : Objects.requireNonNull(selectedHashMap.get(category))){
+               if(category == Category.Interests){
+                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
+                           (addActivityIcons
+                           .getInterestsHashMap()
+                           .get(Category.interests.valueOf(sourceAdd.getName())))));
+               }
+
+               if(category == Category.SocialMedia){
+                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
+                           (addActivityIcons
+                           .getSocialMediaHashMap()
+                           .get(Category.socialMedia.valueOf(sourceAdd.getName())))));
+               }
+               if(category == Category.Newspaper){
+                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
+                           (addActivityIcons
+                                   .getNewsHashMap()
+                                   .get(Category.news.valueOf(sourceAdd.getName())))));
+               }
+            }
+        }
 
         // TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         // add to the ARRAYList.
-        Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper))
+        Objects.requireNonNull(selectedHashMap.get(Category.Newspaper))
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
                         Category.Newspaper));
 
-        Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia))
+        Objects.requireNonNull(selectedHashMap.get(Category.SocialMedia))
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add ),
                         Category.SocialMedia));
 
-        Objects.requireNonNull(arrayListHashMap.get(Category.Interests))
+        Objects.requireNonNull(selectedHashMap.get(Category.Interests))
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
                         Category.Interests));
     }
 
 
-    // In this method, depending on a RecyclerView, the recycler view is processed and connected to the adapter
-    private AdapterListAddActivity initRecyclerView(RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
+    // In this method, depending on a RecyclerView, the recycler view is
+    // processed and connected to the adapter
+    private AdapterListAddActivity initRecyclerView(
+            RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
+
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
         return new AdapterListAddActivity(this, this,arrayList);
     }

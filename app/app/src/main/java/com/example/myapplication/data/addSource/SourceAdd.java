@@ -2,24 +2,45 @@ package com.example.myapplication.data.addSource;
 
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "sourceAdd")
 public class SourceAdd {
 
     /*
     This Method create an object, which is necessary for the ADD Activity
      */
 
-    private Drawable image;
+    @PrimaryKey
+    @NonNull
     private final String name;
     private final Category categories;
     private boolean notification;
     private boolean enabled;
+    @Ignore
     private boolean setAnimation = false;
+    @Ignore
+    private Drawable image;
 
-    public SourceAdd(String name, Drawable image, Category categories){
+    @Ignore
+    public SourceAdd(@NonNull String name, Drawable image, Category categories){
         this.name = name;
         this.image = image;
         this.categories = categories;
+    }
+
+    public SourceAdd(@NonNull String name,
+                     Category categories,
+                     boolean notification,
+                     boolean enabled
+                     ){
+        this.name = name;
+        this.categories = categories;
+        this.notification = notification;
+        this.enabled = enabled;
     }
 
     public void setImage(Drawable image){
@@ -58,9 +79,8 @@ public class SourceAdd {
         return setAnimation;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
-
-
 }

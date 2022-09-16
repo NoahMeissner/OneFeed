@@ -165,6 +165,8 @@ public class InterestsFragment extends Fragment {
         }
     }
 
+
+
     // This interface allows the activity to transmit the information
     public interface OnDataPass{
          void onDataPass(ArrayList<Category.interests> interestsList);

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.myapplication.data.addSource.Category;
-import com.example.myapplication.database.Data;
+import com.example.myapplication.database.InitialData;
 import com.example.myapplication.fragment.onboard.InterestsFragment;
 import com.example.myapplication.fragment.onboard.SocialMediaFragment;
 import com.example.myapplication.fragment.onboard.WelcomeFragment;
@@ -16,7 +16,7 @@ import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class OnboardActivity extends AppCompatActivity implements InterestsFragment.OnDataPass{
+public class OnboardActivity extends AppCompatActivity implements InterestsFragment.OnDataPass, SocialMediaFragment.getSelectedSocialMedia{
 
     /*
     This activity is responsible for the entire setup process.
@@ -24,6 +24,8 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
      */
 
      private FragmentManager fragmentManager;
+     private ArrayList<Category.interests> interestsList = new ArrayList<>();
+     private ArrayList<Category.socialMedia> socialMediaList = new ArrayList<>();
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +63,21 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();
+                    transmitData();
                     return;
                 case 3:
                     Intent intent = new Intent(
                             OnboardActivity.this,
                             PermissionsActivity.class);
+                    getSocialMediaData();
                     startActivity(intent);
             }
         });
+    }
+
+    private void getSocialMediaData() {
+            InitialData data = new InitialData(this);
+            data.setSelectSocialMedia(socialMediaList);
     }
 
 
@@ -76,7 +85,16 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
     @Override
     public void onDataPass(ArrayList<Category.interests> interestsList) {
         //@TODO DATABASE
-        Data data = new Data();
+        this.interestsList = interestsList;
+    }
+
+    private void transmitData(){
+        InitialData data = new InitialData(getApplicationContext());
         data.setSelectedInterests(interestsList);
+    }
+
+    @Override
+    public void getSelectedSocialMedia(Category.socialMedia socialMedia) {
+        socialMediaList.add(socialMedia);
     }
 }

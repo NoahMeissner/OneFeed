@@ -84,5 +84,6 @@ public class PermissionsDialogFragment extends DialogFragment {
                 .getString(R.string.initProcesBoolean), 0);
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editPreferences = pref.edit();
         editPreferences.putBoolean(Category.initial.Consumptionanalyse.name(), true);
+        editPreferences.apply();
     }
 }

@@ -66,7 +66,7 @@ public class InsightActivity extends AppCompatActivity {
      which asks the User to accept the consumption analysis
      */
     private void initialFragement() {
-        if(getPermission() == false){
+        if(!getPermission()){
             PermissionsDialogFragment permissionsDialogFragement = new PermissionsDialogFragment();
             permissionsDialogFragement.show(getSupportFragmentManager(),"");
         }

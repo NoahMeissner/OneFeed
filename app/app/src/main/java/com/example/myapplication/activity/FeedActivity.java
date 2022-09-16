@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
 
@@ -20,6 +21,8 @@ import com.example.myapplication.data.feed.NewsSource;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.card.TwitterCard;
 import com.example.myapplication.adapter.NewsCardListAdapter;
+import com.example.myapplication.database.GetData;
+import com.example.myapplication.database.InitialData;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,8 +56,9 @@ public class FeedActivity extends AppCompatActivity {
 //        setupDummyCards();
         initApi();
         //@TODO Löschen
-        killPreferences();
+       //killPreferences();
     }
+
 
     private void killPreferences() {
         // This Method clear shared Preferences

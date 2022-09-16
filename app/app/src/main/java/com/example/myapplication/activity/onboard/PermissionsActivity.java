@@ -15,8 +15,9 @@ import com.example.myapplication.R;
 public class PermissionsActivity extends AppCompatActivity {
 
     /*
-    During the set-up process, this activity asks for various information that requires the user's consent.
-    In addition, she passes on all the information she received through the initial activity.
+    During the set-up process, this activity asks for various information
+    that requires the user's consent. In addition, she passes on all the
+    information she received through the initial activity.
      */
 
     private FragmentManager fragmentManager;
@@ -49,13 +50,12 @@ public class PermissionsActivity extends AppCompatActivity {
         Button buttonNo=findViewById(R.id.buttonNo);
         setListener(buttonYes,true);
         setListener(buttonNo,false);
-
-
     }
 
     /*
-    On the one hand, this method receives the information from the user, which is important for setting up the app.
-     In addition, it creates the change between the individual fragments.
+    On the one hand, this method receives the information from the user,
+    which is important for setting up the app. In addition, it creates the change
+     between the individual fragments.
      */
     private void setListener(Button button,boolean result){
         button.setOnClickListener(view -> {
@@ -63,7 +63,8 @@ public class PermissionsActivity extends AppCompatActivity {
             case 1:
                 this.consumptionAnalyse =result;
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frameLayoutPermissions, NotificationPermissionFragment.class, null)
+                        .replace(R.id.frameLayoutPermissions,
+                                NotificationPermissionFragment.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("")
                         .commit();
@@ -76,11 +77,11 @@ public class PermissionsActivity extends AppCompatActivity {
         });
     }
 
-    // the Method hands over all Information of the Set Up Process to the Intent and the new Activity
+    // the Method hands over all Information of the Set Up Process
+    // to the Intent and the new Activity
     private void setIntent(boolean consumptionAnalysis, boolean notifications){
-        Intent intent = new Intent(this, FeedActivity.class);
+        Intent intent = new Intent(this, LoadingActivity.class);
         initSharedPreferences(consumptionAnalyse,notifications);
-        //@TODO Social Media Arraylist übergeben
         startActivity(intent);
     }
 

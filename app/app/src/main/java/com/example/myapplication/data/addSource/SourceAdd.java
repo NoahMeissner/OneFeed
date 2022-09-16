@@ -7,6 +7,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.myapplication.R;
+
 @Entity(tableName = "sourceAdd")
 public class SourceAdd {
 
@@ -24,6 +26,8 @@ public class SourceAdd {
     private boolean setAnimation = false;
     @Ignore
     private Drawable image;
+    @Ignore
+    private int imagePath = R.drawable.ic_launcher_foreground;
 
     @Ignore
     public SourceAdd(@NonNull String name, Drawable image, Category categories){
@@ -37,10 +41,15 @@ public class SourceAdd {
                      boolean notification,
                      boolean enabled
                      ){
+        // this.imagePath = imagePath;
         this.name = name;
         this.categories = categories;
         this.notification = notification;
         this.enabled = enabled;
+    }
+
+    public int getImagePath() {
+        return imagePath;
     }
 
     public void setImage(Drawable image){

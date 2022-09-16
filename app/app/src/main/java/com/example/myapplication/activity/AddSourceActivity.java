@@ -53,7 +53,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         iniSelectedHashMap();
         initSource();
-        declareRecyclerView();
         initButton();
     }
 
@@ -139,34 +138,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     //@TODO add image Path to DataBase to delete Loop
     @SuppressLint("UseCompatLoadingForDrawables")
     private void updateSelectedHashMap(){
-        /*
-        This for Loop sets all Images of the saved Source ADD Items
-         */
-        for (Category category: selectedHashMap.keySet()){
-            AddActivityIcons addActivityIcons = new AddActivityIcons();
-
-            for(SourceAdd sourceAdd : Objects.requireNonNull(selectedHashMap.get(category))){
-               if(category == Category.Interests){
-                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
-                           (addActivityIcons
-                           .getInterestsHashMap()
-                           .get(Category.interests.valueOf(sourceAdd.getName())))));
-               }
-
-               if(category == Category.SocialMedia){
-                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
-                           (addActivityIcons
-                           .getSocialMediaHashMap()
-                           .get(Category.socialMedia.valueOf(sourceAdd.getName())))));
-               }
-               if(category == Category.Newspaper){
-                   sourceAdd.setImage(getDrawable(Objects.requireNonNull
-                           (addActivityIcons
-                                   .getNewsHashMap()
-                                   .get(Category.news.valueOf(sourceAdd.getName())))));
-               }
-            }
-        }
 
         // TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         // add to the ARRAYList.
@@ -184,6 +155,7 @@ public class AddSourceActivity extends AppCompatActivity implements
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
                         Category.Interests));
+        declareRecyclerView();
     }
 
 
@@ -204,7 +176,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         if(!longSourceClick){
             EditSourceFragment editSourceFragment = new EditSourceFragment();
             editSourceFragment.setSource(source);
-            editSourceFragment.setSettings(arrayListHashMap.get(source.getCategories()));
+            editSourceFragment.setSettings(selectedHashMap.get(source.getCategories()));
             editSourceFragment.show(getSupportFragmentManager(),"");
             return;
         }
@@ -220,38 +192,39 @@ public class AddSourceActivity extends AppCompatActivity implements
         setAnimation(false);
         longSourceClick = false;
         if(result){
-            Objects.requireNonNull(arrayListHashMap.get(source.getCategories())).remove(source);
+            data.removeIcon(source);
+            Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
             if(source.getCategories()== Category.Interests){
                     adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                            arrayListHashMap.get(source.getCategories())));
+                            selectedHashMap.get(source.getCategories())));
                     return;
                 }
             }
             if(source.getCategories()== Category.SocialMedia){
                 adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                        arrayListHashMap.get(source.getCategories())));
+                        selectedHashMap.get(source.getCategories())));
                 return;
             }
             adapterNews.setSourceArrayList(Objects.requireNonNull(
-                    arrayListHashMap.get(source.getCategories())));
+                    selectedHashMap.get(source.getCategories())));
     }
 
 
     private void setAnimation(boolean boo){
-        for(Category categories: arrayListHashMap.keySet()){
-            for(SourceAdd source: Objects.requireNonNull(arrayListHashMap.get(categories))){
+        for(Category categories:selectedHashMap.keySet()){
+            for(SourceAdd source: Objects.requireNonNull(selectedHashMap.get(categories))){
                 source.setSetAnimation(boo);
             }
-            arrayListHashMap.put(categories,arrayListHashMap.get(categories));
+            selectedHashMap.put(categories,selectedHashMap.get(categories));
         }
         adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                arrayListHashMap.get(Category.SocialMedia)));
+                selectedHashMap.get(Category.SocialMedia)));
 
         adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                arrayListHashMap.get(Category.Interests)));
+                selectedHashMap.get(Category.Interests)));
 
         adapterNews.setSourceArrayList(Objects.requireNonNull(
-                arrayListHashMap.get(Category.Newspaper)));
+                selectedHashMap.get(Category.Newspaper)));
     }
 
 
@@ -269,6 +242,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     
     @Override
     public void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Category c) {
-        arrayListHashMap.put(c, sourceArrayList);
+        selectedHashMap.put(c, sourceArrayList);
     }
 }

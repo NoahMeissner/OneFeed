@@ -22,7 +22,10 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
 
     private void initDataBase() {
         dataBaseHelper = new DataBaseHelper(context, this);
+    }
 
+    public void removeIcon(SourceAdd sourceADD){
+        dataBaseHelper.deleteSingleItem(sourceADD);
     }
 
     public void update(ArrayList<SourceAdd> updateArrayList){

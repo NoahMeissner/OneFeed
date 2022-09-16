@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.SourceAdd;
+import com.example.myapplication.database.GetData;
 
 import java.util.Objects;
 
@@ -70,7 +71,7 @@ public class DeleteSourceFragment extends DialogFragment {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
         ImageView imageView = view.findViewById(R.id.deleteSourceImage);
         textView.setText(source.getName());
-        imageView.setImageDrawable(source.getImage());
+        imageView.setImageResource(source.getImagePath());
     }
 
     public void setSource(SourceAdd source) {

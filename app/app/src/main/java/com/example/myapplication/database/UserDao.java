@@ -28,6 +28,9 @@ public interface UserDao {
     @Delete
     void delete(List<SourceAdd> sourceAdds);
 
+    @Delete
+    void deleteSingle(SourceAdd sourceAdd);
+
     @Insert
     void insert(SourceAdd sourceAdd);
 

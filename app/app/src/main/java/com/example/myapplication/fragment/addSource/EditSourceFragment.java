@@ -80,11 +80,12 @@ public class EditSourceFragment extends DialogFragment implements AdapterEditSou
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
-        imageView.setImageDrawable(source.getImage());
         if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
+            imageView.setImageResource(source.getImagePath());
         }
         else{
+            imageView.setImageDrawable(source.getImage());
             textView.setText(getResources().getString(R.string.newSourceHeadline));
             underline.setText("");
         }

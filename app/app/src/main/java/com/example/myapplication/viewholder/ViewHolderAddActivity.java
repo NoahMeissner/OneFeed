@@ -36,7 +36,9 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
     }
 
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {
-        imageView.setImageDrawable(source.getImage());
+        if(!Objects.equals(source.getName(), Category.ADDButton.name())){
+            imageView.setImageResource(source.getImagePath());
+        }
         itemView.setOnClickListener( view -> listener.onItemClick(source));
         if(source.getAnimation()&&!Objects.equals(source.getName(), Category.ADDButton.name())){
                 animateLinearLayout.animateItems();
@@ -52,6 +54,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             }
             if(Objects.equals(source.getName(), Category.ADDButton.name())){
                 textView.setText("");
+                imageView.setImageDrawable(source.getImage());
             }
     }
 

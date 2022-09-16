@@ -42,6 +42,11 @@ public class DataBaseHelper {
         initDatabase();
     }
 
+    public void deleteSingleItem(SourceAdd sourceAdd){
+        Runnable r = () -> userDao.deleteSingle(sourceAdd);
+        service.execute(r);
+    }
+
 
     /*
     This class initial the DataBase

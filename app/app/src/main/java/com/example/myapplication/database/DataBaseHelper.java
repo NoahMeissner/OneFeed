@@ -98,8 +98,8 @@ public class DataBaseHelper {
     }
 
     /*
-        With this Method there is the possibility to add new Elements to the DataBase
-         */
+    With this Method there is the possibility to add new Elements to the DataBase
+    */
     public void insertDataBase(ArrayList<SourceAdd> sourceArrayList){
         Runnable r = () -> userDao.insertAll(sourceArrayList);
         service.execute(r);
@@ -116,8 +116,8 @@ public class DataBaseHelper {
     }
 
     /*
-        This Method deletes all saved SourceAdd Elements in the DataBase
-         */
+    This Method deletes all saved SourceAdd Elements in the DataBase
+    */
     public void killDataBase(){
         userDao.delete(sourceArrayList);
     }

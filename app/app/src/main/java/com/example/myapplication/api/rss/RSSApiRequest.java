@@ -48,7 +48,6 @@ public class RSSApiRequest {
                 public void onErrorResponse(VolleyError error) {
                     Log.d("ERROR","ERROR");
                     //@TODO Error Fragement aktivieren
-                    ErrorFragment errorFragment = new ErrorFragment();
                 }
             });
             queue.add(jsonObjectRequest);

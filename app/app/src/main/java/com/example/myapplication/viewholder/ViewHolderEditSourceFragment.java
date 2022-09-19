@@ -29,7 +29,6 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
     }
 
     public void bind(SourceAdd source, AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged, String name) {
-        //@TODO switch bearbeiten switch eintrag zu speichern
         if(!name.equals(Category.ADDButton.name())){
             String setNotification = "Notification";
             textView.setText(setNotification);

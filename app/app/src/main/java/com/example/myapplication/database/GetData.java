@@ -9,12 +9,20 @@ import java.util.ArrayList;
 
 public class GetData implements DataBaseHelper.initializeProcessFinish {
 
+    /*
+    With This Method you will get Access to the Information from the DataBase
+     */
+
+    /*
+    Constants
+     */
     private final Context context;
-
     private ArrayList<SourceAdd> sourceAdds = new ArrayList<>();
-
     private DataBaseHelper dataBaseHelper;
 
+    /*
+    Constructor
+     */
     public GetData(Context context){
         this.context = context;
         initDataBase();
@@ -24,9 +32,6 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         dataBaseHelper = new DataBaseHelper(context, this);
     }
 
-    public void removeIcon(SourceAdd sourceADD){
-        dataBaseHelper.deleteSingleItem(sourceADD);
-    }
 
     public void update(ArrayList<SourceAdd> updateArrayList){
         dataBaseHelper.removeItems(updateArrayList);
@@ -43,6 +48,18 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         return result;
     }
 
+    public void removeSource(SourceAdd sourceADD){
+        dataBaseHelper.deleteSingleItem(sourceADD);
+    }
+
+    public void InsertSource(SourceAdd sourceAdd){
+        dataBaseHelper.insertSourceItem(sourceAdd);
+    }
+
+    /*
+    This Method is a Listener from the DataBaseHelper to get the Information after the DataBase has
+    started
+     */
     @Override
     public void getDataBase(ArrayList<SourceAdd> sourceAdds) {
         this.sourceAdds=sourceAdds;

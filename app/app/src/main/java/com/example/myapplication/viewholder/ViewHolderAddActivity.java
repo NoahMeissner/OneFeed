@@ -18,6 +18,9 @@ import java.util.Objects;
 
 public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
 
+    /*
+    Constants
+    */
     private final ImageView imageView;
     private final TextView textView;
     private final LinearLayout linearLayout;
@@ -26,6 +29,9 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
     private final AnimateLinearLayout animateLinearLayout = itemView
             .findViewById(R.id.frameLayout_icons_Quellen);
 
+    /*
+    Constructor
+     */
     public ViewHolderAddActivity(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.quellenImage);
@@ -35,12 +41,23 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
 
     }
 
+    /*
+    Bind Method
+     */
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {
-        if(!Objects.equals(source.getName(), Category.ADDButton.name())){
-            imageView.setImageResource(source.getImagePath());
-        }
         itemView.setOnClickListener( view -> listener.onItemClick(source));
-        if(source.getAnimation()&&!Objects.equals(source.getName(), Category.ADDButton.name())){
+
+        // Check if Source is a ADD Button
+        if(Objects.equals(source.getName(), Category.ADDButton.name())){
+            setAddButton(source);
+            return;
+        }
+        // set Picture and Text of the source Item
+        imageView.setImageResource(source.getImagePath());
+        textView.setText(source.getName());
+
+        // this if clauses give the possibility to stop and start the Animation
+        if(source.getAnimation()){
                 animateLinearLayout.animateItems();
                 linearLayout.setVisibility(View.VISIBLE);
                 setAnimation = true;
@@ -49,22 +66,37 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
                 animateLinearLayout.stopAnimation();
                 linearLayout.setVisibility(View.GONE);
             }
-            if(!Objects.equals(source.getName(), Category.ADDButton.name())){
+
                 textView.setText(source.getName());
-            }
-            if(Objects.equals(source.getName(), Category.ADDButton.name())){
-                textView.setText("");
-                imageView.setImageDrawable(source.getImage());
-            }
     }
 
+    /*
+    This Method initial the ADD Button
+     */
+    private void setAddButton(SourceAdd source) {
+        textView.setText("");
+        imageView.setImageDrawable(source.getImage());
+    }
+
+
+    /*
+    This Method is responsible if the user pressed the Item Long
+     */
     public void bindLong(SourceAdd source, AdapterListAddActivity.
             longItemClickListener longItemClickListener) {
+        /*
+        if someone pressed Long on the ADD button there should be no Animation, that's the reason
+        why an ADD Button source Element will be returned
+         */
+        if (Objects.equals(source.getName(), Category.ADDButton.name())){
+            return;
+        }
 
+        /*
+        Set on all Source Items an on Long Click Listener
+         */
         itemView.setOnLongClickListener(view -> {
-            if (Objects.equals(source.getName(), Category.ADDButton.name())){
-                return false;
-            }
+            // This if clause is responsible if the Item was not long clicked before
             if(!longSourceClick){
                 longItemClickListener.onLongClick(source);
                 if(!Objects.equals(source.getName(), Category.ADDButton.name())){
@@ -73,6 +105,9 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
                 longSourceClick = true;
                 return true;
             }
+            /*
+            if the item was long clicked again the delete Process will be stopped
+             */
             longSourceClick = false;
             longItemClickListener.onLongClick(source);
             return false;

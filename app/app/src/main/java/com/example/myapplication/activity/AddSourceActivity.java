@@ -27,9 +27,12 @@ public class AddSourceActivity extends AppCompatActivity implements
         AdapterListAddActivity.OnItemClickListener,
         AdapterListAddActivity.longItemClickListener,
         DeleteSourceFragment.InputDeleteSourceFragment,
-        EditSourceFragment.SettingsChanges {
+        EditSourceFragment.EditSourceFragmentChanges {
 
-    private final HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
+    /*
+    Constants
+     */
+    private HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
     private final HashMap<Category,ArrayList<SourceAdd>> selectedHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
@@ -47,23 +50,30 @@ public class AddSourceActivity extends AppCompatActivity implements
         initUI();
     }
 
-
-    // in this method all elements are initialized
+    /*
+    in this method all elements are initialized
+     */
     private void initUI() {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
-        iniSelectedHashMap();
-        initSource();
+        initHashMap();
         initButton();
     }
 
-    private void iniSelectedHashMap() {
+    /*
+    This Method initialized the HashMap
+     */
+    private void initHashMap() {
         selectedHashMap.put(Category.Interests,data.getCategory(Category.Interests));
         selectedHashMap.put(Category.SocialMedia,data.getCategory(Category.SocialMedia));
         selectedHashMap.put(Category.Newspaper,data.getCategory(Category.Newspaper));
+        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
+        arrayListHashMap = addActivityIcons.getArrayListHashMap();
+        addAddButtonToSelectedHashMap();
     }
 
-
-    // This Method initialise the Buttons to close the Activity and show the Information Fragment
+    /*
+     This Method initialise the Buttons to close the Activity and show the Information Fragment
+     */
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
         ImageButton backButton = findViewById(R.id.addback);
@@ -74,8 +84,9 @@ public class AddSourceActivity extends AppCompatActivity implements
         backButton.setOnClickListener(view -> finish());
     }
 
-
-    // in this method the recycler view is initialized and passed to the initRecyclerView method
+    /*
+    in this method the recycler view is initialized and passed to the initRecyclerView method
+     */
     private void declareRecyclerView(){
         RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
         RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
@@ -98,49 +109,14 @@ public class AddSourceActivity extends AppCompatActivity implements
         recyclerNewsPaper.setAdapter(adapterNews);
     }
 
-    /*
-    This Method initialise the arrayListHashMap
-     */
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private void initSource(){
-        arrayListHashMap.put(Category.Interests, new ArrayList<>());
-        arrayListHashMap.put(Category.SocialMedia,new ArrayList<>());
-        arrayListHashMap.put(Category.Newspaper, new ArrayList<>());
-
-        AddActivityIcons addActivityIcons = new AddActivityIcons();
-
-        for(Category.interests categoryInterests: addActivityIcons.getInterestsHashMap().keySet()){
-            Objects.requireNonNull(arrayListHashMap.get(Category.Interests)).
-                    add(new SourceAdd(
-                            categoryInterests.name(),
-                            getDrawable(Objects.requireNonNull(
-                                    addActivityIcons.getInterestsHashMap().get(categoryInterests))),
-                            Category.Interests));
-        }
-        for(Category.news categoryNews: addActivityIcons.getNewsHashMap().keySet()){
-            Objects.requireNonNull(arrayListHashMap.get(Category.Newspaper)).
-                    add(new SourceAdd(
-                            categoryNews.name(),
-                            getDrawable(Objects.requireNonNull(
-                                    addActivityIcons.getNewsHashMap().get(categoryNews))),
-                            Category.Newspaper));
-        }
-        for(Category.socialMedia categorySocialMedia: addActivityIcons.getSocialMediaHashMap().keySet()){
-            Objects.requireNonNull(arrayListHashMap.get(Category.SocialMedia)).
-                    add(new SourceAdd(
-                            categorySocialMedia.name(),
-                            getDrawable(Objects.requireNonNull(
-                                    addActivityIcons.getSocialMediaHashMap().get(categorySocialMedia))),
-                            Category.SocialMedia));
-        }
-        updateSelectedHashMap();
-    }
     //@TODO add image Path to DataBase to delete Loop
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void updateSelectedHashMap(){
+    private void addAddButtonToSelectedHashMap(){
+        /*
+        TO add an ADD Button to each RecyclerView this three ADD Buttons will be
+        add to the ARRAYList.
+        */
 
-        // TO add an ADD Button to each RecyclerView this three ADD Buttons will be
-        // add to the ARRAYList.
         Objects.requireNonNull(selectedHashMap.get(Category.Newspaper))
                 .add(new SourceAdd(Category.ADDButton.name(),
                         getDrawable(R.drawable.add),
@@ -158,9 +134,10 @@ public class AddSourceActivity extends AppCompatActivity implements
         declareRecyclerView();
     }
 
-
-    // In this method, depending on a RecyclerView, the recycler view is
-    // processed and connected to the adapter
+    /*
+    In this method, depending on a RecyclerView, the recycler view is
+    processed and connected to the adapter
+    */
     private AdapterListAddActivity initRecyclerView(
             RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
 
@@ -168,48 +145,9 @@ public class AddSourceActivity extends AppCompatActivity implements
         return new AdapterListAddActivity(this, this,arrayList);
     }
 
-
-    //this method is inherited from the onclick listener here and
-    // using it we can open the fragment depending on the button clicked
-    @Override
-    public void onItemClick(SourceAdd source) {
-        if(!longSourceClick){
-            EditSourceFragment editSourceFragment = new EditSourceFragment();
-            editSourceFragment.setSource(source);
-            editSourceFragment.setSettings(selectedHashMap.get(source.getCategories()));
-            editSourceFragment.show(getSupportFragmentManager(),"");
-            return;
-        }
-        if(source.getName().equals(Category.ADDButton.name())) return;
-        DeleteSourceFragment dSf = new DeleteSourceFragment(this);
-        dSf.setSource(source);
-        dSf.show(getSupportFragmentManager(),"");
-    }
-
-
-    @Override
-    public void inputDeleteSource(boolean result, SourceAdd source) {
-        setAnimation(false);
-        longSourceClick = false;
-        if(result){
-            data.removeIcon(source);
-            Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
-            if(source.getCategories()== Category.Interests){
-                    adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                            selectedHashMap.get(source.getCategories())));
-                    return;
-                }
-            }
-            if(source.getCategories()== Category.SocialMedia){
-                adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                        selectedHashMap.get(source.getCategories())));
-                return;
-            }
-            adapterNews.setSourceArrayList(Objects.requireNonNull(
-                    selectedHashMap.get(source.getCategories())));
-    }
-
-
+    /*
+    This Method will set the Animation if one Item was Long Pressed
+     */
     private void setAnimation(boolean boo){
         for(Category categories:selectedHashMap.keySet()){
             for(SourceAdd source: Objects.requireNonNull(selectedHashMap.get(categories))){
@@ -227,9 +165,89 @@ public class AddSourceActivity extends AppCompatActivity implements
                 selectedHashMap.get(Category.Newspaper)));
     }
 
+    /*
+    This Method initialize the EditSourceFragment
+     */
+    private void initEditSourceFragment(SourceAdd source){
+        EditSourceFragment editSourceFragment = new EditSourceFragment(
+                source,
+                selectedHashMap.get(source.getCategories()),
+                this,
+                data);
 
+        editSourceFragment.setFullList(arrayListHashMap.get(source.getCategories()));
+        editSourceFragment.setDataChanged(this);
+        editSourceFragment.show(getSupportFragmentManager(),"");
+    }
+
+
+    //this method is inherited from the onclick listener here and
+    // using it we can open the fragment depending on the button clicked
+    @Override
+    public void onItemClick(SourceAdd source) {
+        /*
+        this if condition checks if there was set a long Click to differentiate between Delete
+         an Item and change the Settings of one
+         */
+        if(!longSourceClick){
+            initEditSourceFragment(source);
+            return;
+        }
+        if(source.getName().equals(Category.ADDButton.name())) return;
+        DeleteSourceFragment dSf = new DeleteSourceFragment(this);
+        dSf.setSource(source);
+        dSf.show(getSupportFragmentManager(),"");
+    }
+
+    /*
+    This Method recognizes from the DeleteSourceFragment if the User Deleted one Item
+    */
+    @Override
+    public void inputDeleteSource(boolean result, SourceAdd source) {
+        /*
+        set Constants falls to show the User the Process has end
+         */
+        setAnimation(false);
+        longSourceClick = false;
+        if (result) {
+            /*
+            If he pressed yes the Item will be deleted. To show him the difference the Icon will be
+            deleted in the Adapter Array List too
+             */
+            data.removeSource(source);
+            Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
+            updateAdapterList(source);
+        }
+    }
+
+    /*
+    This Method will set the new ArrayList to the different Adapters
+     */
+    private void updateAdapterList(SourceAdd source){
+        if(source.getCategories()== Category.Interests){
+            adapterInterests.setSourceArrayList(Objects.requireNonNull(
+                    selectedHashMap.get(source.getCategories())));
+            return;
+        }
+
+            if(source.getCategories()== Category.SocialMedia){
+        adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
+                selectedHashMap.get(source.getCategories())));
+        return;
+        }
+            adapterNews.setSourceArrayList(Objects.requireNonNull(
+                    selectedHashMap.get(source.getCategories())));
+    }
+
+    /*
+    This Method recognize, if the User press long on one Item
+     */
     @Override
     public void onLongClick(SourceAdd source) {
+        /*
+        This If Clause checks if he pressed the item long before,
+        Important to stop the Animation and the Delete Progress
+         */
         if(!longSourceClick){
             longSourceClick = true;
             setAnimation(true);
@@ -239,9 +257,23 @@ public class AddSourceActivity extends AppCompatActivity implements
         setAnimation(false);
     }
 
-    
+
     @Override
-    public void getChangedSourceArrayList(ArrayList<SourceAdd> sourceArrayList, Category c) {
-        selectedHashMap.put(c, sourceArrayList);
+    public void dataHasChanged(Boolean b, SourceAdd sourceAdd) {
+        if(b == null){
+            return;
+        }
+        if(!b){
+            initHashMap();
+            Objects.requireNonNull(selectedHashMap
+                    .get(sourceAdd.getCategories())).remove(sourceAdd);
+            declareRecyclerView();
+            return;
+        }
+        /*
+        Update Selected HashMap from the DataBase to update the Recycler viewer
+         */
+        initHashMap();
+        declareRecyclerView();
     }
 }

@@ -13,20 +13,22 @@ import java.util.Set;
 
 public class InitialData {
 
+    /*
+    This Method initial all important Data in the on boarding Process
+    */
 
-
+    /*
+    Constants
+     */
     private final Context context;
-
     private DataBaseHelper dataBaseHelper;
-
     private SharedPreferences.Editor editPreferences;
-
     private SharedPreferences sharedPreferences;
-
     private Set<String> selectedInterestsHashSet;
 
-
-
+    /*
+    Constructor
+     */
     public InitialData(Context context){
         this.context = context;
         initDatabase();

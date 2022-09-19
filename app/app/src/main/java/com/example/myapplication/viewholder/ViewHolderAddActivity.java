@@ -53,7 +53,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             return;
         }
         // set Picture and Text of the source Item
-        imageView.setImageResource(source.getImageRessourceID());
+        //imageView.setImageResource(source.getImageRessourceID());
         textView.setText(source.getName());
 
         // this if clauses give the possibility to stop and start the Animation

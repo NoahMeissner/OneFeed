@@ -1,36 +1,26 @@
 package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ActivityManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
-import com.example.myapplication.api.rss.RSSApiRequest;
-import com.example.myapplication.api.rss.RSSArticle;
-import com.example.myapplication.api.rss.RSSUrls;
-import com.example.myapplication.data.addSource.Category;
-import com.example.myapplication.data.card.ArticleCard;
-import com.example.myapplication.data.feed.NewsSource;
-import com.example.myapplication.data.card.NewsCard;
-import com.example.myapplication.data.card.TwitterCard;
+import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
-import com.example.myapplication.database.GetData;
-import com.example.myapplication.database.InitialData;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class FeedActivity extends AppCompatActivity {
 
+    private FeedViewModel viewModel;
+    SwipeRefreshLayout refreshLayout;
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
     private ImageButton sourcesNavigationButton;
@@ -41,21 +31,31 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        // ViewModel
+        this.viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
-
         initializeNavigationButtons();
+
+        // Swipe to refresh
+        this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
+        refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
 
         // News cards recycler
         this.adapter = new NewsCardListAdapter();
         this.recycler = findViewById(R.id.recycler_news_cards);
         this.recycler.setLayoutManager(new LinearLayoutManager(this));
         this.recycler.setAdapter(this.adapter);
+        this.recycler.setItemAnimator(null); // Disable animation
 
-        // Dummy data setup
-//        setupDummyCards();
-        initApi();
-        //@TODO Löschen
+        // Cards listeners
+        this.viewModel.getNewsCards().observe(this, newsCards -> {
+            adapter.updateItems(newsCards);
+            // Todo: fix diff
+            adapter.notifyDataSetChanged();
+            refreshLayout.setRefreshing(false);
+        });
     }
 
     private void initializeNavigationButtons() {
@@ -72,60 +72,33 @@ public class FeedActivity extends AppCompatActivity {
         });
     }
 
-    private void setupDummyCards() {
-        NewsSource sampleArticleSource = new NewsSource(
-                "Spiegel", "https://www.spiegel.de/"
-        );
-        NewsSource sampleTwitterSource = new NewsSource(
-                "Twitter", "https://twitter.com/"
-        );
-        ArticleCard sampleArticleCard = new ArticleCard(
-                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now(), null
-        );
-        TwitterCard sampleTwitterCard = new TwitterCard(
-            sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
-                "Elon Musk", "@elonmusk"
-        );
-        ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
-                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
-                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
-                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
-                ));
-        this.adapter.updateItems(sampleCards);
-    }
-
-
-    private void initApi() {
-        HashMap<Category,String> url = new HashMap<>();
-        RSSUrls rssUrls = new RSSUrls();
-        HashMap<Category.news,String> corona = rssUrls.getCategory(Category.interests.Politik);
-
-        RSSApiRequest rssApiRequest = new RSSApiRequest();
-        rssApiRequest.makeRSSCategory(corona, this, new RSSApiRequest.onResult() {
-            @Override
-            public void result(ArrayList<RSSArticle> rssArticles) {
-                NewsSource sampleArticleSource = new NewsSource(
-                        "Spiegel", "https://www.spiegel.de/"
-                );
-                ArrayList<NewsCard> cards = new ArrayList<>();
-                for (RSSArticle rssArticle : rssArticles) {
-                    NewsCard card = new ArticleCard(
-                            rssArticle.getTitle(),
-                            sampleArticleSource,
-                            LocalDateTime.now(),
-                            rssArticle.getBitmap()
-                    );
-                    cards.add(card);
-                }
-                adapter.updateItems(cards);
-            }
-        });
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu, this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.empty, menu);
         return true;
     }
+
+//    private void setupDummyCards() {
+//        NewsSource sampleArticleSource = new NewsSource(
+//                "Spiegel", "https://www.spiegel.de/"
+//        );
+//        NewsSource sampleTwitterSource = new NewsSource(
+//                "Twitter", "https://twitter.com/"
+//        );
+//        ArticleCard sampleArticleCard = new ArticleCard(
+//                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now(), null
+//        );
+//        TwitterCard sampleTwitterCard = new TwitterCard(
+//            sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
+//                "Elon Musk", "@elonmusk"
+//        );
+//        ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
+//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
+//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
+//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
+//                ));
+//        this.adapter.updateItems(sampleCards);
+//    }
+
 }

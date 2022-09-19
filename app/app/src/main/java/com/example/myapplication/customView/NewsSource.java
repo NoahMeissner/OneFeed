@@ -28,11 +28,11 @@ public class NewsSource extends LinearLayout {
         View.inflate(context, R.layout.component_news_source, this);
 
         // Initialise name
-        TextView name = this.findViewById(R.id.fragment_source_name);
+        TextView name = this.findViewById(R.id.source_name);
         name.setText(this.name);
 
         // Initialise icon
-        ImageView icon = this.findViewById(R.id.fragment_source_icon);
+        ImageView icon = this.findViewById(R.id.source_icon);
         icon.setImageResource(iconResourceId);
     }
 

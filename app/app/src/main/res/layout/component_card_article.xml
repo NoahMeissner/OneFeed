@@ -11,10 +11,14 @@
         android:orientation="horizontal">
 
         <ImageView
-            style="@style/article_card_image"
             android:id="@+id/article_card_image"
             android:src="@drawable/sample_picture"
-            android:contentDescription="@string/content_description_article_image" />
+            android:contentDescription="@string/content_description_article_image"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/article_card_content"

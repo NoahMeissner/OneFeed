@@ -1,12 +1,13 @@
 package com.example.myapplication.data.feed;
 
+import android.graphics.Bitmap;
+
 public class NewsSource {
     private String name;
-    private String iconUrl;
+    private Bitmap icon;
 
-    public NewsSource(String name, String iconUrl) {
+    public NewsSource(String name) {
         this.name = name;
-        this.iconUrl = iconUrl;
     }
 
     public String getName() {
@@ -17,11 +18,11 @@ public class NewsSource {
         this.name = name;
     }
 
-    public String getIconUrl() {
-        return iconUrl;
+    public Bitmap getIcon() {
+        return icon;
     }
 
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+    public void setIcon(Bitmap icon) {
+        this.icon = icon;
     }
 }

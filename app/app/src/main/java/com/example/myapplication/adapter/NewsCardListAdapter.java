@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;

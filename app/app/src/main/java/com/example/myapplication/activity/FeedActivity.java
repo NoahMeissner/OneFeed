@@ -56,17 +56,6 @@ public class FeedActivity extends AppCompatActivity {
 //        setupDummyCards();
         initApi();
         //@TODO Löschen
-       //killPreferences();
-    }
-
-
-    private void killPreferences() {
-        // This Method clear shared Preferences
-        SharedPreferences pref = getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
-        SharedPreferences.Editor editPreferences = pref.edit();
-        editPreferences.clear();
-        editPreferences.apply();
     }
 
     private void initializeNavigationButtons() {

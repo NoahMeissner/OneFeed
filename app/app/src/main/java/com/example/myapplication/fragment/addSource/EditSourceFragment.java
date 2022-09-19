@@ -171,7 +171,7 @@ public class EditSourceFragment extends DialogFragment
         SourceAdd sourceAdd = new SourceAdd(
                 (changedSource.getName()),(changedSource.getCategories()),
                 (preferences.getBoolean(Category.initial.Notification.name(),false)),
-                true);
+                R.id.imageRedditButton, true);
 
         selectedHashMap.add(sourceAdd);
         getData.InsertSource(sourceAdd);

@@ -38,9 +38,10 @@ public class SourceAdd {
     public SourceAdd(@NonNull String name,
                      Category categories,
                      boolean notification,
-                     boolean enabled,int imagePath
+                     int imageRessourceID,
+                     boolean enabled
                      ){
-        this.imageRessourceID = imagePath;
+        this.imageRessourceID = imageRessourceID;
         this.name = name;
         this.categories = categories;
         this.notification = notification;

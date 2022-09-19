@@ -108,14 +108,16 @@ public class LoadingActivity extends AppCompatActivity {
         for(Category.interests interestCategory: interests){
             SourceAdd sourceAdd = new SourceAdd(interestCategory.name(),
                     Category.Interests,
-                    notification,enabled);
+                    notification,
+                    R.id.imageRedditButton,
+                    enabled);
             sourceInterests.add(sourceAdd);
         }
 
         for(Category.socialMedia socialMediaCategory: socialMedia){
             SourceAdd sourceAdd = new SourceAdd(socialMediaCategory.name(),
                     Category.SocialMedia,
-                    notification,enabled);
+                    notification, R.id.imageRedditButton, enabled);
             sourceInterests.add(sourceAdd);
         }
 
@@ -125,12 +127,14 @@ public class LoadingActivity extends AppCompatActivity {
         SourceAdd sourceFAZ = new SourceAdd(
                 Category.news.FAZ.name(),
                 Category.Newspaper,notification,
+                R.id.imageRedditButton,
                 enabled);
 
         SourceAdd sourceSpiegel = new SourceAdd(
                 Category.news.Spiegel.name(),
                 Category.Newspaper,
                 notification,
+                R.id.imageRedditButton,
                 enabled);
 
         sourceInterests.add(sourceFAZ);

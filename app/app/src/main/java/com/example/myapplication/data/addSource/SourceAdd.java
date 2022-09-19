@@ -22,12 +22,11 @@ public class SourceAdd {
     private final Category categories;
     private boolean notification;
     private boolean enabled;
+    private int imageRessourceID = R.drawable.ic_launcher_foreground;
     @Ignore
     private boolean setAnimation = false;
     @Ignore
     private Drawable image;
-    @Ignore
-    private int imagePath = R.drawable.ic_launcher_foreground;
 
     @Ignore
     public SourceAdd(@NonNull String name, Drawable image, Category categories){
@@ -39,17 +38,17 @@ public class SourceAdd {
     public SourceAdd(@NonNull String name,
                      Category categories,
                      boolean notification,
-                     boolean enabled
+                     boolean enabled,int imagePath
                      ){
-        // this.imagePath = imagePath;
+        this.imageRessourceID = imagePath;
         this.name = name;
         this.categories = categories;
         this.notification = notification;
         this.enabled = enabled;
     }
 
-    public int getImagePath() {
-        return imagePath;
+    public int getImageRessourceID() {
+        return imageRessourceID;
     }
 
     public void setImage(Drawable image){

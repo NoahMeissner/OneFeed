@@ -123,7 +123,7 @@ public class EditSourceFragment extends DialogFragment
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
         if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
-            imageView.setImageResource(source.getImagePath());
+            imageView.setImageResource(source.getImageRessourceID());
         }
         else{
             imageView.setImageDrawable(source.getImage());

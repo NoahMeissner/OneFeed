@@ -70,7 +70,7 @@ public class DeleteSourceFragment extends DialogFragment {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
         ImageView imageView = view.findViewById(R.id.deleteSourceImage);
         textView.setText(source.getName());
-        imageView.setImageResource(source.getImageRessourceID());
+        //imageView.setImageResource(source.getImageRessourceID());
     }
 
     public void setSource(SourceAdd source) {

@@ -51,7 +51,6 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderAddActivity holder, int position) {
-        Log.d("CLICK",sourceArrayList.get(position).getName());
         holder.bind(sourceArrayList.get(position), listener);
         holder.bindLong(sourceArrayList.get(position), longItemClickListener);
     }

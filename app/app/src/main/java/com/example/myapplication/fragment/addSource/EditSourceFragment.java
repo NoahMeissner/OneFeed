@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -123,7 +124,9 @@ public class EditSourceFragment extends DialogFragment
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
         if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
-            imageView.setImageResource(source.getImageRessourceID());
+            //@TODO Bilder müssen stehen
+            Drawable drawable = getResources().getDrawable(source.getImageRessourceID(),getActivity().getTheme());
+            imageView.setImageDrawable(drawable);
         }
         else{
             imageView.setImageDrawable(source.getImage());

@@ -22,7 +22,7 @@ public class SourceAdd {
     private final Category categories;
     private boolean notification;
     private boolean enabled;
-    private int imageRessourceID = R.drawable.ic_launcher_foreground;
+    private int imageRessourceID;
     @Ignore
     private boolean setAnimation = false;
     @Ignore

@@ -1,5 +1,8 @@
 package com.example.myapplication.viewholder;
 
+ import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.animation.addSource.AnimateLinearLayout;
+import com.example.myapplication.data.addSource.AddActivityIcons;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
@@ -53,7 +57,9 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             return;
         }
         // set Picture and Text of the source Item
-        //imageView.setImageResource(source.getImageRessourceID());
+        if(source.getImageRessourceID() != 0){
+           imageView.setImageResource(R.drawable.back_arrow);
+        }
         textView.setText(source.getName());
 
         // this if clauses give the possibility to stop and start the Animation

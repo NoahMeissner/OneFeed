@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.util.Log;
+
 
 
 import com.example.myapplication.R;
@@ -134,6 +136,8 @@ public class AddSourceActivity extends AppCompatActivity implements
         declareRecyclerView();
     }
 
+
+
     /*
     In this method, depending on a RecyclerView, the recycler view is
     processed and connected to the adapter
@@ -217,6 +221,7 @@ public class AddSourceActivity extends AppCompatActivity implements
             data.removeSource(source);
             Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
             updateAdapterList(source);
+            printwas();
         }
     }
 
@@ -255,6 +260,16 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         longSourceClick = false;
         setAnimation(false);
+        printwas();
+        ;
+    }
+
+    private void printwas() {
+        for(Category categories:selectedHashMap.keySet()){
+            for(SourceAdd source: Objects.requireNonNull(selectedHashMap.get(categories))){
+                Log.d(source.getName(), String.valueOf(source.getAnimation()));
+            }
+        }
     }
 
 

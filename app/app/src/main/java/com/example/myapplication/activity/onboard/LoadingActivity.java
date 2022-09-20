@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
+import com.example.myapplication.data.addSource.AddActivityIcons;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.InitialData;
@@ -101,6 +102,7 @@ public class LoadingActivity extends AppCompatActivity {
                             ArrayList<Category.socialMedia> socialMedia,
                             ArrayList<SourceAdd> sourceInterests,
                             InitialData data){
+        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
         /*
         In these For loop, the selected interests and social Media are converted
         into objects and passed to the array list
@@ -109,7 +111,7 @@ public class LoadingActivity extends AppCompatActivity {
             SourceAdd sourceAdd = new SourceAdd(interestCategory.name(),
                     Category.Interests,
                     notification,
-                    1,
+                    R.drawable.spiegel,
                     enabled);
             sourceInterests.add(sourceAdd);
         }
@@ -117,7 +119,9 @@ public class LoadingActivity extends AppCompatActivity {
         for(Category.socialMedia socialMediaCategory: socialMedia){
             SourceAdd sourceAdd = new SourceAdd(socialMediaCategory.name(),
                     Category.SocialMedia,
-                    notification, 1, enabled);
+                    notification,
+                    R.drawable.spiegel,
+                    enabled);
             sourceInterests.add(sourceAdd);
         }
 
@@ -127,14 +131,14 @@ public class LoadingActivity extends AppCompatActivity {
         SourceAdd sourceFAZ = new SourceAdd(
                 Category.news.FAZ.name(),
                 Category.Newspaper,notification,
-                2,
+                R.drawable.faz,
                 enabled);
 
         SourceAdd sourceSpiegel = new SourceAdd(
                 Category.news.Spiegel.name(),
                 Category.Newspaper,
                 notification,
-               2,
+               R.drawable.spiegel,
                 enabled);
 
         sourceInterests.add(sourceFAZ);

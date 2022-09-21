@@ -58,7 +58,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
         }
         // set Picture and Text of the source Item
         if(source.getImageRessourceID() != 0){
-           imageView.setImageResource(R.drawable.back_arrow);
+           imageView.setImageResource(source.getImageRessourceID());
         }
         textView.setText(source.getName());
 

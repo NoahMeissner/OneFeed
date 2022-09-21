@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -217,10 +218,9 @@ public class AddSourceActivity extends AppCompatActivity implements
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-            updateAdapterList(source);
-            Objects.requireNonNull(selectedHashMap
-                    .get(source.getCategories())).remove(source);
-            declareRecyclerView();
+            Intent refresh = new Intent(this, AddSourceActivity.class);
+            startActivity(refresh);
+            this.finish();
         }
         longSourceClick = false;
         setAnimation(false);
@@ -269,19 +269,11 @@ public class AddSourceActivity extends AppCompatActivity implements
         if(b == null){
             return;
         }
-        if(!b){
-            initHashMap();
-            addAddButtonToSelectedHashMap();
-            Objects.requireNonNull(selectedHashMap
-                    .get(sourceAdd.getCategories())).remove(sourceAdd);
-            declareRecyclerView();
-            return;
-        }
         /*
         Update Selected HashMap from the DataBase to update the Recycler viewer
          */
-        initHashMap();
-        addAddButtonToSelectedHashMap();
-        declareRecyclerView();
+        Intent refresh = new Intent(this, AddSourceActivity.class);
+        startActivity(refresh);
+        this.finish();
     }
 }

@@ -28,7 +28,10 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.editQuellenIconText);
     }
 
-    public void bind(SourceAdd source, AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged, String name) {
+    public void bind(SourceAdd source,
+                     AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged,
+                     String name) {
+
         if(!name.equals(Category.ADDButton.name())){
             String setNotification = "Notification";
             textView.setText(setNotification);

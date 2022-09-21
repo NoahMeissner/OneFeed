@@ -45,7 +45,7 @@ public class AddActivityIcons {
     private void initInterestsHashMap() {
         interestsHashMap.put(
                 Category.interests.Politik,
-                (R.drawable.business));
+                (R.drawable.world));
 
         interestsHashMap.put(
                 Category.interests.Corona,
@@ -62,6 +62,9 @@ public class AddActivityIcons {
         interestsHashMap.put(
                 Category.interests.Sport,
                 R.drawable.sport);
+        interestsHashMap.put(Category.interests.Wirtschaft,
+                R.drawable.business);
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -123,4 +126,5 @@ public class AddActivityIcons {
         initNewsHashMap();
         return newsHashMap;
     }
+
 }

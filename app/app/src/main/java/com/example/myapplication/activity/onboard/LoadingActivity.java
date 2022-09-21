@@ -2,7 +2,6 @@ package com.example.myapplication.activity.onboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.InitialData;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -98,11 +98,23 @@ public class LoadingActivity extends AppCompatActivity {
         }
     }
 
+    private int getImageID(String s, Category category) {
+        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
+        if(category == Category.SocialMedia){
+            return Objects.requireNonNull(addActivityIcons.getSocialMediaHashMap().get(
+                    Category.socialMedia.valueOf(s)));
+        }
+        if(category == Category.Interests){
+            return Objects.requireNonNull(addActivityIcons.getInterestsHashMap().get(
+                    Category.interests.valueOf(s)));
+        }
+        return 0;
+    }
+
     private void setSources(ArrayList<Category.interests> interests,
                             ArrayList<Category.socialMedia> socialMedia,
                             ArrayList<SourceAdd> sourceInterests,
                             InitialData data){
-        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
         /*
         In these For loop, the selected interests and social Media are converted
         into objects and passed to the array list
@@ -111,7 +123,7 @@ public class LoadingActivity extends AppCompatActivity {
             SourceAdd sourceAdd = new SourceAdd(interestCategory.name(),
                     Category.Interests,
                     notification,
-                    R.drawable.spiegel,
+                    getImageID(interestCategory.name(),Category.Interests),
                     enabled);
             sourceInterests.add(sourceAdd);
         }
@@ -120,7 +132,7 @@ public class LoadingActivity extends AppCompatActivity {
             SourceAdd sourceAdd = new SourceAdd(socialMediaCategory.name(),
                     Category.SocialMedia,
                     notification,
-                    R.drawable.spiegel,
+                    getImageID(socialMediaCategory.name(),Category.SocialMedia),
                     enabled);
             sourceInterests.add(sourceAdd);
         }

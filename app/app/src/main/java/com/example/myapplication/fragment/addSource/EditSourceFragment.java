@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.data.addSource.AddActivityIcons;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
 import com.example.myapplication.data.addSource.SourceAdd;
@@ -125,12 +126,12 @@ public class EditSourceFragment extends DialogFragment
         if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
             //@TODO Bilder müssen stehen
-            //Drawable drawable = getResources().getDrawable(source.getImageRessourceID(),getActivity().getTheme());
-            //imageView.setImageDrawable(drawable);
+            imageView.setImageResource(source.getImageRessourceID());
         }
         else{
-            imageView.setImageDrawable(source.getImage());
+            //imageView.setImageDrawable(source.getImage());
             textView.setText(getResources().getString(R.string.newSourceHeadline));
+            imageView.setImageResource(source.getImageRessourceID());
             underline.setText("");
         }
     }
@@ -168,32 +169,44 @@ public class EditSourceFragment extends DialogFragment
 
         if(changedSource.isEnabled()){
             deleteItem(changedSource);
+            onStop();
             return;
         }
-
         SourceAdd sourceAdd = new SourceAdd(
                 (changedSource.getName()),(changedSource.getCategories()),
                 (preferences.getBoolean(Category.initial.Notification.name(),false)),
-                2, true);
-
-        selectedHashMap.add(sourceAdd);
+                getImageID(changedSource), true);
         getData.InsertSource(sourceAdd);
         dataChanged.dataHasChanged(true, changedSource);
         onStop();
     }
 
-
-
-
     /*
     If someone wants to delete a Source he can use the Switch in the EditSource Fragment
     To Change the Settings in the DataBase you need this Method
      */
-    private void deleteItem(SourceAdd source) {
-        selectedHashMap.remove(source);
-        getData.removeSource(source);
-        dataChanged.dataHasChanged(false, source);
-        onStop();
+    private void deleteItem(SourceAdd changedSource) {
+        getData.removeSource(changedSource);
+        dataChanged.dataHasChanged(false, changedSource);
+    }
+
+    private int getImageID(SourceAdd source) {
+        AddActivityIcons addActivityIcons = new AddActivityIcons(getContext());
+        if(source.getCategories() == Category.SocialMedia){
+            String s = source.getName();
+            return Objects.requireNonNull(addActivityIcons.getSocialMediaHashMap().get(
+                    Category.socialMedia.valueOf(source.getName())));
+        }
+        if(source.getCategories() == Category.Interests){
+            return Objects.requireNonNull(addActivityIcons.getInterestsHashMap().get(
+                    Category.interests.valueOf(source.getName())));
+
+        }
+        if(source.getCategories() == Category.Newspaper){
+            return Objects.requireNonNull(addActivityIcons.getNewsHashMap().get(
+                    Category.news.valueOf(source.getName())));
+        }
+        return 0;
     }
 
     /*
@@ -223,10 +236,9 @@ public class EditSourceFragment extends DialogFragment
         }
         boolean notification = changedSource.isNotification();
         changedSource.setNotification(!notification);
-        selectedHashMap.remove(changedSource);
-        selectedHashMap.add(changedSource);
         getData.removeSource(changedSource);
         getData.InsertSource(changedSource);
+        onStop();
     }
 
     public interface EditSourceFragmentChanges {

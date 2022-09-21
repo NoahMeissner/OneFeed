@@ -84,7 +84,12 @@ public class AddSourceActivity extends AppCompatActivity implements
             InformationFragment informationFragment = new InformationFragment();
             informationFragment.show(getSupportFragmentManager(),"");
         });
-        backButton.setOnClickListener(view -> finish());
+        backButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            finish();
+        });
     }
 
     /*
@@ -218,9 +223,7 @@ public class AddSourceActivity extends AppCompatActivity implements
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-            Intent refresh = new Intent(this, AddSourceActivity.class);
-            startActivity(refresh);
-            this.finish();
+            refresh();
         }
         longSourceClick = false;
         setAnimation(false);
@@ -263,6 +266,15 @@ public class AddSourceActivity extends AppCompatActivity implements
         setAnimation(false);
     }
 
+    private void refresh(){
+        Intent refresh = new Intent(this, AddSourceActivity.class);
+        overridePendingTransition(0, 0);
+        startActivity(refresh);
+        overridePendingTransition(0, 0);
+        this.finish();
+
+    }
+
 
     @Override
     public void dataHasChanged(Boolean b, SourceAdd sourceAdd) {
@@ -272,8 +284,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         /*
         Update Selected HashMap from the DataBase to update the Recycler viewer
          */
-        Intent refresh = new Intent(this, AddSourceActivity.class);
-        startActivity(refresh);
-        this.finish();
+        refresh();
     }
 }

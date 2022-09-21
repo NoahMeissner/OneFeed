@@ -1,4 +1,4 @@
-package com.example.myapplication.api.rss;
+package com.example.myapplication.api;
 
 import android.content.Context;
 import android.graphics.Bitmap;

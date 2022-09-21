@@ -1,4 +1,4 @@
-package com.example.myapplication.api.rss;
+package com.example.myapplication.api;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,9 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.api.rss.RssArticle;
+import com.example.myapplication.api.rss.RssArticleParser;
+import com.example.myapplication.api.twitter.TwitterApiHelper;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.feed.NewsSource;
@@ -13,7 +16,6 @@ import com.example.myapplication.data.feed.NewsSource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,6 +24,15 @@ public class NewsRepository {
 
     private ExecutorService executor;
     private RequestQueue requestQueue;
+    private TwitterApiHelper twitterApi;
+
+    public NewsRepository(Context context) {
+        this.twitterApi = new TwitterApiHelper(context);
+    }
+
+    public TwitterApiHelper getTwitterApi() {
+        return twitterApi;
+    }
 
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)

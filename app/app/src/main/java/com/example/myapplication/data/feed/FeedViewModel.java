@@ -2,6 +2,7 @@ package com.example.myapplication.data.feed;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 
@@ -9,18 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.myapplication.OneFeed;
 import com.example.myapplication.R;
-import com.example.myapplication.api.rss.NewsRepository;
+import com.example.myapplication.api.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
+import com.example.myapplication.api.twitter.TwitterApiHelper;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.card.NewsCard;
 
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationResponse;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.concurrent.Executors;
 
 public class FeedViewModel extends AndroidViewModel {
 
@@ -32,7 +35,7 @@ public class FeedViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize
-        this.articlesRepository = new NewsRepository();
+        this.articlesRepository = new NewsRepository(application.getBaseContext());
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
 
         // Initial load
@@ -91,5 +94,19 @@ public class FeedViewModel extends AndroidViewModel {
 
             newsCards.postValue(newValues);
         }
+    }
+
+    public Intent createTwitterAuthorizationIntent() {
+        return articlesRepository.getTwitterApi().createAuthorizationIntent();
+    }
+
+    public void handleTwitterAuthenticationResponse(
+            Context context,
+            AuthorizationResponse resp,
+            AuthorizationException ex,
+            TwitterApiHelper.AuthenticationListener listener) {
+        articlesRepository.getTwitterApi().handleAuthenticationResponse(
+                context, resp, ex, listener
+        );
     }
 }

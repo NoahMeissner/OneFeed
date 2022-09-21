@@ -80,7 +80,7 @@ public class PermissionsActivity extends AppCompatActivity {
     // the Method hands over all Information of the Set Up Process
     // to the Intent and the new Activity
     private void setIntent(boolean consumptionAnalysis, boolean notifications){
-        Intent intent = new Intent(this, LoadingActivity.class);
+        Intent intent = new Intent(this, FeedActivity.class);
         initSharedPreferences(consumptionAnalyse,notifications);
         startActivity(intent);
     }

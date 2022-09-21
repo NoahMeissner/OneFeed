@@ -30,10 +30,6 @@ public class NewsRepository {
         this.twitterApi = new TwitterApiHelper(context);
     }
 
-    public TwitterApiHelper getTwitterApi() {
-        return twitterApi;
-    }
-
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
     public void loadArticlesForRssEndpoints(

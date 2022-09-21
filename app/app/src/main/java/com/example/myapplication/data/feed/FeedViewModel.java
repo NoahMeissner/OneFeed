@@ -95,18 +95,4 @@ public class FeedViewModel extends AndroidViewModel {
             newsCards.postValue(newValues);
         }
     }
-
-    public Intent createTwitterAuthorizationIntent() {
-        return articlesRepository.getTwitterApi().createAuthorizationIntent();
-    }
-
-    public void handleTwitterAuthenticationResponse(
-            Context context,
-            AuthorizationResponse resp,
-            AuthorizationException ex,
-            TwitterApiHelper.AuthenticationListener listener) {
-        articlesRepository.getTwitterApi().handleAuthenticationResponse(
-                context, resp, ex, listener
-        );
-    }
 }

@@ -65,7 +65,6 @@ public class TwitterApiHelper {
 
     // Handles the callback from the authentication prompt
     public void handleAuthenticationResponse(
-            Context context,
             AuthorizationResponse resp,
             AuthorizationException ex,
             AuthenticationListener listener

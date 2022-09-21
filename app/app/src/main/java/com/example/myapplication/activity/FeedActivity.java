@@ -42,9 +42,6 @@ public class FeedActivity extends AppCompatActivity {
         // ViewModel
         this.viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-        // Twitter api
-        doTwitterAuthorization();
-
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
@@ -67,22 +64,6 @@ public class FeedActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
         });
-    }
-
-    private void doTwitterAuthorization() {
-        ActivityResultLauncher<Intent> twitterAuthenticationLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        AuthorizationResponse resp = AuthorizationResponse.fromIntent(result.getData());
-                        AuthorizationException ex = AuthorizationException.fromIntent(result.getData());
-                        viewModel.handleTwitterAuthenticationResponse(getBaseContext(), resp, ex, () ->
-                                Log.d(TAG, "onAuthenticated: Authenticated")
-                        );
-                    }
-                });
-
-        twitterAuthenticationLauncher.launch(viewModel.createTwitterAuthorizationIntent());
     }
 
     private void initializeNavigationButtons() {

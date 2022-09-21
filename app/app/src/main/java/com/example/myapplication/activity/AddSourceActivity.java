@@ -211,17 +211,19 @@ public class AddSourceActivity extends AppCompatActivity implements
         /*
         set Constants falls to show the User the Process has end
          */
-        setAnimation(false);
-        longSourceClick = false;
         if (result) {
             /*
             If he pressed yes the Item will be deleted. To show him the difference the Icon will be
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-            Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
             updateAdapterList(source);
+            Objects.requireNonNull(selectedHashMap
+                    .get(source.getCategories())).remove(source);
+            declareRecyclerView();
         }
+        longSourceClick = false;
+        setAnimation(false);
     }
 
     /*
@@ -269,6 +271,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         if(!b){
             initHashMap();
+            addAddButtonToSelectedHashMap();
             Objects.requireNonNull(selectedHashMap
                     .get(sourceAdd.getCategories())).remove(sourceAdd);
             declareRecyclerView();
@@ -278,6 +281,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         Update Selected HashMap from the DataBase to update the Recycler viewer
          */
         initHashMap();
+        addAddButtonToSelectedHashMap();
         declareRecyclerView();
     }
 }

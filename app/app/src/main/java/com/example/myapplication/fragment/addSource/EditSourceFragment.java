@@ -125,8 +125,8 @@ public class EditSourceFragment extends DialogFragment
         if(!Objects.equals(source.getName(), Category.ADDButton.name())){
             textView.setText(source.getName());
             //@TODO Bilder müssen stehen
-            Drawable drawable = getResources().getDrawable(source.getImageRessourceID(),getActivity().getTheme());
-            imageView.setImageDrawable(drawable);
+            //Drawable drawable = getResources().getDrawable(source.getImageRessourceID(),getActivity().getTheme());
+            //imageView.setImageDrawable(drawable);
         }
         else{
             imageView.setImageDrawable(source.getImage());

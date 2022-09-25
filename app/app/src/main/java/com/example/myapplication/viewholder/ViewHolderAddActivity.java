@@ -1,9 +1,6 @@
 package com.example.myapplication.viewholder;
 
- import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-import android.view.View;
+ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.animation.addSource.AnimateLinearLayout;
-import com.example.myapplication.data.addSource.AddActivityIcons;
-import com.example.myapplication.data.addSource.Category;
+ import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.Objects;

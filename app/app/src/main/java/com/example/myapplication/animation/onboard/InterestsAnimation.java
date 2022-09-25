@@ -20,7 +20,7 @@ public class InterestsAnimation extends Button {
      */
 
     private final Handler myHandlerClick = new Handler();
-    private long myDelay =10;
+    private long myDelay = 10;
     private int minX =0;
     private int maxX =0;
     private int minY=0;
@@ -33,18 +33,17 @@ public class InterestsAnimation extends Button {
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-                if(getX()>=minX && getX()<=maxX){
+                if (getX() >= minX && getX() <= maxX) {
                     if (!(getY() >= minY) || !(getY() <= maxY)) {
                         ySpeed = (ySpeed * (-1));
                     }
+                } else {
+                    xSpeed = (xSpeed * (-1));
                 }
-                else{
-                    xSpeed=(xSpeed*(-1));
-                }
-                setX(getX()+xSpeed);
-                setY(getY()+ySpeed);
-                myHandlerClick.postDelayed(runnable,myDelay);
-                myDelay++;
+                setX(getX() + xSpeed);
+                setY(getY() + ySpeed);
+                myHandlerClick.postDelayed(runnable, myDelay);
+                myDelay+=1;
         }
     };
 
@@ -53,12 +52,6 @@ public class InterestsAnimation extends Button {
         myHandlerClick.postDelayed(runnable, myDelay);
     }
 
-    /*
-    public void setDelay(long myDelay){
-        this.myDelay = myDelay;
-    }
-
-     */
 
     public void setXField(int minX, int maxX) {
         this.minX = minX;
@@ -68,6 +61,10 @@ public class InterestsAnimation extends Button {
     public void setYField(int minY, int maxY) {
         this.minY = minY+spacing;
         this.maxY = maxY-2*spacing;
+    }
+
+    public void setMyDelay(long delay){
+        this.myDelay = delay;
     }
 
     public void stopAnimation(){

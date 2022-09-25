@@ -26,11 +26,13 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
      private FragmentManager fragmentManager;
      private ArrayList<Category.interests> interestsList = new ArrayList<>();
      private ArrayList<Category.socialMedia> socialMediaList = new ArrayList<>();
+    InitialData data;
 
-        @Override
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_initial);
+            data = new InitialData(getApplicationContext());
             initUI();
         }
 
@@ -71,12 +73,12 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
                             PermissionsActivity.class);
                     getSocialMediaData();
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
     }
 
     private void getSocialMediaData() {
-            InitialData data = new InitialData(this);
             data.setSelectSocialMedia(socialMediaList);
     }
 
@@ -84,12 +86,10 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
     // This method grabs the Interests ArrayList from the Interests Query
     @Override
     public void onDataPass(ArrayList<Category.interests> interestsList) {
-        //@TODO DATABASE
         this.interestsList = interestsList;
     }
 
     private void transmitData(){
-        InitialData data = new InitialData(getApplicationContext());
         data.setSelectedInterests(interestsList);
     }
 

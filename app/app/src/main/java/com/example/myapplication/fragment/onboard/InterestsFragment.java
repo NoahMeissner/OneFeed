@@ -22,6 +22,8 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class InterestsFragment extends Fragment {
@@ -99,6 +101,9 @@ public class InterestsFragment extends Fragment {
         windowManager.getDefaultDisplay().getSize(size);
         interestsAnimation.setXField(0,size.x);
         interestsAnimation.setYField(0,size.y);
+        interestsAnimation.setMyDelay(requireActivity()
+                .getResources()
+                .getInteger(R.integer.delay));
 
         if(x<=interestsAnimation.getX()){
             interestsAnimation.setXSpeed(xSpeed);
@@ -161,8 +166,28 @@ public class InterestsFragment extends Fragment {
         for(Category.interests s:buttons.keySet()){
             if(!Objects.equals(s, category)){
                 setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+                stopAnimation();
             }
         }
+    }
+
+    private void stopAnimation(){
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for(Category.interests interests : buttons.keySet()){
+                    Objects.requireNonNull(buttons.get(interests)).stopAnimation();
+                }
+                Log.d("InterestsFragment","Finish");
+            }
+        };
+        ExecutorService service = Executors.newScheduledThreadPool(1);
+        service.execute(r);
     }
 
 

@@ -59,7 +59,7 @@ public class InitialData {
     /*
     This Method returns all Interests which are token in the on boarding Process
      */
-    public ArrayList<Category.interests> getSelectedInterests() {
+    public ArrayList<String> getSelectedInterests() {
         /*
         Here the information is taken from the SharedPreferences
          */
@@ -74,10 +74,10 @@ public class InitialData {
         String[] array = selectedInterestsHashSet
                 .toArray(new String[selectedInterestsHashSet.size()]);
 
-        ArrayList<Category.interests> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         for (String s : array) {
-            result.add(Category.interests.valueOf(s));
+            result.add(s);
         }
         return result;
     }
@@ -94,7 +94,7 @@ public class InitialData {
         editPreferences.apply();
     }
 
-    public ArrayList<Category.socialMedia> getSelectedSocialMedia(){
+    public ArrayList<String> getSelectedSocialMedia(){
          /*
         Here the information is taken from the SharedPreferences
          */
@@ -108,10 +108,10 @@ public class InitialData {
         String[] array = socialMedia
                 .toArray(new String[socialMedia.size()]);
 
-        ArrayList<Category.socialMedia> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         for (String s : array) {
-            result.add(Category.socialMedia.valueOf(s));
+            result.add(s);
         }
         return result;
     }

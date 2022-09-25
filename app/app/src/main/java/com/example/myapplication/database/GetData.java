@@ -6,6 +6,7 @@ import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GetData implements DataBaseHelper.initializeProcessFinish {
 
@@ -46,6 +47,10 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
             }
         }
         return result;
+    }
+
+    public HashMap<Category,ArrayList<SourceAdd>> getAll(){
+        return dataBaseHelper.getAll();
     }
 
     public void removeSource(SourceAdd sourceADD){

@@ -4,9 +4,11 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -69,6 +71,31 @@ public class DataBaseHelper {
             }
         });
         init.start();
+    }
+
+    public HashMap<Category, ArrayList<SourceAdd>> getAll(){
+        /*
+       Initialise HashMap
+         */
+        HashMap<Category,ArrayList<SourceAdd>> result = new HashMap<>();
+        result.put(Category.SocialMedia,new ArrayList<>());
+        result.put(Category.Interests,new ArrayList<>());
+        result.put(Category.Newspaper,new ArrayList<>());
+        /*
+        Check the DataBase and put Items in order
+         */
+        for(SourceAdd sourceAdd: sourceArrayList){
+            if(sourceAdd.getCategories() == Category.Newspaper){
+                result.get(Category.Newspaper).add(sourceAdd);
+            }
+            if(sourceAdd.getCategories() == Category.SocialMedia){
+                result.get(Category.SocialMedia).add(sourceAdd);
+            }
+            if(sourceAdd.getCategories() == Category.Interests){
+                result.get(Category.Interests).add(sourceAdd);
+            }
+        }
+        return  result;
     }
 
 

@@ -1,29 +1,34 @@
 package com.example.myapplication.animation.addSource;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 /**
- * Detects left and right swipes across a view.
+ * Detects swipes across a view.
  */
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
-    // Initialise Variable
-    GestureDetector gestureDetector;
-    TextView textView;
+    /*
+    Variables
+     */
+    private  GestureDetector gestureDetector;
 
-    // Constructor
-    public OnSwipeTouchListener(View view, TextView textView){
-        // Initialize threshold value
-        this.textView = textView;
+
+    /*
+    Constructor
+     */
+    public OnSwipeTouchListener(View view, Gesture gesture){
+        setGestureListener(view,gesture);
+    }
+
+    /*
+    This Method sets an Gesture Listener
+     */
+    private void setGestureListener(View view, Gesture gesture){
         int threshold = 100;
         int velocity_threshold = 100;
-
-        // Initial simple gesture listener
         GestureDetector.SimpleOnGestureListener listener =
                 new GestureDetector.SimpleOnGestureListener(){
                     @Override
@@ -32,31 +37,42 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                     }
 
                     @Override
-                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    public boolean onFling(MotionEvent e1,
+                                           MotionEvent e2,
+                                           float velocityX,
+                                           float velocityY) {
+
                         float xDiff = e2.getX() - e1.getX();
                         float yDiff = e2.getY() - e1.getY();
+                        /*
+                       checks Conditions to know which Gesture was pressed
+                         */
                         try{
                             if(Math.abs(xDiff) > Math.abs(yDiff)){
-                                if(Math.abs((xDiff))>threshold && Math.abs(velocityX)>velocity_threshold){
+                                if(Math.abs((xDiff))>threshold
+                                        && Math.abs(velocityX)>velocity_threshold){
+
                                     if (xDiff > 0) {
-                                        textView.setText("Right");
                                         Log.d("Swiped","Right") ;
+                                        gesture.gestureHasDetected(Swipe.Right);
                                     }
                                     else{
-                                        textView.setText("Left");
                                         Log.d("Swiped","Left");
+                                        gesture.gestureHasDetected(Swipe.Left);
                                     }
                                     return true;
                                 }
                             }else{
-                                if(Math.abs(yDiff)>threshold && Math.abs(velocityY)>velocity_threshold){
+                                if(Math.abs(yDiff)>threshold
+                                        && Math.abs(velocityY)>velocity_threshold){
+
                                     if(yDiff >0){
-                                        textView.setText("Down");
                                         Log.d("swiped","down");
+                                        gesture.gestureHasDetected(Swipe.Down);
                                     }
                                     else{
-                                        textView.setText("UP");
                                         Log.d("swiped","up");
+                                        gesture.gestureHasDetected(Swipe.Up);
                                     }
                                     return true;
                                 }
@@ -70,12 +86,15 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                 };
         gestureDetector = new GestureDetector(listener);
         view.setOnTouchListener(this);
-
     }
-
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
         return  gestureDetector.onTouchEvent(motionEvent);
+    }
+
+    public interface Gesture{
+        void gestureHasDetected(Swipe swipe);
     }
 }

@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
-
+import android.widget.RelativeLayout;
 
 
 import com.example.myapplication.R;
+import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.data.addSource.AddActivityIcons;
@@ -41,6 +43,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
     private GetData data;
+    private OnSwipeTouchListener onSwipeTouchListener;
 
 
 
@@ -60,6 +63,17 @@ public class AddSourceActivity extends AppCompatActivity implements
         initHashMap();
         addAddButtonToSelectedHashMap();
         initButton();
+        initGestures();
+    }
+
+    //@TODO zum Laufen Bringen
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        RelativeLayout relativeLayout = findViewById(R.id.relativeAddSource);
+        onSwipeTouchListener = new OnSwipeTouchListener(
+                relativeLayout, swipe -> Log.d("Gesture",swipe.name()));
     }
 
     /*
@@ -117,7 +131,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         recyclerNewsPaper.setAdapter(adapterNews);
     }
 
-    //@TODO add image Path to DataBase to delete Loop
     @SuppressLint("UseCompatLoadingForDrawables")
     private void addAddButtonToSelectedHashMap(){
         /*
@@ -230,25 +243,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     }
 
     /*
-    This Method will set the new ArrayList to the different Adapters
-     */
-    private void updateAdapterList(SourceAdd source){
-        if(source.getCategories()== Category.Interests){
-            adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                    selectedHashMap.get(source.getCategories())));
-            return;
-        }
-
-            if(source.getCategories()== Category.SocialMedia){
-        adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                selectedHashMap.get(source.getCategories())));
-        return;
-        }
-            adapterNews.setSourceArrayList(Objects.requireNonNull(
-                    selectedHashMap.get(source.getCategories())));
-    }
-
-    /*
     This Method recognize, if the User press long on one Item
      */
     @Override
@@ -266,13 +260,16 @@ public class AddSourceActivity extends AppCompatActivity implements
         setAnimation(false);
     }
 
+    /*
+    This Method will refresh the
+     */
     private void refresh(){
+        //@TODO Animation beenden
         Intent refresh = new Intent(this, AddSourceActivity.class);
         overridePendingTransition(0, 0);
         startActivity(refresh);
         overridePendingTransition(0, 0);
         this.finish();
-
     }
 
 

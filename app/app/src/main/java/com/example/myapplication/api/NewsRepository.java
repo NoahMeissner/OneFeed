@@ -172,12 +172,16 @@ public class NewsRepository {
     private JsonObjectRequest createUserTimelineRequest(String userId, String accessToken, LoadNewsCallback listener) {
         // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference
         String timelineEndpoint = "https://api.twitter.com/2/users/" + userId + "/timelines/reverse_chronological";
-        String timelineRequestUrl = timelineEndpoint + "?tweet.fields=author_id,created_at";
+        String timelineRequestUrl = timelineEndpoint +
+                "?tweet.fields=author_id,created_at" +
+                "&user.fields=profile_image_url,username,name" +
+                "&expansions=author_id";
 
         JsonObjectRequest timelineRequest = new JsonObjectRequest(timelineRequestUrl, timelineResponse -> {
             ArrayList<TwitterCard> results = new ArrayList<>();
 
-            Log.d(TAG, "createUserTimelineRequest: got tweets response: " + timelineResponse);
+            Log.d(TAG, "createUserTimelineRequest: got tweets response: ");
+            Log.d(TAG, timelineResponse.toString());
 
             NewsSource twitterNewsSource = new NewsSource("Twitter");
             try {
@@ -190,50 +194,46 @@ public class NewsRepository {
                     String tweetId = timelineResults.getJSONObject(i).getString("id");
                     String webUrl = "https://twitter.com/" + authorId + "/status/" + tweetId;
 
-                    // Get author details: name, tag, profile picture
-                    String authorDetailsRequestUrl = "https://api.twitter.com/2/users/" + authorId + "?user.fields=profile_image_url";
+                    // Author details
+                    JSONObject userIncludes = timelineResponse.getJSONObject("includes");
+                    JSONArray users = userIncludes.getJSONArray("users");
+                    ArrayList<TwitterApiUserInformation> userInfos = new ArrayList<>();
+                    for(int j = 0; i < users.length(); i++) {
+                        userInfos.add(new TwitterApiUserInformation(
+                                authorId,
+                                users.getJSONObject(i).getString("name"),
+                                users.getJSONObject(i).getString("username"),
+                                users.getJSONObject(i).getString("profile_image_url")
+                        ));
+                    }
+
+                    TwitterApiUserInformation author = userInfos.stream().filter(u -> u.id == authorId).findFirst().orElse(null);
+                    Log.d(TAG, "createUserTimelineRequest: author:" + author);
+                    if (author == null) return;
+
+                    // Load profile picture url
                     int finalI = i;
-                    JsonObjectRequest authorDetailsRequest = new JsonObjectRequest(authorDetailsRequestUrl, authorDetailsResponse -> {
-                        Log.d(TAG, "authorDetailsRequest: user response: " + authorDetailsResponse);
-                        try {
-                            JSONObject authorData = authorDetailsResponse.getJSONObject("data");
-                            String username = authorData.getString("username"); // e.g. POTUS
-                            String name = authorData.getString("name"); // e.g. President Biden
-                            String profileImageUrl = authorData.getString("profile_image_url");
-
-                            // Load profile picture url
-                            ImageRequest authorImageRequest = new ImageRequest(profileImageUrl, response -> {
-                                results.add(
-                                        new TwitterCard(
-                                                twitterNewsSource,
-                                                parsedCrateDate,
-                                                webUrl,
-                                                text,
-                                                name,
-                                                username,
-                                                response
-                                        ));
-                                Log.d(TAG, "createUserTimelineRequest: Added twitter card to result");
-                                if (finalI == timelineResults.length() - 1) {
-                                    Log.d(TAG, "createUserTimelineRequest: loaded Tweets: " + results.stream().count());
-                                    listener.onTwitterComplete(results);
-                                }
-                            }, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
-                                Log.e(TAG, "createUserTimelineRequest: Failed to load profile icon via " + profileImageUrl);
-                            });
-
-                            requestQueue.add(authorImageRequest);
-                        } catch (JSONException e) {
-                            Log.e(TAG, "createUserTimelineRequest: Failed to parse response for /users/" + authorId + " endpoint", e);
+                    ImageRequest authorImageRequest = new ImageRequest(author.imageUrl, response -> {
+                        results.add(
+                                new TwitterCard(
+                                        twitterNewsSource,
+                                        parsedCrateDate,
+                                        webUrl,
+                                        text,
+                                        author.name,
+                                        author.username,
+                                        response
+                                ));
+                        Log.d(TAG, "createUserTimelineRequest: Added twitter card to result");
+                        if (finalI == timelineResults.length() - 1) {
+                            Log.d(TAG, "createUserTimelineRequest: loaded Tweets: " + results.stream().count());
+                            listener.onTwitterComplete(results);
                         }
-                    }, error -> Log.d(TAG, "onErrorResponse: " + error.getMessage())) {
-                        @Override
-                        public Map<String, String> getHeaders() {
-                            return getTwitterHeaders(accessToken);
-                        }
-                    };
+                    }, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
+                        Log.e(TAG, "createUserTimelineRequest: Failed to load profile icon via " + author.imageUrl);
+                    });
 
-                    requestQueue.add(authorDetailsRequest);
+                    requestQueue.add(authorImageRequest);
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "createUserTimelineRequest: Failed to parse response for /timelines/reverse_chronological endpoint", e);
@@ -409,5 +409,35 @@ public class NewsRepository {
 
         // Icons are provided as urls in the rss xml so they have to be loaded seperately
         void onAllIconsLoaded(ArrayList<ArticleCard> articleResults);
+    }
+
+    private class TwitterApiUserInformation {
+        private String id;
+        private String name;
+        private String username;
+        private String imageUrl;
+
+        public TwitterApiUserInformation(String id, String name, String username, String imageUrl) {
+            this.id = id;
+            this.name = name;
+            this.username = username;
+            this.imageUrl = imageUrl;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
     }
 }

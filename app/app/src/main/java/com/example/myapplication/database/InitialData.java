@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
@@ -45,12 +45,12 @@ public class InitialData {
         dataBaseHelper = new DataBaseHelper(context);
     }
 
-    public void setSelectedInterests(ArrayList<Category.interests> selectedInterests) {
+    public void setSelectedInterests(ArrayList<Constants.interests> selectedInterests) {
         selectedInterestsHashSet = new HashSet<>();
-        for(Category.interests interests: selectedInterests){
+        for(Constants.interests interests: selectedInterests){
             selectedInterestsHashSet.add(interests.name());
         }
-        editPreferences.putStringSet(Category.Interests.name(),selectedInterestsHashSet);
+        editPreferences.putStringSet(Constants.Interests.name(),selectedInterestsHashSet);
         editPreferences.apply();
     }
 
@@ -59,13 +59,13 @@ public class InitialData {
     /*
     This Method returns all Interests which are token in the on boarding Process
      */
-    public ArrayList<Category.interests> getSelectedInterests() {
+    public ArrayList<String> getSelectedInterests() {
         /*
         Here the information is taken from the SharedPreferences
          */
         selectedInterestsHashSet = new HashSet<>();
         selectedInterestsHashSet = sharedPreferences
-                .getStringSet(Category.Interests.name(),new HashSet<>());
+                .getStringSet(Constants.Interests.name(),new HashSet<>());
 
         /*
         TO change the Object from String to Category.interests it is import to change the HashSet to
@@ -74,10 +74,10 @@ public class InitialData {
         String[] array = selectedInterestsHashSet
                 .toArray(new String[selectedInterestsHashSet.size()]);
 
-        ArrayList<Category.interests> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         for (String s : array) {
-            result.add(Category.interests.valueOf(s));
+            result.add(s);
         }
         return result;
     }
@@ -85,21 +85,21 @@ public class InitialData {
     /*
     This Method saves all preferred SocialMedia Names
      */
-    public void setSelectSocialMedia(ArrayList<Category.socialMedia> socialMediaArrayList){
+    public void setSelectSocialMedia(ArrayList<Constants.socialMedia> socialMediaArrayList){
         Set<String> socialMedia = new HashSet<>();
-        for(Category.socialMedia socialMediaItem: socialMediaArrayList){
+        for(Constants.socialMedia socialMediaItem: socialMediaArrayList){
             socialMedia.add(socialMediaItem.name());
         }
-        editPreferences.putStringSet(Category.SocialMedia.name(),socialMedia);
+        editPreferences.putStringSet(Constants.SocialMedia.name(),socialMedia);
         editPreferences.apply();
     }
 
-    public ArrayList<Category.socialMedia> getSelectedSocialMedia(){
+    public ArrayList<String> getSelectedSocialMedia(){
          /*
         Here the information is taken from the SharedPreferences
          */
         Set<String> socialMedia = sharedPreferences
-                .getStringSet(Category.SocialMedia.name(),new HashSet<>());
+                .getStringSet(Constants.SocialMedia.name(),new HashSet<>());
 
         /*
         TO change the Object from String to Category.interests it is import to change the HashSet to
@@ -108,10 +108,10 @@ public class InitialData {
         String[] array = socialMedia
                 .toArray(new String[socialMedia.size()]);
 
-        ArrayList<Category.socialMedia> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
         for (String s : array) {
-            result.add(Category.socialMedia.valueOf(s));
+            result.add(s);
         }
         return result;
     }

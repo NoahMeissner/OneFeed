@@ -12,7 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.myapplication.R;
 import com.example.myapplication.api.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.card.TwitterCard;
@@ -45,7 +45,7 @@ public class FeedViewModel extends AndroidViewModel {
     public void loadNewsCards(Context context) {
         // Todo: Use categories provided by user preferences
         RssUrls rssUrls = new RssUrls();
-        HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
+        HashMap<Constants.news, String> corona = rssUrls.getCategory(Constants.interests.Politik);
 
         articlesRepository.loadNews(corona, context, cards -> {
 //            setLoadingImages(cards, context);

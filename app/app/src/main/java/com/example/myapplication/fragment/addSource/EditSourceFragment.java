@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -20,7 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
+import com.example.myapplication.data.addSource.UiElements;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.GetData;
@@ -40,24 +40,36 @@ public class EditSourceFragment extends DialogFragment
     /*
     Constants
      */
-    private final GetData getData;
-    private EditSourceFragmentChanges dataChanged;
-    private final ArrayList<SourceAdd> selectedHashMap;
+    // These Constants will be called by the Constructor
     private final SourceAdd source;
+    private final ArrayList<SourceAdd> selectedHashMap;
+    private EditSourceFragmentChanges dataChanged;
+    private final GetData getData;
+    private final ArrayList<String> fullList;
+
+    // This Constant will be the Array List which fills the Recycler View
     private final ArrayList<SourceAdd> recyclerArrayList = new ArrayList<>();
-    private ArrayList<SourceAdd> fullList = new ArrayList<>();
+
+    // Shared Preferences are important to edit saved Data
+    private SharedPreferences preferences;
+
+    // The AddActivityIcons are important to get the Pictures
+    private final UiElements uiElements = new UiElements();
+
 
     /*
     Constructor
      */
-    public EditSourceFragment(SourceAdd source,
-                    ArrayList<SourceAdd> selectedHashMap,
-                    EditSourceFragmentChanges dataChanged,
-                    GetData getdata){
+    public EditSourceFragment( SourceAdd source,
+                              ArrayList<SourceAdd> selectedHashMap,
+                              EditSourceFragmentChanges dataChanged,
+                              GetData getdata){
         this.source = source;
         this.selectedHashMap = selectedHashMap;
         this.dataChanged = dataChanged;
         this.getData = getdata;
+        fullList = uiElements.getArrayListHashMap().get(source.getCategories());
+        uiElements.initialPictureHashMap();
     }
 
     @Override
@@ -72,6 +84,9 @@ public class EditSourceFragment extends DialogFragment
         Objects.requireNonNull(getDialog())
                 .getWindow()
                 .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        preferences = requireContext()
+                .getSharedPreferences(requireActivity().getResources()
+                        .getString(R.string.initProcesBoolean), 0);
         init(view);
         return view;
     }
@@ -85,14 +100,13 @@ public class EditSourceFragment extends DialogFragment
         initRecyclerView(view);
     }
 
-
     /*
     This method init the Recycler view ArrayList
      */
     private void initRecyclerArrayList() {
-        if(Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(Objects.equals(source.getName(), Constants.ADDButton.name())){
             for(SourceAdd source: combineArrayLists()) {
-                if (!source.getName().equals(Category.ADDButton.name()))
+                if (!source.getName().equals(Constants.ADDButton.name()))
                     recyclerArrayList.add(source);
             }
             return;
@@ -105,15 +119,25 @@ public class EditSourceFragment extends DialogFragment
      */
     private ArrayList<SourceAdd> combineArrayLists() {
         for(SourceAdd sourceActive : selectedHashMap){
-            fullList.removeIf(fullSource -> fullSource.getName().equals(sourceActive.getName()));
+            fullList.removeIf(fullSource -> fullSource.equals(sourceActive.getName()));
         }
         ArrayList<SourceAdd> result = new ArrayList<>(selectedHashMap);
 
         if(fullList != null){
-            result.addAll(fullList);
+            for(String name: fullList){
+                SourceAdd sourceAdd = new SourceAdd(
+                        name,
+                        source.getCategories(),
+                        preferences.getBoolean(Constants.initial.Notification.name(), false),
+                        Objects.requireNonNull(uiElements.getPictureId(name)),
+                        false);
+
+                result.add(sourceAdd);
+            }
         }
         return result;
     }
+
     /*
     This Method initialise the Fragment items
      */
@@ -122,19 +146,16 @@ public class EditSourceFragment extends DialogFragment
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
-        if(!Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(!Objects.equals(source.getName(), Constants.ADDButton.name())){
             textView.setText(source.getName());
-            //@TODO Bilder müssen stehen
-            Drawable drawable = getResources().getDrawable(source.getImageRessourceID(),getActivity().getTheme());
-            imageView.setImageDrawable(drawable);
+            imageView.setImageResource(source.getImageRessourceID());
         }
         else{
-            imageView.setImageDrawable(source.getImage());
             textView.setText(getResources().getString(R.string.newSourceHeadline));
+            imageView.setImageResource(R.drawable.add);
             underline.setText("");
         }
     }
-
 
     /*
     This Method init the Recycler view to Show the List of Settings
@@ -162,71 +183,50 @@ public class EditSourceFragment extends DialogFragment
     This Method is important to add a new Source to the DataBase
      */
     private void insertNewSource(SourceAdd changedSource) {
-        SharedPreferences preferences = requireContext()
-                .getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
 
         if(changedSource.isEnabled()){
             deleteItem(changedSource);
+            onStop();
             return;
         }
-
         SourceAdd sourceAdd = new SourceAdd(
                 (changedSource.getName()),(changedSource.getCategories()),
-                (preferences.getBoolean(Category.initial.Notification.name(),false)),
-                2, true);
-
-        selectedHashMap.add(sourceAdd);
+                (preferences.getBoolean(Constants.initial.Notification.name(),false)),
+                getImageID(changedSource), true);
         getData.InsertSource(sourceAdd);
         dataChanged.dataHasChanged(true, changedSource);
         onStop();
     }
 
-
-
-
     /*
     If someone wants to delete a Source he can use the Switch in the EditSource Fragment
     To Change the Settings in the DataBase you need this Method
      */
-    private void deleteItem(SourceAdd source) {
-        selectedHashMap.remove(source);
-        getData.removeSource(source);
-        dataChanged.dataHasChanged(false, source);
-        onStop();
+    private void deleteItem(SourceAdd changedSource) {
+        getData.removeSource(changedSource);
+        dataChanged.dataHasChanged(false, changedSource);
     }
 
-    /*
-    This Method will give the User the whole List of Sources to compare which
-    sources he had not apply
-     */
-    private ArrayList<SourceAdd> updateList(ArrayList<SourceAdd> fullList) {
-        for (SourceAdd sourceAdd:fullList){
-            sourceAdd.setEnabled(false);
-        }
-        return fullList;
+    private int getImageID(SourceAdd source) {
+        return Objects.requireNonNull(uiElements.getPictureId(source.getName()));
     }
 
     public void setDataChanged(EditSourceFragmentChanges dataChanged) {
         this.dataChanged = dataChanged;
     }
 
-    public void setFullList(ArrayList<SourceAdd> fullList){
-        this.fullList = updateList(fullList);
-    }
 
     @Override
     public void changedSource(SourceAdd changedSource) {
-        if(source.getName().equals(Category.ADDButton.name())){
+        if(source.getName().equals(Constants.ADDButton.name())){
             insertNewSource(changedSource);
             return;
         }
         boolean notification = changedSource.isNotification();
         changedSource.setNotification(!notification);
-        selectedHashMap.remove(changedSource);
-        selectedHashMap.add(changedSource);
         getData.removeSource(changedSource);
         getData.InsertSource(changedSource);
+        onStop();
     }
 
     public interface EditSourceFragmentChanges {

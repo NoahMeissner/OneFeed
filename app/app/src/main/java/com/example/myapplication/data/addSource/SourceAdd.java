@@ -7,8 +7,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.example.myapplication.R;
-
 @Entity(tableName = "sourceAdd")
 public class SourceAdd {
 
@@ -16,10 +14,13 @@ public class SourceAdd {
     This Method create an object, which is necessary for the ADD Activity
      */
 
+    /*
+    Constants
+     */
     @PrimaryKey
     @NonNull
     private final String name;
-    private final Category categories;
+    private final Constants categories;
     private boolean notification;
     private boolean enabled;
     private int imageRessourceID;
@@ -28,15 +29,21 @@ public class SourceAdd {
     @Ignore
     private Drawable image;
 
+    /*
+    Constructor
+     */
     @Ignore
-    public SourceAdd(@NonNull String name, Drawable image, Category categories){
+    public SourceAdd(@NonNull String name, Drawable image, Constants categories){
         this.name = name;
         this.image = image;
         this.categories = categories;
     }
 
+    /*
+    Constructor for the DataBase
+     */
     public SourceAdd(@NonNull String name,
-                     Category categories,
+                     Constants categories,
                      boolean notification,
                      int imageRessourceID,
                      boolean enabled
@@ -48,15 +55,14 @@ public class SourceAdd {
         this.enabled = enabled;
     }
 
+    /*
+    Getter and setter Methods
+     */
     public int getImageRessourceID() {
         return imageRessourceID;
     }
 
-    public void setImage(Drawable image){
-        this.image = image;
-    }
-
-    public Category getCategories() {
+    public Constants getCategories() {
         return categories;
     }
 

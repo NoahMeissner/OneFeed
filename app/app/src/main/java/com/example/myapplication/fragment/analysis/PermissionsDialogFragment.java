@@ -17,7 +17,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 
 import java.util.Objects;
 
@@ -83,7 +83,7 @@ public class PermissionsDialogFragment extends DialogFragment {
         SharedPreferences pref = requireContext().getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editPreferences = pref.edit();
-        editPreferences.putBoolean(Category.initial.Consumptionanalyse.name(), true);
+        editPreferences.putBoolean(Constants.initial.ConsumptionAnalyse.name(), true);
         editPreferences.apply();
     }
 }

@@ -2,16 +2,14 @@ package com.example.myapplication.activity.onboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
-import com.example.myapplication.data.addSource.AddActivityIcons;
-import com.example.myapplication.data.addSource.Category;
-import com.example.myapplication.data.addSource.SourceAdd;
+import com.example.myapplication.data.addSource.Constants;
+import com.example.myapplication.data.onBoard.SetSourceObjects;
 import com.example.myapplication.database.InitialData;
 
 import java.util.ArrayList;
@@ -27,10 +25,8 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private boolean isInitialized =false;
     private boolean notification = false;
-    private final boolean enabled = true;
     private boolean interestsAreInitialized = false;
     private SharedPreferences pref;
-    SharedPreferences.Editor editPreferences;
 
 
     /*
@@ -50,13 +46,13 @@ public class LoadingActivity extends AppCompatActivity {
         pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
         isInitialized = pref.getBoolean(
-                Category.initial.Process.name(),false);
+                Constants.initial.Process.name(),false);
 
         notification = pref.getBoolean(
-                Category.initial.Notification.name(), false);
+                Constants.initial.Notification.name(), false);
 
         interestsAreInitialized = pref.getBoolean(
-                Category.initial.InterestsAreInitialised.name(), false);
+                Constants.initial.InterestsAreInitialised.name(), false);
     }
 
     /*
@@ -70,85 +66,42 @@ public class LoadingActivity extends AppCompatActivity {
             return;
         }
         setUpInterests();
-        // Todo: switch back to FeedActivity
-        Intent intent = new Intent(getBaseContext(), OnboardActivity.class);
+        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
         startActivity(intent);
     }
-
 
     /*
     This method converts the categories that have been selected in the on boarding
      process into category objects.
      */
     private void setUpInterests(){
-        //@TODO DATABASE
-        ArrayList<SourceAdd> sourceInterests = new ArrayList<>();
         InitialData data;
-
         if(!interestsAreInitialized){
             data = new InitialData(this);
             setSources(
                     data.getSelectedInterests(),
                     data.getSelectedSocialMedia(),
-                    sourceInterests,
                     data
             );
-            editPreferences = pref.edit();
-            editPreferences.putBoolean(Category.initial.InterestsAreInitialised.name(), true);
+            SharedPreferences.Editor editPreferences = pref.edit();
+            editPreferences.putBoolean(Constants.initial.InterestsAreInitialised.name(), true);
             editPreferences.apply();
         }
     }
 
-    private void setSources(ArrayList<Category.interests> interests,
-                            ArrayList<Category.socialMedia> socialMedia,
-                            ArrayList<SourceAdd> sourceInterests,
+    /*
+    This Method will set all Sources which were selected in the Initial Process
+     */
+    private void setSources(ArrayList<String> interests,
+                            ArrayList<String> socialMedia,
                             InitialData data){
-        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
         /*
-        In these For loop, the selected interests and social Media are converted
-        into objects and passed to the array list
-        */
-        for(Category.interests interestCategory: interests){
-            SourceAdd sourceAdd = new SourceAdd(interestCategory.name(),
-                    Category.Interests,
-                    notification,
-                    R.drawable.spiegel,
-                    enabled);
-            sourceInterests.add(sourceAdd);
-        }
-
-        for(Category.socialMedia socialMediaCategory: socialMedia){
-            SourceAdd sourceAdd = new SourceAdd(socialMediaCategory.name(),
-                    Category.SocialMedia,
-                    notification,
-                    R.drawable.spiegel,
-                    enabled);
-            sourceInterests.add(sourceAdd);
-        }
-
-        /*
-        These Elements are the News Elements which will be part of the Feed automatically
-        */
-        SourceAdd sourceFAZ = new SourceAdd(
-                Category.news.FAZ.name(),
-                Category.Newspaper,notification,
-                R.drawable.faz,
-                enabled);
-
-        SourceAdd sourceSpiegel = new SourceAdd(
-                Category.news.Spiegel.name(),
-                Category.Newspaper,
-                notification,
-               R.drawable.spiegel,
-                enabled);
-
-        sourceInterests.add(sourceFAZ);
-        sourceInterests.add(sourceSpiegel);
-        /*
-        Here, the array list from the For loop is passed to the DATA class
-        and the initialisation process is terminated by editing
-        the Boolean value in the Shared Preferences
-        */
-        data.setArrayList(sourceInterests);
+        This Set Source Object hands all Source over
+         */
+        SetSourceObjects sourceObjects = new SetSourceObjects(data,notification);
+        sourceObjects.setSocialMediaList(socialMedia);
+        sourceObjects.setInterestsList(interests);
+        sourceObjects.setNews();
+        sourceObjects.addToDataBase();
     }
 }

@@ -2,10 +2,11 @@ package com.example.myapplication.database;
 
 import android.content.Context;
 
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GetData implements DataBaseHelper.initializeProcessFinish {
 
@@ -38,7 +39,7 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         dataBaseHelper.insertDataBase(updateArrayList);
     }
 
-    public ArrayList<SourceAdd> getCategory(Category category){
+    public ArrayList<SourceAdd> getCategory(Constants category){
         ArrayList<SourceAdd> result = new ArrayList<>();
         for(SourceAdd sourceAdd: sourceAdds){
             if(sourceAdd.getCategories()== category){
@@ -46,6 +47,10 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
             }
         }
         return result;
+    }
+
+    public HashMap<Constants,ArrayList<SourceAdd>> getAll(){
+        return dataBaseHelper.getAll();
     }
 
     public void removeSource(SourceAdd sourceADD){

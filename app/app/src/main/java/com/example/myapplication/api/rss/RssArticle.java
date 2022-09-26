@@ -1,20 +1,20 @@
 package com.example.myapplication.api.rss;
 
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 
 import java.time.LocalDateTime;
 
 public class RssArticle {
 
     private String title;
-    private Category.news category;
+    private Constants.news category;
     private String imageUrl;
     private LocalDateTime publicationDate;
     private String sourceName;
     private String sourceIconUrl;
     private String webUrl;
 
-    public RssArticle(String title, Category.news category, String imageUrl, LocalDateTime publicationDate, String sourceName, String sourceIconUrl, String webUrl) {
+    public RssArticle(String title, Constants.news category, String imageUrl, LocalDateTime publicationDate, String sourceName, String sourceIconUrl, String webUrl) {
         this.title = title;
         this.category = category;
         this.imageUrl = imageUrl;
@@ -28,7 +28,7 @@ public class RssArticle {
         return title;
     }
 
-    public Category.news getCategory() {
+    public Constants.news getCategory() {
         return category;
     }
 

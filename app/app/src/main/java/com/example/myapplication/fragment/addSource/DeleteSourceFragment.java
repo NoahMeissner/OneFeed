@@ -21,17 +21,26 @@ import java.util.Objects;
 
 public class DeleteSourceFragment extends DialogFragment {
 
+    /*
+    This Method will display a Delete Source Fragment which give the User after one Long Click
+    the possibility to delete one Source
+     */
 
+    /*
+    Constants which will set by the Constructor
+     */
+    // This is the source Add Object which was selected
+    private final SourceAdd source;
+    // Interface which hand over the decision of the User
+    private final DeleteSourceFragmentInterface deleteSFInterface;
 
-    private SourceAdd source;
-    private final InputDeleteSourceFragment inputDeleteSourceFragment;
-
-    public interface InputDeleteSourceFragment {
-        void inputDeleteSource(boolean result, SourceAdd source);
-    }
-
-    public DeleteSourceFragment(InputDeleteSourceFragment inputDeleteSourceFragment){
-        this.inputDeleteSourceFragment = inputDeleteSourceFragment;
+    /*
+    Constructor
+     */
+    public DeleteSourceFragment(DeleteSourceFragmentInterface inputDeleteSourceFragment,
+                                SourceAdd source){
+        this.deleteSFInterface = inputDeleteSourceFragment;
+        this.source = source;
     }
 
 
@@ -45,23 +54,31 @@ public class DeleteSourceFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-        View view =inflater.inflate(R.layout.fragement_delete_source, container, false);
-        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // Declare one View Element
+        View view =inflater.inflate(R.layout.fragement_delete_source,
+                container,
+                false);
+        // Set The Background of the Fragment transparent
+        Objects.requireNonNull(getDialog())
+                .getWindow()
+                .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initUI(view);
         initButtons(view);
         return view;
     }
 
+    /*
+    This Method will initialise the Buttons, to accept the deleting of one Source Object
+     */
     private void initButtons(View view) {
         Button buttonNo = view.findViewById(R.id.buttonND);
         Button buttonYes = view.findViewById(R.id.buttonYD);
         buttonNo.setOnClickListener(view1 -> {
-            inputDeleteSourceFragment.inputDeleteSource(false, source);
+            deleteSFInterface.deleteSourceFromLongClick(false, source);
             onStop();
         });
         buttonYes.setOnClickListener(view1 -> {
-            inputDeleteSourceFragment.inputDeleteSource(true, source);
+            deleteSFInterface.deleteSourceFromLongClick(true, source);
             onStop();
         });
     }
@@ -70,10 +87,11 @@ public class DeleteSourceFragment extends DialogFragment {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
         ImageView imageView = view.findViewById(R.id.deleteSourceImage);
         textView.setText(source.getName());
-        //imageView.setImageResource(source.getImageRessourceID());
+        imageView.setImageResource(source.getImageRessourceID());
     }
 
-    public void setSource(SourceAdd source) {
-        this.source = source;
+
+    public interface DeleteSourceFragmentInterface {
+        void deleteSourceFromLongClick(boolean result, SourceAdd source);
     }
 }

@@ -1,13 +1,13 @@
 package com.example.myapplication.api.rss;
 
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 
 import java.util.HashMap;
 
 public class RssUrls {
 
-    private HashMap<Category.interests,String> fazHashMap = new HashMap<>();
-    private HashMap<Category.interests,String> spiegelHashMap = new HashMap<>();
+    private HashMap<Constants.interests,String> fazHashMap = new HashMap<>();
+    private HashMap<Constants.interests,String> spiegelHashMap = new HashMap<>();
 
 
     public RssUrls(){
@@ -17,71 +17,71 @@ public class RssUrls {
 
     private void initFaz() {
         fazHashMap.put(
-                Category.interests.Corona,
+                Constants.interests.Corona,
                 "https://www.faz.net/rss/aktuell/gesellschaft/gesundheit/coronavirus");
 
         fazHashMap.put(
-                Category.interests.Wirtschaft,
+                Constants.interests.Wirtschaft,
                 "https://www.faz.net/rss/aktuell/wirtschaft");
 
         fazHashMap.put(
-                Category.interests.Politik,
+                Constants.interests.Politik,
                 "https://www.faz.net/rss/aktuell/politik");
 
         fazHashMap.put(
-                Category.interests.Sport,
+                Constants.interests.Sport,
                 "https://www.faz.net/rss/aktuell/sport");
 
         fazHashMap.put(
-                Category.interests.Technik,
+                Constants.interests.Technik,
                 "https://www.faz.net/rss/aktuell/technik-motor");
     }
 
     private void initSpiegel(){
         spiegelHashMap.put(
-                Category.interests.Corona,
+                Constants.interests.Corona,
                 "https://www.spiegel.de/thema/coronavirus/index.rss");
 
         spiegelHashMap.put(
-                Category.interests.Wirtschaft,
+                Constants.interests.Wirtschaft,
                 "https://www.spiegel.de/wirtschaft/index.rss");
 
         spiegelHashMap.put(
-                Category.interests.Technik,
+                Constants.interests.Technik,
                 "https://www.spiegel.de/wissenschaft/technik/index.rss");
 
         spiegelHashMap.put(
-                Category.interests.Gaming,
+                Constants.interests.Gaming,
                 "https://www.spiegel.de/netzwelt/games/inde.rss");
 
         spiegelHashMap.put(
-                Category.interests.Politik,
+                Constants.interests.Politik,
                 "https://www.spiegel.de/politik/index.rss");
 
         spiegelHashMap.put(
-                Category.interests.Sport,
+                Constants.interests.Sport,
                 "https://www.spiegel.de/sport/index.rss");
     }
 
-    public HashMap<Category.news,String> getCategory(Category.interests interests){
-        HashMap<Category.news,String> result = new HashMap<>();
-        result.put(Category.news.FAZ,fazHashMap.get(interests));
-        result.put(Category.news.Spiegel,spiegelHashMap.get(interests));
+    public HashMap<Constants.news,String> getCategory(Constants.interests interests){
+        HashMap<Constants.news,String> result = new HashMap<>();
+        result.put(Constants.news.FAZ,fazHashMap.get(interests));
+        result.put(Constants.news.Spiegel,spiegelHashMap.get(interests));
         return result;
     }
 
-    public HashMap<Category.news,HashMap<Category.interests,String>> getAll(){
-        HashMap<Category.news,HashMap<Category.interests,String>> result = new HashMap<>();
-        result.put(Category.news.FAZ,fazHashMap);
-        result.put(Category.news.Spiegel,spiegelHashMap);
+    public HashMap<Constants.news,HashMap<Constants.interests,String>> getAll(){
+        HashMap<Constants.news,HashMap<Constants.interests,String>> result = new HashMap<>();
+        result.put(Constants.news.FAZ,fazHashMap);
+        result.put(Constants.news.Spiegel,spiegelHashMap);
         return result;
     }
 
-    public HashMap<Category.interests, String> getFazHashMap() {
+    public HashMap<Constants.interests, String> getFazHashMap() {
         return fazHashMap;
     }
 
-    public HashMap<Category.interests, String> getSpiegelHashMap() {
+    public HashMap<Constants.interests, String> getSpiegelHashMap() {
         return spiegelHashMap;
     }
 }

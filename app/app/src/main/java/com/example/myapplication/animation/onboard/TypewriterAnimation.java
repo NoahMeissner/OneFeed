@@ -20,6 +20,9 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
     private final Handler myHandler = new Handler();
 
 
+    /*
+    Constructor
+     */
     public TypewriterAnimation(@NonNull Context context) {
         super(context);
     }
@@ -45,6 +48,7 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
         }
     };
 
+    // start Animation
     public void animateText(CharSequence myTxt){
         myText = myTxt;
         myIndex = 0;

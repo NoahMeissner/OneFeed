@@ -71,12 +71,14 @@ public class FeedActivity extends AppCompatActivity {
         this.sourcesNavigationButton.setOnClickListener(l -> {
             Intent intent = new Intent(this, AddSourceActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         });
 
         this.insightNavigationButton = findViewById(R.id.insight_icon);
         this.insightNavigationButton.setOnClickListener(l -> {
             Intent intent = new Intent(this, InsightActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         });
     }
 

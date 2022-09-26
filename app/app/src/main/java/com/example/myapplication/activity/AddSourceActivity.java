@@ -5,15 +5,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
-
+import android.widget.RelativeLayout;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
-import com.example.myapplication.data.addSource.AddActivityIcons;
 import com.example.myapplication.database.GetData;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
@@ -27,20 +29,18 @@ import java.util.Objects;
 public class AddSourceActivity extends AppCompatActivity implements
         AdapterListAddActivity.OnItemClickListener,
         AdapterListAddActivity.longItemClickListener,
-        DeleteSourceFragment.InputDeleteSourceFragment,
+        DeleteSourceFragment.DeleteSourceFragmentInterface,
         EditSourceFragment.EditSourceFragmentChanges {
 
     /*
     Constants
      */
-    private HashMap<Category,ArrayList<SourceAdd>> arrayListHashMap = new HashMap<>();
-    private final HashMap<Category,ArrayList<SourceAdd>> selectedHashMap = new HashMap<>();
+    private final HashMap<Constants,ArrayList<SourceAdd>> enabledSourcesHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
     private GetData data;
-
 
 
     @Override
@@ -59,18 +59,26 @@ public class AddSourceActivity extends AppCompatActivity implements
         initHashMap();
         addAddButtonToSelectedHashMap();
         initButton();
+        initGestures();
+    }
+
+    //@TODO zum Laufen Bringen
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        RelativeLayout relativeLayout = findViewById(R.id.relativeAddSource);
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
+                relativeLayout, swipe -> Log.d("Gesture", swipe.name()));
     }
 
     /*
     This Method initialized the HashMap
      */
-
     private void initHashMap() {
-        selectedHashMap.put(Category.Interests,data.getCategory(Category.Interests));
-        selectedHashMap.put(Category.SocialMedia,data.getCategory(Category.SocialMedia));
-        selectedHashMap.put(Category.Newspaper,data.getCategory(Category.Newspaper));
-        AddActivityIcons addActivityIcons = new AddActivityIcons(this);
-        arrayListHashMap = addActivityIcons.getArrayListHashMap();
+        enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests));
+        enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia));
+        enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper));
     }
 
     /*
@@ -83,7 +91,14 @@ public class AddSourceActivity extends AppCompatActivity implements
             InformationFragment informationFragment = new InformationFragment();
             informationFragment.show(getSupportFragmentManager(),"");
         });
-        backButton.setOnClickListener(view -> finish());
+        backButton.setOnClickListener(view -> closeActivity());
+    }
+
+    private void closeActivity(){
+        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+        finish();
     }
 
     /*
@@ -96,43 +111,41 @@ public class AddSourceActivity extends AppCompatActivity implements
 
         adapterNews = initRecyclerView(
                 recyclerNewsPaper,
-                selectedHashMap.get(Category.Newspaper));
+                enabledSourcesHashMap.get(Constants.Newspaper));
 
         adapterInterests = initRecyclerView(
                 recyclerInterests,
-                selectedHashMap.get(Category.Interests));
+                enabledSourcesHashMap.get(Constants.Interests));
 
         adapterSocialMedia = initRecyclerView(
                 recyclerSocialMedia,
-                selectedHashMap.get(Category.SocialMedia));
+                enabledSourcesHashMap.get(Constants.SocialMedia));
 
         recyclerInterests.setAdapter(adapterInterests);
         recyclerSocialMedia.setAdapter(adapterSocialMedia);
         recyclerNewsPaper.setAdapter(adapterNews);
     }
 
-    //@TODO add image Path to DataBase to delete Loop
     @SuppressLint("UseCompatLoadingForDrawables")
     private void addAddButtonToSelectedHashMap(){
         /*
         TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         add to the ARRAYList.
         */
-
-        Objects.requireNonNull(selectedHashMap.get(Category.Newspaper))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Category.Newspaper));
+                        Constants.Newspaper));
 
-        Objects.requireNonNull(selectedHashMap.get(Category.SocialMedia))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add ),
-                        Category.SocialMedia));
+                        Constants.SocialMedia));
 
-        Objects.requireNonNull(selectedHashMap.get(Category.Interests))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Category.Interests));
+                        Constants.Interests));
         declareRecyclerView();
     }
 
@@ -153,20 +166,20 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method will set the Animation if one Item was Long Pressed
      */
     private void setAnimation(boolean boo){
-        for(Category categories:selectedHashMap.keySet()){
-            for(SourceAdd source: Objects.requireNonNull(selectedHashMap.get(categories))){
+        for(Constants categories: enabledSourcesHashMap.keySet()){
+            for(SourceAdd source: Objects.requireNonNull(enabledSourcesHashMap.get(categories))){
                 source.setSetAnimation(boo);
             }
-            selectedHashMap.put(categories,selectedHashMap.get(categories));
+            enabledSourcesHashMap.put(categories, enabledSourcesHashMap.get(categories));
         }
         adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                selectedHashMap.get(Category.SocialMedia)));
+                enabledSourcesHashMap.get(Constants.SocialMedia)));
 
         adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                selectedHashMap.get(Category.Interests)));
+                enabledSourcesHashMap.get(Constants.Interests)));
 
         adapterNews.setSourceArrayList(Objects.requireNonNull(
-                selectedHashMap.get(Category.Newspaper)));
+                enabledSourcesHashMap.get(Constants.Newspaper)));
     }
 
     /*
@@ -175,11 +188,10 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initEditSourceFragment(SourceAdd source){
         EditSourceFragment editSourceFragment = new EditSourceFragment(
                 source,
-                selectedHashMap.get(source.getCategories()),
+                enabledSourcesHashMap.get(source.getCategories()),
                 this,
                 data);
 
-        editSourceFragment.setFullList(arrayListHashMap.get(source.getCategories()));
         editSourceFragment.setDataChanged(this);
         editSourceFragment.show(getSupportFragmentManager(),"");
     }
@@ -197,9 +209,12 @@ public class AddSourceActivity extends AppCompatActivity implements
             initEditSourceFragment(source);
             return;
         }
-        if(source.getName().equals(Category.ADDButton.name())) return;
-        DeleteSourceFragment dSf = new DeleteSourceFragment(this);
-        dSf.setSource(source);
+        if(source.getName().equals(Constants.ADDButton.name())) return;
+        /*
+        If the User clicked on the Item and the pressed long before the Delete Source Fragment will
+        be initialised
+         */
+        DeleteSourceFragment dSf = new DeleteSourceFragment(this,source);
         dSf.show(getSupportFragmentManager(),"");
     }
 
@@ -207,40 +222,20 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method recognizes from the DeleteSourceFragment if the User Deleted one Item
     */
     @Override
-    public void inputDeleteSource(boolean result, SourceAdd source) {
+    public void deleteSourceFromLongClick(boolean result, SourceAdd source) {
         /*
         set Constants falls to show the User the Process has end
          */
-        setAnimation(false);
         longSourceClick = false;
+        setAnimation(false);
         if (result) {
             /*
             If he pressed yes the Item will be deleted. To show him the difference the Icon will be
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-            Objects.requireNonNull(selectedHashMap.get(source.getCategories())).remove(source);
-            updateAdapterList(source);
+            refresh();
         }
-    }
-
-    /*
-    This Method will set the new ArrayList to the different Adapters
-     */
-    private void updateAdapterList(SourceAdd source){
-        if(source.getCategories()== Category.Interests){
-            adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                    selectedHashMap.get(source.getCategories())));
-            return;
-        }
-
-            if(source.getCategories()== Category.SocialMedia){
-        adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                selectedHashMap.get(source.getCategories())));
-        return;
-        }
-            adapterNews.setSourceArrayList(Objects.requireNonNull(
-                    selectedHashMap.get(source.getCategories())));
     }
 
     /*
@@ -261,23 +256,27 @@ public class AddSourceActivity extends AppCompatActivity implements
         setAnimation(false);
     }
 
+    /*
+    This Method will refresh the Activity
+     */
+    private void refresh(){
+        //@TODO Animation beenden
+        Intent refresh = new Intent(this, AddSourceActivity.class);
+        overridePendingTransition(0, 0);
+        startActivity(refresh);
+        overridePendingTransition(0, 0);
+        this.finish();
+    }
+
 
     @Override
     public void dataHasChanged(Boolean b, SourceAdd sourceAdd) {
         if(b == null){
             return;
         }
-        if(!b){
-            initHashMap();
-            Objects.requireNonNull(selectedHashMap
-                    .get(sourceAdd.getCategories())).remove(sourceAdd);
-            declareRecyclerView();
-            return;
-        }
         /*
         Update Selected HashMap from the DataBase to update the Recycler viewer
          */
-        initHashMap();
-        declareRecyclerView();
+        refresh();
     }
 }

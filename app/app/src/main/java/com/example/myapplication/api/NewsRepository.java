@@ -17,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.api.rss.RssArticle;
 import com.example.myapplication.api.rss.RssArticleParser;
 import com.example.myapplication.api.twitter.TwitterApiHelper;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.card.TwitterCard;
@@ -51,7 +51,7 @@ public class NewsRepository {
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
     public void loadNews(
-            HashMap<Category.news, String> rssEndpoints,
+            HashMap<Constants.news, String> rssEndpoints,
             Context context,
             NewsCardsCallback listener
     ) {
@@ -95,7 +95,7 @@ public class NewsRepository {
         });
     }
 
-    private void loadNews(HashMap<Category.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadNews(HashMap<Constants.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
         // Load rss articles for all categories
         loadArticles(rssEndpoints, context, listener);
 
@@ -147,10 +147,10 @@ public class NewsRepository {
         }
     }
 
-    private void loadArticles(HashMap<Category.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadArticles(HashMap<Constants.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
         ArrayList<ArticleCard> articleCards = new ArrayList<>();
         int currentIndex = 0;
-        for (Map.Entry<Category.news, String> entry : rssEndpoints.entrySet()) {
+        for (Map.Entry<Constants.news, String> entry : rssEndpoints.entrySet()) {
             // Load all articles and notify listener when all data has been loaded
             boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
             loadArticlesForRssEndpoint(
@@ -267,7 +267,7 @@ public class NewsRepository {
     // Loads all articles for a single rss endpoint url
     public void loadArticlesForRssEndpoint(
             String url,
-            Category.news category,
+            Constants.news category,
             Context context,
             ArticleCardsCallback listener) {
         executor.execute(() -> {
@@ -319,7 +319,7 @@ public class NewsRepository {
 
     private void createArticlesFromRss(
             String xmlResponse,
-            Category.news newsCategory,
+            Constants.news newsConstants,
             Context context,
             ArticleInformationCallback listener
     ) {
@@ -327,7 +327,7 @@ public class NewsRepository {
             RssArticleParser helper = new RssArticleParser();
 
             // Parse rss response
-            ArrayList<RssArticle> rssArticles = helper.parseArticles(xmlResponse, newsCategory);
+            ArrayList<RssArticle> rssArticles = helper.parseArticles(xmlResponse, newsConstants);
 
             // Create cards out of the rss response
             //   loads images via specified urls

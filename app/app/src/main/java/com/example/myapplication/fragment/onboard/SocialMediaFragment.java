@@ -61,8 +61,10 @@ public class SocialMediaFragment extends Fragment {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         AuthorizationResponse resp = AuthorizationResponse.fromIntent(result.getData());
                         AuthorizationException ex = AuthorizationException.fromIntent(result.getData());
-                        twitterApiHelper.handleAuthenticationResponse(resp, ex, () ->
-                                Log.d(TAG, "Twitter Authentication successful!")
+                        twitterApiHelper.handleAuthenticationResponse(resp, ex, () -> {
+                                Log.d(TAG, "Twitter Authentication successful!");
+                                twitterApiHelper.writeAuthState(getContext());
+                            }
                         );
                     }
                 });

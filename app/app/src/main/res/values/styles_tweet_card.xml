@@ -23,8 +23,6 @@
     </style>
 
     <style name="tweet_card_content" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:lines">3</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/news_card_item_margin</item>

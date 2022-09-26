@@ -1,9 +1,17 @@
 package com.example.myapplication.api;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.api.rss.RssArticle;
@@ -11,8 +19,18 @@ import com.example.myapplication.api.rss.RssArticleParser;
 import com.example.myapplication.api.twitter.TwitterApiHelper;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
+import com.example.myapplication.data.card.NewsCard;
+import com.example.myapplication.data.card.TwitterCard;
 import com.example.myapplication.data.feed.NewsSource;
 
+import net.openid.appauth.AuthorizationService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,38 +50,218 @@ public class NewsRepository {
 
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
-    public void loadArticlesForRssEndpoints(
+    public void loadNews(
             HashMap<Category.news, String> rssEndpoints,
             Context context,
-            ArticleCardsCallback listener
+            NewsCardsCallback listener
     ) {
-        // Todo: make safer e.g. pass via parameter
         this.requestQueue = Volley.newRequestQueue(context);
-        this.executor = Executors.newSingleThreadExecutor();
+        this.executor = Executors.newFixedThreadPool(2);
 
         executor.execute(() -> {
-            ArrayList<ArticleCard> cards = new ArrayList<>();
+            ArrayList<NewsCard> cards = new ArrayList<>();
 
-            int currentIndex = 0;
-            for (Map.Entry<Category.news, String> entry : rssEndpoints.entrySet()) {
-                // Load all articles and notify listener when all data has been loaded
-                boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
-                loadArticlesForRssEndpoint(
-                        entry.getValue(),
-                        entry.getKey(),
-                        context,
-                        articleResults -> {
-                            cards.addAll(articleResults);
-                            if (isFinalRun) {
-                                listener.onComplete(cards);
-                                this.executor.shutdown();
-                                this.requestQueue.stop();
-                            }
-                        });
+            loadNews(rssEndpoints, context, new LoadNewsCallback() {
+                boolean rssComplete = false;
+                boolean twitterComplete = false;
 
-                currentIndex++;
-            }
+                @Override
+                public void onRssComplete(ArrayList<ArticleCard> articleResults) {
+                    cards.addAll(articleResults);
+                    rssComplete = true;
+                    Log.d(TAG, "onRssComplete: loaded rss cards");
+
+                    returnResultIfComplete();
+                }
+
+                @Override
+                public void onTwitterComplete(ArrayList<TwitterCard> tweetResults) {
+                    cards.addAll(tweetResults);
+                    twitterComplete = true;
+                    Log.d(TAG, "onTwitterComplete: loaded twitter cards");
+
+                    returnResultIfComplete();
+                }
+
+                private void returnResultIfComplete() {
+                    if (rssComplete && twitterComplete) {
+                        requestQueue.stop();
+                        executor.shutdown();
+
+                        listener.onComplete(cards);
+                    }
+                }
+            });
         });
+    }
+
+    private void loadNews(HashMap<Category.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+        // Load rss articles for all categories
+        loadArticles(rssEndpoints, context, listener);
+
+        // Load all tweets
+        loadTweets(context, listener);
+    }
+
+    private void loadTweets(Context context, LoadNewsCallback listener) {
+        // Todo: add .accessToken?
+        if (twitterApi.readAuthState(context) != null) {
+            twitterApi.performActionWithFreshTokens(new AuthorizationService(context), (accessToken, idToken, ex) -> {
+                if (ex != null) {
+                    // negotiation for fresh tokens failed, check ex for more details
+                    Log.d(TAG, "getTwitterTimeline: Failed to refresh token: " + ex);
+                    return;
+                }
+
+                // 1. Get user id
+                // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
+                String userInfoEndpoint = "https://api.twitter.com/2/users/me/";
+                JsonObjectRequest rssRequest = new JsonObjectRequest(userInfoEndpoint, response -> {
+                    String userId = "";
+                    try {
+                        JSONObject timelineResponseData = response.getJSONObject("data");
+                        userId = timelineResponseData.getString("id");
+                    } catch (JSONException e) {
+                        Log.e(TAG, "loadArticlesForRssEndpoints: Failed to parse response for /users/me endpoint", e);
+                    }
+
+                    Log.d(TAG, "loadArticlesForRssEndpoints: userId: " + userId);
+
+                    // 2. Get user timeline
+                    // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference
+                    if (userId.equals("")) {
+                        Log.e(TAG, "loadArticlesForRssEndpoints: No userId for the /users/me endpoint was found. Can't load the timeline.");
+                        return;
+                    }
+                    JsonObjectRequest timelineRequest = createUserTimelineRequest(userId, accessToken, listener);
+                    requestQueue.add(timelineRequest);
+                }, error -> Log.d(TAG, "onErrorResponse for userInfo: " + error.getMessage())) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        return getTwitterHeaders(accessToken);
+                    }
+                };
+
+                requestQueue.add(rssRequest);
+            });
+        }
+    }
+
+    private void loadArticles(HashMap<Category.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+        ArrayList<ArticleCard> articleCards = new ArrayList<>();
+        int currentIndex = 0;
+        for (Map.Entry<Category.news, String> entry : rssEndpoints.entrySet()) {
+            // Load all articles and notify listener when all data has been loaded
+            boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
+            loadArticlesForRssEndpoint(
+                    entry.getValue(),
+                    entry.getKey(),
+                    context,
+                    articleResults -> {
+                        articleCards.addAll(articleResults);
+
+                        if (isFinalRun) {
+                            listener.onRssComplete(articleCards);
+                        }
+                    });
+
+            currentIndex++;
+        }
+    }
+
+    private JsonObjectRequest createUserTimelineRequest(String userId, String accessToken, LoadNewsCallback listener) {
+        // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference
+        String timelineEndpoint = "https://api.twitter.com/2/users/" + userId + "/timelines/reverse_chronological";
+        String timelineRequestUrl = timelineEndpoint + "?tweet.fields=author_id,created_at";
+
+        JsonObjectRequest timelineRequest = new JsonObjectRequest(timelineRequestUrl, timelineResponse -> {
+            ArrayList<TwitterCard> results = new ArrayList<>();
+
+            Log.d(TAG, "createUserTimelineRequest: got tweets response: " + timelineResponse);
+
+            NewsSource twitterNewsSource = new NewsSource("Twitter");
+            try {
+                JSONArray timelineResults = timelineResponse.getJSONArray("data");
+                for (int i = 0; i < timelineResults.length(); i++) {
+                    String text = timelineResults.getJSONObject(i).getString("text");
+                    String authorId = timelineResults.getJSONObject(i).getString("author_id");
+                    String createdAt = timelineResults.getJSONObject(i).getString("created_at");
+                    LocalDateTime parsedCrateDate = ZonedDateTime.parse(createdAt).toLocalDateTime();
+                    String tweetId = timelineResults.getJSONObject(i).getString("id");
+                    String webUrl = "https://twitter.com/" + authorId + "/status/" + tweetId;
+
+                    // Get author details: name, tag, profile picture
+                    String authorDetailsRequestUrl = "https://api.twitter.com/2/users/" + authorId + "?user.fields=profile_image_url";
+                    int finalI = i;
+                    JsonObjectRequest authorDetailsRequest = new JsonObjectRequest(authorDetailsRequestUrl, authorDetailsResponse -> {
+                        Log.d(TAG, "authorDetailsRequest: user response: " + authorDetailsResponse);
+                        try {
+                            JSONObject authorData = authorDetailsResponse.getJSONObject("data");
+                            String username = authorData.getString("username"); // e.g. POTUS
+                            String name = authorData.getString("name"); // e.g. President Biden
+                            String profileImageUrl = authorData.getString("profile_image_url");
+
+                            // Load profile picture url
+                            ImageRequest authorImageRequest = new ImageRequest(profileImageUrl, response -> {
+                                results.add(
+                                        new TwitterCard(
+                                                twitterNewsSource,
+                                                parsedCrateDate,
+                                                webUrl,
+                                                text,
+                                                name,
+                                                username,
+                                                response
+                                        ));
+                                Log.d(TAG, "createUserTimelineRequest: Added twitter card to result");
+                                if (finalI == timelineResults.length() - 1) {
+                                    Log.d(TAG, "createUserTimelineRequest: loaded Tweets: " + results.stream().count());
+                                    listener.onTwitterComplete(results);
+                                }
+                            }, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
+                                Log.e(TAG, "createUserTimelineRequest: Failed to load profile icon via " + profileImageUrl);
+                            });
+
+                            requestQueue.add(authorImageRequest);
+                        } catch (JSONException e) {
+                            Log.e(TAG, "createUserTimelineRequest: Failed to parse response for /users/" + authorId + " endpoint", e);
+                        }
+                    }, error -> Log.d(TAG, "onErrorResponse: " + error.getMessage())) {
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            return getTwitterHeaders(accessToken);
+                        }
+                    };
+
+                    requestQueue.add(authorDetailsRequest);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, "createUserTimelineRequest: Failed to parse response for /timelines/reverse_chronological endpoint", e);
+            }
+        }, error -> Log.d(TAG, "onErrorResponse: " + error.getMessage())) {
+            @Override
+            public Map<String, String> getHeaders() {
+                return getTwitterHeaders(accessToken);
+            }
+
+//            @Override
+//            public Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<>();
+////                params.put("expansions", "author_id");
+//                params.put("tweet.fields", "author_id,created_at");
+////                params.put("user.fields", "name,username,profile_image_url");
+//                return params;
+//            }
+        };
+        Log.d(TAG, "createUserTimelineRequest: created timeline request: " + timelineRequest.getUrl());
+
+        return timelineRequest;
+    }
+
+    private Map<String, String> getTwitterHeaders(String accessToken) {
+        Map<String, String> params = new HashMap<>();
+        params.put("Authorization", " BEARER " + accessToken);
+        return params;
     }
 
     // Loads all articles for a single rss endpoint url
@@ -185,9 +383,20 @@ public class NewsRepository {
         }
     }
 
+    // Callback for loading tweets
+    public interface NewsCardsCallback {
+        void onComplete(ArrayList<NewsCard> cardResults);
+    }
+
+    // Callback for loading tweets and articles
+    public interface LoadNewsCallback {
+        void onRssComplete(ArrayList<ArticleCard> articleResults);
+        void onTwitterComplete(ArrayList<TwitterCard> tweetResults);
+    }
+
     // Callback for loading multiple Article cards
     public interface ArticleCardsCallback {
-        void onComplete(ArrayList<ArticleCard> articleResults);
+        void onComplete(ArrayList<ArticleCard> articleCardsResults);
     }
 
     // Callback for loading a single Article card

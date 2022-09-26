@@ -2,7 +2,6 @@ package com.example.myapplication.data.feed;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 
@@ -13,13 +12,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.myapplication.R;
 import com.example.myapplication.api.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
-import com.example.myapplication.api.twitter.TwitterApiHelper;
 import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.card.NewsCard;
-
-import net.openid.appauth.AuthorizationException;
-import net.openid.appauth.AuthorizationResponse;
+import com.example.myapplication.data.card.TwitterCard;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,8 +47,8 @@ public class FeedViewModel extends AndroidViewModel {
         RssUrls rssUrls = new RssUrls();
         HashMap<Category.news, String> corona = rssUrls.getCategory(Category.interests.Politik);
 
-        articlesRepository.loadArticlesForRssEndpoints(corona, context, cards -> {
-            setLoadingImages(cards, context);
+        articlesRepository.loadNews(corona, context, cards -> {
+//            setLoadingImages(cards, context);
             setNewsCards(cards);
         });
     }
@@ -84,7 +80,7 @@ public class FeedViewModel extends AndroidViewModel {
         return loadingImage;
     }
 
-    private void setNewsCards(ArrayList<ArticleCard> articleResults) {
+    private void setNewsCards(ArrayList<NewsCard> articleResults) {
         ArrayList<NewsCard> newValues = new ArrayList<>();
         if (articleResults != null) {
             newValues.addAll(articleResults);

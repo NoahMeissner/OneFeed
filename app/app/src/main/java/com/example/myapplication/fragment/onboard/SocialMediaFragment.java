@@ -26,7 +26,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.animation.onboard.SocialMediaAnimation;
 import com.example.myapplication.api.twitter.TwitterApiHelper;
-import com.example.myapplication.data.addSource.Category;
 
 import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationResponse;

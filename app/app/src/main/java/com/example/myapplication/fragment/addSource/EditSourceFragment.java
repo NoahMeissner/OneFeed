@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.UiElements;
-import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.GetData;
@@ -104,9 +104,9 @@ public class EditSourceFragment extends DialogFragment
     This method init the Recycler view ArrayList
      */
     private void initRecyclerArrayList() {
-        if(Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(Objects.equals(source.getName(), Constants.ADDButton.name())){
             for(SourceAdd source: combineArrayLists()) {
-                if (!source.getName().equals(Category.ADDButton.name()))
+                if (!source.getName().equals(Constants.ADDButton.name()))
                     recyclerArrayList.add(source);
             }
             return;
@@ -128,7 +128,7 @@ public class EditSourceFragment extends DialogFragment
                 SourceAdd sourceAdd = new SourceAdd(
                         name,
                         source.getCategories(),
-                        preferences.getBoolean(Category.initial.Notification.name(), false),
+                        preferences.getBoolean(Constants.initial.Notification.name(), false),
                         Objects.requireNonNull(uiElements.getPictureId(name)),
                         false);
 
@@ -146,7 +146,7 @@ public class EditSourceFragment extends DialogFragment
         ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
         TextView textView = view.findViewById(R.id.headlineQuellenAdd);
         TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
-        if(!Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(!Objects.equals(source.getName(), Constants.ADDButton.name())){
             textView.setText(source.getName());
             imageView.setImageResource(source.getImageRessourceID());
         }
@@ -191,7 +191,7 @@ public class EditSourceFragment extends DialogFragment
         }
         SourceAdd sourceAdd = new SourceAdd(
                 (changedSource.getName()),(changedSource.getCategories()),
-                (preferences.getBoolean(Category.initial.Notification.name(),false)),
+                (preferences.getBoolean(Constants.initial.Notification.name(),false)),
                 getImageID(changedSource), true);
         getData.InsertSource(sourceAdd);
         dataChanged.dataHasChanged(true, changedSource);
@@ -218,7 +218,7 @@ public class EditSourceFragment extends DialogFragment
 
     @Override
     public void changedSource(SourceAdd changedSource) {
-        if(source.getName().equals(Category.ADDButton.name())){
+        if(source.getName().equals(Constants.ADDButton.name())){
             insertNewSource(changedSource);
             return;
         }

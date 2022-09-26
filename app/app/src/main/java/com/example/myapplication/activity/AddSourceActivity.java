@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.example.myapplication.R;
 import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.GetData;
 import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
@@ -35,7 +35,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     /*
     Constants
      */
-    private final HashMap<Category,ArrayList<SourceAdd>> enabledSourcesHashMap = new HashMap<>();
+    private final HashMap<Constants,ArrayList<SourceAdd>> enabledSourcesHashMap = new HashMap<>();
     private AdapterListAddActivity adapterNews;
     private AdapterListAddActivity adapterSocialMedia;
     private AdapterListAddActivity adapterInterests;
@@ -76,9 +76,9 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method initialized the HashMap
      */
     private void initHashMap() {
-        enabledSourcesHashMap.put(Category.Interests,data.getCategory(Category.Interests));
-        enabledSourcesHashMap.put(Category.SocialMedia,data.getCategory(Category.SocialMedia));
-        enabledSourcesHashMap.put(Category.Newspaper,data.getCategory(Category.Newspaper));
+        enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests));
+        enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia));
+        enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper));
     }
 
     /*
@@ -111,15 +111,15 @@ public class AddSourceActivity extends AppCompatActivity implements
 
         adapterNews = initRecyclerView(
                 recyclerNewsPaper,
-                enabledSourcesHashMap.get(Category.Newspaper));
+                enabledSourcesHashMap.get(Constants.Newspaper));
 
         adapterInterests = initRecyclerView(
                 recyclerInterests,
-                enabledSourcesHashMap.get(Category.Interests));
+                enabledSourcesHashMap.get(Constants.Interests));
 
         adapterSocialMedia = initRecyclerView(
                 recyclerSocialMedia,
-                enabledSourcesHashMap.get(Category.SocialMedia));
+                enabledSourcesHashMap.get(Constants.SocialMedia));
 
         recyclerInterests.setAdapter(adapterInterests);
         recyclerSocialMedia.setAdapter(adapterSocialMedia);
@@ -132,20 +132,20 @@ public class AddSourceActivity extends AppCompatActivity implements
         TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         add to the ARRAYList.
         */
-        Objects.requireNonNull(enabledSourcesHashMap.get(Category.Newspaper))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Category.Newspaper));
+                        Constants.Newspaper));
 
-        Objects.requireNonNull(enabledSourcesHashMap.get(Category.SocialMedia))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add ),
-                        Category.SocialMedia));
+                        Constants.SocialMedia));
 
-        Objects.requireNonNull(enabledSourcesHashMap.get(Category.Interests))
-                .add(new SourceAdd(Category.ADDButton.name(),
+        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
+                .add(new SourceAdd(Constants.ADDButton.name(),
                         getDrawable(R.drawable.add),
-                        Category.Interests));
+                        Constants.Interests));
         declareRecyclerView();
     }
 
@@ -166,20 +166,20 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method will set the Animation if one Item was Long Pressed
      */
     private void setAnimation(boolean boo){
-        for(Category categories: enabledSourcesHashMap.keySet()){
+        for(Constants categories: enabledSourcesHashMap.keySet()){
             for(SourceAdd source: Objects.requireNonNull(enabledSourcesHashMap.get(categories))){
                 source.setSetAnimation(boo);
             }
             enabledSourcesHashMap.put(categories, enabledSourcesHashMap.get(categories));
         }
         adapterSocialMedia.setSourceArrayList(Objects.requireNonNull(
-                enabledSourcesHashMap.get(Category.SocialMedia)));
+                enabledSourcesHashMap.get(Constants.SocialMedia)));
 
         adapterInterests.setSourceArrayList(Objects.requireNonNull(
-                enabledSourcesHashMap.get(Category.Interests)));
+                enabledSourcesHashMap.get(Constants.Interests)));
 
         adapterNews.setSourceArrayList(Objects.requireNonNull(
-                enabledSourcesHashMap.get(Category.Newspaper)));
+                enabledSourcesHashMap.get(Constants.Newspaper)));
     }
 
     /*
@@ -209,7 +209,7 @@ public class AddSourceActivity extends AppCompatActivity implements
             initEditSourceFragment(source);
             return;
         }
-        if(source.getName().equals(Category.ADDButton.name())) return;
+        if(source.getName().equals(Constants.ADDButton.name())) return;
         /*
         If the User clicked on the Item and the pressed long before the Delete Source Fragment will
         be initialised

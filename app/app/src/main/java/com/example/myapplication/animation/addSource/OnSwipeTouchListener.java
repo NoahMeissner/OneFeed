@@ -1,5 +1,6 @@
 package com.example.myapplication.animation.addSource;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -88,6 +89,7 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         view.setOnTouchListener(this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 

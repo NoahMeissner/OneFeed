@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.animation.addSource.AnimateLinearLayout;
- import com.example.myapplication.data.addSource.Category;
-import com.example.myapplication.data.addSource.SourceAdd;
+ import com.example.myapplication.data.addSource.Constants;
+ import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.Objects;
 
@@ -48,7 +48,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
         itemView.setOnClickListener( view -> listener.onItemClick(source));
 
         // Check if Source is a ADD Button
-        if(Objects.equals(source.getName(), Category.ADDButton.name())){
+        if(Objects.equals(source.getName(), Constants.ADDButton.name())){
             setAddButton(source);
             return;
         }
@@ -90,7 +90,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
         if someone pressed Long on the ADD button there should be no Animation, that's the reason
         why an ADD Button source Element will be returned
          */
-        if (Objects.equals(source.getName(), Category.ADDButton.name())){
+        if (Objects.equals(source.getName(), Constants.ADDButton.name())){
             return;
         }
 
@@ -101,7 +101,7 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
             // This if clause is responsible if the Item was not long clicked before
             if(!longSourceClick){
                 longItemClickListener.onLongClick(source);
-                if(!Objects.equals(source.getName(), Category.ADDButton.name())){
+                if(!Objects.equals(source.getName(), Constants.ADDButton.name())){
                     linearLayout.setVisibility(View.VISIBLE);
                 }
                 longSourceClick = true;

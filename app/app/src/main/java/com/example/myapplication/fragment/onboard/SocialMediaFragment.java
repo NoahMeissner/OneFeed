@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import com.example.myapplication.animation.onboard.SocialMediaAnimation;
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 
 public class SocialMediaFragment extends Fragment {
 
@@ -44,8 +44,8 @@ public class SocialMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_social_media_fragement, container, false);
-        organizeAnimation(Category.socialMedia.Reddit.name(),view,R.id.imageRedditButton,xSpeed,ySpeed);
-        organizeAnimation(Category.socialMedia.Twitter.name(), view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
+        organizeAnimation(Constants.socialMedia.Reddit.name(),view,R.id.imageRedditButton,xSpeed,ySpeed);
+        organizeAnimation(Constants.socialMedia.Twitter.name(), view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
         return view;
     }
 
@@ -94,10 +94,10 @@ public class SocialMediaFragment extends Fragment {
     }
 
     private void saveData(String socialMediaName) {
-        getSelectedSocialMedia.getSelectedSocialMedia(Category.socialMedia.valueOf(socialMediaName));
+        getSelectedSocialMedia.getSelectedSocialMedia(Constants.socialMedia.valueOf(socialMediaName));
     }
 
     public interface getSelectedSocialMedia{
-        void getSelectedSocialMedia(Category.socialMedia socialMedia);
+        void getSelectedSocialMedia(Constants.socialMedia socialMedia);
     }
 }

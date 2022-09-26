@@ -6,14 +6,13 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.card.ArticleCard;
 import com.example.myapplication.data.feed.NewsSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,7 +25,7 @@ public class NewsRepository {
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
     public void loadArticlesForRssEndpoints(
-            HashMap<Category.news, String> rssEndpoints,
+            HashMap<Constants.news, String> rssEndpoints,
             Context context,
             ArticleCardsCallback listener
     ) {
@@ -38,7 +37,7 @@ public class NewsRepository {
             ArrayList<ArticleCard> cards = new ArrayList<>();
 
             int currentIndex = 0;
-            for (Map.Entry<Category.news, String> entry : rssEndpoints.entrySet()) {
+            for (Map.Entry<Constants.news, String> entry : rssEndpoints.entrySet()) {
                 // Load all articles and notify listener when all data has been loaded
                 boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
                 loadArticlesForRssEndpoint(
@@ -62,7 +61,7 @@ public class NewsRepository {
     // Loads all articles for a single rss endpoint url
     public void loadArticlesForRssEndpoint(
             String url,
-            Category.news category,
+            Constants.news category,
             Context context,
             ArticleCardsCallback listener) {
         executor.execute(() -> {
@@ -114,7 +113,7 @@ public class NewsRepository {
 
     private void createArticlesFromRss(
             String xmlResponse,
-            Category.news newsCategory,
+            Constants.news newsCategory,
             Context context,
             ArticleInformationCallback listener
     ) {

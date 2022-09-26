@@ -1,7 +1,6 @@
 package com.example.myapplication.viewholder;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,11 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterEditSourceFragment;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.google.android.material.materialswitch.MaterialSwitch;
-
-import java.util.Objects;
 
 public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
 
@@ -32,7 +29,7 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
                      AdapterEditSourceFragment.SourceSettingsChanged sourceSettingsChanged,
                      String name) {
 
-        if(!name.equals(Category.ADDButton.name())){
+        if(!name.equals(Constants.ADDButton.name())){
             String setNotification = "Notification";
             textView.setText(setNotification);
                 aSwitch.setChecked(source.isNotification());

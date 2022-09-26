@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.example.myapplication.activity.FeedActivity;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.fragment.onboard.ConsumptionPermissionFragment;
 import com.example.myapplication.fragment.onboard.NotificationPermissionFragment;
 import com.example.myapplication.R;
@@ -38,7 +37,8 @@ public class PermissionsActivity extends AppCompatActivity {
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.frameLayoutPermissions, ConsumptionPermissionFragment.class, null)
+                .replace(R.id.frameLayoutPermissions,
+                        ConsumptionPermissionFragment.class, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("backstack")
                 .commit();
@@ -72,28 +72,30 @@ public class PermissionsActivity extends AppCompatActivity {
                 return;
             case 2:
                 this.notifications=result;
-                setIntent(consumptionAnalyse,notifications);
+                setIntent(notifications);
         }
         });
     }
 
     // the Method hands over all Information of the Set Up Process
     // to the Intent and the new Activity
-    private void setIntent(boolean consumptionAnalysis, boolean notifications){
+    private void setIntent(boolean notifications){
         Intent intent = new Intent(this, LoadingActivity.class);
         initSharedPreferences(consumptionAnalyse,notifications);
         startActivity(intent);
     }
 
 
-
+    /*
+    This Method will initialise the Shared Preferences
+     */
     private void initSharedPreferences(boolean consumptionAnalyse, boolean notifications) {
         SharedPreferences pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
         SharedPreferences.Editor editPreferences = pref.edit();
-        editPreferences.putBoolean(Category.initial.Process.name(), true);
-        editPreferences.putBoolean(Category.initial.Notification.name(), notifications);
-        editPreferences.putBoolean(Category.initial.Consumptionanalyse.name(), consumptionAnalyse);
+        editPreferences.putBoolean(Constants.initial.Process.name(), true);
+        editPreferences.putBoolean(Constants.initial.Notification.name(), notifications);
+        editPreferences.putBoolean(Constants.initial.ConsumptionAnalyse.name(), consumptionAnalyse);
         editPreferences.apply();
     }
 }

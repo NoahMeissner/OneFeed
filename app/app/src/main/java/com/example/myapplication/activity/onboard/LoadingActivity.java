@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.FeedActivity;
-import com.example.myapplication.data.addSource.Category;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.onBoard.SetSourceObjects;
 import com.example.myapplication.database.InitialData;
 
@@ -46,13 +46,13 @@ public class LoadingActivity extends AppCompatActivity {
         pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
         isInitialized = pref.getBoolean(
-                Category.initial.Process.name(),false);
+                Constants.initial.Process.name(),false);
 
         notification = pref.getBoolean(
-                Category.initial.Notification.name(), false);
+                Constants.initial.Notification.name(), false);
 
         interestsAreInitialized = pref.getBoolean(
-                Category.initial.InterestsAreInitialised.name(), false);
+                Constants.initial.InterestsAreInitialised.name(), false);
     }
 
     /*
@@ -84,7 +84,7 @@ public class LoadingActivity extends AppCompatActivity {
                     data
             );
             SharedPreferences.Editor editPreferences = pref.edit();
-            editPreferences.putBoolean(Category.initial.InterestsAreInitialised.name(), true);
+            editPreferences.putBoolean(Constants.initial.InterestsAreInitialised.name(), true);
             editPreferences.apply();
         }
     }
@@ -98,7 +98,6 @@ public class LoadingActivity extends AppCompatActivity {
         /*
         This Set Source Object hands all Source over
          */
-        int i = data.getSelectedInterests().size();
         SetSourceObjects sourceObjects = new SetSourceObjects(data,notification);
         sourceObjects.setSocialMediaList(socialMedia);
         sourceObjects.setInterestsList(interests);

@@ -1,8 +1,8 @@
 package com.example.myapplication.data.onBoard;
 
 import com.example.myapplication.R;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.UiElements;
-import com.example.myapplication.data.addSource.Category;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.InitialData;
 
@@ -48,11 +48,11 @@ public class SetSourceObjects {
     /*
     This Method will check, which Category is called and call the right Method
      */
-    private void setArrayListComponents(ArrayList<String> arrayList, Category category) {
-        if (category == Category.Interests) {
+    private void setArrayListComponents(ArrayList<String> arrayList, Constants category) {
+        if (category == Constants.Interests) {
             setInterests(arrayList);
         }
-        if (category == Category.SocialMedia) {
+        if (category == Constants.SocialMedia) {
             setSocialMedia(arrayList);
         }
     }
@@ -64,7 +64,7 @@ public class SetSourceObjects {
     private void setInterests(ArrayList<String> arrayList){
         for(String interestName : arrayList){
             SourceAdd sourceAdd = new SourceAdd(interestName,
-                    Category.Interests,
+                    Constants.Interests,
                     notification,
                     getImageID(interestName),
                     enabled);
@@ -79,7 +79,7 @@ public class SetSourceObjects {
     private void setSocialMedia(ArrayList<String> arrayList){
         for(String socialMediaName : arrayList) {
             SourceAdd sourceAdd = new SourceAdd(socialMediaName,
-                    Category.SocialMedia,
+                    Constants.SocialMedia,
                     notification,
                     getImageID(socialMediaName),
                     enabled);
@@ -103,14 +103,14 @@ public class SetSourceObjects {
    */
     public void setNews(){
         SourceAdd sourceFAZ = new SourceAdd(
-                Category.news.FAZ.name(),
-                Category.Newspaper,notification,
+                Constants.news.FAZ.name(),
+                Constants.Newspaper,notification,
                 R.drawable.faz,
                 enabled);
 
         SourceAdd sourceSpiegel = new SourceAdd(
-                Category.news.Spiegel.name(),
-                Category.Newspaper,
+                Constants.news.Spiegel.name(),
+                Constants.Newspaper,
                 notification,
                 R.drawable.spiegel,
                 enabled);
@@ -120,11 +120,11 @@ public class SetSourceObjects {
     }
 
     public void setSocialMediaList(ArrayList<String> socialMediaList) {
-        setArrayListComponents(socialMediaList,Category.SocialMedia);
+        setArrayListComponents(socialMediaList, Constants.SocialMedia);
     }
 
     public void setInterestsList(ArrayList<String> interestsList) {
-        setArrayListComponents(interestsList,Category.Interests);
+        setArrayListComponents(interestsList, Constants.Interests);
     }
 
     /*

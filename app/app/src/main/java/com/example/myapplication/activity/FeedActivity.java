@@ -16,9 +16,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
+import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
 
@@ -45,6 +48,7 @@ public class FeedActivity extends AppCompatActivity {
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
+        initGestures();
 
         // Swipe to refresh
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
@@ -63,6 +67,32 @@ public class FeedActivity extends AppCompatActivity {
             // Todo: fix diff
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
+        });
+    }
+
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        View appBar = findViewById(R.id.component_app_bar_id);
+        View activity = findViewById(R.id.recycler_news_cards);
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
+                view, swipe -> {
+            if (swipe== Swipe.Right){
+                Intent intent = new Intent(this, InsightActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+            }
+            if (swipe == Swipe.Left){
+                Intent intent = new Intent(this, AddSourceActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+            }
         });
     }
 

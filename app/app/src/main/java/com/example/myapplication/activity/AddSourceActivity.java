@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.example.myapplication.R;
 import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.GetData;
@@ -62,15 +63,23 @@ public class AddSourceActivity extends AppCompatActivity implements
         initGestures();
     }
 
-    //@TODO zum Laufen Bringen
     private void initGestures() {
         /*
         This Method will initial the Swipe Gestures
          */
-        View relativeLayout = findViewById(R.id.app_barcollapse);
+        View appBar = findViewById(R.id.component_app_bar_id);
+        View activity = findViewById(R.id.addActivityView);
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                relativeLayout, swipe -> Log.d("Gesture", swipe.name()));
-        relativeLayout.setOnTouchListener(onSwipeTouchListener);
+                view, swipe -> {
+            if (swipe== Swipe.Right){
+                closeActivity();
+            }
+        });
     }
 
     /*
@@ -158,7 +167,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     */
     private AdapterListAddActivity initRecyclerView(
             RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
-
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
         return new AdapterListAddActivity(this, this,arrayList);
     }

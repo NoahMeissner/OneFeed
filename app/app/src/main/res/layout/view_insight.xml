@@ -8,6 +8,7 @@
 
     <!--Chart-->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView_id"
         android:layout_width="match_parent"
         android:layout_height="420dp"
         app:cardUseCompatPadding="true">

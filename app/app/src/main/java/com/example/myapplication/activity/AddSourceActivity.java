@@ -8,8 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 
 import com.example.myapplication.R;
@@ -67,9 +67,10 @@ public class AddSourceActivity extends AppCompatActivity implements
         /*
         This Method will initial the Swipe Gestures
          */
-        RelativeLayout relativeLayout = findViewById(R.id.relativeAddSource);
+        View relativeLayout = findViewById(R.id.app_barcollapse);
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
                 relativeLayout, swipe -> Log.d("Gesture", swipe.name()));
+        relativeLayout.setOnTouchListener(onSwipeTouchListener);
     }
 
     /*

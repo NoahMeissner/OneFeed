@@ -74,7 +74,6 @@ public class SocialMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_social_media_fragement, container, false);
-        organizeAnimation(Constants.socialMedia.Reddit.name(),view,R.id.imageRedditButton,xSpeed,ySpeed);
         organizeAnimation(Constants.socialMedia.Twitter.name(), view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
         return view;
     }

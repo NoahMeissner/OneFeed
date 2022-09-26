@@ -61,10 +61,6 @@ public class UiElements {
         pictureHashMap.put(
                 Constants.socialMedia.Twitter.name(),
                 R.drawable.twitter_icon);
-
-        pictureHashMap.put(
-                Constants.socialMedia.Reddit.name(),
-                R.drawable.reddit_icon);
     }
 
     /*

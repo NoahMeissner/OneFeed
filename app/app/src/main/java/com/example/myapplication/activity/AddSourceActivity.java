@@ -261,7 +261,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method will refresh the Activity
      */
     private void refresh(){
-        //@TODO Animation beenden
         Intent refresh = new Intent(this, AddSourceActivity.class);
         overridePendingTransition(0, 0);
         startActivity(refresh);

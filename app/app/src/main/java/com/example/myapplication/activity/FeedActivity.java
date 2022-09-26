@@ -1,11 +1,16 @@
 package com.example.myapplication.activity;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +21,9 @@ import android.widget.ImageButton;
 import com.example.myapplication.R;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
+
+import net.openid.appauth.AuthorizationException;
+import net.openid.appauth.AuthorizationResponse;
 
 public class FeedActivity extends AppCompatActivity {
 

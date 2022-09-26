@@ -66,7 +66,8 @@ public class LoadingActivity extends AppCompatActivity {
             return;
         }
         setUpInterests();
-        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+        // Todo: switch back to FeedActivity
+        Intent intent = new Intent(getBaseContext(), OnboardActivity.class);
         startActivity(intent);
     }
 

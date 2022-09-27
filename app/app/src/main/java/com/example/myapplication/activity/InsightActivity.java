@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.insight.InsightViewModel;
+import com.example.myapplication.data.insight.NewsReadEntry;
 import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
@@ -164,7 +165,9 @@ public class InsightActivity extends AppCompatActivity {
 
         if (this.chart.getXAxis().getLabelCount() != 12) {
             this.chart.getXAxis().setLabelCount(12);
-            this.chart.getBarData().setBarWidth(barWidth);
+            if (this.chart.getBarData() != null) {
+                this.chart.getBarData().setBarWidth(barWidth);
+            }
         }
         refreshChart();
     }
@@ -199,7 +202,9 @@ public class InsightActivity extends AppCompatActivity {
         // Displaying 30 dates would not fit the chart space
         if (this.chart.getXAxis().getLabelCount() != 15) {
             this.chart.getXAxis().setLabelCount(15);
-            this.chart.getBarData().setBarWidth(barWidth);
+            if (this.chart.getBarData() != null) {
+                this.chart.getBarData().setBarWidth(barWidth);
+            }
         }
         refreshChart();
     }
@@ -239,7 +244,9 @@ public class InsightActivity extends AppCompatActivity {
         });
 
         if (this.chart.getXAxis().getLabelCount() != 7) {
-            this.chart.getBarData().setBarWidth(barWidth);
+            if (this.chart.getBarData() != null) {
+                this.chart.getBarData().setBarWidth(barWidth);
+            }
             this.chart.getXAxis().setLabelCount(7);
         }
 
@@ -255,17 +262,10 @@ public class InsightActivity extends AppCompatActivity {
         this.chart = findViewById(R.id.insight_chart);
 
         // Data
-        List<BarEntry> sampleEntries = generateSampleEntries();
-        BarDataSet dataSet = new BarDataSet(sampleEntries, "");
-        // Todo: set text color for night mode
-        dataSet.setValueTextColor(MaterialColors.getColor(chart, com.google.android.material.R.attr.colorOnSurface));
-        dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
-        // - axis dependency is required because the axis is being adjusted
-        dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());
-
-        // Bar settings
-        BarData barData = new BarData(dataSet);
-        barData.setBarWidth(0.3f);
+        this.viewModel.getNewsReadList().observe(this, data -> {
+            // Refresh chart on any change to the dataset
+            setBarData(data);
+        });
 
         // Axis settings
         // - Disable unused axis
@@ -283,7 +283,6 @@ public class InsightActivity extends AppCompatActivity {
         this.chart.getAxisRight().setAxisMinimum(0);
 
         // Chart settings
-        this.chart.setData(barData);
         this.chart.getLegend().setEnabled(false);
         this.chart.getDescription().setEnabled(false);
 
@@ -295,27 +294,27 @@ public class InsightActivity extends AppCompatActivity {
         this.chart.setFitBars(true);
 
         activateWeekView(LocalDateTime.now(), LocalDateTime.now().getDayOfYear());
+
+        // Initial load
+        setBarData(viewModel.getNewsReadList().getValue());
     }
 
-    @NonNull
-    private List<BarEntry> generateSampleEntries() {
-        LocalDateTime now = LocalDateTime.now();
-        ReadingDay exampleDayToday = new ReadingDay(now.getDayOfYear(), 12);
-        ReadingDay exampleDayYesterday = new ReadingDay(now.getDayOfYear()-1, 0);
-        ReadingDay exampleDayMinus3 = new ReadingDay(now.getDayOfYear()-2, 24);
-        ReadingDay exampleDayMinus4 = new ReadingDay(now.getDayOfYear()-3, 11);
-        ReadingDay exampleDayPlus2 = new ReadingDay(now.getDayOfYear()+2, 8);
-        ReadingDay exampleDayEndOfMonth = new ReadingDay(now.getDayOfYear()+22, 8);
+    private void setBarData(List<NewsReadEntry> data) {
+        if (data == null) return;
 
-        List<ReadingDay> dataObjects = Arrays.asList(
-                exampleDayToday, exampleDayYesterday, exampleDayMinus3, exampleDayMinus4, exampleDayPlus2, exampleDayEndOfMonth
-        );
+        List<BarEntry> entries = viewModel.convertIntoBarEntries(data);
 
-        List<BarEntry> entries = new ArrayList<>();
-        for (ReadingDay data : dataObjects) {
-            entries.add(new BarEntry(data.getDayOfYear(), data.getAmountArticlesRead()));
-        }
-        
-        return entries;
+        BarDataSet dataSet = new BarDataSet(entries, "");
+        dataSet.setValueTextColor(MaterialColors.getColor(chart, com.google.android.material.R.attr.colorOnSurface));
+        dataSet.setColor(MaterialColors.getColor(chart, androidx.transition.R.attr.colorPrimary));
+        // - axis dependency is required because the axis is being adjusted
+        dataSet.setAxisDependency(chart.getAxisRight().getAxisDependency());
+
+        // Bar settings
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.3f);
+
+        chart.setData(barData);
+        chart.notifyDataSetChanged();
     }
 }

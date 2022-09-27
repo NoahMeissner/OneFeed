@@ -23,6 +23,7 @@ public class DataBaseHelper {
     // Constants
     private final ExecutorService service = Executors.newScheduledThreadPool(1);
     private UserDao userDao;
+    private NewsReadDao newsReadDao;
     private ArrayList<SourceAdd> sourceArrayList = new ArrayList<>();
     private final Context context;
     private AppDataBase dp;
@@ -63,6 +64,7 @@ public class DataBaseHelper {
                         AppDataBase.class,
                         DATABASE_NAME).build();
                 userDao = dp.userDao();
+                newsReadDao = dp.newsReadDao();
             }
             finally {
                 sourceArrayList = (ArrayList<SourceAdd>) userDao.getAll();
@@ -155,5 +157,9 @@ public class DataBaseHelper {
      */
     public interface initializeProcessFinish {
         void getDataBase(ArrayList<SourceAdd> sourceAdds);
+    }
+
+    public NewsReadDao getNewsReadDao() {
+        return newsReadDao;
     }
 }

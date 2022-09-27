@@ -22,5 +22,5 @@ public enum Constants {
     public enum initial{Notification, Process, ConsumptionAnalyse, InterestsAreInitialised}
     // Settings keys for insight (consumption analysis)
     // Todo: choose one name: insight / consumption analysis
-    public enum insightSettings { articlesPerDay, limitationIsEnabled }
+    public enum insightSettings { articlesPerDay, limitationIsEnabled, articlesOpened, articlesOpenedDate }
 }

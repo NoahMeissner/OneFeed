@@ -68,7 +68,7 @@ public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case 1:
                 TwitterCardViewHolder twitterHolder = (TwitterCardViewHolder) holder;
                 TwitterCard twitterCard = (TwitterCard) cards.get(position);
-                twitterHolder.bind(twitterCard);
+                twitterHolder.bind(twitterCard, listener);
                 break;
         }
     }

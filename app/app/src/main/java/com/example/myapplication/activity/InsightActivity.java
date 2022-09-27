@@ -6,13 +6,10 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data.addSource.Constants;
-import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
@@ -52,7 +49,6 @@ public class InsightActivity extends AppCompatActivity {
 
         // Viewmodel
         this.viewModel = new ViewModelProvider(this).get(InsightViewModel.class);
-        this.viewModel.loadPreferences(this);
 
         // Title-bar
         setSupportActionBar(findViewById(R.id.app_bar_toolbar));
@@ -87,7 +83,7 @@ public class InsightActivity extends AppCompatActivity {
 
             // Listener for the response so the acitivty refreshes
             permissionsDialogFragement.setResultListener(enabled -> {
-                viewModel.setLimitationIsEnabled(enabled, getBaseContext());
+                viewModel.setLimitationIsEnabled(getBaseContext(), enabled);
             });
         }
     }
@@ -105,15 +101,17 @@ public class InsightActivity extends AppCompatActivity {
             limitArticlesDescription.setEnabled(enabled);
         });
         viewModel.getArticlesPerDay().observe(this, articlesPerDay -> {
-            limitArticlesSlider.setValue(articlesPerDay);
+            if (viewModel.getLimitationIsEnabled().getValue()) {
+                limitArticlesSlider.setValue(articlesPerDay);
+            }
         });
 
         // Update values on input
         limitArticlesSlider.addOnChangeListener((slider, value, fromUser) -> {
-            viewModel.setArticleLimitation((int)value, this);
+            viewModel.setArticleLimitation(this, (int)value);
         });
         limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) -> {
-            viewModel.setLimitationIsEnabled(newValue, this);
+            viewModel.setLimitationIsEnabled(this, newValue);
         });
     }
 

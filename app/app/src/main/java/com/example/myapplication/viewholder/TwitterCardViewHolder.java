@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.NewsCardListAdapter;
 import com.example.myapplication.data.card.TwitterCard;
 
 public class TwitterCardViewHolder extends RecyclerView.ViewHolder {
@@ -25,11 +26,16 @@ public class TwitterCardViewHolder extends RecyclerView.ViewHolder {
         this.authorProfileImage = itemView.findViewById(R.id.tweet_card_profile_picture);
     }
 
-    public void bind(TwitterCard data) {
+    public void bind(TwitterCard data, NewsCardListAdapter.NewsOpenListener listener) {
         this.tweetContent.setText(data.getContent());
         this.authorName.setText(data.getAuthorName());
         this.authorHandle.setText(data.getAuthorUsername());
         this.authorProfileImage.setImageBitmap(data.getAuthorProfileImage());
+
+        // Listener to open article on click
+        itemView.setOnClickListener(l -> {
+            listener.onOpen(data.getWebUrl());
+        });
     }
 
     public static TwitterCardViewHolder create(ViewGroup parent) {

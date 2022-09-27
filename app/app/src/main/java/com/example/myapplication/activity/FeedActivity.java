@@ -1,9 +1,5 @@
 package com.example.myapplication.activity;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,26 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
 
-import net.openid.appauth.AuthorizationException;
-import net.openid.appauth.AuthorizationResponse;
-
 public class FeedActivity extends AppCompatActivity {
 
     private FeedViewModel viewModel;
+
     SwipeRefreshLayout refreshLayout;
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
@@ -53,15 +45,26 @@ public class FeedActivity extends AppCompatActivity {
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
 
-        // News cards recycler
+        // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
-            // Open browser window in app on click
-            // Todo: warmup and url prediction for faster open
-            // Todo: add twitter open functionality too
+            if (viewModel.getLimitIsEnabled()) {
+                if (viewModel.getIsLimitIsReached()) {
+                    // Todo: generate string resource
+                    Toast.makeText(
+                            this,
+                            "Sie haben Ihr tägliches Limit an News erreicht. Genießen Sie Ihre Zeit!",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                viewModel.addReadArticle(url);
+            }
+
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = builder.build();
             customTabsIntent.launchUrl(this, Uri.parse(url));
         });
+
+        // News cards recycler
         this.recycler = findViewById(R.id.recycler_news_cards);
         this.recycler.setLayoutManager(new LinearLayoutManager(this));
         this.recycler.setAdapter(this.adapter);
@@ -70,9 +73,14 @@ public class FeedActivity extends AppCompatActivity {
         // Cards listeners
         this.viewModel.getNewsCards().observe(this, newsCards -> {
             adapter.updateItems(newsCards);
-            // Todo: fix diff
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
+        });
+
+        this.viewModel.getNewsReadList().observe(this, l -> {
+            viewModel.setLimitReached(l.size() >= viewModel.getAmountArticlesReadLimit(this));
+            Log.d("TAG", "onCreate: read: " + l.size() + " of " +
+                    viewModel.getAmountArticlesReadLimit(this) + " articles.");
         });
     }
 

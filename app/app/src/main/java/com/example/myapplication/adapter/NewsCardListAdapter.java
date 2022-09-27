@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private NewsOpenListener listener;
+
+    public NewsCardListAdapter(NewsOpenListener listener) {
+        this.listener = listener;
+    }
+
     private final List<NewsCard> cards = new ArrayList<>();
 
     public void updateItems(List<NewsCard> data) {
@@ -57,7 +63,7 @@ public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case 0:
                 ArticleCardViewHolder articleHolder = (ArticleCardViewHolder) holder;
                 ArticleCard articleCard = (ArticleCard) cards.get(position);
-                articleHolder.bind(articleCard);
+                articleHolder.bind(articleCard, listener);
                 break;
             case 1:
                 TwitterCardViewHolder twitterHolder = (TwitterCardViewHolder) holder;
@@ -101,5 +107,9 @@ public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return this.oldCards.get(oldItemPosition)
                     .equals(this.newCards.get(newItemPosition));
         }
+    }
+
+    public interface NewsOpenListener {
+        void onOpen(String url);
     }
 }

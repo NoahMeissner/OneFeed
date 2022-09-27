@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +14,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.webkit.WebView;
 import android.widget.ImageButton;
 
 import com.example.myapplication.R;
@@ -51,7 +54,14 @@ public class FeedActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
 
         // News cards recycler
-        this.adapter = new NewsCardListAdapter();
+        this.adapter = new NewsCardListAdapter(url -> {
+            // Open browser window in app on click
+            // Todo: warmup and url prediction for faster open
+            // Todo: add twitter open functionality too
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+        });
         this.recycler = findViewById(R.id.recycler_news_cards);
         this.recycler.setLayoutManager(new LinearLayoutManager(this));
         this.recycler.setAdapter(this.adapter);

@@ -1,15 +1,21 @@
 package com.example.myapplication.viewholder;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.NewsCardListAdapter;
 import com.example.myapplication.data.card.ArticleCard;
 
 public class ArticleCardViewHolder extends RecyclerView.ViewHolder {
@@ -26,7 +32,7 @@ public class ArticleCardViewHolder extends RecyclerView.ViewHolder {
         this.sourceIconImageView = itemView.findViewById(R.id.source_icon);
     }
 
-    public void bind(ArticleCard data) {
+    public void bind(ArticleCard data, NewsCardListAdapter.NewsOpenListener listener) {
         // Card content
         titleView.setText(data.getTitle());
         // Todo: Implement cards without image
@@ -37,6 +43,11 @@ public class ArticleCardViewHolder extends RecyclerView.ViewHolder {
         // Source label
         sourceTextView.setText(data.getSource().getName());
         sourceIconImageView.setImageBitmap(data.getSource().getIcon());
+
+        // Listener to open article on click
+        itemView.setOnClickListener(l -> {
+            listener.onOpen(data.getWebUrl());
+        });
     }
 
     public static ArticleCardViewHolder create(ViewGroup parent) {

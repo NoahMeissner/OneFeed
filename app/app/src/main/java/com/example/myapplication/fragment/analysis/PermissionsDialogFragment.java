@@ -1,6 +1,7 @@
 package com.example.myapplication.fragment.analysis;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import java.util.Objects;
 
 public class PermissionsDialogFragment extends DialogFragment {
 
+    private InsightSettingsListener listener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class PermissionsDialogFragment extends DialogFragment {
                     stops the Fragment
                     and return the Method
                  */
-                editSharedPreferences();
+                editSharedPreferences(decision);
                 onStop();
                 return;
             }
@@ -79,11 +81,22 @@ public class PermissionsDialogFragment extends DialogFragment {
     /*
     This Method edit the Shared Preferences
      */
-    private void editSharedPreferences() {
-        SharedPreferences pref = requireContext().getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editPreferences = pref.edit();
-        editPreferences.putBoolean(Constants.initial.ConsumptionAnalyse.name(), true);
-        editPreferences.apply();
+    private void editSharedPreferences(boolean decision) {
+        SharedPreferences pref = requireContext().getSharedPreferences(
+                Constants.initial.ConsumptionAnalyse.name(), Context.MODE_PRIVATE);
+        pref.edit()
+                .putBoolean(Constants.insightSettings.limitationIsEnabled.name(), decision)
+                .apply();
+        if (this.listener != null) {
+            listener.onResult(decision);
+        }
+    }
+
+    public void setResultListener(InsightSettingsListener listener) {
+        this.listener = listener;
+    }
+
+    public interface InsightSettingsListener {
+        void onResult(boolean enabled);
     }
 }

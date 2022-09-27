@@ -3,6 +3,7 @@ package com.example.myapplication.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Constants;
+import com.example.myapplication.data.feed.FeedViewModel;
+import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
@@ -40,11 +43,16 @@ import java.util.Locale;
 public class InsightActivity extends AppCompatActivity {
 
     private BarChart chart;
+    private InsightViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insight);
+
+        // Viewmodel
+        this.viewModel = new ViewModelProvider(this).get(InsightViewModel.class);
+        this.viewModel.loadPreferences(this);
 
         // Title-bar
         setSupportActionBar(findViewById(R.id.app_bar_toolbar));
@@ -73,19 +81,15 @@ public class InsightActivity extends AppCompatActivity {
      which asks the User to accept the consumption analysis
      */
     private void initialFragement() {
-        if(!getPermission()){
+        if(!viewModel.getLimitationIsEnabled().getValue()){
             PermissionsDialogFragment permissionsDialogFragement = new PermissionsDialogFragment();
             permissionsDialogFragement.show(getSupportFragmentManager(),"");
-        }
-    }
 
-    /*
-    This Method gets the Permission Data from the Shared Preferences
-     */
-    private boolean getPermission() {
-        SharedPreferences pref = getSharedPreferences(getResources()
-                    .getString(R.string.initProcesBoolean), 0);
-        return pref.getBoolean(Constants.initial.ConsumptionAnalyse.name(),false);
+            // Listener for the response so the acitivty refreshes
+            permissionsDialogFragement.setResultListener(enabled -> {
+                viewModel.setLimitationIsEnabled(enabled, getBaseContext());
+            });
+        }
     }
 
     private void initializeSettings() {
@@ -93,12 +97,23 @@ public class InsightActivity extends AppCompatActivity {
         Slider limitArticlesSlider = findViewById(R.id.insight_limit_articles_slider);
         TextView limitArticlesDescription = findViewById(R.id.insight_limit_articles_description);
 
-        // Todo: load preferences from settings
-        limitArticlesSwitch.setChecked(true);
+        // Update view on value changes
+        viewModel.getLimitationIsEnabled().observe(this, enabled -> {
+            limitArticlesSwitch.setChecked(enabled);
+            // Disable controls
+            limitArticlesSlider.setEnabled(enabled);
+            limitArticlesDescription.setEnabled(enabled);
+        });
+        viewModel.getArticlesPerDay().observe(this, articlesPerDay -> {
+            limitArticlesSlider.setValue(articlesPerDay);
+        });
 
+        // Update values on input
+        limitArticlesSlider.addOnChangeListener((slider, value, fromUser) -> {
+            viewModel.setArticleLimitation((int)value, this);
+        });
         limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) -> {
-            limitArticlesSlider.setEnabled(newValue);
-            limitArticlesDescription.setEnabled(newValue);
+            viewModel.setLimitationIsEnabled(newValue, this);
         });
     }
 

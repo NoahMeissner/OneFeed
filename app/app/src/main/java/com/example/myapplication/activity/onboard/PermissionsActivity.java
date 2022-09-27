@@ -95,8 +95,13 @@ public class PermissionsActivity extends AppCompatActivity {
         SharedPreferences.Editor editPreferences = pref.edit();
         editPreferences.putBoolean(Constants.initial.Process.name(), true);
         editPreferences.putBoolean(Constants.initial.Notification.name(), notifications);
-        editPreferences.putBoolean(Constants.initial.ConsumptionAnalyse.name(), consumptionAnalyse);
         editPreferences.apply();
+
+        SharedPreferences insightPrefs = getSharedPreferences(
+                Constants.initial.ConsumptionAnalyse.name(), MODE_PRIVATE);
+        insightPrefs.edit()
+                .putBoolean(Constants.insightSettings.limitationIsEnabled.name(), consumptionAnalyse)
+                .apply();
     }
 }
 

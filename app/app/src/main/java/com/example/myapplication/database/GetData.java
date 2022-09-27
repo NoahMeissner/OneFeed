@@ -41,12 +41,13 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
 
     public ArrayList<SourceAdd> getCategory(Constants category){
         ArrayList<SourceAdd> result = new ArrayList<>();
-        for(SourceAdd sourceAdd: sourceAdds){
-            if(sourceAdd.getCategories()== category){
-                result.add(sourceAdd);
-            }
+        HashMap<Constants,ArrayList<SourceAdd>> dataBase = dataBaseHelper.getAll();
+        try {
+            result = dataBase.get(category);
         }
-        return result;
+        finally {
+            return result;
+        }
     }
 
     public HashMap<Constants,ArrayList<SourceAdd>> getAll(){

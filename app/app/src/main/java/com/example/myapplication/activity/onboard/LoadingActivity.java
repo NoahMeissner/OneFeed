@@ -60,9 +60,8 @@ public class LoadingActivity extends AppCompatActivity {
      has already been completed and opens the new activity.
      */
     private void initUi() {
-        // Todo: add ! and onboarding activity
-        if(isInitialized){
-            Intent intent = new Intent(this, FeedActivity.class);
+        if(!isInitialized){
+            Intent intent = new Intent(this, OnboardActivity.class);
             startActivity(intent);
             return;
         }

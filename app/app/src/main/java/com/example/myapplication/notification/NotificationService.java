@@ -26,12 +26,37 @@ public class NotificationService extends Service {
     private final LocalDateTime time = LocalDateTime.now();
     private final GetData getData;
     private final HashMap<Constants.interests,ArrayList<SourceAdd>> hashMapNotifications = new HashMap<>();
+    int hashMapSize;
 
 
     public NotificationService(){
         checkNotificationPermission();
         getData = new GetData(this);
         setListWithSources();
+        apiRequest();
+    }
+
+    private void apiRequest() {
+        /*
+        Set article Integer in Source adds in hashMapNotifications
+         */
+    }
+
+
+    private void setNotifications(){
+        /*
+        Only send one Notification and not hasmap.size that is the reason why whe differentiate all
+        sources
+         */
+
+
+        /*
+        Set Notification
+         */
+
+        /*
+        Thread sleep
+         */
     }
 
     /*
@@ -84,6 +109,7 @@ public class NotificationService extends Service {
                 }
             }
         }
+        hashMapSize = hashMapNotifications.size();
     }
 
     @Nullable

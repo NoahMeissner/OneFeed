@@ -17,7 +17,6 @@ import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.insight.InsightPreferencesHelper;
 import com.example.myapplication.data.insight.NewsReadEntry;
 import com.example.myapplication.database.DataBaseHelper;
-import com.example.myapplication.database.GetData;
 import com.example.myapplication.database.InsightRepository;
 
 import java.util.ArrayList;
@@ -68,28 +67,29 @@ public class FeedViewModel extends AndroidViewModel {
             List<SourceAdd> sources = this.sources.getValue();
             HashMap<Constants.news, List<String>> corona = new HashMap<>();
             List<Constants.interests> interestsList = new ArrayList<>();
+
+            boolean loadTwitter = false;
             for (SourceAdd source: sources) {
-                if (source.getCategories() != Constants.Interests && source.getCategories() != Constants.SocialMedia) {
-                    corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
-                }
-                if (source.getCategories() == Constants.Interests) {
-                    interestsList.add(Constants.interests.valueOf(source.getName()));
+                switch (source.getCategories()) {
+                    case Newspaper:
+                        corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
+                        break;
+                    case Interests:
+                        interestsList.add(Constants.interests.valueOf(source.getName()));
+                        break;
+                    case SocialMedia:
+                        if (source.getName().equals("Twitter")) {
+                            loadTwitter = source.isEnabled();
+                        }
+                        break;
                 }
             }
-            // Spiegel: []
-            // FAZ: []
+
             for (Constants.news news : corona.keySet()) {
-                corona.put(news,rssUrls.getUrls(interestsList, news));
+                corona.put(news,rssUrls.getUrlsForNewspaper(news, interestsList));
             }
-//            rssUrls.getCategory(Constants.interests.Politik);
 
-
-//             Spiegel: Corona Politik
-            // Spiegel: Politik fghjk
-            // FAZ: Politik fghjk
-//            HashMap<Constants.news, List<String>> rssEndpoints,
-            articlesRepository.loadNews(corona, context, cards -> {
-//            setLoadingImages(cards, context);
+            articlesRepository.loadNews(corona, loadTwitter, context, cards -> {
                 setNewsCards(cards);
             });
         }
@@ -150,8 +150,8 @@ public class FeedViewModel extends AndroidViewModel {
         this.insightLimitIsReached = isReached;
     }
 
-    public boolean getLimitIsEnabled() {
-        return insightPreferencesHelper.isLimitIsEnabled();
+    public boolean getLimitIsEnabled(Context context) {
+        return insightPreferencesHelper.getLimitationIsEnabled(context);
     }
 
     public boolean getIsLimitIsReached() {

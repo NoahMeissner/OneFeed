@@ -40,6 +40,7 @@ public class NewsRepository {
     //   (one request per rss endpoint)
     public void loadNews(
             HashMap<Constants.news, List<String>> rssEndpoints,
+            boolean loadTwitter,
             Context context,
             NewsCardsCallback listener
     ) {
@@ -49,7 +50,7 @@ public class NewsRepository {
         executor.execute(() -> {
             ArrayList<NewsCard> cards = new ArrayList<>();
 
-            loadNews(rssEndpoints, context, new LoadNewsCallback() {
+            loadNews(rssEndpoints, loadTwitter, context, new LoadNewsCallback() {
                 boolean rssComplete = false;
                 boolean twitterComplete = false;
 
@@ -59,6 +60,13 @@ public class NewsRepository {
                     rssComplete = true;
                     Log.d(TAG, "onRssComplete: loaded rss cards");
 
+                    returnResultIfComplete();
+                }
+
+                @Override
+                public void onRssFailed() {
+                    rssComplete = true;
+                    Log.d(TAG, "onRssComplete: could not load any newspaper articles.");
                     returnResultIfComplete();
                 }
 
@@ -76,7 +84,8 @@ public class NewsRepository {
                     twitterComplete = true;
                     Log.d(TAG, "" +
                             "onTwitterComplete: Could not load twitter cards." +
-                            "This is probably and authentication issue.");
+                            "This is probably and authentication issue " +
+                            "or the user disabled this feature in settings.");
 
                     returnResultIfComplete();
                 }
@@ -93,19 +102,28 @@ public class NewsRepository {
         });
     }
 
-    private void loadNews(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadNews(HashMap<Constants.news, List<String>> rssEndpoints, boolean loadTwitter, Context context, LoadNewsCallback listener) {
         // Load rss articles for all categories
         loadArticles(rssEndpoints, context, listener);
 
         // Load all tweets
-        twitterApi.loadTweets(context, requestQueue, listener);
+        if (loadTwitter) {
+            twitterApi.loadTweets(context, requestQueue, listener);
+        } else {
+            Log.d(TAG,
+                    "loadNews: did not load twitter because the user has disabled this feature.");
+            listener.onTwitterFailed();
+        }
     }
 
     private void loadArticles(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
         ArrayList<ArticleCard> articleCards = new ArrayList<>();
+
         int currentIndex = 0;
+        boolean newsFound = false;
         for (Map.Entry<Constants.news, List<String>> entry : rssEndpoints.entrySet()) {
             for (String url : entry.getValue()) {
+                newsFound = true;
                 // Load all articles and notify listener when all data has been loaded
                 boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
                 loadArticlesForRssEndpoint(
@@ -122,6 +140,12 @@ public class NewsRepository {
 
                 currentIndex++;
             }
+        }
+
+        if (!newsFound) {
+            listener.onRssFailed();
+            Log.d(TAG, "loadArticles: No news have been loaded. " +
+                    "This is because the user has specified no interests.");
         }
     }
 
@@ -252,6 +276,7 @@ public class NewsRepository {
     // Callback for loading tweets and articles
     public interface LoadNewsCallback {
         void onRssComplete(ArrayList<ArticleCard> articleResults);
+        void onRssFailed();
         void onTwitterComplete(ArrayList<TwitterCard> tweetResults);
         void onTwitterFailed();
     }

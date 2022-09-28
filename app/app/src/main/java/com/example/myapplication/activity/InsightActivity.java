@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,6 +49,8 @@ public class InsightActivity extends AppCompatActivity {
 
     private BarChart chart;
     private InsightViewModel viewModel;
+    PermissionsDialogFragment permissionsDialogFragement;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +113,7 @@ public class InsightActivity extends AppCompatActivity {
      */
     private void initialFragement() {
         if(!viewModel.getLimitationIsEnabled().getValue()){
-            PermissionsDialogFragment permissionsDialogFragement = new PermissionsDialogFragment();
+            permissionsDialogFragement = new PermissionsDialogFragment();
             permissionsDialogFragement.show(getSupportFragmentManager(),"");
 
             // Listener for the response so the acitivty refreshes
@@ -117,6 +121,13 @@ public class InsightActivity extends AppCompatActivity {
                 viewModel.setLimitationIsEnabled(getBaseContext(), enabled);
             });
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Close open fragments as they will be recreated (avoids multiple popups)
+        permissionsDialogFragement.dismiss();
     }
 
     private void initializeSettings() {

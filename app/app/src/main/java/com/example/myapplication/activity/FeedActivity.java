@@ -56,6 +56,7 @@ public class FeedActivity extends AppCompatActivity {
         // Swipe to refresh
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
+        refreshLayout.setRefreshing(true); // Refresh for first load
 
         // Refresh on categories change
         this.viewModel.getSources().observe(this, sources -> {
@@ -64,7 +65,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
-            if (viewModel.getLimitIsEnabled()) {
+            if (viewModel.getLimitIsEnabled(this)) {
                 if (viewModel.getIsLimitIsReached()) {
                     // Todo: generate string resource
                     Toast.makeText(
@@ -85,13 +86,15 @@ public class FeedActivity extends AppCompatActivity {
         this.recycler = findViewById(R.id.recycler_news_cards);
         this.recycler.setLayoutManager(new LinearLayoutManager(this));
         this.recycler.setAdapter(this.adapter);
-        this.recycler.setItemAnimator(null); // Disable animation
+        this.recycler.setItemAnimator(null); // Disables animation
 
         // Cards listeners
         this.viewModel.getNewsCards().observe(this, newsCards -> {
-            adapter.updateItems(newsCards);
-            adapter.notifyDataSetChanged();
-            refreshLayout.setRefreshing(false);
+            if (newsCards.stream().count() > 0) {
+                adapter.updateItems(newsCards);
+                refreshLayout.setRefreshing(false);
+                adapter.notifyDataSetChanged();
+            }
         });
 
         this.viewModel.getNewsReadList().observe(this, l -> {

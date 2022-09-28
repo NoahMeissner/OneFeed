@@ -72,7 +72,7 @@ public class RssUrls {
         return result;
     }
 
-    public List<String> getUrls(List<Constants.interests> interests, Constants.news news) {
+    public List<String> getUrlsForNewspaper(Constants.news news, List<Constants.interests> interests) {
         List<String> result = new ArrayList<>();
         for (Constants.interests interest : interests) {
             if (news == Constants.news.FAZ) {

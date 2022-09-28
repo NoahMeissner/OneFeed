@@ -63,6 +63,13 @@ public class NewsRepository {
                 }
 
                 @Override
+                public void onRssFailed() {
+                    rssComplete = true;
+                    Log.d(TAG, "onRssComplete: could not load any newspaper articles.");
+                    returnResultIfComplete();
+                }
+
+                @Override
                 public void onTwitterComplete(ArrayList<TwitterCard> tweetResults) {
                     cards.addAll(tweetResults);
                     twitterComplete = true;
@@ -103,9 +110,12 @@ public class NewsRepository {
 
     private void loadArticles(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
         ArrayList<ArticleCard> articleCards = new ArrayList<>();
+
         int currentIndex = 0;
+        boolean newsFound = false;
         for (Map.Entry<Constants.news, List<String>> entry : rssEndpoints.entrySet()) {
             for (String url : entry.getValue()) {
+                newsFound = true;
                 // Load all articles and notify listener when all data has been loaded
                 boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
                 loadArticlesForRssEndpoint(
@@ -122,6 +132,12 @@ public class NewsRepository {
 
                 currentIndex++;
             }
+        }
+
+        if (!newsFound) {
+            listener.onRssFailed();
+            Log.d(TAG, "loadArticles: No news have been loaded. " +
+                    "This is because the user has specified no interests.");
         }
     }
 
@@ -252,6 +268,7 @@ public class NewsRepository {
     // Callback for loading tweets and articles
     public interface LoadNewsCallback {
         void onRssComplete(ArrayList<ArticleCard> articleResults);
+        void onRssFailed();
         void onTwitterComplete(ArrayList<TwitterCard> tweetResults);
         void onTwitterFailed();
     }

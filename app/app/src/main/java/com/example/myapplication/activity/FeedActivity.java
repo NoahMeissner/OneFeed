@@ -43,7 +43,7 @@ public class FeedActivity extends AppCompatActivity {
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
-        initGestures();
+//        initGestures();
 
         // Swipe to refresh
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
@@ -88,15 +88,15 @@ public class FeedActivity extends AppCompatActivity {
         });
     }
 
-    private void initGestures() {
-        /*
-        This Method will initial the Swipe Gestures
-         */
-        View appBar = findViewById(R.id.component_app_bar_id);
-        View activity = findViewById(R.id.recycler_news_cards);
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
-    }
+//    private void initGestures() {
+//        /*
+//        This Method will initial the Swipe Gestures
+//         */
+//        View appBar = findViewById(R.id.component_app_bar_id);
+//        View activity = findViewById(R.id.recycler_news_cards);
+//        setSwipeListener(appBar);
+//        setSwipeListener(activity);
+//    }
 
     private void setSwipeListener(View view){
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(

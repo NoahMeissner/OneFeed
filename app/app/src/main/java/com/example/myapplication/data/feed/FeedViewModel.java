@@ -2,11 +2,13 @@ package com.example.myapplication.data.feed;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplication.R;
 import com.example.myapplication.api.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
 import com.example.myapplication.data.addSource.Constants;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 
 public class FeedViewModel extends AndroidViewModel {
@@ -60,6 +63,13 @@ public class FeedViewModel extends AndroidViewModel {
 //            setLoadingImages(cards, context);
             setNewsCards(cards);
         });
+    }
+
+    private HashMap<Constants.news, String> loadCategories(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources()
+                .getString(R.string.initProcesBoolean), 0);
+        Set<String> categories = sharedPreferences.getStringSet(Constants.Interests.name(), null);
+        return null;
     }
 
 //    // Sets a plain color as the content of the images and icons while loading

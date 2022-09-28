@@ -1,8 +1,5 @@
 package com.example.myapplication.fragment.feed;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +22,15 @@ public class ErrorFragment extends DialogFragment {
     /*
     This Fragment Displays the User that the Internet Connection is not working.
      */
+    // Listener to check if button was pressed
+    private NewTry newTry;
+
+    /*
+    Constructor
+     */
+    public ErrorFragment(NewTry newTry){
+        this.newTry = newTry;
+    }
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,17 +45,33 @@ public class ErrorFragment extends DialogFragment {
                 @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_error_internet, container, false);
             Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            initButton(view);
+            initUI(view);
             return view;
         }
 
-    private void initButton(View view) {
-            Button button = view.findViewById(R.id.errorButton);
-            button.setOnClickListener(view1 -> {
-                //@TODO refresh
-                onStop();
-            });
+        /*
+        This Method initialise the important UI Parts
+         */
+    private void initUI(View view) {
+        ProgressBar progressBar = view.findViewById(R.id.loadingPanelError);
+        progressBar.setVisibility(View.GONE);
+        initButton(view,progressBar);
+
     }
 
-
+    /*
+    This Method will initialise the Buttons
+     */
+    private void initButton(View view, ProgressBar progressBar) {
+            Button button = view.findViewById(R.id.errorButton);
+            button.setOnClickListener(view1 -> {
+                progressBar.setVisibility(View.VISIBLE);
+                button.setVisibility(View.GONE);
+                newTry.buttonHasPressed(true);
+            });
+    }
+    
+    public interface NewTry {
+            void buttonHasPressed(boolean boo);
+    }
 }

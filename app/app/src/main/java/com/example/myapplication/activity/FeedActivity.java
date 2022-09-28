@@ -21,6 +21,7 @@ import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
 import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
+import com.example.myapplication.fragment.feed.ErrorFragment;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -91,6 +92,13 @@ public class FeedActivity extends AppCompatActivity {
             Log.d("TAG", "onCreate: read: " + l.size() + " of " +
                     viewModel.getAmountArticlesReadLimit(this) + " articles.");
         });
+    }
+
+    private void initErrorFragment(){
+        ErrorFragment errorFragment = new ErrorFragment(boo -> {
+            //@TODO neuen Versuch starten
+        });
+        errorFragment.show(getSupportFragmentManager(),"");
     }
 
     private void initGestures() {

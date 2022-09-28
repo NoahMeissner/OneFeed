@@ -84,6 +84,16 @@
                 android:textAppearance="@style/toolbar_icon_button"
                 android:text="Erneut versuchen"
                 android:textSize="15sp"/>
+
+                <ProgressBar
+                    android:layout_gravity="center"
+                    app:layout_constraintEnd_toEndOf="@id/buttonND"
+                    android:id="@+id/loadingPanelError"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:indeterminate="true"
+                    android:indeterminateTint="?attr/colorSecondary"
+                    />
         </FrameLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

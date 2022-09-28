@@ -40,6 +40,7 @@ public class NewsRepository {
     //   (one request per rss endpoint)
     public void loadNews(
             HashMap<Constants.news, List<String>> rssEndpoints,
+            boolean loadTwitter,
             Context context,
             NewsCardsCallback listener
     ) {
@@ -49,7 +50,7 @@ public class NewsRepository {
         executor.execute(() -> {
             ArrayList<NewsCard> cards = new ArrayList<>();
 
-            loadNews(rssEndpoints, context, new LoadNewsCallback() {
+            loadNews(rssEndpoints, loadTwitter, context, new LoadNewsCallback() {
                 boolean rssComplete = false;
                 boolean twitterComplete = false;
 
@@ -83,7 +84,8 @@ public class NewsRepository {
                     twitterComplete = true;
                     Log.d(TAG, "" +
                             "onTwitterComplete: Could not load twitter cards." +
-                            "This is probably and authentication issue.");
+                            "This is probably and authentication issue " +
+                            "or the user disabled this feature in settings.");
 
                     returnResultIfComplete();
                 }
@@ -100,12 +102,18 @@ public class NewsRepository {
         });
     }
 
-    private void loadNews(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadNews(HashMap<Constants.news, List<String>> rssEndpoints, boolean loadTwitter, Context context, LoadNewsCallback listener) {
         // Load rss articles for all categories
         loadArticles(rssEndpoints, context, listener);
 
         // Load all tweets
-        twitterApi.loadTweets(context, requestQueue, listener);
+        if (loadTwitter) {
+            twitterApi.loadTweets(context, requestQueue, listener);
+        } else {
+            Log.d(TAG,
+                    "loadNews: did not load twitter because the user has disabled this feature.");
+            listener.onTwitterFailed();
+        }
     }
 
     private void loadArticles(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {

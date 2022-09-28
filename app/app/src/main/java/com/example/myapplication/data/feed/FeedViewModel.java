@@ -68,12 +68,20 @@ public class FeedViewModel extends AndroidViewModel {
             HashMap<Constants.news, List<String>> corona = new HashMap<>();
             List<Constants.interests> interestsList = new ArrayList<>();
 
+            boolean loadTwitter = false;
             for (SourceAdd source: sources) {
-                if (source.getCategories() == Constants.Newspaper) {
-                    corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
-                }
-                if (source.getCategories() == Constants.Interests) {
-                    interestsList.add(Constants.interests.valueOf(source.getName()));
+                switch (source.getCategories()) {
+                    case Newspaper:
+                        corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
+                        break;
+                    case Interests:
+                        interestsList.add(Constants.interests.valueOf(source.getName()));
+                        break;
+                    case SocialMedia:
+                        if (source.getName().equals("Twitter")) {
+                            loadTwitter = source.isEnabled();
+                        }
+                        break;
                 }
             }
 
@@ -81,7 +89,7 @@ public class FeedViewModel extends AndroidViewModel {
                 corona.put(news,rssUrls.getUrlsForNewspaper(news, interestsList));
             }
 
-            articlesRepository.loadNews(corona, context, cards -> {
+            articlesRepository.loadNews(corona, loadTwitter, context, cards -> {
                 setNewsCards(cards);
             });
         }

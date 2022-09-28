@@ -16,7 +16,7 @@ public enum Constants {
     // This enum contains all News Sources
     public enum news{FAZ,Spiegel}
     // This enum contains all Social Media Sources
-    public enum socialMedia{Twitter,Reddit}
+    public enum socialMedia{Twitter}
     // This Enum includes all Variable names for the Shared Preferences
     // Todo: rename to sharedprefrences?
     public enum initial{Notification, Process, ConsumptionAnalyse, InterestsAreInitialised}

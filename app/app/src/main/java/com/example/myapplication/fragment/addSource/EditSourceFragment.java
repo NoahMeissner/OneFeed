@@ -139,7 +139,7 @@ public class EditSourceFragment extends DialogFragment
     }
 
     /*
-    This Method initialise the Fragment items
+    This Method initialise the Fragment UI Elements
      */
     @SuppressLint("SetTextI18n")
     private void initUI(View view){
@@ -207,6 +207,9 @@ public class EditSourceFragment extends DialogFragment
         dataChanged.dataHasChanged(false, changedSource);
     }
 
+    /*
+    Getter and setter Methods
+     */
     private int getImageID(SourceAdd source) {
         return Objects.requireNonNull(uiElements.getPictureId(source.getName()));
     }
@@ -215,7 +218,10 @@ public class EditSourceFragment extends DialogFragment
         this.dataChanged = dataChanged;
     }
 
-
+    /*
+    Listener from the Adapter
+    Shows Settings Changes and if one Source was Added or removed
+     */
     @Override
     public void changedSource(SourceAdd changedSource) {
         if(source.getName().equals(Constants.ADDButton.name())){
@@ -229,6 +235,9 @@ public class EditSourceFragment extends DialogFragment
         onStop();
     }
 
+    /*
+    Interface to inform the Activity
+     */
     public interface EditSourceFragmentChanges {
         void dataHasChanged(Boolean b, SourceAdd sourceAdd);
     }

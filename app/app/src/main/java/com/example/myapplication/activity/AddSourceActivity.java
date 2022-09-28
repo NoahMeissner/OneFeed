@@ -8,12 +8,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 
 import com.example.myapplication.R;
 import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.GetData;
@@ -62,14 +63,23 @@ public class AddSourceActivity extends AppCompatActivity implements
         initGestures();
     }
 
-    //@TODO zum Laufen Bringen
     private void initGestures() {
         /*
         This Method will initial the Swipe Gestures
          */
-        RelativeLayout relativeLayout = findViewById(R.id.relativeAddSource);
+        View appBar = findViewById(R.id.component_app_bar_id);
+        View activity = findViewById(R.id.addActivityView);
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
         OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                relativeLayout, swipe -> Log.d("Gesture", swipe.name()));
+                view, swipe -> {
+            if (swipe== Swipe.Right){
+                closeActivity();
+            }
+        });
     }
 
     /*
@@ -157,7 +167,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     */
     private AdapterListAddActivity initRecyclerView(
             RecyclerView recyclerView, ArrayList<SourceAdd> arrayList) {
-
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
         return new AdapterListAddActivity(this, this,arrayList);
     }
@@ -260,7 +269,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method will refresh the Activity
      */
     private void refresh(){
-        //@TODO Animation beenden
         Intent refresh = new Intent(this, AddSourceActivity.class);
         overridePendingTransition(0, 0);
         startActivity(refresh);

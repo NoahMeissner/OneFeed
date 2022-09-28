@@ -1,18 +1,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addActivity">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relativeAddSource">
-
-    </RelativeLayout>
 
     <com.example.myapplication.customView.AppBarCollapse
-
+        android:id="@+id/app_barcollapse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:title="@string/headlineQuellenActivity"
@@ -20,12 +14,5 @@
         app:pageContentView="@layout/view_add_activity">
 
     </com.example.myapplication.customView.AppBarCollapse>
-
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

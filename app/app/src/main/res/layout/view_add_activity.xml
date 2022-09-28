@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddSourceActivity">
+    tools:context=".activity.AddSourceActivity"
+    android:id="@+id/beispielConstraint">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-
+        android:orientation="vertical"
+        android:id="@+id/addActivityView">
 
         <LinearLayout
             android:layout_width="match_parent"

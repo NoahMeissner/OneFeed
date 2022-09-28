@@ -83,6 +83,9 @@ public class DeleteSourceFragment extends DialogFragment {
         });
     }
 
+    /*
+    This Method initial all UI Elements
+     */
     private void initUI(View view) {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
         ImageView imageView = view.findViewById(R.id.deleteSourceImage);
@@ -90,7 +93,9 @@ public class DeleteSourceFragment extends DialogFragment {
         imageView.setImageResource(source.getImageRessourceID());
     }
 
-
+    /*
+    Interface which helps to detect removed Sources
+     */
     public interface DeleteSourceFragmentInterface {
         void deleteSourceFromLongClick(boolean result, SourceAdd source);
     }

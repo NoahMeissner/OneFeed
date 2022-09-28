@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.NewsReadEntry;
+import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.animation.addSource.Swipe;
+import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
@@ -63,6 +68,8 @@ public class InsightActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
         });
+        initGestures();
+
 
         // Chart
         initializeChart();
@@ -71,6 +78,29 @@ public class InsightActivity extends AppCompatActivity {
         // Settings
         initializeSettings();
         initialFragement();
+    }
+
+
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        View appBar = findViewById(R.id.materialCardView_id);
+        View activity = findViewById(R.id.insight_show_articles_card);
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
+                view, swipe -> {
+            if (swipe== Swipe.Left){
+                Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
     }
 
     /*

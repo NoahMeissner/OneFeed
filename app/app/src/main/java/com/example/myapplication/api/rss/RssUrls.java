@@ -54,7 +54,7 @@ public class RssUrls {
 
         spiegelHashMap.put(
                 Constants.interests.Gaming,
-                "https://www.spiegel.de/netzwelt/games/inde.rss");
+                "https://www.spiegel.de/netzwelt/games/index.rss");
 
         spiegelHashMap.put(
                 Constants.interests.Politik,
@@ -69,6 +69,18 @@ public class RssUrls {
         List<String> result = new ArrayList<>();
         result.add(fazHashMap.get(interests));
         result.add(spiegelHashMap.get(interests));
+        return result;
+    }
+
+    public List<String> getUrls(List<Constants.interests> interests, Constants.news news) {
+        List<String> result = new ArrayList<>();
+        for (Constants.interests interest : interests) {
+            if (news == Constants.news.FAZ) {
+                result.add(fazHashMap.get(interest));
+            } else  {
+                result.add(spiegelHashMap.get(interest));
+            }
+        }
         return result;
     }
 

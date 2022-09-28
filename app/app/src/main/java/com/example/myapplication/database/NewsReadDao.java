@@ -20,7 +20,6 @@ public interface NewsReadDao {
     @Query("SELECT * FROM news_read_list WHERE readDate > :from AND readDate < :to")
     LiveData<List<NewsReadEntry>> getBetween(Long from, Long to);
 
-
     @Insert(onConflict = IGNORE)
     void insert(NewsReadEntry entry);
 }

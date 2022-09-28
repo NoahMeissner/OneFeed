@@ -16,6 +16,7 @@ import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.insight.InsightPreferencesHelper;
 import com.example.myapplication.data.insight.NewsReadEntry;
+import com.example.myapplication.database.DataBaseHelper;
 import com.example.myapplication.database.GetData;
 import com.example.myapplication.database.InsightRepository;
 
@@ -30,7 +31,7 @@ public class FeedViewModel extends AndroidViewModel {
 
     private InsightRepository insightRepository;
     private NewsRepository articlesRepository;
-    private GetData categoriesRepository;
+    private DataBaseHelper categoriesRepository;
 
 
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
@@ -46,11 +47,11 @@ public class FeedViewModel extends AndroidViewModel {
         // Initialize
         this.insightRepository = new InsightRepository(application);
         this.articlesRepository = new NewsRepository(application);
-        this.categoriesRepository = new GetData(application);
+        this.categoriesRepository = new DataBaseHelper(application);
 
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
         this.newsReadList = insightRepository.getNewsReadToday();
-        this.sources = categoriesRepository.getSourceAdds();
+        this.sources = categoriesRepository.getSourceArrayList();
         this.insightPreferencesHelper = new InsightPreferencesHelper(application);
 
         // Initial load for cards
@@ -62,21 +63,23 @@ public class FeedViewModel extends AndroidViewModel {
     }
 
     public void loadNewsCards(Context context) {
-        if (this.sources != null) {
+        if (this.sources.getValue() != null) {
             RssUrls rssUrls = new RssUrls();
             List<SourceAdd> sources = this.sources.getValue();
             HashMap<Constants.news, List<String>> corona = new HashMap<>();
+            List<Constants.interests> interestsList = new ArrayList<>();
             for (SourceAdd source: sources) {
                 if (source.getCategories() != Constants.Interests && source.getCategories() != Constants.SocialMedia) {
                     corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
                 }
-            }
-            for (SourceAdd source : sources) {
                 if (source.getCategories() == Constants.Interests) {
-                    for (Constants.news news : corona.keySet()) {
-                        corona.put(news,rssUrls.getCategory(Constants.interests.valueOf(source.getName())));
-                    }
+                    interestsList.add(Constants.interests.valueOf(source.getName()));
                 }
+            }
+            // Spiegel: []
+            // FAZ: []
+            for (Constants.news news : corona.keySet()) {
+                corona.put(news,rssUrls.getUrls(interestsList, news));
             }
 //            rssUrls.getCategory(Constants.interests.Politik);
 

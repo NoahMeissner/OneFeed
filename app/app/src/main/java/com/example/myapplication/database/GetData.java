@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetData implements DataBaseHelper.initializeProcessFinish {
+public class GetData {
 
     /*
     With This Method you will get Access to the Information from the DataBase
@@ -33,7 +33,8 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
     }
 
     private void initDataBase() {
-        dataBaseHelper = new DataBaseHelper(context, this);
+        dataBaseHelper = new DataBaseHelper(context);
+        sourceAdds = dataBaseHelper.getSourceArrayList();
     }
 
 
@@ -53,10 +54,6 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         }
     }
 
-    public HashMap<Constants,ArrayList<SourceAdd>> getAll(List<SourceAdd> sources){
-        return dataBaseHelper.getAll(sources);
-    }
-
     public void removeSource(SourceAdd sourceADD){
         dataBaseHelper.deleteSingleItem(sourceADD);
     }
@@ -65,14 +62,14 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         dataBaseHelper.insertSourceItem(sourceAdd);
     }
 
-    /*
-    This Method is a Listener from the DataBaseHelper to get the Information after the DataBase has
-    started
-     */
-    @Override
-    public void getDataBase(LiveData<List<SourceAdd>> sourceAdds) {
-        this.sourceAdds=sourceAdds;
-    }
+//    /*
+//    This Method is a Listener from the DataBaseHelper to get the Information after the DataBase has
+//    started
+//     */
+//    @Override
+//    public void getDataBase(LiveData<List<SourceAdd>> sourceAdds) {
+//        this.sourceAdds=sourceAdds;
+//    }
 
     public LiveData<List<SourceAdd>> getSourceAdds() {
         return sourceAdds;

@@ -31,7 +31,7 @@ public class InitialData {
      */
     public InitialData(Context context){
         this.context = context;
-        initDatabase();
+        dataBaseHelper = new DataBaseHelper(context);
         initSharedPreferences();
     }
 
@@ -39,10 +39,6 @@ public class InitialData {
         sharedPreferences = context.getSharedPreferences(context.getResources()
                 .getString(R.string.initProcesBoolean), 0);
         editPreferences = sharedPreferences.edit();
-    }
-
-    private void initDatabase() {
-        dataBaseHelper = new DataBaseHelper(context);
     }
 
     public void setSelectedInterests(ArrayList<Constants.interests> selectedInterests) {

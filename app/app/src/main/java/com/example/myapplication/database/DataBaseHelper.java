@@ -25,55 +25,20 @@ public class DataBaseHelper {
 
 
     // Constants
-    private final ExecutorService service = Executors.newScheduledThreadPool(1);
     private UserDao userDao;
-    private NewsReadDao newsReadDao;
     private LiveData<List<SourceAdd>> sourceArrayList;
-    private final Context context;
-    private AppDataBase dp;
-    private initializeProcessFinish initializeProcessfinish;
-
-    /*
-    This constructor will be there for the InitialData Class
-     */
-    public DataBaseHelper(Context context){
-        this.context = context;
-        initDatabase();
-    }
 
     /*
     This Method is there for the getData Class
      */
-    public DataBaseHelper(Context context, initializeProcessFinish initializeProcessfinish){
-        this.context = context;
-        this.initializeProcessfinish = initializeProcessfinish;
-        initDatabase();
+    public DataBaseHelper(Context context){
+        this.userDao = AppDataBase.getDatabase(context).userDao();
+        this.sourceArrayList = userDao.getAll();
     }
 
     public void deleteSingleItem(SourceAdd sourceAdd){
         Runnable r = () -> userDao.deleteSingle(sourceAdd);
-        service.execute(r);
-    }
-
-
-    /*
-    This class initial the DataBase
-     */
-    public void initDatabase() {
-        Thread init = new Thread(() -> {
-            try {
-                dp = AppDataBase.getDatabase(context);
-                userDao = dp.userDao();
-                newsReadDao = dp.newsReadDao();
-            }
-            finally {
-                sourceArrayList = userDao.getAll();
-                if(sourceArrayList!= null && initializeProcessfinish != null){
-                    initializeProcessfinish.getDataBase(sourceArrayList);
-                }
-            }
-        });
-        init.start();
+        AppDataBase.databaseWriteExecutor.execute(r);
     }
 
     public HashMap<Constants, ArrayList<SourceAdd>> getAll(List<SourceAdd> sources){
@@ -111,7 +76,7 @@ public class DataBaseHelper {
      */
     public void removeItems(ArrayList<SourceAdd> removeList){
         Runnable r = () -> userDao.delete(removeList);
-        service.execute(r);
+        AppDataBase.databaseWriteExecutor.execute(r);
     }
 
     /*
@@ -127,7 +92,7 @@ public class DataBaseHelper {
     */
     public void insertDataBase(ArrayList<SourceAdd> sourceArrayList){
         Runnable r = () -> userDao.insertAll(sourceArrayList);
-        service.execute(r);
+        AppDataBase.databaseWriteExecutor.execute(r);
     }
 
     /*
@@ -135,18 +100,7 @@ public class DataBaseHelper {
      */
     public void insertSourceItem(SourceAdd sourceAdd){
         Runnable r = () -> userDao.insert(sourceAdd);
-        service.execute(r);
-    }
-
-    /*
-    This Method implements the Listener for the DataBaseHelper
-     */
-    public interface initializeProcessFinish {
-        void getDataBase(LiveData<List<SourceAdd>> sourceAdds);
-    }
-
-    public NewsReadDao getNewsReadDao() {
-        return newsReadDao;
+        AppDataBase.databaseWriteExecutor.execute(r);
     }
 }
 

@@ -35,7 +35,7 @@ public class InsightViewModel extends AndroidViewModel {
         this.newsReadList = insightRepository.getNewsCurrentYear();
 
         this.insightPreferencesHelper = new InsightPreferencesHelper(application);
-        this.limitationIsEnabled.setValue(insightPreferencesHelper.isLimitIsEnabled());
+        this.limitationIsEnabled.setValue(insightPreferencesHelper.getLimitationIsEnabled(application));
         this.articlesPerDay.setValue(insightPreferencesHelper.getAmountArticlesPerDayLimit(application));
     }
 

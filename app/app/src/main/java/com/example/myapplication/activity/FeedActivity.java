@@ -58,7 +58,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
-            if (viewModel.getLimitIsEnabled()) {
+            if (viewModel.getLimitIsEnabled(this)) {
                 if (viewModel.getIsLimitIsReached()) {
                     // Todo: generate string resource
                     Toast.makeText(

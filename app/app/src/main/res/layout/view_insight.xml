@@ -1,119 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/app_padding">
-
-    <!--Chart-->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView_id"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        app:cardUseCompatPadding="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/app_padding">
 
-        <LinearLayout
+        <!--Chart-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="420dp"
+            app:cardUseCompatPadding="true">
 
-            <!--Chart-->
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/insight_chart"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <!--Chart subtitle-->
-            <TextView
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:text="@string/insight_chart_subtitle" />
+                <!--Chart-->
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/insight_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1" />
 
-            <!--Chart controls-->
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                app:singleSelection="true"
-                app:selectionRequired="true" >
+                <!--Chart subtitle-->
+                <TextView
+                    style="@style/TextAppearance.Material3.LabelSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:text="@string/insight_chart_subtitle" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/insight_chart_toggle_week"
-                    style="?attr/materialButtonOutlinedStyle"
+                <!--Chart controls-->
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/insight_chart_toggle_week"/>
+                    android:layout_gravity="center_horizontal"
+                    app:singleSelection="true"
+                    app:selectionRequired="true" >
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/insight_chart_toggle_month"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/insight_chart_toggle_month" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/insight_chart_toggle_week"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/insight_chart_toggle_week"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/insight_chart_toggle_year"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/insight_chart_toggle_year" />
-                
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/insight_chart_toggle_month"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/insight_chart_toggle_month" />
 
-    <!--Settings-->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/insight_show_articles_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/insight_chart_toggle_year"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/insight_chart_toggle_year" />
 
-        <LinearLayout
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--Settings-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/insight_show_articles_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/card_padding_horizontal"
-            android:paddingVertical="@dimen/card_padding_vertical">
+            app:cardUseCompatPadding="true">
 
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/insight_limit_articles_switch"
-                android:text="Angezeigte Artikel pro Tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/insight_limit_articles_slider"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:valueFrom="1"
-                android:value="10"
-                android:valueTo="50"
-                android:stepSize="1"/>
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/card_padding_horizontal"
+                android:paddingVertical="@dimen/card_padding_vertical">
 
-            <TextView
-                android:id="@+id/insight_limit_articles_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/insight_shown_articles_tooltip"
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:layout_marginBottom="8dp"/>
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/insight_limit_articles_switch"
+                    android:text="Angezeigte Artikel pro Tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/insight_limit_articles_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="1"
+                    android:value="10"
+                    android:valueTo="50"
+                    android:stepSize="1"/>
+
+                <TextView
+                    android:id="@+id/insight_limit_articles_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insight_shown_articles_tooltip"
+                    style="@style/TextAppearance.Material3.LabelSmall"
+                    android:layout_marginBottom="8dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 
 
+
+</androidx.core.widget.NestedScrollView>

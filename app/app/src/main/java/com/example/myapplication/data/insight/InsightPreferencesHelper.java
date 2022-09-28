@@ -59,7 +59,8 @@ public class InsightPreferencesHelper {
         return amountArticlesPerDayLimit;
     }
 
-    public boolean isLimitIsEnabled() {
+    public boolean getLimitationIsEnabled(Context context) {
+        loadLimitIsEnabled(context);
         return limitIsEnabled;
     }
 }

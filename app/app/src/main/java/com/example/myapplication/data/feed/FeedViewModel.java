@@ -150,8 +150,8 @@ public class FeedViewModel extends AndroidViewModel {
         this.insightLimitIsReached = isReached;
     }
 
-    public boolean getLimitIsEnabled() {
-        return insightPreferencesHelper.isLimitIsEnabled();
+    public boolean getLimitIsEnabled(Context context) {
+        return insightPreferencesHelper.getLimitationIsEnabled(context);
     }
 
     public boolean getIsLimitIsReached() {

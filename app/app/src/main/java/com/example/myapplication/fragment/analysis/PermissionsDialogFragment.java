@@ -88,6 +88,7 @@ public class PermissionsDialogFragment extends DialogFragment {
                 .putBoolean(Constants.insightSettings.limitationIsEnabled.name(), decision)
                 .apply();
         if (this.listener != null) {
+            this.dismiss();
             listener.onResult(decision);
         }
     }

@@ -61,10 +61,7 @@ public class DataBaseHelper {
         Thread init = new Thread(() -> {
             try {
                 String DATABASE_NAME = "sourceAdd";
-                dp = Room.databaseBuilder(
-                        context,
-                        AppDataBase.class,
-                        DATABASE_NAME).build();
+                dp = AppDataBase.getDatabase(context);
                 userDao = dp.userDao();
                 newsReadDao = dp.newsReadDao();
             }

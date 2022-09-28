@@ -136,27 +136,4 @@ public class FeedActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.empty, menu);
         return true;
     }
-
-//    private void setupDummyCards() {
-//        NewsSource sampleArticleSource = new NewsSource(
-//                "Spiegel", "https://www.spiegel.de/"
-//        );
-//        NewsSource sampleTwitterSource = new NewsSource(
-//                "Twitter", "https://twitter.com/"
-//        );
-//        ArticleCard sampleArticleCard = new ArticleCard(
-//                getString(R.string.lorem_ipsum), sampleArticleSource, LocalDateTime.now(), null
-//        );
-//        TwitterCard sampleTwitterCard = new TwitterCard(
-//            sampleTwitterSource, LocalDateTime.now(), getString(R.string.lorem_ipsum_long),
-//                "Elon Musk", "@elonmusk"
-//        );
-//        ArrayList<NewsCard> sampleCards = new ArrayList<>(Arrays.asList(
-//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
-//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard,
-//                sampleArticleCard, sampleTwitterCard, sampleArticleCard, sampleArticleCard
-//                ));
-//        this.adapter.updateItems(sampleCards);
-//    }
-
 }

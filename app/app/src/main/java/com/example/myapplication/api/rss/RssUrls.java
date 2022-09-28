@@ -2,7 +2,9 @@ package com.example.myapplication.api.rss;
 
 import com.example.myapplication.data.addSource.Constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RssUrls {
 
@@ -63,10 +65,10 @@ public class RssUrls {
                 "https://www.spiegel.de/sport/index.rss");
     }
 
-    public HashMap<Constants.news,String> getCategory(Constants.interests interests){
-        HashMap<Constants.news,String> result = new HashMap<>();
-        result.put(Constants.news.FAZ,fazHashMap.get(interests));
-        result.put(Constants.news.Spiegel,spiegelHashMap.get(interests));
+    public List<String> getCategory(Constants.interests interests){
+        List<String> result = new ArrayList<>();
+        result.add(fazHashMap.get(interests));
+        result.add(spiegelHashMap.get(interests));
         return result;
     }
 

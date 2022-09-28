@@ -49,6 +49,11 @@ public class FeedActivity extends AppCompatActivity {
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
 
+        // Refresh on categories change
+        this.viewModel.getSources().observe(this, sources -> {
+            this.viewModel.loadNewsCards(this);
+        });
+
         // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
             if (viewModel.getLimitIsEnabled()) {

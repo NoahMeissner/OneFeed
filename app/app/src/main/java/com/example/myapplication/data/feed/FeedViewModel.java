@@ -12,6 +12,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.api.NewsRepository;
 import com.example.myapplication.api.rss.RssUrls;
 import com.example.myapplication.data.addSource.Constants;
+import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.insight.InsightPreferencesHelper;
 import com.example.myapplication.data.insight.NewsReadEntry;
@@ -34,6 +35,7 @@ public class FeedViewModel extends AndroidViewModel {
 
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
     private final LiveData<List<NewsReadEntry>> newsReadList;
+    private final LiveData<List<SourceAdd>> sources;
 
     private final InsightPreferencesHelper insightPreferencesHelper;
     private boolean insightLimitIsReached = false;
@@ -48,6 +50,7 @@ public class FeedViewModel extends AndroidViewModel {
 
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
         this.newsReadList = insightRepository.getNewsReadToday();
+        this.sources = categoriesRepository.getSourceAdds();
         this.insightPreferencesHelper = new InsightPreferencesHelper(application);
 
         // Initial load for cards
@@ -59,15 +62,35 @@ public class FeedViewModel extends AndroidViewModel {
     }
 
     public void loadNewsCards(Context context) {
-        // Todo: Use categories provided by user preferences
-        RssUrls rssUrls = new RssUrls();
-        HashMap<Constants.news, String> corona = rssUrls.getCategory(Constants.interests.Politik);
-//        categoriesRepository.getAll();
+        if (this.sources != null) {
+            RssUrls rssUrls = new RssUrls();
+            List<SourceAdd> sources = this.sources.getValue();
+            HashMap<Constants.news, List<String>> corona = new HashMap<>();
+            for (SourceAdd source: sources) {
+                if (source.getCategories() != Constants.Interests && source.getCategories() != Constants.SocialMedia) {
+                    corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
+                }
+            }
+            for (SourceAdd source : sources) {
+                if (source.getCategories() == Constants.Interests) {
+                    for (Constants.news news : corona.keySet()) {
+                        corona.put(news,rssUrls.getCategory(Constants.interests.valueOf(source.getName())));
+                    }
+                }
+            }
+//            rssUrls.getCategory(Constants.interests.Politik);
 
-        articlesRepository.loadNews(corona, context, cards -> {
+
+//             Spiegel: Corona Politik
+            // Spiegel: Politik fghjk
+            // FAZ: Politik fghjk
+//            HashMap<Constants.news, List<String>> rssEndpoints,
+            articlesRepository.loadNews(corona, context, cards -> {
 //            setLoadingImages(cards, context);
-            setNewsCards(cards);
-        });
+                setNewsCards(cards);
+            });
+        }
+
     }
 
     private HashMap<Constants.news, String> loadCategories(Context context) {
@@ -138,5 +161,9 @@ public class FeedViewModel extends AndroidViewModel {
 
     public LiveData<List<NewsReadEntry>> getNewsReadList() {
         return newsReadList;
+    }
+
+    public LiveData<List<SourceAdd>> getSources() {
+        return sources;
     }
 }

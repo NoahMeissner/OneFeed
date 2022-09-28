@@ -62,7 +62,6 @@ public class DataBaseHelper {
     public void initDatabase() {
         Thread init = new Thread(() -> {
             try {
-                String DATABASE_NAME = "sourceAdd";
                 dp = AppDataBase.getDatabase(context);
                 userDao = dp.userDao();
                 newsReadDao = dp.newsReadDao();

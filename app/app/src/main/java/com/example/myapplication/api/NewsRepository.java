@@ -19,6 +19,7 @@ import com.example.myapplication.data.feed.NewsSource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ public class NewsRepository {
     // Loads all articles for the specified rss urls by making multiple requests
     //   (one request per rss endpoint)
     public void loadNews(
-            HashMap<Constants.news, String> rssEndpoints,
+            HashMap<Constants.news, List<String>> rssEndpoints,
             Context context,
             NewsCardsCallback listener
     ) {
@@ -92,7 +93,7 @@ public class NewsRepository {
         });
     }
 
-    private void loadNews(HashMap<Constants.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadNews(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
         // Load rss articles for all categories
         loadArticles(rssEndpoints, context, listener);
 
@@ -100,14 +101,15 @@ public class NewsRepository {
         twitterApi.loadTweets(context, requestQueue, listener);
     }
 
-    private void loadArticles(HashMap<Constants.news, String> rssEndpoints, Context context, LoadNewsCallback listener) {
+    private void loadArticles(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
         ArrayList<ArticleCard> articleCards = new ArrayList<>();
         int currentIndex = 0;
-        for (Map.Entry<Constants.news, String> entry : rssEndpoints.entrySet()) {
-            // Load all articles and notify listener when all data has been loaded
-            boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
-            loadArticlesForRssEndpoint(
-                    entry.getValue(),
+        for (Map.Entry<Constants.news, List<String>> entry : rssEndpoints.entrySet()) {
+            for (String url : entry.getValue()) {
+                // Load all articles and notify listener when all data has been loaded
+                boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
+                loadArticlesForRssEndpoint(
+                    url,
                     entry.getKey(),
                     context,
                     articleResults -> {
@@ -116,9 +118,10 @@ public class NewsRepository {
                         if (isFinalRun) {
                             listener.onRssComplete(articleCards);
                         }
-                    });
+                });
 
-            currentIndex++;
+                currentIndex++;
+            }
         }
     }
 

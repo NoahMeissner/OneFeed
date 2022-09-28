@@ -86,9 +86,13 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method initialized the HashMap
      */
     private void initHashMap() {
-        enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests));
-        enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia));
-        enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper));
+        data.getSourceAdds().observe(this, l -> {
+            enabledSourcesHashMap.clear();
+            enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests, l));
+            enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia, l));
+            enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper, l));
+            addAddButtonToSelectedHashMap();
+        });
     }
 
     /*
@@ -142,20 +146,25 @@ public class AddSourceActivity extends AppCompatActivity implements
         TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         add to the ARRAYList.
         */
-        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
-                .add(new SourceAdd(Constants.ADDButton.name(),
-                        getDrawable(R.drawable.add),
-                        Constants.Newspaper));
 
-        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
-                .add(new SourceAdd(Constants.ADDButton.name(),
-                        getDrawable(R.drawable.add ),
-                        Constants.SocialMedia));
+        try {
+            Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
+                    .add(new SourceAdd(Constants.ADDButton.name(),
+                            getDrawable(R.drawable.add),
+                            Constants.Newspaper));
 
-        Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
-                .add(new SourceAdd(Constants.ADDButton.name(),
-                        getDrawable(R.drawable.add),
-                        Constants.Interests));
+            Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
+                    .add(new SourceAdd(Constants.ADDButton.name(),
+                            getDrawable(R.drawable.add ),
+                            Constants.SocialMedia));
+
+            Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
+                    .add(new SourceAdd(Constants.ADDButton.name(),
+                            getDrawable(R.drawable.add),
+                            Constants.Interests));
+        } catch (NullPointerException exception) {
+            return;
+        }
         declareRecyclerView();
     }
 
@@ -243,7 +252,7 @@ public class AddSourceActivity extends AppCompatActivity implements
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-            refresh();
+//            refresh();
         }
     }
 
@@ -268,13 +277,14 @@ public class AddSourceActivity extends AppCompatActivity implements
     /*
     This Method will refresh the Activity
      */
-    private void refresh(){
-        Intent refresh = new Intent(this, AddSourceActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(refresh);
-        overridePendingTransition(0, 0);
-        this.finish();
-    }
+//
+//    private void refresh(){
+//        Intent refresh = new Intent(this, AddSourceActivity.class);
+//        overridePendingTransition(0, 0);
+//        startActivity(refresh);
+//        overridePendingTransition(0, 0);
+//        this.finish();
+//    }
 
 
     @Override
@@ -285,6 +295,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         /*
         Update Selected HashMap from the DataBase to update the Recycler viewer
          */
-        refresh();
+//        refresh();
     }
 }

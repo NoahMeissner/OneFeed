@@ -2,6 +2,7 @@ package com.example.myapplication.database;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import com.example.myapplication.data.addSource.Constants;
@@ -9,6 +10,7 @@ import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,7 +28,7 @@ public class DataBaseHelper {
     private final ExecutorService service = Executors.newScheduledThreadPool(1);
     private UserDao userDao;
     private NewsReadDao newsReadDao;
-    private ArrayList<SourceAdd> sourceArrayList = new ArrayList<>();
+    private LiveData<List<SourceAdd>> sourceArrayList;
     private final Context context;
     private AppDataBase dp;
     private initializeProcessFinish initializeProcessfinish;
@@ -66,7 +68,7 @@ public class DataBaseHelper {
                 newsReadDao = dp.newsReadDao();
             }
             finally {
-                sourceArrayList = (ArrayList<SourceAdd>) userDao.getAll();
+                sourceArrayList = userDao.getAll();
                 if(sourceArrayList!= null && initializeProcessfinish != null){
                     initializeProcessfinish.getDataBase(sourceArrayList);
                 }
@@ -75,7 +77,7 @@ public class DataBaseHelper {
         init.start();
     }
 
-    public HashMap<Constants, ArrayList<SourceAdd>> getAll(){
+    public HashMap<Constants, ArrayList<SourceAdd>> getAll(List<SourceAdd> sources){
         /*
        Initialise HashMap
          */
@@ -84,10 +86,10 @@ public class DataBaseHelper {
             result.put(Constants.SocialMedia,new ArrayList<>());
             result.put(Constants.Interests,new ArrayList<>());
             result.put(Constants.Newspaper,new ArrayList<>());
-        /*
-        Check the DataBase and put Items in order
-         */
-            for(SourceAdd sourceAdd: sourceArrayList){
+    /*
+    Check the DataBase and put Items in order
+     */
+            for(SourceAdd sourceAdd: sources){
                 if(sourceAdd.getCategories() == Constants.Newspaper){
                     Objects.requireNonNull(result.get(Constants.Newspaper)).add(sourceAdd);
                 }
@@ -114,19 +116,10 @@ public class DataBaseHelper {
     }
 
     /*
-    This Method will update the whole DataBase and will also rewrite everything
-     */
-    public void updateDatabase(ArrayList<SourceAdd> sourceAddsArrayList){
-        Runnable r = () -> userDao.updateList(sourceAddsArrayList);
-        service.execute(r);
-        this.sourceArrayList = sourceAddsArrayList;
-    }
-
-    /*
     If you have changes in the DataBase and need the changed Array List you can get the Array List
     with this Method
      */
-    public ArrayList<SourceAdd> getSourceArrayList() {
+    public LiveData<List<SourceAdd>> getSourceArrayList() {
         return sourceArrayList;
     }
 
@@ -136,30 +129,21 @@ public class DataBaseHelper {
     public void insertDataBase(ArrayList<SourceAdd> sourceArrayList){
         Runnable r = () -> userDao.insertAll(sourceArrayList);
         service.execute(r);
-        this.sourceArrayList = sourceArrayList;
     }
 
     /*
     With this Method there is the possibility to add only one new item
      */
     public void insertSourceItem(SourceAdd sourceAdd){
-        this.sourceArrayList.add(sourceAdd);
         Runnable r = () -> userDao.insert(sourceAdd);
         service.execute(r);
-    }
-
-    /*
-    This Method deletes all saved SourceAdd Elements in the DataBase
-    */
-    public void killDataBase(){
-        userDao.delete(sourceArrayList);
     }
 
     /*
     This Method implements the Listener for the DataBaseHelper
      */
     public interface initializeProcessFinish {
-        void getDataBase(ArrayList<SourceAdd> sourceAdds);
+        void getDataBase(LiveData<List<SourceAdd>> sourceAdds);
     }
 
     public NewsReadDao getNewsReadDao() {

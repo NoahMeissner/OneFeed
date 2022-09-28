@@ -32,7 +32,7 @@ public class NotificationService extends Service {
     public NotificationService(){
         checkNotificationPermission();
         getData = new GetData(this);
-        setListWithSources();
+//        setListWithSources();
         apiRequest();
     }
 
@@ -74,43 +74,43 @@ public class NotificationService extends Service {
     /*
     Set List to handle the Notifications
      */
-    private void setListWithSources() {
-        HashMap<Constants, ArrayList<SourceAdd>> hashMapDatabase = getData.getAll();
-        /*
-        Initial hashMap Notifications
-         */
-        for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase.get(Constants.Interests))){
-            if(sourceAdd.isNotification()){
-                /*
-                 It is important to filter Sources out which haven`t a the Permission
-                 to send Notifications
-                 */
-                hashMapNotifications.put(Constants.interests
-                        .valueOf(sourceAdd.getName()),new ArrayList<>());
-            }
-        }
-        /*
-        This for Loop add all Sources to the Interests, which give the possibility to put
-        all Sources in order to the Interests
-         */
-        for(Constants.interests interests:hashMapNotifications.keySet()){
-            for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase
-                    .get(Constants.SocialMedia))){
-
-                if(sourceAdd.isNotification()){
-                    Objects.requireNonNull(hashMapNotifications.get(interests)).add(sourceAdd);
-                }
-            }
-            for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase
-                    .get(Constants.Newspaper))){
-
-                if(sourceAdd.isNotification()){
-                    Objects.requireNonNull(hashMapNotifications.get(interests)).add(sourceAdd);
-                }
-            }
-        }
-        hashMapSize = hashMapNotifications.size();
-    }
+//    private void setListWithSources() {
+//        HashMap<Constants, ArrayList<SourceAdd>> hashMapDatabase = getData.getAll();
+//        /*
+//        Initial hashMap Notifications
+//         */
+//        for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase.get(Constants.Interests))){
+//            if(sourceAdd.isNotification()){
+//                /*
+//                 It is important to filter Sources out which haven`t a the Permission
+//                 to send Notifications
+//                 */
+//                hashMapNotifications.put(Constants.interests
+//                        .valueOf(sourceAdd.getName()),new ArrayList<>());
+//            }
+//        }
+//        /*
+//        This for Loop add all Sources to the Interests, which give the possibility to put
+//        all Sources in order to the Interests
+//         */
+//        for(Constants.interests interests:hashMapNotifications.keySet()){
+//            for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase
+//                    .get(Constants.SocialMedia))){
+//
+//                if(sourceAdd.isNotification()){
+//                    Objects.requireNonNull(hashMapNotifications.get(interests)).add(sourceAdd);
+//                }
+//            }
+//            for(SourceAdd sourceAdd: Objects.requireNonNull(hashMapDatabase
+//                    .get(Constants.Newspaper))){
+//
+//                if(sourceAdd.isNotification()){
+//                    Objects.requireNonNull(hashMapNotifications.get(interests)).add(sourceAdd);
+//                }
+//            }
+//        }
+//        hashMapSize = hashMapNotifications.size();
+//    }
 
     @Nullable
     @Override

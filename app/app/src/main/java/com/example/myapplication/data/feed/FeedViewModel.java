@@ -15,6 +15,7 @@ import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.card.NewsCard;
 import com.example.myapplication.data.insight.InsightPreferencesHelper;
 import com.example.myapplication.data.insight.NewsReadEntry;
+import com.example.myapplication.database.GetData;
 import com.example.myapplication.database.InsightRepository;
 
 import java.util.ArrayList;
@@ -26,8 +27,10 @@ import java.util.Set;
 
 public class FeedViewModel extends AndroidViewModel {
 
-    InsightRepository insightRepository;
-    NewsRepository articlesRepository;
+    private InsightRepository insightRepository;
+    private NewsRepository articlesRepository;
+    private GetData categoriesRepository;
+
 
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
     private final LiveData<List<NewsReadEntry>> newsReadList;
@@ -41,6 +44,7 @@ public class FeedViewModel extends AndroidViewModel {
         // Initialize
         this.insightRepository = new InsightRepository(application);
         this.articlesRepository = new NewsRepository(application);
+        this.categoriesRepository = new GetData(application);
 
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
         this.newsReadList = insightRepository.getNewsReadToday();
@@ -58,6 +62,7 @@ public class FeedViewModel extends AndroidViewModel {
         // Todo: Use categories provided by user preferences
         RssUrls rssUrls = new RssUrls();
         HashMap<Constants.news, String> corona = rssUrls.getCategory(Constants.interests.Politik);
+//        categoriesRepository.getAll();
 
         articlesRepository.loadNews(corona, context, cards -> {
 //            setLoadingImages(cards, context);

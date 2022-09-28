@@ -2,11 +2,14 @@ package com.example.myapplication.database;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GetData implements DataBaseHelper.initializeProcessFinish {
 
@@ -18,7 +21,7 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
     Constants
      */
     private final Context context;
-    private ArrayList<SourceAdd> sourceAdds = new ArrayList<>();
+    private LiveData<List<SourceAdd>> sourceAdds;
     private DataBaseHelper dataBaseHelper;
 
     /*
@@ -39,9 +42,9 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         dataBaseHelper.insertDataBase(updateArrayList);
     }
 
-    public ArrayList<SourceAdd> getCategory(Constants category){
+    public ArrayList<SourceAdd> getCategory(Constants category, List<SourceAdd> sources){
         ArrayList<SourceAdd> result = new ArrayList<>();
-        HashMap<Constants,ArrayList<SourceAdd>> dataBase = dataBaseHelper.getAll();
+        HashMap<Constants,ArrayList<SourceAdd>> dataBase = dataBaseHelper.getAll(sources);
         try {
             result = dataBase.get(category);
         }
@@ -50,8 +53,8 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
         }
     }
 
-    public HashMap<Constants,ArrayList<SourceAdd>> getAll(){
-        return dataBaseHelper.getAll();
+    public HashMap<Constants,ArrayList<SourceAdd>> getAll(List<SourceAdd> sources){
+        return dataBaseHelper.getAll(sources);
     }
 
     public void removeSource(SourceAdd sourceADD){
@@ -67,7 +70,11 @@ public class GetData implements DataBaseHelper.initializeProcessFinish {
     started
      */
     @Override
-    public void getDataBase(ArrayList<SourceAdd> sourceAdds) {
+    public void getDataBase(LiveData<List<SourceAdd>> sourceAdds) {
         this.sourceAdds=sourceAdds;
+    }
+
+    public LiveData<List<SourceAdd>> getSourceAdds() {
+        return sourceAdds;
     }
 }

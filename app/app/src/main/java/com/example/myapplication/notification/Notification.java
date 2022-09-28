@@ -53,22 +53,15 @@ public class Notification {
     With this Method you are able to Start one Notification to inform the User about new News
      */
 
-    public void startNotification(){
+
+    public void startNotification(NotificationManager notificationManager,int id){
         /*
         The Parameters create a Notification Channel and a NotificationManger
          to Mange the Build Notification
          */
 
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel
-                (CHANNEL_ID,"OneFEED", importance);
 
-        NotificationManager notificationManager = context
-                .getSystemService(NotificationManager.class);
-
-        notificationManager.createNotificationChannel(channel);
-
-        notificationManager.notify(1, notificationBuilder(createIntentToApp()).build());
+        notificationManager.notify(id, notificationBuilder(createIntentToApp()).build());
     }
 
     /*

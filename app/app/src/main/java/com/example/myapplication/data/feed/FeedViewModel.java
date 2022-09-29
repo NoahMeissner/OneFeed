@@ -70,16 +70,14 @@ public class FeedViewModel extends AndroidViewModel {
     public void loadNewsCards(Context context) {
         this.internetConnected.setValue(isOnline(context));
         if (this.internetConnected.getValue() && this.sources.getValue() != null) {
-            RssUrls rssUrls = new RssUrls();
-            List<SourceAdd> sources = this.sources.getValue();
-            HashMap<Constants.news, List<String>> corona = new HashMap<>();
+            boolean loadTwitter = false; // signals if twitter api should be requested
             List<Constants.interests> interestsList = new ArrayList<>();
-
-            boolean loadTwitter = false;
-            for (SourceAdd source: sources) {
+            // Hashmap with all information required to load the news
+            HashMap<Constants.news, List<String>> newsConfig = new HashMap<>();
+            for (SourceAdd source: this.sources.getValue()) {
                 switch (source.getCategories()) {
                     case Newspaper:
-                        corona.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
+                        newsConfig.put(Constants.news.valueOf(source.getName()), new ArrayList<>());
                         break;
                     case Interests:
                         interestsList.add(Constants.interests.valueOf(source.getName()));
@@ -91,12 +89,12 @@ public class FeedViewModel extends AndroidViewModel {
                         break;
                 }
             }
-
-            for (Constants.news news : corona.keySet()) {
-                corona.put(news,rssUrls.getUrlsForNewspaper(news, interestsList));
+            RssUrls rssUrls = new RssUrls();
+            for (Constants.news news : newsConfig.keySet()) {
+                newsConfig.put(news,rssUrls.getUrlsForNewspaper(news, interestsList));
             }
 
-            articlesRepository.loadNews(corona, loadTwitter, context, cards -> {
+            articlesRepository.loadNews(newsConfig, loadTwitter, context, cards -> {
                 setNewsCards(cards);
             });
         }

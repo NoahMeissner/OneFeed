@@ -22,8 +22,8 @@ public class CustomImageRequest {
             ImageRequest imageRequest = new ImageRequest(iconurl, response -> {
                 listener.onResponse(response);
             }, 0, 0, ImageView.ScaleType.CENTER, null, error -> {
-                CharSequence sentence = "Bild konnte nicht geladen werden";
-                Toast.makeText(context.getApplicationContext(), sentence, Toast.LENGTH_LONG).show();
+//                CharSequence sentence = "Bild konnte nicht geladen werden";
+//                Toast.makeText(context.getApplicationContext(), sentence, Toast.LENGTH_LONG).show();
             });
             queue.add(imageRequest);
         }

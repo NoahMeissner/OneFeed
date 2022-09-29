@@ -59,14 +59,16 @@ public class FeedActivity extends AppCompatActivity {
         // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
             if (viewModel.getLimitIsEnabled(this)) {
+                // Show toast if limit reached
                 if (viewModel.getIsLimitIsReached()) {
-                    // Todo: generate string resource
                     Toast.makeText(
                             this,
-                            "Sie haben Ihr tägliches Limit an News erreicht. Genießen Sie Ihre Zeit!",
-                            Toast.LENGTH_LONG).show();
+                            getString(R.string.feed_limit_reached),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Otherwise count up
                 viewModel.addReadArticle(url);
             }
 
@@ -91,7 +93,9 @@ public class FeedActivity extends AppCompatActivity {
         });
 
         this.viewModel.getNewsReadList().observe(this, l -> {
+            // Set limit reached if user read enough articles
             viewModel.setLimitReached(l.size() >= viewModel.getAmountArticlesReadLimit(this));
+
             Log.d("TAG", "onCreate: read: " + l.size() + " of " +
                     viewModel.getAmountArticlesReadLimit(this) + " articles.");
         });

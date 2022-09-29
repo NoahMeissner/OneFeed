@@ -57,7 +57,10 @@ public class FeedActivity extends AppCompatActivity {
         });
 
         this.viewModel.getInternetConnected().observe(this, connected -> {
-            Log.d("TAG", "onCreate: Disconnected internet!");
+            if (!connected) {
+                initErrorFragment();
+                Log.d("TAG", "onCreate: Disconnected from internet!");
+            }
         });
 
         // Open browser window in app on click
@@ -107,7 +110,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private void initErrorFragment(){
         ErrorFragment errorFragment = new ErrorFragment(boo -> {
-            //@TODO neuen Versuch starten
+            viewModel.loadNewsCards(this);
         });
         errorFragment.show(getSupportFragmentManager(),"");
     }

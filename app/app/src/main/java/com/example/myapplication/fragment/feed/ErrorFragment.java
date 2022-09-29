@@ -67,6 +67,7 @@ public class ErrorFragment extends DialogFragment {
             button.setOnClickListener(view1 -> {
                 progressBar.setVisibility(View.VISIBLE);
                 button.setVisibility(View.GONE);
+                this.dismiss();
                 newTry.buttonHasPressed(true);
             });
     }

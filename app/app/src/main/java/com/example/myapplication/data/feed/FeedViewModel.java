@@ -103,33 +103,6 @@ public class FeedViewModel extends AndroidViewModel {
         return null;
     }
 
-//    // Sets a plain color as the content of the images and icons while loading
-//    // https://blog.prototypr.io/skeleton-loader-an-overview-purpose-usage-and-design-173b5340d0e1
-//    private void setLoadingImages(ArrayList<ArticleCard> cards, Context context) {
-//        Bitmap loadingImage = generateLoadingImage(context);
-//        for (ArticleCard card : cards) {
-//            if (card.getClass() == ArticleCard.class) {
-//                if (card.getImage() == null) {
-//                    card.setImage(loadingImage);
-//                }
-//                if (card.getSource().getIcon() == null) {
-//                    card.getSource().setIcon(loadingImage);
-//                }
-//            }
-//        }
-//    }
-//
-//    @NonNull
-//    private Bitmap generateLoadingImage(Context context) {
-//        Bitmap loadingImage = Bitmap.createBitmap(20, 20, Bitmap.Config.ARGB_8888);
-//        TypedArray a = context.getTheme().obtainStyledAttributes(
-//                R.style.AppTheme, new int[] {com.google.android.material.R.attr.colorSecondaryContainer}
-//        );
-//        int loadingImageColorId = a.getResourceId(0, 0);
-//        loadingImage.eraseColor(context.getColor(loadingImageColorId));
-//        return loadingImage;
-//    }
-
     private void setNewsCards(ArrayList<NewsCard> articleResults) {
         ArrayList<NewsCard> newValues = new ArrayList<>();
         if (articleResults != null) {

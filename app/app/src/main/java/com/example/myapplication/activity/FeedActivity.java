@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private FeedViewModel viewModel;
 
+    ErrorFragment errorFragment;
     SwipeRefreshLayout refreshLayout;
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
@@ -56,9 +58,14 @@ public class FeedActivity extends AppCompatActivity {
             this.viewModel.loadNewsCards(this);
         });
 
+
         this.viewModel.getInternetConnected().observe(this, connected -> {
             if (!connected) {
-                initErrorFragment();
+                errorFragment = new ErrorFragment();
+                errorFragment.setListener(boo -> {
+                    viewModel.loadNewsCards(this);
+                });
+                errorFragment.show(getSupportFragmentManager(),"");
                 Log.d("TAG", "onCreate: Disconnected from internet!");
             }
         });
@@ -108,13 +115,6 @@ public class FeedActivity extends AppCompatActivity {
         });
     }
 
-    private void initErrorFragment(){
-        ErrorFragment errorFragment = new ErrorFragment(boo -> {
-            viewModel.loadNewsCards(this);
-        });
-        errorFragment.show(getSupportFragmentManager(),"");
-    }
-
     private void initGestures() {
         /*
        This Method will initial the Swipe Gestures
@@ -160,5 +160,12 @@ public class FeedActivity extends AppCompatActivity {
         // Inflate the menu, this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.empty, menu);
         return true;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Close open fragments as they will be recreated (avoids multiple popups)
+        errorFragment.dismiss();
     }
 }

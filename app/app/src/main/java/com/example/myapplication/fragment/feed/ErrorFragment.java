@@ -28,8 +28,7 @@ public class ErrorFragment extends DialogFragment {
     /*
     Constructor
      */
-    public ErrorFragment(NewTry newTry){
-        this.newTry = newTry;
+    public ErrorFragment(){
     }
 
         @Override
@@ -47,6 +46,10 @@ public class ErrorFragment extends DialogFragment {
             Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             initUI(view);
             return view;
+        }
+
+        public void setListener(NewTry listener) {
+            this.newTry = listener;
         }
 
         /*
@@ -67,8 +70,8 @@ public class ErrorFragment extends DialogFragment {
             button.setOnClickListener(view1 -> {
                 progressBar.setVisibility(View.VISIBLE);
                 button.setVisibility(View.GONE);
-                this.dismiss();
                 newTry.buttonHasPressed(true);
+                this.dismiss();
             });
     }
     

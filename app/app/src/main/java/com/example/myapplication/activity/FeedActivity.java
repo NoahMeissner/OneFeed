@@ -51,9 +51,13 @@ public class FeedActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
         refreshLayout.setRefreshing(true); // Refresh for first load
 
-        // Refresh on categories change
+        // Refresh on sources change
         this.viewModel.getSources().observe(this, sources -> {
             this.viewModel.loadNewsCards(this);
+        });
+
+        this.viewModel.getInternetConnected().observe(this, connected -> {
+            Log.d("TAG", "onCreate: Disconnected internet!");
         });
 
         // Open browser window in app on click

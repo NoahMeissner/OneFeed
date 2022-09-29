@@ -3,6 +3,7 @@ package com.example.myapplication.data.feed;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -19,6 +20,8 @@ import com.example.myapplication.data.insight.NewsReadEntry;
 import com.example.myapplication.database.DataBaseHelper;
 import com.example.myapplication.database.InsightRepository;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -36,6 +39,7 @@ public class FeedViewModel extends AndroidViewModel {
     private final MutableLiveData<ArrayList<NewsCard>> newsCards;
     private final LiveData<List<NewsReadEntry>> newsReadList;
     private final LiveData<List<SourceAdd>> sources;
+    private final MutableLiveData<Boolean> internetConnected;
 
     private final InsightPreferencesHelper insightPreferencesHelper;
     private boolean insightLimitIsReached = false;
@@ -51,6 +55,8 @@ public class FeedViewModel extends AndroidViewModel {
         this.newsCards = new MutableLiveData<>(new ArrayList<NewsCard>() {});
         this.newsReadList = insightRepository.getNewsReadToday();
         this.sources = categoriesRepository.getSourceArrayList();
+        this.internetConnected = new MutableLiveData<>(isOnline(application));
+
         this.insightPreferencesHelper = new InsightPreferencesHelper(application);
 
         // Initial load for cards
@@ -62,7 +68,8 @@ public class FeedViewModel extends AndroidViewModel {
     }
 
     public void loadNewsCards(Context context) {
-        if (this.sources.getValue() != null) {
+        this.internetConnected.setValue(isOnline(context));
+        if (this.internetConnected.getValue() && this.sources.getValue() != null) {
             RssUrls rssUrls = new RssUrls();
             List<SourceAdd> sources = this.sources.getValue();
             HashMap<Constants.news, List<String>> corona = new HashMap<>();
@@ -115,6 +122,12 @@ public class FeedViewModel extends AndroidViewModel {
         }
     }
 
+    // https://stackoverflow.com/a/24692766
+    public boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
     public void addReadArticle(String url) {
         insightRepository.addNewsReadForToday(url);
     }
@@ -141,5 +154,9 @@ public class FeedViewModel extends AndroidViewModel {
 
     public LiveData<List<SourceAdd>> getSources() {
         return sources;
+    }
+
+    public MutableLiveData<Boolean> getInternetConnected() {
+        return internetConnected;
     }
 }

@@ -63,5 +63,6 @@
     <string name="insight_chart_toggle_year">Jahr</string>
     <string name="mistakeHeadline">Fehler 404</string>
     <string name="errorFragmentText">Prüfen Sie Ihre Internetverbindung</string>
+    <string name="feed_limit_reached">"Feed LimitReached</string>
     <string name="notificationText">"Sie haben für {Quelle} neue Nachrichten"</string>
 </resources>

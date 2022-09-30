@@ -35,8 +35,6 @@ public class InterestsFragment extends Fragment {
     private final Point size = new Point();
     private final HashMap<Constants.interests, InterestsAnimation> buttons = new HashMap<>();
     private final ArrayList<Constants.interests> results = new ArrayList<>();
-    private final int xSpeed = 1;
-    private final int ySpeed = 1;
     private int buttonSize=0;
     private OnDataPass dataPasser;
 
@@ -104,12 +102,14 @@ public class InterestsFragment extends Fragment {
                 .getResources()
                 .getInteger(R.integer.delay));
 
+        int xSpeed = 1;
         if(x<=interestsAnimation.getX()){
             interestsAnimation.setXSpeed(xSpeed);
         }
         if(x>interestsAnimation.getX()){
             interestsAnimation.setXSpeed(-xSpeed);
         }
+        int ySpeed = 1;
         if(y<=interestsAnimation.getY()){
             interestsAnimation.setYSpeed(ySpeed);
         }
@@ -129,7 +129,7 @@ public class InterestsFragment extends Fragment {
                 buttonAnimationReset(interestsAnimation,category);
             }
             if(interestsAnimation.getHeight()==buttonSize){
-                detecButtonAnimation(interestsAnimation,category);
+                detectButtonAnimation(interestsAnimation,category);
             }
         });
     }
@@ -151,7 +151,7 @@ public class InterestsFragment extends Fragment {
 
     //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void detecButtonAnimation(InterestsAnimation interestsAnimation, Constants.interests category){
+    private void detectButtonAnimation(InterestsAnimation interestsAnimation, Constants.interests category){
         double magnificationFactor = 1.1;
         interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
         interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
@@ -171,19 +171,16 @@ public class InterestsFragment extends Fragment {
     }
 
     private void stopAnimation(){
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for(Constants.interests interests : buttons.keySet()){
-                    Objects.requireNonNull(buttons.get(interests)).stopAnimation();
-                }
-                Log.d("InterestsFragment","Finish");
+        Runnable r = () -> {
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            for(Constants.interests interests : buttons.keySet()){
+                Objects.requireNonNull(buttons.get(interests)).stopAnimation();
+            }
+            Log.d("InterestsFragment","Finish");
         };
         ExecutorService service = Executors.newScheduledThreadPool(1);
         service.execute(r);

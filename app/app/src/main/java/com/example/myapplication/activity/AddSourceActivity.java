@@ -1,8 +1,6 @@
 package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -50,7 +47,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
     private GetData data;
-    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,36 +93,56 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initHashMap() {
         data.getSourceAdds().observe(this, l -> {
             enabledSourcesHashMap.clear();
-            enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests, l));
-            enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia, l));
-            enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper, l));
+            enabledSourcesHashMap.put(
+                    Constants.Interests,
+                    data.getCategory(Constants.Interests, l));
+
+            enabledSourcesHashMap.put(
+                    Constants.SocialMedia,
+                    data.getCategory(Constants.SocialMedia, l));
+
+            enabledSourcesHashMap.put(
+                    Constants.Newspaper,
+                    data.getCategory(Constants.Newspaper, l));
+
             addAddButtonToSelectedHashMap();
-            preferences= getSharedPreferences(getBaseContext().getResources()
-                    .getString(R.string.initProcesBoolean), 0);
-            SharedPreferences.Editor editPreferences = preferences.edit();
-            editPreferences.putStringSet(Constants.initial.NotificationList.name(), checkNotification(l));
-            editPreferences.apply();
+            setPreferences(l);
         });
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
+    /*
+    This Method will get the Room Data Sources List and safes in shared Preferences the source Names
+     */
+    private void setPreferences(List<SourceAdd> sources) {
+        SharedPreferences preferences = getSharedPreferences(
+                getBaseContext()
+                        .getResources()
+                        .getString(R.string.initProcesBoolean), 0);
+
+        SharedPreferences.Editor editPreferences = preferences.edit();
+
+        editPreferences.putStringSet(
+                Constants.initial.NotificationList.name(),
+                checkNotification(sources));
+
+        editPreferences.apply();
     }
 
+    /*
+    This Method will start the Service
+     */
     private void startService() {
         Intent intent = new Intent(this, Service.class);
-        if(isMyServiceRunning(Service.class)){
+        if(isMyServiceRunning()){
             getBaseContext().stopService(intent);
         }
         startService(intent);
     }
 
+    /*
+    This Method safes the names from the Source Adds in one list
+        Sources which declared no Notification will be deleted in this List
+     */
     private HashSet<String> checkNotification(List<SourceAdd> sourceAdds) {
         HashSet<String> list = new HashSet<>();
         for(SourceAdd sources:sourceAdds){
@@ -161,9 +177,14 @@ public class AddSourceActivity extends AppCompatActivity implements
     in this method the recycler view is initialized and passed to the initRecyclerView method
      */
     private void declareRecyclerView(){
+        // Initial RecyclerViewer
         RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
         RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
         RecyclerView recyclerInterests = findViewById(R.id.recyclerViewQuellenIn);
+        // edit recycler Viewer that they are not scrollable
+        recyclerInterests.setNestedScrollingEnabled(false);
+        recyclerNewsPaper.setNestedScrollingEnabled(false);
+        recyclerSocialMedia.setNestedScrollingEnabled(false);
 
         adapterNews = initRecyclerView(
                 recyclerNewsPaper,
@@ -188,7 +209,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         add to the ARRAYList.
         */
-
         try {
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
                     .add(new SourceAdd(Constants.ADDButton.name(),
@@ -256,6 +276,16 @@ public class AddSourceActivity extends AppCompatActivity implements
         editSourceFragment.show(getSupportFragmentManager(),"");
     }
 
+    // This Method check if the Service is running
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (Service.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     //this method is inherited from the onclick listener here and
     // using it we can open the fragment depending on the button clicked

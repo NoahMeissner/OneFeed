@@ -119,13 +119,13 @@ public class NewsRepository {
     private void loadArticles(HashMap<Constants.news, List<String>> rssEndpoints, Context context, LoadNewsCallback listener) {
         ArrayList<ArticleCard> articleCards = new ArrayList<>();
 
-        int currentIndex = 0;
-        boolean newsFound = false;
+        int newsIndex = 0;
         for (Map.Entry<Constants.news, List<String>> entry : rssEndpoints.entrySet()) {
+            int urlIndex = 0;
             for (String url : entry.getValue()) {
-                newsFound = true;
                 // Load all articles and notify listener when all data has been loaded
-                boolean isFinalRun = currentIndex == rssEndpoints.entrySet().size() - 1;
+                boolean isFinalRun = urlIndex == rssEndpoints.entrySet().size() - 1
+                        && newsIndex == rssEndpoints.entrySet().size() - 1;
                 loadArticlesForRssEndpoint(
                     url,
                     entry.getKey(),
@@ -138,11 +138,13 @@ public class NewsRepository {
                         }
                 });
 
-                currentIndex++;
+                urlIndex++;
             }
+            newsIndex++;
         }
 
-        if (!newsFound) {
+        // Logging if no articles have been loaded
+        if (newsIndex == 0) {
             listener.onRssFailed();
             Log.d(TAG, "loadArticles: No news have been loaded. " +
                     "This is because the user has specified no interests.");

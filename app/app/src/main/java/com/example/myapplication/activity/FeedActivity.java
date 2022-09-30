@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
 
     private FeedViewModel viewModel;
 
+    ErrorFragment errorFragment;
     SwipeRefreshLayout refreshLayout;
     private NewsCardListAdapter adapter;
     private RecyclerView recycler;
@@ -51,22 +53,36 @@ public class FeedActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(() -> this.viewModel.loadNewsCards(this));
         refreshLayout.setRefreshing(true); // Refresh for first load
 
-        // Refresh on categories change
+        // Refresh on sources change
         this.viewModel.getSources().observe(this, sources -> {
             this.viewModel.loadNewsCards(this);
+        });
+
+
+        this.viewModel.getInternetConnected().observe(this, connected -> {
+            if (!connected) {
+                errorFragment = new ErrorFragment();
+                errorFragment.setListener(boo -> {
+                    viewModel.loadNewsCards(this);
+                });
+                errorFragment.show(getSupportFragmentManager(),"");
+                Log.d("TAG", "onCreate: Disconnected from internet!");
+            }
         });
 
         // Open browser window in app on click
         this.adapter = new NewsCardListAdapter(url -> {
             if (viewModel.getLimitIsEnabled(this)) {
+                // Show toast if limit reached
                 if (viewModel.getIsLimitIsReached()) {
-                    // Todo: generate string resource
                     Toast.makeText(
                             this,
-                            "Sie haben Ihr tägliches Limit an News erreicht. Genießen Sie Ihre Zeit!",
-                            Toast.LENGTH_LONG).show();
+                            getString(R.string.feed_limit_reached),
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Otherwise count up
                 viewModel.addReadArticle(url);
             }
 
@@ -91,17 +107,12 @@ public class FeedActivity extends AppCompatActivity {
         });
 
         this.viewModel.getNewsReadList().observe(this, l -> {
+            // Set limit reached if user read enough articles
             viewModel.setLimitReached(l.size() >= viewModel.getAmountArticlesReadLimit(this));
+
             Log.d("TAG", "onCreate: read: " + l.size() + " of " +
                     viewModel.getAmountArticlesReadLimit(this) + " articles.");
         });
-    }
-
-    private void initErrorFragment(){
-        ErrorFragment errorFragment = new ErrorFragment(boo -> {
-            //@TODO neuen Versuch starten
-        });
-        errorFragment.show(getSupportFragmentManager(),"");
     }
 
     private void initGestures() {
@@ -149,5 +160,12 @@ public class FeedActivity extends AppCompatActivity {
         // Inflate the menu, this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.empty, menu);
         return true;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Close open fragments as they will be recreated (avoids multiple popups)
+        errorFragment.dismiss();
     }
 }

@@ -16,7 +16,7 @@ import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class OnboardActivity extends AppCompatActivity implements InterestsFragment.OnDataPass, SocialMediaFragment.getSelectedSocialMedia{
+public class OnboardActivity extends AppCompatActivity implements InterestsFragment.OnDataPass, SocialMediaFragment.GetSelectedSocialMedia {
 
     /*
     This activity is responsible for the entire setup process.

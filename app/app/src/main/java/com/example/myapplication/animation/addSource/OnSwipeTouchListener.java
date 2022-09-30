@@ -6,8 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * Detects swipes across a view.
+/*
+ Detects swipes across a view.
  */
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
@@ -15,19 +15,22 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     Variables
      */
     private  GestureDetector gestureDetector;
+    private final View view;
+    private final Gesture gesture;
 
 
     /*
     Constructor
      */
     public OnSwipeTouchListener(View view, Gesture gesture){
-        setGestureListener(view,gesture);
+        this.view = view;
+        this.gesture = gesture;
     }
 
     /*
     This Method sets an Gesture Listener
      */
-    private void setGestureListener(View view, Gesture gesture){
+    public void setGestureListener(){
         int threshold = 100;
         int velocity_threshold = 100;
         GestureDetector.SimpleOnGestureListener listener =
@@ -44,40 +47,22 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                                            float velocityY) {
 
                         float xDiff = e2.getX() - e1.getX();
-                        float yDiff = e2.getY() - e1.getY();
                         /*
                        checks Conditions to know which Gesture was pressed
                          */
-                        try{
-                            if(Math.abs(xDiff) > Math.abs(yDiff)){
-                                if(Math.abs((xDiff))>threshold
-                                        && Math.abs(velocityX)>velocity_threshold){
+                        try {
+                                if (Math.abs((xDiff)) > threshold
+                                        && Math.abs(velocityX) > velocity_threshold) {
 
                                     if (xDiff > 0) {
-                                        Log.d("Swiped","Right") ;
+                                        Log.d("Swiped", "Right");
                                         gesture.gestureHasDetected(Swipe.Right);
-                                    }
-                                    else{
-                                        Log.d("Swiped","Left");
+                                    } else {
+                                        Log.d("Swiped", "Left");
                                         gesture.gestureHasDetected(Swipe.Left);
                                     }
                                     return true;
                                 }
-                            }else{
-                                if(Math.abs(yDiff)>threshold
-                                        && Math.abs(velocityY)>velocity_threshold){
-
-                                    if(yDiff >0){
-                                        Log.d("swiped","down");
-                                        gesture.gestureHasDetected(Swipe.Down);
-                                    }
-                                    else{
-                                        Log.d("swiped","up");
-                                        gesture.gestureHasDetected(Swipe.Up);
-                                    }
-                                    return true;
-                                }
-                            }
                         }
                         catch (Exception e){
                             e.printStackTrace();

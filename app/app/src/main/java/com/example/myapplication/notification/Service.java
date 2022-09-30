@@ -29,7 +29,6 @@ public class Service extends android.app.Service {
      */
     private HashSet<String> notificationList = new HashSet<>();
     private Timer timer = new Timer();
-    private final int delay = 60000;
 
 
     /*
@@ -37,6 +36,7 @@ public class Service extends android.app.Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int delay = 60000;
         timer.schedule(new Time(i -> {
                     getList(i);
                     stopTimerTask();

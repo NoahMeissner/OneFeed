@@ -35,8 +35,7 @@ import java.util.Objects;
 public class AddSourceActivity extends AppCompatActivity implements
         AdapterListAddActivity.OnItemClickListener,
         AdapterListAddActivity.longItemClickListener,
-        DeleteSourceFragment.DeleteSourceFragmentInterface,
-        EditSourceFragment.EditSourceFragmentChanges {
+        DeleteSourceFragment.DeleteSourceFragmentInterface{
 
     /*
     Constants
@@ -74,6 +73,7 @@ public class AddSourceActivity extends AppCompatActivity implements
          */
         View appBar = findViewById(R.id.component_app_bar_id);
         View activity = findViewById(R.id.addActivityView);
+        //@TODO repair
         setSwipeListener(appBar);
         setSwipeListener(activity);
     }
@@ -85,6 +85,7 @@ public class AddSourceActivity extends AppCompatActivity implements
                 closeActivity();
             }
         });
+        onSwipeTouchListener.setGestureListener();
     }
 
     /*
@@ -269,17 +270,15 @@ public class AddSourceActivity extends AppCompatActivity implements
         EditSourceFragment editSourceFragment = new EditSourceFragment(
                 source,
                 enabledSourcesHashMap.get(source.getCategories()),
-                this,
                 data);
-
-        editSourceFragment.setDataChanged(this);
         editSourceFragment.show(getSupportFragmentManager(),"");
     }
 
     // This Method check if the Service is running
     private boolean isMyServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+        for (ActivityManager.RunningServiceInfo
+                service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (Service.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
@@ -324,7 +323,6 @@ public class AddSourceActivity extends AppCompatActivity implements
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-//            refresh();
         }
     }
 
@@ -344,29 +342,5 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         longSourceClick = false;
         setAnimation(false);
-    }
-
-    /*
-    This Method will refresh the Activity
-     */
-//
-//    private void refresh(){
-//        Intent refresh = new Intent(this, AddSourceActivity.class);
-//        overridePendingTransition(0, 0);
-//        startActivity(refresh);
-//        overridePendingTransition(0, 0);
-//        this.finish();
-//    }
-
-
-    @Override
-    public void dataHasChanged(Boolean b, SourceAdd sourceAdd) {
-        if(b == null){
-            return;
-        }
-        /*
-        Update Selected HashMap from the DataBase to update the Recycler viewer
-         */
-//        refresh();
     }
 }

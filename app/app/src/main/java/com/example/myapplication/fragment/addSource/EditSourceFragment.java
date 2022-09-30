@@ -31,7 +31,6 @@ import java.util.Objects;
 public class EditSourceFragment extends DialogFragment
         implements AdapterEditSourceFragment.SourceSettingsChanged {
 
-
     /*
     this method creates the EditSources fragment,
      which can be used to edit individual sources.
@@ -43,7 +42,6 @@ public class EditSourceFragment extends DialogFragment
     // These Constants will be called by the Constructor
     private final SourceAdd source;
     private final ArrayList<SourceAdd> selectedHashMap;
-    private EditSourceFragmentChanges dataChanged;
     private final GetData getData;
     private final ArrayList<String> fullList;
 
@@ -62,11 +60,9 @@ public class EditSourceFragment extends DialogFragment
      */
     public EditSourceFragment( SourceAdd source,
                               ArrayList<SourceAdd> selectedHashMap,
-                              EditSourceFragmentChanges dataChanged,
                               GetData getdata){
         this.source = source;
         this.selectedHashMap = selectedHashMap;
-        this.dataChanged = dataChanged;
         this.getData = getdata;
         fullList = uiElements.getArrayListHashMap().get(source.getCategories());
         uiElements.initialPictureHashMap();
@@ -194,7 +190,6 @@ public class EditSourceFragment extends DialogFragment
                 (preferences.getBoolean(Constants.initial.Notification.name(),false)),
                 getImageID(changedSource), true);
         getData.InsertSource(sourceAdd);
-        dataChanged.dataHasChanged(true, changedSource);
         onStop();
     }
 
@@ -204,7 +199,6 @@ public class EditSourceFragment extends DialogFragment
      */
     private void deleteItem(SourceAdd changedSource) {
         getData.removeSource(changedSource);
-        dataChanged.dataHasChanged(false, changedSource);
     }
 
     /*
@@ -212,10 +206,6 @@ public class EditSourceFragment extends DialogFragment
      */
     private int getImageID(SourceAdd source) {
         return Objects.requireNonNull(uiElements.getPictureId(source.getName()));
-    }
-
-    public void setDataChanged(EditSourceFragmentChanges dataChanged) {
-        this.dataChanged = dataChanged;
     }
 
     /*
@@ -233,12 +223,5 @@ public class EditSourceFragment extends DialogFragment
         getData.removeSource(changedSource);
         getData.InsertSource(changedSource);
         onStop();
-    }
-
-    /*
-    Interface to inform the Activity
-     */
-    public interface EditSourceFragmentChanges {
-        void dataHasChanged(Boolean b, SourceAdd sourceAdd);
     }
 }

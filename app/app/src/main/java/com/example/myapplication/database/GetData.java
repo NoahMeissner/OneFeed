@@ -44,14 +44,10 @@ public class GetData {
     }
 
     public ArrayList<SourceAdd> getCategory(Constants category, List<SourceAdd> sources){
-        ArrayList<SourceAdd> result = new ArrayList<>();
+        ArrayList<SourceAdd> result;
         HashMap<Constants,ArrayList<SourceAdd>> dataBase = dataBaseHelper.getAll(sources);
-        try {
-            result = dataBase.get(category);
-        }
-        finally {
-            return result;
-        }
+        result = dataBase.get(category);
+        return result;
     }
 
     public void removeSource(SourceAdd sourceADD){
@@ -61,15 +57,6 @@ public class GetData {
     public void InsertSource(SourceAdd sourceAdd){
         dataBaseHelper.insertSourceItem(sourceAdd);
     }
-
-//    /*
-//    This Method is a Listener from the DataBaseHelper to get the Information after the DataBase has
-//    started
-//     */
-//    @Override
-//    public void getDataBase(LiveData<List<SourceAdd>> sourceAdds) {
-//        this.sourceAdds=sourceAdds;
-//    }
 
     public LiveData<List<SourceAdd>> getSourceAdds() {
         return sourceAdds;

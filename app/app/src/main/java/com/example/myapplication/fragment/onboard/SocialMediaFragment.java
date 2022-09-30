@@ -33,11 +33,7 @@ import net.openid.appauth.AuthorizationResponse;
 public class SocialMediaFragment extends Fragment {
 
     private final Point size = new Point();
-    private final int xSpeed = 1;
-    private final int ySpeed = 4;
-    private final int spacing = 330;
-    private final int startPoint = 0;
-    private getSelectedSocialMedia getSelectedSocialMedia;
+    private GetSelectedSocialMedia getSelectedSocialMedia;
 
     private TwitterApiHelper twitterApiHelper;
     private ActivityResultLauncher<Intent> twitterAuthenticationLauncher;
@@ -51,7 +47,7 @@ public class SocialMediaFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        getSelectedSocialMedia = (getSelectedSocialMedia) context;
+        getSelectedSocialMedia = (GetSelectedSocialMedia) context;
 
         this.twitterApiHelper = new TwitterApiHelper(context);
         // Opens a browser window where users can link their twitter account
@@ -74,7 +70,9 @@ public class SocialMediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_social_media_fragement, container, false);
-        organizeAnimation(Constants.socialMedia.Twitter.name(), view,R.id.imageTwitterButton,-2*xSpeed,xSpeed-ySpeed);
+        int xSpeed = 1;
+        int ySpeed = 4;
+        organizeAnimation(Constants.socialMedia.Twitter.name(), view,R.id.imageTwitterButton,-2* xSpeed, xSpeed - ySpeed);
         return view;
     }
 
@@ -99,6 +97,8 @@ public class SocialMediaFragment extends Fragment {
         );
         int attributeResourceId = a.getResourceId(0, 0);
         DrawableCompat.setTint(socialMediaAnimation.getDrawable(), requireContext().getColor(attributeResourceId));
+        int spacing = 330;
+        int startPoint = 0;
         socialMediaAnimation.setX(startPoint, size.x - spacing);
         socialMediaAnimation.setY(spacing, size.y - spacing - spacing);
         socialMediaAnimation.setXSpeed(xSpeed);
@@ -116,7 +116,7 @@ public class SocialMediaFragment extends Fragment {
             // Launch the twitter authentication view
             twitterAuthenticationLauncher.launch(twitterApiHelper.createAuthorizationIntent());
 
-            // Style the view accordincly
+            // Style the view accordingly
             // Todo: undo styling, if the authentication failed
             DrawableCompat.setTint(socialMediaAnimation.getDrawable(), ContextCompat.getColor(requireContext(), R.color.white));
             socialMediaAnimation.stopAnimation();
@@ -129,7 +129,7 @@ public class SocialMediaFragment extends Fragment {
         getSelectedSocialMedia.getSelectedSocialMedia(Constants.socialMedia.valueOf(socialMediaName));
     }
 
-    public interface getSelectedSocialMedia{
+    public interface GetSelectedSocialMedia {
         void getSelectedSocialMedia(Constants.socialMedia socialMedia);
     }
 }

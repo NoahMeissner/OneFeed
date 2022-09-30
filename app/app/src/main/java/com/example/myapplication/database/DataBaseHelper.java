@@ -3,7 +3,6 @@ package com.example.myapplication.database;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
@@ -12,9 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import kotlinx.coroutines.scheduling.Task;
 
 public class DataBaseHelper {
@@ -25,8 +21,8 @@ public class DataBaseHelper {
 
 
     // Constants
-    private UserDao userDao;
-    private LiveData<List<SourceAdd>> sourceArrayList;
+    private final UserDao userDao;
+    private final LiveData<List<SourceAdd>> sourceArrayList;
 
     /*
     This Method is there for the getData Class
@@ -46,28 +42,25 @@ public class DataBaseHelper {
        Initialise HashMap
          */
         HashMap<Constants,ArrayList<SourceAdd>> result = new HashMap<>();
-        try{
-            result.put(Constants.SocialMedia,new ArrayList<>());
-            result.put(Constants.Interests,new ArrayList<>());
-            result.put(Constants.Newspaper,new ArrayList<>());
-    /*
-    Check the DataBase and put Items in order
-     */
-            for(SourceAdd sourceAdd: sources){
-                if(sourceAdd.getCategories() == Constants.Newspaper){
-                    Objects.requireNonNull(result.get(Constants.Newspaper)).add(sourceAdd);
-                }
-                if(sourceAdd.getCategories() == Constants.SocialMedia){
-                    Objects.requireNonNull(result.get(Constants.SocialMedia)).add(sourceAdd);
-                }
-                if(sourceAdd.getCategories() == Constants.Interests){
-                    Objects.requireNonNull(result.get(Constants.Interests)).add(sourceAdd);
-                }
+
+        result.put(Constants.SocialMedia,new ArrayList<>());
+        result.put(Constants.Interests,new ArrayList<>());
+        result.put(Constants.Newspaper,new ArrayList<>());
+        /*
+        Check the DataBase and put Items in order
+         */
+        for(SourceAdd sourceAdd: sources){
+            if(sourceAdd.getCategories() == Constants.Newspaper){
+                Objects.requireNonNull(result.get(Constants.Newspaper)).add(sourceAdd);
+            }
+            if(sourceAdd.getCategories() == Constants.SocialMedia){
+                Objects.requireNonNull(result.get(Constants.SocialMedia)).add(sourceAdd);
+            }
+            if(sourceAdd.getCategories() == Constants.Interests){
+                Objects.requireNonNull(result.get(Constants.Interests)).add(sourceAdd);
             }
         }
-        finally {
-            return  result;
-        }
+        return  result;
     }
 
 

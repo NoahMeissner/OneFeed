@@ -4,6 +4,7 @@ public enum Constants {
     /*
     This Enum ist important to set the Categories and other
      */
+
     // Categories
     SocialMedia,
     Newspaper,
@@ -12,15 +13,38 @@ public enum Constants {
 
     // Todo: split into seperate files
     // This enum contains all interests Categories
-    public enum interests{Corona, Politik, Sport, Technik, Gaming, Wirtschaft}
+    public enum interests{
+        Corona,
+        Politik,
+        Sport,
+        Technik,
+        Gaming,
+        Wirtschaft
+    }
     // This enum contains all News Sources
-    public enum news{FAZ,Spiegel}
+    public enum news{
+        FAZ,
+        Spiegel
+    }
     // This enum contains all Social Media Sources
-    public enum socialMedia{Twitter}
+    public enum socialMedia{
+        Twitter
+    }
     // This Enum includes all Variable names for the Shared Preferences
     // Todo: rename to sharedprefrences?
-    public enum initial{Notification, Process, ConsumptionAnalyse, InterestsAreInitialised}
+    public enum initial{
+        Notification,
+        Process,
+        ConsumptionAnalyse,
+        InterestsAreInitialised,
+        NotificationList
+    }
     // Settings keys for insight (consumption analysis)
     // Todo: choose one name: insight / consumption analysis
-    public enum insightSettings { articlesPerDay, limitationIsEnabled, articlesOpened, articlesOpenedDate }
+    public enum insightSettings {
+        articlesPerDay,
+        limitationIsEnabled,
+        articlesOpened,
+        articlesOpenedDate
+    }
 }

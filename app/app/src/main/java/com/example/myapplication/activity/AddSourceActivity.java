@@ -1,11 +1,16 @@
 package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,9 +27,12 @@ import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.fragment.addSource.InformationFragment;
+import com.example.myapplication.notification.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class AddSourceActivity extends AppCompatActivity implements
@@ -42,7 +50,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
     private GetData data;
-
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,7 @@ public class AddSourceActivity extends AppCompatActivity implements
         addAddButtonToSelectedHashMap();
         initButton();
         initGestures();
+        startService();
     }
 
     private void initGestures() {
@@ -92,7 +101,40 @@ public class AddSourceActivity extends AppCompatActivity implements
             enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia, l));
             enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper, l));
             addAddButtonToSelectedHashMap();
+            preferences= getSharedPreferences(getBaseContext().getResources()
+                    .getString(R.string.initProcesBoolean), 0);
+            SharedPreferences.Editor editPreferences = preferences.edit();
+            editPreferences.putStringSet(Constants.initial.NotificationList.name(), checkNotification(l));
+            editPreferences.apply();
         });
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, Service.class);
+        if(isMyServiceRunning(Service.class)){
+            getBaseContext().stopService(intent);
+        }
+        startService(intent);
+    }
+
+    private HashSet<String> checkNotification(List<SourceAdd> sourceAdds) {
+        HashSet<String> list = new HashSet<>();
+        for(SourceAdd sources:sourceAdds){
+            if (sources.isNotification()){
+                list.add(sources.getName());
+            }
+        }
+        return list;
     }
 
     /*

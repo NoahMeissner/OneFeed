@@ -22,8 +22,6 @@ import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
 import com.example.myapplication.fragment.feed.ErrorFragment;
-import com.example.myapplication.notification.Notification;
-import com.example.myapplication.notification.NotificationService;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -39,11 +37,6 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
-        Intent intent = new Intent(this,NotificationService.class);
-        startService(intent);
-
-
 
         // ViewModel
         this.viewModel = new ViewModelProvider(this).get(FeedViewModel.class);

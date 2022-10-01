@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.myapplication.R;
+import com.google.android.material.color.MaterialColors;
 
 
 public class NotificationPermissionFragment extends Fragment {
@@ -32,7 +33,8 @@ public class NotificationPermissionFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.imageViewNotification);
         @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = view.getResources()
                 .getDrawable(R.drawable.notification, view.getContext().getTheme());
-        drawable.setTint(androidx.constraintlayout.widget.R.attr.colorAccent);
+        drawable.setTint(MaterialColors.getColor(view,
+                com.google.android.material.R.attr.colorPrimary));
         imageView.setImageDrawable(drawable);
     }
 

@@ -24,7 +24,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewNotification"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="92dp"

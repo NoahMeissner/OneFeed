@@ -3,4 +3,5 @@
 
 <resources>
     <integer name="delay">10</integer>
+    <integer name="spacing">330</integer>
 </resources>

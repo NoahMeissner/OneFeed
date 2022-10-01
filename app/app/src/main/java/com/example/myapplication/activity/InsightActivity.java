@@ -105,6 +105,7 @@ public class InsightActivity extends AppCompatActivity {
                 finish();
             }
         });
+        onSwipeTouchListener.setGestureListener();
     }
 
     /*

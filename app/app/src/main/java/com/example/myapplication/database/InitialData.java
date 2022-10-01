@@ -21,7 +21,7 @@ public class InitialData {
     Constants
      */
     private final Context context;
-    private DataBaseHelper dataBaseHelper;
+    private final DataBaseHelper dataBaseHelper;
     private SharedPreferences.Editor editPreferences;
     private SharedPreferences sharedPreferences;
     private Set<String> selectedInterestsHashSet;

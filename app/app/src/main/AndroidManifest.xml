@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31"
         >
-        <service android:name=".notification.NotificationService" />
+        <service android:name=".notification.Service" />
 
         <activity
             android:name=".activity.InsightActivity"

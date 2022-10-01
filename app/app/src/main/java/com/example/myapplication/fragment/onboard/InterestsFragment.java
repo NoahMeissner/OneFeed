@@ -35,8 +35,6 @@ public class InterestsFragment extends Fragment {
     private final Point size = new Point();
     private final HashMap<Constants.interests, InterestsAnimation> buttons = new HashMap<>();
     private final ArrayList<Constants.interests> results = new ArrayList<>();
-    private final int xSpeed = 1;
-    private final int ySpeed = 1;
     private int buttonSize=0;
     private OnDataPass dataPasser;
 
@@ -91,7 +89,10 @@ public class InterestsFragment extends Fragment {
         }
     }
 
-    // This method sets the parameters for the animation, which is implemented in the Interests Animation class
+    /*
+    This method sets the parameters for the animation,
+     which is implemented in the Interests Animation class
+     */
     private void setAnimation(InterestsAnimation interestsAnimation, float x, float y){
         /*
         The field size for the animation is transferred here
@@ -104,12 +105,14 @@ public class InterestsFragment extends Fragment {
                 .getResources()
                 .getInteger(R.integer.delay));
 
+        int xSpeed = 1;
         if(x<=interestsAnimation.getX()){
             interestsAnimation.setXSpeed(xSpeed);
         }
         if(x>interestsAnimation.getX()){
             interestsAnimation.setXSpeed(-xSpeed);
         }
+        int ySpeed = 1;
         if(y<=interestsAnimation.getY()){
             interestsAnimation.setYSpeed(ySpeed);
         }
@@ -129,14 +132,16 @@ public class InterestsFragment extends Fragment {
                 buttonAnimationReset(interestsAnimation,category);
             }
             if(interestsAnimation.getHeight()==buttonSize){
-                detecButtonAnimation(interestsAnimation,category);
+                detectButtonAnimation(interestsAnimation,category);
             }
         });
     }
 
     //This method rolls back a user's answer if he revises it
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void buttonAnimationReset(InterestsAnimation interestsAnimation, Constants.interests category) {
+    private void buttonAnimationReset(InterestsAnimation interestsAnimation,
+                                      Constants.interests category) {
+
         interestsAnimation.getLayoutParams().width= buttonSize;
         interestsAnimation.getLayoutParams().height= buttonSize;
         interestsAnimation.setBackground(getResources()
@@ -149,13 +154,23 @@ public class InterestsFragment extends Fragment {
         dataPasser.onDataPass(results);
     }
 
-    //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
+    /*
+    This method recognizes a reaction of the user and makes
+     it visible in the layout and saves his answer in an ArrayList
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void detecButtonAnimation(InterestsAnimation interestsAnimation, Constants.interests category){
+    private void detectButtonAnimation(InterestsAnimation interestsAnimation,
+                                       Constants.interests category){
+
         double magnificationFactor = 1.1;
-        interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
-        interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
-        interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
+        interestsAnimation.getLayoutParams()
+                .width= (int) (interestsAnimation.getWidth()*magnificationFactor);
+
+        interestsAnimation.getLayoutParams()
+                .height= (int) (interestsAnimation.getHeight()*magnificationFactor);
+
+        interestsAnimation
+                .setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
 
         interestsAnimation.setBackground(getResources()
                 .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
@@ -164,26 +179,29 @@ public class InterestsFragment extends Fragment {
         dataPasser.onDataPass(results);
         for(Constants.interests s:buttons.keySet()){
             if(!Objects.equals(s, category)){
-                setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+                setAnimation(Objects.requireNonNull(buttons.get(s)),
+                        interestsAnimation.getX(),interestsAnimation.getY());
+
                 stopAnimation();
             }
         }
     }
 
+    /*
+    This Method stops the Animation
+     */
     private void stopAnimation(){
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for(Constants.interests interests : buttons.keySet()){
-                    Objects.requireNonNull(buttons.get(interests)).stopAnimation();
-                }
-                Log.d("InterestsFragment","Finish");
+        int secondsUntilStop = 4000;
+        Runnable r = () -> {
+            try {
+                Thread.sleep(secondsUntilStop);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            for(Constants.interests interests : buttons.keySet()){
+                Objects.requireNonNull(buttons.get(interests)).stopAnimation();
+            }
+            Log.d("InterestsFragment","Finish");
         };
         ExecutorService service = Executors.newScheduledThreadPool(1);
         service.execute(r);

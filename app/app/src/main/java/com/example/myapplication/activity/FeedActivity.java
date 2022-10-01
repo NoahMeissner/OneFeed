@@ -46,7 +46,7 @@ public class FeedActivity extends AppCompatActivity {
         // Title-bar
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
-        initGestures();
+        //initGestures();
 
         // Swipe to refresh
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);

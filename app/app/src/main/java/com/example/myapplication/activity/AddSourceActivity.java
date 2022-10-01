@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -22,16 +24,18 @@ import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.fragment.addSource.InformationFragment;
+import com.example.myapplication.notification.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class AddSourceActivity extends AppCompatActivity implements
         AdapterListAddActivity.OnItemClickListener,
         AdapterListAddActivity.longItemClickListener,
-        DeleteSourceFragment.DeleteSourceFragmentInterface,
-        EditSourceFragment.EditSourceFragmentChanges {
+        DeleteSourceFragment.DeleteSourceFragmentInterface{
 
     /*
     Constants
@@ -42,7 +46,6 @@ public class AddSourceActivity extends AppCompatActivity implements
     private AdapterListAddActivity adapterInterests;
     private boolean longSourceClick = false;
     private GetData data;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,28 +61,8 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initUI() {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initHashMap();
-        addAddButtonToSelectedHashMap();
         initButton();
-        initGestures();
-    }
-
-    private void initGestures() {
-        /*
-        This Method will initial the Swipe Gestures
-         */
-        View appBar = findViewById(R.id.component_app_bar_id);
-        View activity = findViewById(R.id.addActivityView);
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
-    }
-
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Right){
-                closeActivity();
-            }
-        });
+        startService();
     }
 
     /*
@@ -88,11 +71,64 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initHashMap() {
         data.getSourceAdds().observe(this, l -> {
             enabledSourcesHashMap.clear();
-            enabledSourcesHashMap.put(Constants.Interests,data.getCategory(Constants.Interests, l));
-            enabledSourcesHashMap.put(Constants.SocialMedia,data.getCategory(Constants.SocialMedia, l));
-            enabledSourcesHashMap.put(Constants.Newspaper,data.getCategory(Constants.Newspaper, l));
+            enabledSourcesHashMap.put(
+                    Constants.Interests,
+                    data.getCategory(Constants.Interests, l));
+
+            enabledSourcesHashMap.put(
+                    Constants.SocialMedia,
+                    data.getCategory(Constants.SocialMedia, l));
+
+            enabledSourcesHashMap.put(
+                    Constants.Newspaper,
+                    data.getCategory(Constants.Newspaper, l));
+
             addAddButtonToSelectedHashMap();
+            setPreferences(l);
         });
+    }
+
+    /*
+    This Method will get the Room Data Sources List and safes in shared Preferences the source Names
+     */
+    private void setPreferences(List<SourceAdd> sources) {
+        SharedPreferences preferences = getSharedPreferences(
+                getBaseContext()
+                        .getResources()
+                        .getString(R.string.initProcesBoolean), 0);
+
+        SharedPreferences.Editor editPreferences = preferences.edit();
+
+        editPreferences.putStringSet(
+                Constants.initial.NotificationList.name(),
+                checkNotification(sources));
+
+        editPreferences.apply();
+    }
+
+    /*
+    This Method will start the Service
+     */
+    private void startService() {
+        Intent intent = new Intent(this, Service.class);
+        if(isMyServiceRunning()){
+            getBaseContext().stopService(intent);
+        }
+        startService(intent);
+    }
+
+    /*
+    This Method safes the names from the Source Adds in one list
+        Sources which declared no Notification will be deleted in this List
+     */
+    private HashSet<String> checkNotification(List<SourceAdd> sourceAdds) {
+        HashSet<String> list = new HashSet<>();
+        for(SourceAdd sources:sourceAdds){
+            if (sources.isNotification()){
+                list.add(sources.getName());
+            }
+        }
+        return list;
     }
 
     /*
@@ -101,6 +137,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
         ImageButton backButton = findViewById(R.id.addback);
+        initGestures();
         buttonInformation.setOnClickListener(view -> {
             InformationFragment informationFragment = new InformationFragment();
             informationFragment.show(getSupportFragmentManager(),"");
@@ -115,13 +152,39 @@ public class AddSourceActivity extends AppCompatActivity implements
         finish();
     }
 
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        View appBar = findViewById(R.id.component_app_bar_id);
+        View activity = findViewById(R.id.addActivityView);
+        //@TODO repair
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
+                view, swipe -> {
+            if (swipe== Swipe.Right){
+                closeActivity();
+            }
+        });
+        onSwipeTouchListener.setGestureListener();
+    }
+
     /*
     in this method the recycler view is initialized and passed to the initRecyclerView method
      */
     private void declareRecyclerView(){
+        // Initial RecyclerViewer
         RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
         RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
         RecyclerView recyclerInterests = findViewById(R.id.recyclerViewQuellenIn);
+        // edit recycler Viewer that they are not scrollable
+        recyclerInterests.setNestedScrollingEnabled(false);
+        recyclerNewsPaper.setNestedScrollingEnabled(false);
+        recyclerSocialMedia.setNestedScrollingEnabled(false);
 
         adapterNews = initRecyclerView(
                 recyclerNewsPaper,
@@ -146,7 +209,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         TO add an ADD Button to each RecyclerView this three ADD Buttons will be
         add to the ARRAYList.
         */
-
         try {
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
                     .add(new SourceAdd(Constants.ADDButton.name(),
@@ -167,8 +229,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         declareRecyclerView();
     }
-
-
 
     /*
     In this method, depending on a RecyclerView, the recycler view is
@@ -207,13 +267,21 @@ public class AddSourceActivity extends AppCompatActivity implements
         EditSourceFragment editSourceFragment = new EditSourceFragment(
                 source,
                 enabledSourcesHashMap.get(source.getCategories()),
-                this,
                 data);
-
-        editSourceFragment.setDataChanged(this);
         editSourceFragment.show(getSupportFragmentManager(),"");
     }
 
+    // This Method check if the Service is running
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo
+                service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (Service.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     //this method is inherited from the onclick listener here and
     // using it we can open the fragment depending on the button clicked
@@ -252,7 +320,6 @@ public class AddSourceActivity extends AppCompatActivity implements
             deleted in the Adapter Array List too
              */
             data.removeSource(source);
-//            refresh();
         }
     }
 
@@ -272,29 +339,5 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         longSourceClick = false;
         setAnimation(false);
-    }
-
-    /*
-    This Method will refresh the Activity
-     */
-//
-//    private void refresh(){
-//        Intent refresh = new Intent(this, AddSourceActivity.class);
-//        overridePendingTransition(0, 0);
-//        startActivity(refresh);
-//        overridePendingTransition(0, 0);
-//        this.finish();
-//    }
-
-
-    @Override
-    public void dataHasChanged(Boolean b, SourceAdd sourceAdd) {
-        if(b == null){
-            return;
-        }
-        /*
-        Update Selected HashMap from the DataBase to update the Recycler viewer
-         */
-//        refresh();
     }
 }

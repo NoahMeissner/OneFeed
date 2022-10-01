@@ -19,6 +19,9 @@ public class PermissionsActivity extends AppCompatActivity {
     information she received through the initial activity.
      */
 
+    /*
+    Constants
+     */
     private FragmentManager fragmentManager;
     private boolean notifications = false;
     private boolean consumptionAnalyse = false;
@@ -93,10 +96,13 @@ public class PermissionsActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences(getResources()
                 .getString(R.string.initProcesBoolean), 0);
         SharedPreferences.Editor editPreferences = pref.edit();
+        // Save that OnBoarding Process it over
         editPreferences.putBoolean(Constants.initial.Process.name(), true);
+        // Save decision about Notifications
         editPreferences.putBoolean(Constants.initial.Notification.name(), notifications);
         editPreferences.apply();
 
+        // Save data about ConsumptionAnalysis
         SharedPreferences insightPrefs = getSharedPreferences(
                 Constants.initial.ConsumptionAnalyse.name(), MODE_PRIVATE);
         insightPrefs.edit()

@@ -17,6 +17,9 @@ import java.util.ArrayList;
 public class AdapterEditSourceFragment extends
         RecyclerView.Adapter<ViewHolderEditSourceFragment>{
 
+    /*
+    Constants
+     */
     private ArrayList<SourceAdd> source;
     private final SourceSettingsChanged sourceSettingsChanged;
     private final String name;

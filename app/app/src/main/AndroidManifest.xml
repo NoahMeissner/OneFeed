@@ -21,23 +21,29 @@
 
         <activity
             android:name=".activity.InsightActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.onboard.PermissionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.onboard.OnboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddSourceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FeedActivity"
-            android:exported="false" >
+            android:exported="false"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.onboard.LoadingActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

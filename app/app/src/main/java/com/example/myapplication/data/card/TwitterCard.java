@@ -1,5 +1,7 @@
 package com.example.myapplication.data.card;
 
+import android.graphics.Bitmap;
+
 import com.example.myapplication.data.feed.NewsSource;
 
 import java.time.LocalDateTime;
@@ -7,13 +9,15 @@ import java.time.LocalDateTime;
 public class TwitterCard extends NewsCard{
     private String content; // e.g. Today I found a new android trick!
     private String authorName; // e.g. Elon Musk
-    private String authorHandle; // e.g. @elonmusk
+    private String authorUsername; // e.g. @elonmusk
+    private Bitmap authorProfileImage;
 
-    public TwitterCard(NewsSource source, LocalDateTime publicationDate, String content, String authorName, String authorHandle) {
-        super(source, publicationDate);
+    public TwitterCard(NewsSource source, LocalDateTime publicationDate, String contentUrl, String content, String authorName, String authorUsername, Bitmap authorProfileImage) {
+        super(source, publicationDate, contentUrl);
         this.content = content;
         this.authorName = authorName;
-        this.authorHandle = authorHandle;
+        this.authorUsername = authorUsername;
+        this.authorProfileImage = authorProfileImage;
     }
 
     public String getContent() {
@@ -32,11 +36,19 @@ public class TwitterCard extends NewsCard{
         this.authorName = authorName;
     }
 
-    public String getAuthorHandle() {
-        return authorHandle;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
-    public void setAuthorHandle(String authorHandle) {
-        this.authorHandle = authorHandle;
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
+    }
+
+    public Bitmap getAuthorProfileImage() {
+        return authorProfileImage;
+    }
+
+    public void setAuthorProfileImage(Bitmap authorProfileImage) {
+        this.authorProfileImage = authorProfileImage;
     }
 }

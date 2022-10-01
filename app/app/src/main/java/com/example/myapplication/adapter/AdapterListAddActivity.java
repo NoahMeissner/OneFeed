@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     public AdapterListAddActivity(OnItemClickListener listener,
                                   longItemClickListener longItemClickListener,
                                   ArrayList<SourceAdd> sourceArrayList){
-
         this.listener=listener;
         this.longItemClickListener = longItemClickListener;
         this.sourceArrayList =sourceArrayList;
@@ -42,7 +42,7 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     @Override
     public ViewHolderAddActivity onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.icons_quellen,
+                R.layout.component_icons_quellen,
                 parent,
                 false);
         return new ViewHolderAddActivity(view);
@@ -62,6 +62,9 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     @SuppressLint("NotifyDataSetChanged")
     public void setSourceArrayList(ArrayList<SourceAdd> sourceArrayList){
         this.sourceArrayList = sourceArrayList;
+        for(SourceAdd sourceAdd :sourceArrayList){
+            Log.d(sourceAdd.getName(), String.valueOf(sourceAdd.getCategories()));
+        }
         notifyDataSetChanged();
     }
 }

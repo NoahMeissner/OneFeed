@@ -17,16 +17,21 @@ import java.util.ArrayList;
 public class AdapterEditSourceFragment extends
         RecyclerView.Adapter<ViewHolderEditSourceFragment>{
 
-    private ArrayList<SourceAdd> categories;
+    /*
+    Constants
+     */
+    private ArrayList<SourceAdd> source;
     private final SourceSettingsChanged sourceSettingsChanged;
+    private final String name;
 
     public interface SourceSettingsChanged {
         void changedSource(SourceAdd source);
     }
 
 
-    public AdapterEditSourceFragment(ArrayList<SourceAdd> categories, SourceSettingsChanged qSC){
-        this.categories = categories;
+    public AdapterEditSourceFragment(ArrayList<SourceAdd> categories,String name, SourceSettingsChanged qSC){
+        this.source = categories;
+        this.name = name;
         this.sourceSettingsChanged = qSC;
     }
 
@@ -34,24 +39,24 @@ public class AdapterEditSourceFragment extends
     @Override
     public ViewHolderEditSourceFragment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.edit_quellen_icon,parent,false);
+                .inflate(R.layout.component_edit_quellen_icon,parent,false);
 
         return new ViewHolderEditSourceFragment(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderEditSourceFragment holder, int position) {
-        holder.bind(categories.get(position), sourceSettingsChanged,categories.size());
+        holder.bind(source.get(position), sourceSettingsChanged, name);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setCategories(ArrayList<SourceAdd> categories) {
-        this.categories = categories;
+    public void setSource(ArrayList<SourceAdd> source) {
+        this.source = source;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return source.size();
     }
 }

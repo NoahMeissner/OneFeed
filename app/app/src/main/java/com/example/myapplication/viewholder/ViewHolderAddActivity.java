@@ -1,6 +1,6 @@
 package com.example.myapplication.viewholder;
 
-import android.view.View;
+ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,33 +11,56 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.animation.addSource.AnimateLinearLayout;
-import com.example.myapplication.data.addSource.Categories;
-import com.example.myapplication.data.addSource.SourceAdd;
+ import com.example.myapplication.data.addSource.Constants;
+ import com.example.myapplication.data.addSource.SourceAdd;
 
 import java.util.Objects;
 
 public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
 
+    /*
+    Constants
+    */
     private final ImageView imageView;
     private final TextView textView;
     private final LinearLayout linearLayout;
-    private boolean click;
+    private boolean longSourceClick;
     private boolean setAnimation;
     private final AnimateLinearLayout animateLinearLayout = itemView
             .findViewById(R.id.frameLayout_icons_Quellen);
 
+    /*
+    Constructor
+     */
     public ViewHolderAddActivity(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.quellenImage);
         textView = itemView.findViewById(R.id.quelleText);
         linearLayout = itemView.findViewById(R.id.deleteLayout);
         linearLayout.setVisibility(View.GONE);
+
     }
 
+    /*
+    Bind Method
+     */
     public void bind(final SourceAdd source, final AdapterListAddActivity.OnItemClickListener listener) {
-        textView.setText("");
-        if(source.getAnimation()&&!Objects.equals(source.getName(), Categories.ADDButton.name())){
-                animateLinearLayout.animateText();
+        itemView.setOnClickListener( view -> listener.onItemClick(source));
+
+        // Check if Source is a ADD Button
+        if(Objects.equals(source.getName(), Constants.ADDButton.name())){
+            setAddButton(source);
+            return;
+        }
+        // set Picture and Text of the source Item
+        if(source.getImageRessourceID() != 0){
+           imageView.setImageResource(source.getImageRessourceID());
+        }
+        textView.setText(source.getName());
+
+        // this if clauses give the possibility to stop and start the Animation
+        if(source.getAnimation()){
+                animateLinearLayout.animateItems();
                 linearLayout.setVisibility(View.VISIBLE);
                 setAnimation = true;
             }
@@ -45,29 +68,49 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
                 animateLinearLayout.stopAnimation();
                 linearLayout.setVisibility(View.GONE);
             }
-            if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+
                 textView.setText(source.getName());
-            }
-            imageView.setImageDrawable(source.getImage());
-            itemView.setOnClickListener( view -> listener.onItemClick(source));
     }
 
+    /*
+    This Method initial the ADD Button
+     */
+    private void setAddButton(SourceAdd source) {
+        textView.setText("");
+        imageView.setImageDrawable(source.getImage());
+    }
+
+
+    /*
+    This Method is responsible if the user pressed the Item Long
+     */
     public void bindLong(SourceAdd source, AdapterListAddActivity.
             longItemClickListener longItemClickListener) {
+        /*
+        if someone pressed Long on the ADD button there should be no Animation, that's the reason
+        why an ADD Button source Element will be returned
+         */
+        if (Objects.equals(source.getName(), Constants.ADDButton.name())){
+            return;
+        }
 
+        /*
+        Set on all Source Items an on Long Click Listener
+         */
         itemView.setOnLongClickListener(view -> {
-            if (Objects.equals(source.getName(), Categories.ADDButton.name())){
-                return false;
-            }
-            if(!click){
+            // This if clause is responsible if the Item was not long clicked before
+            if(!longSourceClick){
                 longItemClickListener.onLongClick(source);
-                if(!Objects.equals(source.getName(), Categories.ADDButton.name())){
+                if(!Objects.equals(source.getName(), Constants.ADDButton.name())){
                     linearLayout.setVisibility(View.VISIBLE);
                 }
-                click = true;
+                longSourceClick = true;
                 return true;
             }
-            click = false;
+            /*
+            if the item was long clicked again the delete Process will be stopped
+             */
+            longSourceClick = false;
             longItemClickListener.onLongClick(source);
             return false;
         });

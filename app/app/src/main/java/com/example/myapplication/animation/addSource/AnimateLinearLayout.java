@@ -9,23 +9,37 @@ import androidx.annotation.Nullable;
 
 public class AnimateLinearLayout extends FrameLayout {
 
+    /*
+    This class is responsible for the delete animation of the source items.
+     */
+
+    // Constants
     private int rotation = 2;
     private final long myDelay =80;
     private final Handler myHandler = new Handler();
 
 
 
-
+    /*
+    runnable to outsource the calculation of the animation into a new thread
+     */
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            /*
+            The item is always rotated and then the rotation variable
+             is multiplied by -1 to reverse the animation.
+             */
             setRotation(rotation);
             myHandler.postDelayed(runnable,myDelay);
-            rotation=rotation*(-1);
+            rotation=-rotation;
         }
     };
 
-    public void animateText(){
+    /*
+    this method is responsible for starting the animation
+     */
+    public void animateItems(){
         myHandler.removeCallbacks(runnable);
         myHandler.postDelayed(runnable, myDelay);
     }

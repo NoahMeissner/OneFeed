@@ -54,7 +54,7 @@ public class AppBarCollapse extends CoordinatorLayout {
             this.title = a.getString(R.styleable.AppBarCollapse_title);
             this.toolbarResourceId = a.getResourceId(
                     R.styleable.AppBarCollapse_toolbar,
-                    R.layout.toolbar_feed
+                    R.layout.component_toolbar_feed
             );
             this.pageContentResourceId = a.getResourceId(
                     R.styleable.AppBarCollapse_pageContentView,

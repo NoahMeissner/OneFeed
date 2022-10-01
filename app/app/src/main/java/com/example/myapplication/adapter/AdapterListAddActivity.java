@@ -32,7 +32,6 @@ public class AdapterListAddActivity extends RecyclerView.Adapter<ViewHolderAddAc
     public AdapterListAddActivity(OnItemClickListener listener,
                                   longItemClickListener longItemClickListener,
                                   ArrayList<SourceAdd> sourceArrayList){
-
         this.listener=listener;
         this.longItemClickListener = longItemClickListener;
         this.sourceArrayList =sourceArrayList;

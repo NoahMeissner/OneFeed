@@ -6,6 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.Objects;
+
 /*
  Detects swipes across a view.
  */
@@ -51,17 +53,19 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                        checks Conditions to know which Gesture was pressed
                          */
                         try {
-                                if (Math.abs((xDiff)) > threshold
-                                        && Math.abs(velocityX) > velocity_threshold) {
+                                if(xDiff != 0) {
+                                    if (Math.abs((xDiff)) > threshold
+                                            && Math.abs(velocityX) > velocity_threshold) {
 
-                                    if (xDiff > 0) {
-                                        Log.d("Swiped", "Right");
-                                        gesture.gestureHasDetected(Swipe.Right);
-                                    } else {
-                                        Log.d("Swiped", "Left");
-                                        gesture.gestureHasDetected(Swipe.Left);
+                                        if (xDiff > 0) {
+                                            Log.d("Swiped", "Right");
+                                            gesture.gestureHasDetected(Swipe.Right);
+                                        } else {
+                                            Log.d("Swiped", "Left");
+                                            gesture.gestureHasDetected(Swipe.Left);
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
                         }
                         catch (Exception e){

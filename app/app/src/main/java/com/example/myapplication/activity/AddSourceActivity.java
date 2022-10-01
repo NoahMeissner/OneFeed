@@ -61,31 +61,8 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initUI() {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initHashMap();
-        addAddButtonToSelectedHashMap();
         initButton();
-        initGestures();
         startService();
-    }
-
-    private void initGestures() {
-        /*
-        This Method will initial the Swipe Gestures
-         */
-        View appBar = findViewById(R.id.component_app_bar_id);
-        View activity = findViewById(R.id.addActivityView);
-        //@TODO repair
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
-    }
-
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Right){
-                closeActivity();
-            }
-        });
-        onSwipeTouchListener.setGestureListener();
     }
 
     /*
@@ -160,6 +137,7 @@ public class AddSourceActivity extends AppCompatActivity implements
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
         ImageButton backButton = findViewById(R.id.addback);
+        initGestures();
         buttonInformation.setOnClickListener(view -> {
             InformationFragment informationFragment = new InformationFragment();
             informationFragment.show(getSupportFragmentManager(),"");
@@ -172,6 +150,27 @@ public class AddSourceActivity extends AppCompatActivity implements
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
+    }
+
+    private void initGestures() {
+        /*
+        This Method will initial the Swipe Gestures
+         */
+        View appBar = findViewById(R.id.component_app_bar_id);
+        View activity = findViewById(R.id.addActivityView);
+        //@TODO repair
+        setSwipeListener(appBar);
+        setSwipeListener(activity);
+    }
+
+    private void setSwipeListener(View view){
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
+                view, swipe -> {
+            if (swipe== Swipe.Right){
+                closeActivity();
+            }
+        });
+        onSwipeTouchListener.setGestureListener();
     }
 
     /*
@@ -230,8 +229,6 @@ public class AddSourceActivity extends AppCompatActivity implements
         }
         declareRecyclerView();
     }
-
-
 
     /*
     In this method, depending on a RecyclerView, the recycler view is

@@ -89,7 +89,10 @@ public class InterestsFragment extends Fragment {
         }
     }
 
-    // This method sets the parameters for the animation, which is implemented in the Interests Animation class
+    /*
+    This method sets the parameters for the animation,
+     which is implemented in the Interests Animation class
+     */
     private void setAnimation(InterestsAnimation interestsAnimation, float x, float y){
         /*
         The field size for the animation is transferred here
@@ -136,7 +139,9 @@ public class InterestsFragment extends Fragment {
 
     //This method rolls back a user's answer if he revises it
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void buttonAnimationReset(InterestsAnimation interestsAnimation, Constants.interests category) {
+    private void buttonAnimationReset(InterestsAnimation interestsAnimation,
+                                      Constants.interests category) {
+
         interestsAnimation.getLayoutParams().width= buttonSize;
         interestsAnimation.getLayoutParams().height= buttonSize;
         interestsAnimation.setBackground(getResources()
@@ -149,13 +154,23 @@ public class InterestsFragment extends Fragment {
         dataPasser.onDataPass(results);
     }
 
-    //This method recognizes a reaction of the user and makes it visible in the layout and saves his answer in an ArrayList
+    /*
+    This method recognizes a reaction of the user and makes
+     it visible in the layout and saves his answer in an ArrayList
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void detectButtonAnimation(InterestsAnimation interestsAnimation, Constants.interests category){
+    private void detectButtonAnimation(InterestsAnimation interestsAnimation,
+                                       Constants.interests category){
+
         double magnificationFactor = 1.1;
-        interestsAnimation.getLayoutParams().width= (int) (interestsAnimation.getWidth()*magnificationFactor);
-        interestsAnimation.getLayoutParams().height= (int) (interestsAnimation.getHeight()*magnificationFactor);
-        interestsAnimation.setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
+        interestsAnimation.getLayoutParams()
+                .width= (int) (interestsAnimation.getWidth()*magnificationFactor);
+
+        interestsAnimation.getLayoutParams()
+                .height= (int) (interestsAnimation.getHeight()*magnificationFactor);
+
+        interestsAnimation
+                .setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
 
         interestsAnimation.setBackground(getResources()
                 .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
@@ -164,16 +179,22 @@ public class InterestsFragment extends Fragment {
         dataPasser.onDataPass(results);
         for(Constants.interests s:buttons.keySet()){
             if(!Objects.equals(s, category)){
-                setAnimation(Objects.requireNonNull(buttons.get(s)),interestsAnimation.getX(),interestsAnimation.getY());
+                setAnimation(Objects.requireNonNull(buttons.get(s)),
+                        interestsAnimation.getX(),interestsAnimation.getY());
+
                 stopAnimation();
             }
         }
     }
 
+    /*
+    This Method stops the Animation
+     */
     private void stopAnimation(){
+        int secondsUntilStop = 4000;
         Runnable r = () -> {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(secondsUntilStop);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

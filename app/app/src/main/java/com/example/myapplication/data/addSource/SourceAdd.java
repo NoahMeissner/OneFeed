@@ -28,9 +28,6 @@ public class SourceAdd {
     private boolean setAnimation = false;
     @Ignore
     private Drawable image;
-    @Ignore
-    // Important for the Notifications to know how much there are
-    private int articles;
 
     /*
     Constructor
@@ -62,14 +59,6 @@ public class SourceAdd {
     Getter and setter Methods
      */
 
-    public void setArticles(int articles) {
-        this.articles = articles;
-    }
-
-    public int getArticles() {
-        return articles;
-    }
-
     public int getImageRessourceID() {
         return imageRessourceID;
     }
@@ -88,10 +77,6 @@ public class SourceAdd {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public Drawable getImage() {

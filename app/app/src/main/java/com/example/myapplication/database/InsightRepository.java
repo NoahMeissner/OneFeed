@@ -1,7 +1,6 @@
 package com.example.myapplication.database;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class InsightRepository {
-    private NewsReadDao newsReadDao;
-    private LiveData<List<NewsReadEntry>> newsReadToday;
-    private LiveData<List<NewsReadEntry>> newsReadCurrentYear;
+    private final NewsReadDao newsReadDao;
+    private final LiveData<List<NewsReadEntry>> newsReadToday;
+    private final LiveData<List<NewsReadEntry>> newsReadCurrentYear;
 
 
     public InsightRepository(Application application) {

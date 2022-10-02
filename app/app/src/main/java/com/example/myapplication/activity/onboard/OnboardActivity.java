@@ -26,7 +26,7 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
      private FragmentManager fragmentManager;
      private ArrayList<Constants.interests> interestsList = new ArrayList<>();
      private final ArrayList<Constants.socialMedia> socialMediaList = new ArrayList<>();
-    InitialData data;
+     private InitialData data;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {

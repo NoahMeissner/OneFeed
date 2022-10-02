@@ -99,7 +99,7 @@ public class LoadingActivity extends AppCompatActivity {
         /*
         This Set Source Object hands all Source over
          */
-        SetSourceObjects sourceObjects = new SetSourceObjects(data,notification);
+        SetSourceObjects sourceObjects = new SetSourceObjects(this,data,notification);
         sourceObjects.setSocialMediaList(socialMedia);
         sourceObjects.setInterestsList(interests);
         sourceObjects.setNews();

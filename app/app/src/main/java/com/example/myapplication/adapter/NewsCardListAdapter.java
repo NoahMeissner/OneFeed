@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsCardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private NewsOpenListener listener;
+    private final NewsOpenListener listener;
 
     public NewsCardListAdapter(NewsOpenListener listener) {
         this.listener = listener;

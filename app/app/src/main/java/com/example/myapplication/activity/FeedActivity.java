@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -23,6 +25,7 @@ import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
 import com.example.myapplication.fragment.feed.ErrorFragment;
+import com.example.myapplication.notification.Service;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -47,6 +50,9 @@ public class FeedActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.toolbar_collapse));
         initializeNavigationButtons();
         //initGestures();
+
+        // Service
+        startService();
 
         // Swipe to refresh
         this.refreshLayout = findViewById(R.id.feed_swipe_refresh);
@@ -115,12 +121,24 @@ public class FeedActivity extends AppCompatActivity {
         });
     }
 
-    private void initGestures() {
-        /*
-       This Method will initial the Swipe Gestures
-        */
-        View appBar = findViewById(R.id.component_app_bar_id);
-        setSwipeListener(appBar);
+    private void startService() {
+        Intent intent = new Intent(FeedActivity.this, Service.class);
+        if(isMyServiceRunning()){
+            getBaseContext().stopService(intent);
+        }
+        startService(intent);
+    }
+
+    // This Method check if the Service is running
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo
+                service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (Service.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void setSwipeListener(View view){

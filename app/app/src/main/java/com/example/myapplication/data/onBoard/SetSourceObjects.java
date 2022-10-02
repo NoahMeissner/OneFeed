@@ -1,13 +1,17 @@
 package com.example.myapplication.data.onBoard;
 
+import android.content.Context;
+
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.UiElements;
 import com.example.myapplication.data.addSource.SourceAdd;
 import com.example.myapplication.database.InitialData;
+import com.example.myapplication.notification.NotificationList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class SetSourceObjects {
@@ -23,6 +27,7 @@ public class SetSourceObjects {
     // These Constants will be hand over from the Constructor
     private final InitialData data;
     private final boolean notification;
+    private final Context context;
     // This Arraylist will be necessary to safe all new Source Add Objects
     private final ArrayList<SourceAdd> sourceResult = new ArrayList<>();
     // This boolean is necessary to initialise a new SourceAdd Object
@@ -39,8 +44,9 @@ public class SetSourceObjects {
     /*
     Constructor
      */
-    public SetSourceObjects(InitialData data,
+    public SetSourceObjects(Context context,InitialData data,
                             boolean notification){
+        this.context = context;
         this.data = data;
         this.notification = notification;
     }
@@ -132,5 +138,11 @@ public class SetSourceObjects {
     */
     public void addToDataBase(){
         data.setArrayList(sourceResult);
+        setPreferences(sourceResult);
+    }
+
+    private void setPreferences(List<SourceAdd> sources) {
+        NotificationList notificationList = new NotificationList(context,"");
+        notificationList.setSourceList(sources);
     }
 }

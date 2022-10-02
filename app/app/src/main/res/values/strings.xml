@@ -64,5 +64,17 @@
     <string name="mistakeHeadline">Fehler 404</string>
     <string name="errorFragmentText">Prüfen Sie Ihre Internetverbindung</string>
     <string name="feed_limit_reached">"Feed LimitReached</string>
-    <string name="notificationText">"Sie haben für {Quelle} neue Nachrichten"</string>
+    <string name="notification_text">"Sie haben für {Quelle} neue Nachrichten"</string>
+    <string name="default_notification_channel_id">myChannel</string>
+
+
+
+    <string-array name="notification_time_list">
+        <item>08:00</item>
+        <item>10:00</item>
+        <item>12:00</item>
+        <item>14:00</item>
+        <item>16:00</item>
+        <item>20:00</item>
+        </string-array>
 </resources>

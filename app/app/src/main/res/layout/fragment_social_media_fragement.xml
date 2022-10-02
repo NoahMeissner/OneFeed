@@ -30,7 +30,7 @@
         android:textStyle="bold"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
-        android:text="@string/socialMediaHeadline"
+        android:text="@string/social_media_headline"
         android:textColor="?attr/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

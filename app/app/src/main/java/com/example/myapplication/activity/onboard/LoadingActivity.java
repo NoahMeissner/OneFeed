@@ -45,7 +45,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void initSharedPreferences() {
         pref = getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         isInitialized = pref.getBoolean(
                 Constants.initial.Process.name(),false);
 

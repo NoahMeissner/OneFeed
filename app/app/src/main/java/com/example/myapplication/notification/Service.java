@@ -25,7 +25,7 @@ public class Service extends android.app.Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         preferences = getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         boolean notification = preferences.getBoolean(Constants.initial.Notification.name(), false);
         if(notification){
             initProcess();

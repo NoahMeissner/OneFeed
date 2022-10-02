@@ -82,7 +82,7 @@ public class EditSourceFragment extends DialogFragment
                 .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         preferences = requireContext()
                 .getSharedPreferences(requireActivity().getResources()
-                        .getString(R.string.initProcesBoolean), 0);
+                        .getString(R.string.init_process_boolean), 0);
         init(view);
         return view;
     }
@@ -147,7 +147,7 @@ public class EditSourceFragment extends DialogFragment
             imageView.setImageResource(source.getImageRessourceID());
         }
         else{
-            textView.setText(getResources().getString(R.string.newSourceHeadline));
+            textView.setText(getResources().getString(R.string.news_source_headline));
             imageView.setImageResource(R.drawable.add);
             underline.setText("");
         }

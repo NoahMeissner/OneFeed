@@ -44,7 +44,7 @@
                 android:textAppearance="?attr/textAppearanceHeadlineSmall"
                 android:textSize="25sp"
                 android:layout_height="wrap_content"
-                android:text="@string/konsumanalyseHeadline" />
+                android:text="@string/consumption_analysis_headline" />
 
         </LinearLayout>
 

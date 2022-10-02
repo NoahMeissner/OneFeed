@@ -30,6 +30,6 @@ public class WelcomeFragment extends Fragment {
 
     private void initAnimation(View view){
         TypewriterAnimation typewriterAnimation = view.findViewById(R.id.welcomeText);
-        typewriterAnimation.animateText(getResources().getString(R.string.willkommen));
+        typewriterAnimation.animateText(getResources().getString(R.string.welcome));
     }
 }

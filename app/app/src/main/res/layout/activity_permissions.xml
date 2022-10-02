@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/buttonYes"
-        android:text="@string/buttonYesText"
+        android:text="@string/button_yes"
         style="@style/permission_button_yes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
     <Button
         android:id="@+id/buttonNo"
         style="@style/permission_button_no"
-        android:text="@string/buttonNoText"
+        android:text="@string/button_no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.14"

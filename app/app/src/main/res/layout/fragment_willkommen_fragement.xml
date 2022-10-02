@@ -10,7 +10,7 @@
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/willkommen"
+        android:text="@string/welcome"
         android:textAlignment="center"
         style="@style/TextAppearance.Material3.ActionBar.Title"
         android:textStyle="bold"

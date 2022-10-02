@@ -36,7 +36,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="14dp"
-                    android:contentDescription="@string/pictureofbutton"
+                    android:contentDescription="@string/picture_of_button"
                     app:srcCompat="@drawable/twitter_icon" />
 
             </LinearLayout>
@@ -45,7 +45,7 @@
                 android:id="@+id/quelleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hallo"
+                android:text="@string/hello"
                 android:textSize="18sp"
                 style="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textAlignment="center"

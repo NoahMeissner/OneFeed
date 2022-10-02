@@ -37,7 +37,7 @@ public class InitialData {
 
     private void initSharedPreferences() {
         sharedPreferences = context.getSharedPreferences(context.getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         editPreferences = sharedPreferences.edit();
     }
 

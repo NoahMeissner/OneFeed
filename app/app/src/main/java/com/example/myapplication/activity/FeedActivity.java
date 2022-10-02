@@ -179,11 +179,4 @@ public class FeedActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.empty, menu);
         return true;
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Close open fragments as they will be recreated (avoids multiple popups)
-        errorFragment.dismiss();
-    }
 }

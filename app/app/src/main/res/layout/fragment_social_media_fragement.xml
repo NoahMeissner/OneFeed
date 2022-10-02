@@ -14,10 +14,10 @@
         android:layout_marginTop="208dp"
         android:layout_marginEnd="64dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/custombutton"
+        android:background="@drawable/shape_custom_button"
         android:padding="20dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/twitter_icon"
+        android:src="@drawable/icon_twitter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />

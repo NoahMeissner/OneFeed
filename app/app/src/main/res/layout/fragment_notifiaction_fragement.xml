@@ -7,7 +7,7 @@
     tools:context=".fragment.onboard.ConsumptionPermissionFragment">
 
     <TextView
-        android:id="@+id/konsumanalyseHeadline"
+        android:id="@+id/consumption_analysis_headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -28,7 +28,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="92dp"
-        android:src="@drawable/notification"
+        android:src="@drawable/icon_notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="10dp"
-        style="@style/initial_framelayout_style">
+        style="@style/initial_frame_layout_style">
 
     </FrameLayout>
 

@@ -111,14 +111,14 @@ public class SetSourceObjects {
         SourceAdd sourceFAZ = new SourceAdd(
                 Constants.news.FAZ.name(),
                 Constants.Newspaper,notification,
-                R.drawable.faz,
+                R.drawable.picture_faz,
                 enabled);
 
         SourceAdd sourceSpiegel = new SourceAdd(
                 Constants.news.Spiegel.name(),
                 Constants.Newspaper,
                 notification,
-                R.drawable.spiegel,
+                R.drawable.picture_spiegel,
                 enabled);
 
         sourceResult.add(sourceFAZ);

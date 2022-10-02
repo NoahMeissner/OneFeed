@@ -111,7 +111,7 @@ public class AddSourceActivity extends AppCompatActivity implements
      */
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
-        ImageButton backButton = findViewById(R.id.addback);
+        ImageButton backButton = findViewById(R.id.add_back);
         //initGestures();
         buttonInformation.setOnClickListener(view -> {
             InformationFragment informationFragment = new InformationFragment();
@@ -153,9 +153,9 @@ public class AddSourceActivity extends AppCompatActivity implements
      */
     private void declareRecyclerView(){
         // Initial RecyclerViewer
-        RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
-        RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
-        RecyclerView recyclerInterests = findViewById(R.id.recyclerViewQuellenIn);
+        RecyclerView recyclerSocialMedia = findViewById(R.id.recycler_view_source_social_media);
+        RecyclerView recyclerNewsPaper = findViewById(R.id.recycle_view_source_news);
+        RecyclerView recyclerInterests = findViewById(R.id.recycler_view_sources_interests);
         // edit recycler Viewer that they are not scrollable
         recyclerInterests.setNestedScrollingEnabled(false);
         recyclerNewsPaper.setNestedScrollingEnabled(false);
@@ -187,17 +187,17 @@ public class AddSourceActivity extends AppCompatActivity implements
         try {
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add),
+                            getDrawable(R.drawable.icon_add),
                             Constants.Newspaper));
 
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add ),
+                            getDrawable(R.drawable.icon_add),
                             Constants.SocialMedia));
 
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add),
+                            getDrawable(R.drawable.icon_add),
                             Constants.Interests));
         } catch (NullPointerException exception) {
             return;

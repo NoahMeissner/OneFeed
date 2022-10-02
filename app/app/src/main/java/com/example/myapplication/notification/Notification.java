@@ -38,7 +38,7 @@ public class Notification {
      */
     private NotificationCompat.Builder notificationBuilder(PendingIntent pendingIntent){
         return new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification)
+                .setSmallIcon(R.drawable.icon_notification)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

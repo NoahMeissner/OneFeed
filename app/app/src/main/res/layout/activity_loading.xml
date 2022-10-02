@@ -33,7 +33,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="225dp"
         android:layout_height="225dp"
-        android:background="@drawable/customyesbutton"
+        android:background="@drawable/shape_custom_yes_button"
         app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,8 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/onefeedpicture" />
+            app:srcCompat="@drawable/picture_one_feed"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

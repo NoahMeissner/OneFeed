@@ -21,8 +21,8 @@ public class ViewHolderEditSourceFragment extends RecyclerView.ViewHolder{
 
     public ViewHolderEditSourceFragment(@NonNull View itemView) {
         super(itemView);
-        aSwitch = itemView.findViewById(R.id.editQuellenIconSwitch);
-        textView = itemView.findViewById(R.id.editQuellenIconText);
+        aSwitch = itemView.findViewById(R.id.edit_source_icon_switch);
+        textView = itemView.findViewById(R.id.edit_source_icon_text);
     }
 
     public void bind(SourceAdd source,

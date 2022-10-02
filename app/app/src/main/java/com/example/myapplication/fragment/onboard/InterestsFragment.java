@@ -145,7 +145,7 @@ public class InterestsFragment extends Fragment {
         interestsAnimation.getLayoutParams().width= buttonSize;
         interestsAnimation.getLayoutParams().height= buttonSize;
         interestsAnimation.setBackground(getResources()
-                .getDrawable(R.drawable.ovalbutton, requireActivity().getTheme()));
+                .getDrawable(R.drawable.shape_ovalbutton, requireActivity().getTheme()));
 
         interestsAnimation.setTextColor(getResources()
                 .getColor(R.color.black, requireActivity().getTheme()));
@@ -173,7 +173,7 @@ public class InterestsFragment extends Fragment {
                 .setTextColor(getResources().getColor(R.color.black, requireActivity().getTheme()));
 
         interestsAnimation.setBackground(getResources()
-                .getDrawable(R.drawable.customyesbutton, requireActivity().getTheme()));
+                .getDrawable(R.drawable.shape_custom_yes_button, requireActivity().getTheme()));
 
         results.add(category);
         dataPasser.onDataPass(results);

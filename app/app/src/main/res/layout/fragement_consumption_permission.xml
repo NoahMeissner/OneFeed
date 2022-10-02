@@ -26,15 +26,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/graph"
-                />
+                android:src="@drawable/icon_graph"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,7 +62,7 @@
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:layout_height="wrap_content"
-            android:text="Um eine Analyse durchzuführen müssen Sie dieser Zustimmen" />
+            android:text="@string/consumption_analysis_individual_permission" />
 
         <Space
             android:layout_width="match_parent"
@@ -75,20 +76,20 @@
             >
 
             <Button
-                android:id="@+id/buttonYPermisson"
+                android:id="@+id/button_yes_permission"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="70dp"
-                app:layout_constraintEnd_toEndOf="@id/buttonND"
+                app:layout_constraintEnd_toEndOf="@id/button_no_delete"
                 android:textAppearance="@style/toolbar_icon_button"
-                android:text="Ja"
+                android:text="@string/button_yes"
                 android:textSize="15sp"/>
 
 
 
             <Button
-                android:id="@+id/buttonNPermission"
+                android:id="@+id/button_no_permission"
                 android:textAppearance="@style/toolbar_icon_button"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="100dp"
@@ -96,7 +97,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_height="70dp"
                 android:textSize="15sp"
-                android:text="Nein" />
+                android:text="@string/button_no"
+                tools:ignore="RtlHardcoded" />
 
         </FrameLayout>
     </LinearLayout>

@@ -27,15 +27,15 @@ public class ViewHolderAddActivity extends RecyclerView.ViewHolder{
     private boolean longSourceClick;
     private boolean setAnimation;
     private final AnimateLinearLayout animateLinearLayout = itemView
-            .findViewById(R.id.frameLayout_icons_Quellen);
+            .findViewById(R.id.frameLayout_icons_source);
 
     /*
     Constructor
      */
     public ViewHolderAddActivity(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.quellenImage);
-        textView = itemView.findViewById(R.id.quelleText);
+        imageView = itemView.findViewById(R.id.source_image);
+        textView = itemView.findViewById(R.id.source_text);
         linearLayout = itemView.findViewById(R.id.deleteLayout);
         linearLayout.setVisibility(View.GONE);
 

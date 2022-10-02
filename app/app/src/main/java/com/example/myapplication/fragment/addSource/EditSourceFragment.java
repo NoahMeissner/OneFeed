@@ -139,16 +139,16 @@ public class EditSourceFragment extends DialogFragment
      */
     @SuppressLint("SetTextI18n")
     private void initUI(View view){
-        ImageView imageView = view.findViewById(R.id.imageQuellenAdd);
-        TextView textView = view.findViewById(R.id.headlineQuellenAdd);
-        TextView underline = view.findViewById(R.id.textViewHeadlineQuellenAdd);
+        ImageView imageView = view.findViewById(R.id.image_source_add);
+        TextView textView = view.findViewById(R.id.headline_source_add);
+        TextView underline = view.findViewById(R.id.textView_headline_source_add);
         if(!Objects.equals(source.getName(), Constants.ADDButton.name())){
             textView.setText(source.getName());
             imageView.setImageResource(source.getImageRessourceID());
         }
         else{
             textView.setText(getResources().getString(R.string.news_source_headline));
-            imageView.setImageResource(R.drawable.add);
+            imageView.setImageResource(R.drawable.icon_add);
             underline.setText("");
         }
     }
@@ -158,7 +158,7 @@ public class EditSourceFragment extends DialogFragment
      */
     private void initRecyclerView(View view) {
         // init the RecyclerView and the layout Manager
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewEditQuellenFragement);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView_edit_source_fragment);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         layoutManager.canScrollVertically();

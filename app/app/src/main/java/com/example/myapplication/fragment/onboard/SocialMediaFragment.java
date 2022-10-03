@@ -149,6 +149,8 @@ public class SocialMediaFragment extends Fragment {
         });
     }
 
+
+
     /*
     If no button was pressed the Method stops the
     Animation if the set up Process continues

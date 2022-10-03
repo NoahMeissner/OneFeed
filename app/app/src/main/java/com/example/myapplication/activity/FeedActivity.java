@@ -10,7 +10,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +19,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
-import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.feed.FeedViewModel;
 import com.example.myapplication.adapter.NewsCardListAdapter;
 import com.example.myapplication.fragment.feed.ErrorFragment;
@@ -139,22 +136,6 @@ public class FeedActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Right){
-                Intent intent = new Intent(this, InsightActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-            }
-            if (swipe == Swipe.Left){
-                Intent intent = new Intent(this, AddSourceActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-            }
-        });
     }
 
     private void initializeNavigationButtons() {

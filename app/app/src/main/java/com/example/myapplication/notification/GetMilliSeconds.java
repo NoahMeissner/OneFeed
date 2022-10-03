@@ -2,6 +2,7 @@ package com.example.myapplication.notification;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import com.example.myapplication.R;
 
@@ -39,6 +40,8 @@ public class GetMilliSeconds {
         String[] timeNowArray = timeNow.split(":");
         int hoursNow = Integer.parseInt(timeNowArray[0]);
         int minutesNow = Integer.parseInt(timeNowArray[1]);
+        long hoursToMinutes = 60L;
+        long secondsToMilliSeconds = 1000;
 
         /*
         We must do the same with the Push Time
@@ -62,16 +65,33 @@ public class GetMilliSeconds {
         /*
         Know we can analyse the Time in millis when the Start Time equals PushTime
          */
-
+        long result =0;
         long[] resultArray = new long[pushTimeArray.length];
-        for(int i = 0; i<resultArray.length;i++){
-            long minutes = 60-minutesNow;
-            long hoursInMinutes = (hoursArray[i]-(hoursNow+1))* 60L;
-            long result = minutes+hoursInMinutes;
-            resultArray[i]= result*60*1000;
+        int lastNotification = 20;
+        if(hoursNow <= lastNotification){
+            for(int i = 0; i<resultArray.length;i++){
+                long minutes = hoursToMinutes-minutesNow;
+                long hoursInMinutes = (hoursArray[i]-(hoursNow+1))* hoursToMinutes;
+                long b = minutes+hoursInMinutes;
+                resultArray[i]= b*hoursToMinutes*secondsToMilliSeconds;
+            }
+        }
+        else{
+            /*
+             If the time is over 20:00 we must calculate the time
+              difference between now and 8:00
+             */
+
+            // the First Notification will be pushed at 8 o`clock in the morning
+            long firstNotification = 8;
+            long hoursPerDay = 24;
+            long minutes = hoursToMinutes-minutesNow;
+            long hoursInMinutes = ((hoursPerDay-(hoursNow+1))+firstNotification)*hoursToMinutes;
+            long b = minutes+hoursInMinutes;
+            result= b*hoursToMinutes*secondsToMilliSeconds;
         }
 
-        long result =0;
+
         // now we look which timestamp is the shortest
         for (long l : resultArray) {
             if (result == 0 && l > 0) {

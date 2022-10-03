@@ -213,5 +213,13 @@ public class InterestsFragment extends Fragment {
     public interface OnDataPass{
          void onDataPass(ArrayList<Constants.interests> interestsList);
     }
+
+    @Override
+    public void onDestroyView() {
+        for(Constants.interests interests : buttons.keySet()){
+            Objects.requireNonNull(buttons.get(interests)).stopAnimation();
+        }
+        super.onDestroyView();
+    }
 }
 

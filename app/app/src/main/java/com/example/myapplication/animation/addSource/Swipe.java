@@ -1,9 +1,9 @@
 package com.example.myapplication.animation.addSource;
 
 /*
-Enum which declares tho ways of swipes
+<This gives the possibility to differentiate between Swipe Right and Swipe Left
  */
 public enum Swipe {
-    Right,
-    Left,
+    RIGHT,
+    LEFT
 }

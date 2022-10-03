@@ -1,6 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,17 +8,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.animation.addSource.OnSwipeListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.NewsReadEntry;
-import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
-import com.example.myapplication.animation.addSource.Swipe;
-import com.example.myapplication.data.addSource.Constants;
-import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -38,8 +35,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -91,21 +86,25 @@ public class InsightActivity extends AppCompatActivity {
          */
         View appBar = findViewById(R.id.materialCardView_id);
         View activity = findViewById(R.id.insight_show_articles_card);
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
+        appBar.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe -> {
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
+        activity.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe ->{
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
     }
 
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Left){
-                Intent intent = new Intent(getBaseContext(), FeedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
-        });
-        onSwipeTouchListener.setGestureListener();
+
+
+    private void closeActivity(){
+        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        finish();
     }
 
     /*

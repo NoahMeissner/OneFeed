@@ -30,7 +30,7 @@ public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatIma
     private int xSpeed;
     private int ySpeed;
     // Refresh Rate
-    private final long myDelay =70;
+    private final long MY_DELAY =70;
 
     /*
     Constructor
@@ -62,7 +62,7 @@ public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatIma
             // add speed to coordinates
             setX(getX()+xSpeed);
             setY(getY()+ySpeed);
-            myHandler.postDelayed(runnable,myDelay);
+            myHandler.postDelayed(runnable, MY_DELAY);
         }
     };
 
@@ -101,7 +101,7 @@ public class SocialMediaAnimation extends androidx.appcompat.widget.AppCompatIma
      */
     public void animateBubbles(){
         myHandler.removeCallbacks(runnable);
-        myHandler.postDelayed(runnable, myDelay);
+        myHandler.postDelayed(runnable, MY_DELAY);
     }
 
     /*

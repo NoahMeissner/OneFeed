@@ -6,11 +6,15 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.addSource.Constants;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Service extends android.app.Service {
 
@@ -54,6 +58,9 @@ public class Service extends android.app.Service {
         }
         GetMilliSeconds getMilliSeconds = new GetMilliSeconds(this);
         long time = getMilliSeconds.getMilliSeconds();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Date resultDate = new Date(time);
+        Log.d("Service",sdf.format(resultDate));
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,time,pendingIntent);
     }

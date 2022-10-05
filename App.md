@@ -67,3 +67,10 @@ The app allows you to pre-select news portals on your own. You have the option o
 - The slots are defined in the app so that the user can only be reminded at certain times.
 - Once a notification has been sent, none is sent until the user opens the app again,
    so as not to disturb the user with many messages.
+   
+### Additional Features
+
+- in order to be able to use the app with large displays, we use multi-gestures to facilitate navigation.(ABB.5)
+
+![multigesures_AdobeExpress](https://user-images.githubusercontent.com/108337767/194118491-d3a5bbcc-a430-4bb3-8cce-a1791f141a98.gif)
+(ABB.5)

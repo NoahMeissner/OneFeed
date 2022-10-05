@@ -9,7 +9,7 @@
         android:id="@+id/app_barcollapse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:title="@string/headlineQuellenActivity"
+        app:title="@string/headline_source_activity"
         app:toolbar="@layout/component_addsite_toolbar"
         app:pageContentView="@layout/view_add_activity">
 

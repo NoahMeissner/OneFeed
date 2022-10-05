@@ -94,7 +94,7 @@ public class PermissionsActivity extends AppCompatActivity {
      */
     private void initSharedPreferences(boolean consumptionAnalyse, boolean notifications) {
         SharedPreferences pref = getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         SharedPreferences.Editor editPreferences = pref.edit();
         // Save that OnBoarding Process it over
         editPreferences.putBoolean(Constants.initial.Process.name(), true);

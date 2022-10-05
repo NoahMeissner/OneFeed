@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <LinearLayout
                 android:layout_width="270dp"
@@ -19,12 +20,12 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/editQuellenIconText"
+                    android:id="@+id/edit_source_icon_text"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    android:text="TextView"
+                    android:text=""
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary"
                     android:textSize="20sp"
@@ -35,7 +36,7 @@
                     android:layout_height="wrap_content" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/editQuellenIconSwitch"
+                    android:id="@+id/edit_source_icon_switch"
                     android:minHeight="?attr/minTouchTargetSize"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

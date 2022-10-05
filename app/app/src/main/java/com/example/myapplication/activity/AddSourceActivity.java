@@ -8,14 +8,13 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 
 import com.example.myapplication.R;
-import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
+import com.example.myapplication.animation.addSource.OnSwipeListener;
 import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.addSource.Constants;
 import com.example.myapplication.data.addSource.SourceAdd;
@@ -24,11 +23,11 @@ import com.example.myapplication.fragment.addSource.DeleteSourceFragment;
 import com.example.myapplication.fragment.addSource.EditSourceFragment;
 import com.example.myapplication.adapter.AdapterListAddActivity;
 import com.example.myapplication.fragment.addSource.InformationFragment;
+import com.example.myapplication.notification.NotificationList;
 import com.example.myapplication.notification.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,18 +91,8 @@ public class AddSourceActivity extends AppCompatActivity implements
     This Method will get the Room Data Sources List and safes in shared Preferences the source Names
      */
     private void setPreferences(List<SourceAdd> sources) {
-        SharedPreferences preferences = getSharedPreferences(
-                getBaseContext()
-                        .getResources()
-                        .getString(R.string.initProcesBoolean), 0);
-
-        SharedPreferences.Editor editPreferences = preferences.edit();
-
-        editPreferences.putStringSet(
-                Constants.initial.NotificationList.name(),
-                checkNotification(sources));
-
-        editPreferences.apply();
+        NotificationList notificationList = new NotificationList(this,"");
+        notificationList.setSourceList(sources);
     }
 
     /*
@@ -118,25 +107,11 @@ public class AddSourceActivity extends AppCompatActivity implements
     }
 
     /*
-    This Method safes the names from the Source Adds in one list
-        Sources which declared no Notification will be deleted in this List
-     */
-    private HashSet<String> checkNotification(List<SourceAdd> sourceAdds) {
-        HashSet<String> list = new HashSet<>();
-        for(SourceAdd sources:sourceAdds){
-            if (sources.isNotification()){
-                list.add(sources.getName());
-            }
-        }
-        return list;
-    }
-
-    /*
      This Method initialise the Buttons to close the Activity and show the Information Fragment
      */
     private void initButton() {
         ImageButton buttonInformation = findViewById(R.id.addInfo);
-        ImageButton backButton = findViewById(R.id.addback);
+        ImageButton backButton = findViewById(R.id.add_back);
         initGestures();
         buttonInformation.setOnClickListener(view -> {
             InformationFragment informationFragment = new InformationFragment();
@@ -157,20 +132,17 @@ public class AddSourceActivity extends AppCompatActivity implements
         This Method will initial the Swipe Gestures
          */
         View appBar = findViewById(R.id.component_app_bar_id);
-        View activity = findViewById(R.id.addActivityView);
-        //@TODO repair
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
-    }
-
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Right){
+        appBar.setOnTouchListener(new OnSwipeListener(AddSourceActivity.this, swipe -> {
+            if (swipe == Swipe.RIGHT) {
                 closeActivity();
             }
-        });
-        onSwipeTouchListener.setGestureListener();
+        }));
+        View activity = findViewById(R.id.addActivityView);
+        activity.setOnTouchListener(new OnSwipeListener(AddSourceActivity.this, swipe -> {
+            if (swipe == Swipe.RIGHT){
+                closeActivity();
+            }
+        }));
     }
 
     /*
@@ -178,9 +150,9 @@ public class AddSourceActivity extends AppCompatActivity implements
      */
     private void declareRecyclerView(){
         // Initial RecyclerViewer
-        RecyclerView recyclerSocialMedia = findViewById(R.id.recyclerViewQuellenSM);
-        RecyclerView recyclerNewsPaper = findViewById(R.id.recyclerViewQuellenNP);
-        RecyclerView recyclerInterests = findViewById(R.id.recyclerViewQuellenIn);
+        RecyclerView recyclerSocialMedia = findViewById(R.id.recycler_view_source_social_media);
+        RecyclerView recyclerNewsPaper = findViewById(R.id.recycle_view_source_news);
+        RecyclerView recyclerInterests = findViewById(R.id.recycler_view_sources_interests);
         // edit recycler Viewer that they are not scrollable
         recyclerInterests.setNestedScrollingEnabled(false);
         recyclerNewsPaper.setNestedScrollingEnabled(false);
@@ -212,17 +184,17 @@ public class AddSourceActivity extends AppCompatActivity implements
         try {
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Newspaper))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add),
+                            getDrawable(R.drawable.icon_add),
                             Constants.Newspaper));
 
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.SocialMedia))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add ),
+                            getDrawable(R.drawable.icon_add),
                             Constants.SocialMedia));
 
             Objects.requireNonNull(enabledSourcesHashMap.get(Constants.Interests))
                     .add(new SourceAdd(Constants.ADDButton.name(),
-                            getDrawable(R.drawable.add),
+                            getDrawable(R.drawable.icon_add),
                             Constants.Interests));
         } catch (NullPointerException exception) {
             return;

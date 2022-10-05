@@ -20,7 +20,7 @@
             <ImageView
                 style="@style/tweet_card_profile_picture"
                 android:id="@+id/tweet_card_profile_picture"
-                android:src="@drawable/sample_picture" />
+                android:src="@drawable/picture_sample" />
 
         </androidx.cardview.widget.CardView>
 
@@ -64,7 +64,7 @@
             <!--Source-->
             <com.example.myapplication.customView.NewsSource
                 app:name="@string/source_twitter"
-                app:sourceIcon="@drawable/ic_twitter"
+                app:sourceIcon="@drawable/picutre_icon_twitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

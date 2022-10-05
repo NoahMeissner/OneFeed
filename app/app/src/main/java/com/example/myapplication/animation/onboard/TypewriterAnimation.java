@@ -16,7 +16,7 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
     // Constants
     private CharSequence myText;
     private int myIndex;
-    private final long myDelay = 150;
+    private final long MY_DELAY = 150;
     private final Handler myHandler = new Handler();
 
 
@@ -43,7 +43,7 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
              */
             setText(myText.subSequence(0,myIndex++));
             if(myIndex<=myText.length() ){
-                myHandler.postDelayed(characterAdder, myDelay);
+                myHandler.postDelayed(characterAdder, MY_DELAY);
             }
         }
     };
@@ -54,6 +54,6 @@ public class TypewriterAnimation extends androidx.appcompat.widget.AppCompatText
         myIndex = 0;
         setText("");
         myHandler.removeCallbacks(characterAdder);
-        myHandler.postDelayed(characterAdder, myDelay);
+        myHandler.postDelayed(characterAdder, MY_DELAY);
     }
 }

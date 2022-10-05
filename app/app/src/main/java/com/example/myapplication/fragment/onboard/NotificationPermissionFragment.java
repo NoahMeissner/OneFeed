@@ -32,7 +32,7 @@ public class NotificationPermissionFragment extends Fragment {
     private void initImage(View view) {
         ImageView imageView = view.findViewById(R.id.imageViewNotification);
         @SuppressLint("UseCompatLoadingForDrawables") Drawable drawable = view.getResources()
-                .getDrawable(R.drawable.notification, view.getContext().getTheme());
+                .getDrawable(R.drawable.icon_notification, view.getContext().getTheme());
         drawable.setTint(MaterialColors.getColor(view,
                 com.google.android.material.R.attr.colorPrimary));
         imageView.setImageDrawable(drawable);

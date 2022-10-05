@@ -11,7 +11,7 @@
         style="@style/source_icon"
         android:id="@+id/source_icon"
         android:contentDescription="@string/content_description_article_source"
-        android:src="@drawable/ic_twitter"
+        android:src="@drawable/picutre_icon_twitter"
         tools:ignore="ImageContrastCheck" />
 
     <TextView

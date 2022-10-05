@@ -12,7 +12,7 @@
 
         <ImageView
             android:id="@+id/article_card_image"
-            android:src="@drawable/sample_picture"
+            android:src="@drawable/picture_sample"
             android:contentDescription="@string/content_description_article_image"
             android:layout_width="104dp"
             android:layout_height="match_parent"
@@ -33,7 +33,7 @@
 
             <com.example.myapplication.customView.NewsSource
                 app:name="@string/sample_source_name"
-                app:sourceIcon="@drawable/sample_source_icon"
+                app:sourceIcon="@drawable/picture_icon_sample_source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@id/tweet_card_content_layout" />

@@ -26,7 +26,7 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
      private FragmentManager fragmentManager;
      private ArrayList<Constants.interests> interestsList = new ArrayList<>();
      private final ArrayList<Constants.socialMedia> socialMediaList = new ArrayList<>();
-    InitialData data;
+     private InitialData data;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
     private void initUI() {
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.initialframeLayout, WelcomeFragment.class, null)
+                .replace(R.id.initial_frame_layout, WelcomeFragment.class, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("")
                 .commit();
@@ -54,14 +54,14 @@ public class OnboardActivity extends AppCompatActivity implements InterestsFragm
             switch (fragmentManager.getBackStackEntryCount()){
                 case 1:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.initialframeLayout, InterestsFragment.class, null)
+                            .replace(R.id.initial_frame_layout, InterestsFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();
                     return;
                 case 2:
                     fragmentManager.beginTransaction()
-                            .replace(R.id.initialframeLayout, SocialMediaFragment.class, null)
+                            .replace(R.id.initial_frame_layout, SocialMediaFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("")
                             .commit();

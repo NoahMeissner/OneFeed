@@ -1,25 +1,20 @@
 package com.example.myapplication.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.animation.addSource.OnSwipeListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.NewsReadEntry;
-import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
-import com.example.myapplication.animation.addSource.Swipe;
-import com.example.myapplication.data.addSource.Constants;
-import com.example.myapplication.data.insight.ReadingDay;
 import com.example.myapplication.fragment.analysis.PermissionsDialogFragment;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -38,18 +33,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-// Insight = Konsumverhalten
 public class InsightActivity extends AppCompatActivity {
 
     private BarChart chart;
     private InsightViewModel viewModel;
-    PermissionsDialogFragment permissionsDialogFragement;
+    PermissionsDialogFragment permissionsDialogFragment;
 
 
     @Override
@@ -57,7 +49,7 @@ public class InsightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insight);
 
-        // Viewmodel
+        // View model
         this.viewModel = new ViewModelProvider(this).get(InsightViewModel.class);
 
         // Title-bar
@@ -81,7 +73,7 @@ public class InsightActivity extends AppCompatActivity {
 
         // Settings
         initializeSettings();
-        initialFragement();
+        initialFragment();
     }
 
 
@@ -91,44 +83,40 @@ public class InsightActivity extends AppCompatActivity {
          */
         View appBar = findViewById(R.id.materialCardView_id);
         View activity = findViewById(R.id.insight_show_articles_card);
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
+        appBar.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe -> {
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
+        activity.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe ->{
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
     }
 
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Left){
-                Intent intent = new Intent(getBaseContext(), FeedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
-        });
-        onSwipeTouchListener.setGestureListener();
+
+
+    private void closeActivity(){
+        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        finish();
     }
 
     /*
     This Method initial the Permissions Dialog Fragment,
      which asks the User to accept the consumption analysis
      */
-    private void initialFragement() {
-        if(!viewModel.getLimitationIsEnabled().getValue()){
-            permissionsDialogFragement = new PermissionsDialogFragment();
-            permissionsDialogFragement.show(getSupportFragmentManager(),"");
+    private void initialFragment() {
+        if(Boolean.FALSE.equals(viewModel.getLimitationIsEnabled().getValue())){
+            permissionsDialogFragment = new PermissionsDialogFragment();
+            permissionsDialogFragment.show(getSupportFragmentManager(),"");
 
-            // Listener for the response so the acitivty refreshes
-            permissionsDialogFragement.setResultListener(enabled -> {
-                viewModel.setLimitationIsEnabled(getBaseContext(), enabled);
-            });
+            // Listener for the response so the activity refreshes
+            permissionsDialogFragment.setResultListener(enabled ->
+                    viewModel.setLimitationIsEnabled(getBaseContext(), enabled));
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Close open fragments as they will be recreated (avoids multiple popups)
-        permissionsDialogFragement.dismiss();
     }
 
     private void initializeSettings() {
@@ -144,18 +132,16 @@ public class InsightActivity extends AppCompatActivity {
             limitArticlesDescription.setEnabled(enabled);
         });
         viewModel.getArticlesPerDay().observe(this, articlesPerDay -> {
-            if (viewModel.getLimitationIsEnabled().getValue()) {
+            if (Boolean.TRUE.equals(viewModel.getLimitationIsEnabled().getValue())) {
                 limitArticlesSlider.setValue(articlesPerDay);
             }
         });
 
         // Update values on input
-        limitArticlesSlider.addOnChangeListener((slider, value, fromUser) -> {
-            viewModel.setArticleLimitation(this, (int)value);
-        });
-        limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) -> {
-            viewModel.setLimitationIsEnabled(this, newValue);
-        });
+        limitArticlesSlider.addOnChangeListener((slider, value, fromUser) ->
+                viewModel.setArticleLimitation(this, (int)value));
+        limitArticlesSwitch.setOnCheckedChangeListener((button, newValue) ->
+                viewModel.setLimitationIsEnabled(this, newValue));
     }
 
     private void initializeChartControls() {
@@ -188,7 +174,7 @@ public class InsightActivity extends AppCompatActivity {
 
         // Adjust the axis min & max
         // no padding (value too large / small for chart because out of current year)
-        this.chart.getXAxis().setAxisMinimum(1); // barwidth for padding
+        this.chart.getXAxis().setAxisMinimum(1); // bar width for padding
         this.chart.getXAxis().setAxisMaximum(amountDaysInYear);
 
         // Format the labels according to months
@@ -277,7 +263,7 @@ public class InsightActivity extends AppCompatActivity {
                     DayOfWeek dayOfWeek = DayOfWeek.of((int) value - startOfCurrentWeek + 1);
                     return dayOfWeek.getDisplayName(TextStyle.SHORT_STANDALONE, Locale.getDefault());
                 } catch (RuntimeException exception) {
-                    // Possibly an MPANdroid bug: value provided for the formatter is > than the
+                    // Possibly an MPAndroid bug: value provided for the formatter is > than the
                     // previously set minimum and maximum of the charts
                     // Workaround: Catch exception for these cases...
                     return "";
@@ -304,10 +290,8 @@ public class InsightActivity extends AppCompatActivity {
         this.chart = findViewById(R.id.insight_chart);
 
         // Data
-        this.viewModel.getNewsReadList().observe(this, data -> {
-            // Refresh chart on any change to the dataset
-            setBarData(data);
-        });
+        // Refresh chart on any change to the dataset
+        this.viewModel.getNewsReadList().observe(this, this::setBarData);
 
         // Axis settings
         // - Disable unused axis

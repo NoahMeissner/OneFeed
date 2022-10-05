@@ -15,8 +15,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/initialframeLayout"
-        style="@style/initial_framelayout_style"
+        android:id="@+id/initial_frame_layout"
+        style="@style/initial_frame_layout_style"
         android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="parent"

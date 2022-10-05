@@ -44,7 +44,5 @@ public enum Constants {
     public enum insightSettings {
         articlesPerDay,
         limitationIsEnabled,
-        articlesOpened,
-        articlesOpenedDate
     }
 }

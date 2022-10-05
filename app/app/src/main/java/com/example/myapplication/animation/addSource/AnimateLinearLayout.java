@@ -15,7 +15,7 @@ public class AnimateLinearLayout extends FrameLayout {
 
     // Constants
     private int rotation = 2;
-    private final long myDelay =80;
+    private final long MY_DELAY =80;
     private final Handler myHandler = new Handler();
 
 
@@ -31,7 +31,7 @@ public class AnimateLinearLayout extends FrameLayout {
              is multiplied by -1 to reverse the animation.
              */
             setRotation(rotation);
-            myHandler.postDelayed(runnable,myDelay);
+            myHandler.postDelayed(runnable, MY_DELAY);
             rotation=-rotation;
         }
     };
@@ -41,7 +41,7 @@ public class AnimateLinearLayout extends FrameLayout {
      */
     public void animateItems(){
         myHandler.removeCallbacks(runnable);
-        myHandler.postDelayed(runnable, myDelay);
+        myHandler.postDelayed(runnable, MY_DELAY);
     }
 
     public void stopAnimation(){

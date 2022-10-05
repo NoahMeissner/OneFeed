@@ -2,17 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="120dp"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="50dp"
     >
 
     <com.example.myapplication.animation.addSource.AnimateLinearLayout
         android:layout_width="wrap_content"
-        android:id="@+id/frameLayout_icons_Quellen"
+        android:id="@+id/frameLayout_icons_source"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/linearLayoutQuellenIcons"
+            android:id="@+id/linear_layout_source_icons"
             android:layout_width="100dp"
             android:layout_height="120dp"
             android:orientation="vertical">
@@ -20,9 +21,7 @@
             <LinearLayout
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/custombutton"
+                android:background="@drawable/shape_custom_button"
                 android:orientation="vertical"
                 tools:ignore="UselessParent,SpeakableTextPresentCheck">
 
@@ -31,21 +30,21 @@
                     android:layout_height="11dp" />
 
                 <ImageView
-                    android:id="@+id/quellenImage"
+                    android:id="@+id/source_image"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="14dp"
-                    android:contentDescription="@string/pictureofbutton"
-                    app:srcCompat="@drawable/twitter_icon" />
+                    android:contentDescription="@string/picture_of_button"
+                    app:srcCompat="@drawable/icon_twitter" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/quelleText"
+                android:id="@+id/source_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/hallo"
+                android:text="@string/hello"
                 android:textSize="18sp"
                 style="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textAlignment="center"
@@ -58,7 +57,7 @@
             android:id="@+id/deleteLayout"
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/custombutton"
+            android:background="@drawable/shape_custom_button"
             android:backgroundTint="?attr/colorError"
             android:orientation="horizontal">
 
@@ -67,7 +66,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/close" />
+                app:srcCompat="@drawable/icon_close"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
     </com.example.myapplication.animation.addSource.AnimateLinearLayout>
 

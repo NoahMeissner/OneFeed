@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+import com.example.myapplication.R;
+
 @SuppressLint("AppCompatCustomView")
 public class InterestsAnimation extends Button {
 
@@ -17,7 +19,7 @@ public class InterestsAnimation extends Button {
     /*
     Constants
      */
-    private final Handler myHandlerClick = new Handler();
+    private final Handler MY_HANDLE_CLICK = new Handler();
     // RefreshRate
     private long myDelay = 10;
     /*
@@ -35,13 +37,14 @@ public class InterestsAnimation extends Button {
     constant which is important to compensate for the difference
      in length between activity and fragment
      */
-    private final int spacing = 330;
+    private int spacing;
 
     /*
     Constructor
      */
     public InterestsAnimation(Context context) {
         super(context);
+        spacing = context.getResources().getInteger(R.integer.spacing);
     }
 
     /*
@@ -69,7 +72,7 @@ public class InterestsAnimation extends Button {
                 // add speed to coordinates
                 setX(getX() + xSpeed);
                 setY(getY() + ySpeed);
-                myHandlerClick.postDelayed(runnable, myDelay);
+                MY_HANDLE_CLICK.postDelayed(runnable, myDelay);
                 // add 1 to delay to slow down the animation
                 myDelay+=1;
         }
@@ -79,8 +82,8 @@ public class InterestsAnimation extends Button {
     Start Animation
      */
     public void animateInterestsClick(){
-        myHandlerClick.removeCallbacks(runnable);
-        myHandlerClick.postDelayed(runnable, myDelay);
+        MY_HANDLE_CLICK.removeCallbacks(runnable);
+        MY_HANDLE_CLICK.postDelayed(runnable, myDelay);
     }
 
     /*
@@ -110,7 +113,7 @@ public class InterestsAnimation extends Button {
     Stop Animation
      */
     public void stopAnimation(){
-        myHandlerClick.removeCallbacksAndMessages(null);
+        MY_HANDLE_CLICK.removeCallbacksAndMessages(runnable);
     }
 
     /*

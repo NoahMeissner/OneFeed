@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="380dp"
     android:layout_height="250dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,10 +33,10 @@
             android:layout_width="50dp"
             android:layout_gravity="center"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/informationicon" />
+            app:srcCompat="@drawable/icon_information" />
 
         <TextView
-            android:id="@+id/InformationFragementHeadline"
+            android:id="@+id/information_fragment_headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Informationen"
@@ -62,7 +61,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
-            android:text="@string/informationenText" />
+            android:text="@string/information_text" />
 
 
     </LinearLayout>

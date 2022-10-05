@@ -12,7 +12,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Material3.ActionBar.Title</item>
     </style>
 
-    <style name="initial_framelayout_style">
+    <style name="initial_frame_layout_style">
         <item name="android:layout_width">397dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginBottom">96dp</item>

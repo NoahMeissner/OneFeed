@@ -16,4 +16,12 @@ _Beschreiben Sie kurz, ob und wenn ja wie, der erreichte Stand Ihrer Anwendung v
 
 ## Weitere Hinweise
 
-_Notieren Sie hier falls nötig weitere Hinweise zur Ihrer App wie Informationen zum Testen Ihrer Anwendung (z.B. vorbereitete Zugangsdaten) oder NUtzungseinschränkungen (z.B. Abhängigkeit von besonderer Hardware)._
+_Notieren Sie hier falls nötig weitere Hinweise zur Ihrer App wie Informationen zum Testen Ihrer Anwendung (z.B. vorbereitete Zugangsdaten) oder NUtzungseinschränkungen (z.B. Abhängigkeit von besonderer Hardware).
+
+---
+
+@Todo Max
+
+---
+
+@Todo Noah

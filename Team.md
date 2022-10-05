@@ -14,9 +14,9 @@
 
 | Field of competence  | Link                                                                                                                                                                               | Group member  |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| Onboarding Process   | [Onboarding folder](https://github.com/Android-Projekte-VHB/vhb-android-ss2022-onefeed/tree/main/app/app/src/main/java/com/example/myapplication/activity/onboard)                 | Noah M.       |
-| Feed View            | [Feed activity](https://github.com/Android-Projekte-VHB/vhb-android-ss2022-onefeed/blob/main/app/app/src/main/java/com/example/myapplication/activity/FeedActivity.java)           | Maximilian W. |
-| Insight View         | [Insight activity](https://github.com/Android-Projekte-VHB/vhb-android-ss2022-onefeed/blob/main/app/app/src/main/java/com/example/myapplication/activity/InsightActivity.java)     | Maximilian W. |
-| Settings View        | [AddSource activity](https://github.com/Android-Projekte-VHB/vhb-android-ss2022-onefeed/blob/main/app/app/src/main/java/com/example/myapplication/activity/AddSourceActivity.java) | Noah M.       |
-| Notification Service | [Notification folder](https://github.com/Android-Projekte-VHB/vhb-android-ss2022-onefeed/tree/main/app/app/src/main/java/com/example/myapplication/notification)                   | Noah M.       |
+| Onboarding Process   | [Onboarding folder](https://github.com/NoahMeissner/OneFeed/tree/main/app/app/src/main/java/com/onefeed/app/activity/onboard)                 | Noah M.       |
+| Feed View            | [Feed activity](https://github.com/NoahMeissner/OneFeed/blob/main/app/app/src/main/java/com/onefeed/app/activity/FeedActivity.java)           | Maximilian W. |
+| Insight View         | [Insight activity](https://github.com/NoahMeissner/OneFeed/blob/main/app/app/src/main/java/com/onefeed/app/activity/InsightActivity.java)     | Maximilian W. |
+| Settings View        | [AddSource activity](https://github.com/NoahMeissner/OneFeed/blob/main/app/app/src/main/java/com/onefeed/app/activity/AddSourceActivity.java) | Noah M.       |
+| Notification Service | [Notification folder](https://github.com/NoahMeissner/OneFeed/tree/main/app/app/src/main/java/com/onefeed/app/notification)                   | Noah M.       |
 

@@ -10,7 +10,7 @@
 - Email: Maximilian.Weichart@stud.uni-regensburg.de
 - Github: [Max-We](https://github.com/Max-We)
 
-### Tasks
+# Tasks
 
 | Field of competence  | Link                                                                                                                                                                               | Group member  |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |

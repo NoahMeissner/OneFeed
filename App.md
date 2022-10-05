@@ -52,7 +52,7 @@ Neuropsychologists such as Lutz Jäncke report that the user's brain is overwhel
 ![multigesures_AdobeExpress](https://user-images.githubusercontent.com/108337767/194118491-d3a5bbcc-a430-4bb3-8cce-a1791f141a98.gif)
 (ABB.5)
 
-## Erreichter Stand
+## attained level
 
 The app allows you to pre-select news portals on your own. You have the option of specifying your interests and your consumption is tracked and blocked if you have set your daily Limit in the app.
 

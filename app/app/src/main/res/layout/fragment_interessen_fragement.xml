@@ -8,7 +8,7 @@
     tools:context=".fragment.onboard.InterestsFragment">
 
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategoriePolitik"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="125dp"
@@ -27,7 +27,7 @@
         app:strokeColor="?attr/colorOnSurface"
         app:strokeWidth="1dp" />
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategorieWirtschaft"
         android:layout_width="125dp"
         android:layout_height="125dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategorieCorona"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="125dp"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategorieGaming"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="125dp"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategorieTechnik"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="125dp"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <com.example.myapplication.animation.onboard.InterestsAnimation
+    <com.onefeed.app.animation.onboard.InterestsAnimation
         android:id="@+id/buttonKategorieSport"
         style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="125dp"

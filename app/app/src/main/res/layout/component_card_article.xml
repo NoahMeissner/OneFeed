@@ -31,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="@id/tweet_card_content_layout"
                 app:layout_constraintTop_toTopOf="@id/tweet_card_content_layout"/>
 
-            <com.example.myapplication.customView.NewsSource
+            <com.onefeed.app.customView.NewsSource
                 app:name="@string/sample_source_name"
                 app:sourceIcon="@drawable/picture_icon_sample_source"
                 android:layout_width="match_parent"

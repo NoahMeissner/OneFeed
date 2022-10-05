@@ -7,7 +7,7 @@
     android:layout_marginEnd="50dp"
     >
 
-    <com.example.myapplication.animation.addSource.AnimateLinearLayout
+    <com.onefeed.app.animation.addSource.AnimateLinearLayout
         android:layout_width="wrap_content"
         android:id="@+id/frameLayout_icons_source"
         android:layout_height="wrap_content">
@@ -69,6 +69,6 @@
                 app:srcCompat="@drawable/icon_close"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
-    </com.example.myapplication.animation.addSource.AnimateLinearLayout>
+    </com.onefeed.app.animation.addSource.AnimateLinearLayout>
 
 </FrameLayout>

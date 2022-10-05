@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "com.example.onefeed"
         minSdk 29
         targetSdk 32
         versionCode 1
@@ -14,7 +14,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.manifestPlaceholders = [
-                'appAuthRedirectScheme': 'com.example.myapplication.redirect'
+                'appAuthRedirectScheme': 'com.example.onefeed.redirect'
         ]
     }
 

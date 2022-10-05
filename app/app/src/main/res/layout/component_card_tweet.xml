@@ -62,7 +62,7 @@
                 android:text="@string/lorem_ipsum_long" />
 
             <!--Source-->
-            <com.example.myapplication.customView.NewsSource
+            <com.onefeed.app.customView.NewsSource
                 app:name="@string/source_twitter"
                 app:sourceIcon="@drawable/picutre_icon_twitter"
                 android:layout_width="match_parent"

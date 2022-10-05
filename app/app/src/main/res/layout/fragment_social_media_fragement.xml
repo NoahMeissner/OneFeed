@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.onboard.SocialMediaFragment">
 
-    <com.example.myapplication.animation.onboard.SocialMediaAnimation
+    <com.onefeed.app.animation.onboard.SocialMediaAnimation
         android:id="@+id/imageTwitterButton"
         android:layout_width="120dp"
         android:layout_height="120dp"

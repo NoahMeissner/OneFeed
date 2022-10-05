@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplication">
+    package="com.onefeed.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,34 +17,33 @@
         android:roundIcon="@drawable/picture_one_feed"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="31"
+        tools:targetApi="31" >
 
-        >
-        <service android:name=".notification.Service" />
+        <service android:name="com.onefeed.app.notification.Service" />
 
         <activity
-            android:name=".activity.InsightActivity"
+            android:name="com.onefeed.app.activity.InsightActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.onboard.PermissionsActivity"
+            android:name="com.onefeed.app.activity.onboard.PermissionsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.onboard.OnboardActivity"
+            android:name="com.onefeed.app.activity.onboard.OnboardActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.AddSourceActivity"
+            android:name="com.onefeed.app.activity.AddSourceActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.FeedActivity"
+            android:name="com.onefeed.app.activity.FeedActivity"
             android:exported="false"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activity.onboard.LoadingActivity"
+            android:name="com.onefeed.app.activity.onboard.LoadingActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
 
@@ -54,7 +53,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notification.ReminderBroadcast"/>
+        <receiver android:name="com.onefeed.app.notification.ReminderBroadcast"/>
         <meta-data android:name="com.dieam.reactnativepushnotification.default_notification_channel_id" android:value="@string/default_notification_channel_id" />
 
 

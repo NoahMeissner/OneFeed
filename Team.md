@@ -1,14 +1,16 @@
 # Team
 
-- Noah Meißner 
+### Noah Meißner 
+
 - Email: noah.meissner@dtud.uni-regensburg.de 
 - Github: [NoahMeissner](https://github.com/NoahMeissner)
 
-- Maximilian Weichart 
+### Maximilian Weichart 
+
 - Email: Maximilian.Weichart@stud.uni-regensburg.de
 - Github: [Max-We](https://github.com/Max-We)
 
-## Tasks
+### Tasks
 
 | Field of competence  | Link                                                                                                                                                                               | Group member  |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |

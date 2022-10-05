@@ -61,5 +61,5 @@ The app allows you to pre-select news portals on your own. You have the option o
 
 ## Further Hints
 - To test the app, you will need a Twitter account to log in with during the onboarding process. 
-- To install the app, you need a mobile phone with at least Android Q. The app is designed for smartphones.
+- To install the app, you need a mobile phone with at least Android Q. 
 - The app has been programmed for use on a smartphone

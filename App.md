@@ -6,8 +6,6 @@ _Beschreiben Sie entlang der vorgegebenen Struktur Ihre Anwendung. Nutzen Sie da
 
 Neuropsychologists such as Lutz Jäncke report that the user's brain is overwhelmed by the flood of information on the Internet and thus loses the ability to distinguish between qualitative and quantitative content. Therefore, One Feed should make it possible to consume all media consumption on the Internet through one channel and thus also to control it in order to prevent the brain from being overwhelmed.
 
-_Beschreiben Sie die Zielgruppe Ihrer Anwendung genauer. Für wen entwickeln Sie die Anwendung und vor welchen Herausforderungen stehen diese Menschen, die nun mit Hilfe Ihrer App bewältigt werden können?_
-
 ## Features und Szenarien
 
 _Beschreiben Sie die wichtigsten Funktionen Ihrer Anwendung. Was können die Nutzer\*innen mit Ihrer Anwendung tun? Verwenden Sie zur Beschreibung Beschreiben dieser zentralen Features auch Screenshots oder animierte Gifs aus Ihrer Anwendung. Dokumentieren Sie im Anschluss anhand ausgewählter Szenarien einige ausgesuchte, wichtige Arten der Nutzung der App durch die Zielgruppe. Beschreiben Sie dazu anhand eines gedachten Walkthroughs durch die Anwendung, in welcher Reihenfolge die Nutzer\*innen die genannten Funktionen der Anwendung verwenden, um wichtige Ziele zu erreichen._
@@ -23,10 +21,10 @@ The app does not include its own reader, as we are unable to download the texts 
 
 _Beschreiben Sie kurz, ob und wenn ja wie, der erreichte Stand Ihrer Anwendung von dem ursprünglich geplanten Konzept abweicht. Begründen Sie ggf. aufgetreten Abweichungen._
 
-## Weitere Hinweise
+## Further Hints
 - To test the app, you will need a Twitter account to log in with during the onboarding process. 
 - To install the app, you need a mobile phone with at least Android Q. The app is designed for smartphones.
-- The app was developed for smartphones with the screen format of the Google Pixel series. 
+- The app has been programmed for use on a smartphone
 
 _Notieren Sie hier falls nötig weitere Hinweise zur Ihrer App wie Informationen zum Testen Ihrer Anwendung (z.B. vorbereitete Zugangsdaten) oder NUtzungseinschränkungen (z.B. Abhängigkeit von besonderer Hardware).
 

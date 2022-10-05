@@ -40,7 +40,7 @@ The app allows you to pre-select news portals on your own. You have the option o
 ![add_new_buttons_-_SD_480p_AdobeExpress (1)](https://user-images.githubusercontent.com/108337767/194114299-c5e8acb4-250f-42a6-bbcb-cb8f16802334.gif)
 (ABB.1)
 
-![Bildschirmfoto 2022-10-05 um 18 40 34](https://user-images.githubusercontent.com/108337767/194115218-fd2ba1b1-f253-4a71-a517-bba8935c60c0.png)
+![Bildschirmfoto 2022-10-05 um 18 40 34](https://user-images.githubusercontent.com/108337767/194116830-8382e15e-bb4e-4fc9-9ed2-eea62e816903.png)
 (ABB.2)
 
 ### Settings 
@@ -52,10 +52,10 @@ The app allows you to pre-select news portals on your own. You have the option o
 	- -> shows visbile the User that he can now delete Items!
 - If you press on the Add Buttons you will get a menu with all sources, which are availabe (ABB.4)
 
-https://user-images.githubusercontent.com/108337767/194114669-673d4fa9-7677-4808-a4c1-b8d41af9e9d8.mov
+![add_activity_-_SD_480p_AdobeExpress](https://user-images.githubusercontent.com/108337767/194116881-fcfe24a1-8fe0-4106-aed2-897c5637d50e.gif)
 (ABB.3)
 
-![addnew icons](https://user-images.githubusercontent.com/108337767/194114382-19fd27ff-380c-4904-a83b-c6e678530f96.PNG)
+![addnew icons](https://user-images.githubusercontent.com/108337767/194116907-47ae0a2c-167a-48f5-8223-c1eff1984fda.png)
 (ABB.4)
 
 

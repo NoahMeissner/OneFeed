@@ -30,37 +30,37 @@ public class UiElements {
     private void iniPictureHashMap() {
         pictureHashMap.put(
                 Constants.news.FAZ.name(),
-                R.drawable.faz);
+                R.drawable.picture_faz);
 
         pictureHashMap.put(
                 Constants.news.Spiegel.name(),
-                R.drawable.spiegel);
+                R.drawable.picture_spiegel);
 
         pictureHashMap.put(
                 Constants.interests.Politik.name(),
-                (R.drawable.world));
+                (R.drawable.icon_world));
 
         pictureHashMap.put(
                 Constants.interests.Corona.name(),
-                R.drawable.coronavirus);
+                R.drawable.icon_coronavirus);
 
         pictureHashMap.put(
                 Constants.interests.Technik.name(),
-                R.drawable.tech);
+                R.drawable.icon_tech);
 
         pictureHashMap.put(
                 Constants.interests.Gaming.name(),
-                R.drawable.sports);
+                R.drawable.icon_gaming);
 
         pictureHashMap.put(
                 Constants.interests.Sport.name(),
-                R.drawable.sport);
+                R.drawable.icon_sport);
         pictureHashMap.put(Constants.interests.Wirtschaft.name(),
-                R.drawable.business);
+                R.drawable.icon_business);
 
         pictureHashMap.put(
                 Constants.socialMedia.Twitter.name(),
-                R.drawable.twitter_icon);
+                R.drawable.icon_twitter);
     }
 
     /*

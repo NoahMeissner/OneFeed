@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.onboard.SocialMediaFragment">
 
@@ -13,26 +14,25 @@
         android:layout_marginTop="208dp"
         android:layout_marginEnd="64dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/custombutton"
+        android:background="@drawable/shape_custom_button"
         android:padding="20dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/twitter_icon"
+        android:src="@drawable/icon_twitter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.example.myapplication.animation.onboard.TypewriterAnimation
+    <TextView
         android:id="@+id/socialMediaConnectHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         style="@style/TextAppearance.Material3.ActionBar.Title"
-        android:textStyle="bold"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/socialMediaHeadline"
+        android:text="@string/social_media_headline"
         android:textColor="?attr/colorPrimary"
-        android:textSize="30sp"
+        android:textSize="28sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/app_name"
-            app:navigationIcon="@drawable/back_arrow"
+            app:navigationIcon="@drawable/icon_back_arrow"
             app:navigationIconTint="?colorOnSurface"
             app:titleCentered="true" />
 

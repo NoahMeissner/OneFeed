@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.animation.addSource.OnSwipeListener;
+import com.example.myapplication.animation.addSource.Swipe;
 import com.example.myapplication.data.insight.InsightViewModel;
 import com.example.myapplication.data.insight.NewsReadEntry;
 import com.example.myapplication.animation.addSource.OnSwipeTouchListener;
@@ -83,21 +86,25 @@ public class InsightActivity extends AppCompatActivity {
          */
         View appBar = findViewById(R.id.materialCardView_id);
         View activity = findViewById(R.id.insight_show_articles_card);
-        setSwipeListener(appBar);
-        setSwipeListener(activity);
+        appBar.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe -> {
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
+        activity.setOnTouchListener(new OnSwipeListener(InsightActivity.this,swipe ->{
+            if (swipe == Swipe.LEFT) {
+                closeActivity();
+            }
+        }));
     }
 
-    private void setSwipeListener(View view){
-        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(
-                view, swipe -> {
-            if (swipe== Swipe.Left){
-                Intent intent = new Intent(getBaseContext(), FeedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
-        });
-        onSwipeTouchListener.setGestureListener();
+
+
+    private void closeActivity(){
+        Intent intent = new Intent(getBaseContext(), FeedActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        finish();
     }
 
     /*

@@ -47,8 +47,8 @@ public class PermissionsDialogFragment extends DialogFragment {
     This Method initialise the Data and sets the onClick Listener
      */
     private void initButtons(View view) {
-        Button buttonYes = view.findViewById(R.id.buttonYPermisson);
-        Button buttonNo = view.findViewById(R.id.buttonNPermission);
+        Button buttonYes = view.findViewById(R.id.button_yes_permission);
+        Button buttonNo = view.findViewById(R.id.button_no_permission);
         setButtonChanges(buttonYes,true);
         setButtonChanges(buttonNo,false);
     }

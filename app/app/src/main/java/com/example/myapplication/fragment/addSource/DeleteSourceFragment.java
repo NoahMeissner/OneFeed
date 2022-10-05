@@ -71,8 +71,8 @@ public class DeleteSourceFragment extends DialogFragment {
     This Method will initialise the Buttons, to accept the deleting of one Source Object
      */
     private void initButtons(View view) {
-        Button buttonNo = view.findViewById(R.id.buttonND);
-        Button buttonYes = view.findViewById(R.id.buttonYD);
+        Button buttonNo = view.findViewById(R.id.button_no_delete);
+        Button buttonYes = view.findViewById(R.id.button_yes_delete);
         buttonNo.setOnClickListener(view1 -> {
             deleteSFInterface.deleteSourceFromLongClick(false, source);
             onStop();
@@ -88,7 +88,7 @@ public class DeleteSourceFragment extends DialogFragment {
      */
     private void initUI(View view) {
         TextView textView = view.findViewById(R.id.deleteSourceHeadline);
-        ImageView imageView = view.findViewById(R.id.deleteSourceImage);
+        ImageView imageView = view.findViewById(R.id.delete_source_image);
         textView.setText(source.getName());
         imageView.setImageResource(source.getImageRessourceID());
     }

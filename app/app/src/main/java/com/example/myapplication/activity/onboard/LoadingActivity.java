@@ -45,7 +45,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void initSharedPreferences() {
         pref = getSharedPreferences(getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         isInitialized = pref.getBoolean(
                 Constants.initial.Process.name(),false);
 
@@ -99,7 +99,7 @@ public class LoadingActivity extends AppCompatActivity {
         /*
         This Set Source Object hands all Source over
          */
-        SetSourceObjects sourceObjects = new SetSourceObjects(data,notification);
+        SetSourceObjects sourceObjects = new SetSourceObjects(this,data,notification);
         sourceObjects.setSocialMediaList(socialMedia);
         sourceObjects.setInterestsList(interests);
         sourceObjects.setNews();

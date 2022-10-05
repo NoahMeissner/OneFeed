@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AddSourceActivity"
-    android:id="@+id/beispielConstraint">
+    >
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -20,10 +19,10 @@
 
 
             <TextView
-                android:id="@+id/quellenSocialMediaHeadline"
+                android:id="@+id/source_social_media_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/headlineQuellenSocialMedia"
+                android:text="@string/headline_source_social_media"
                 style="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
@@ -37,17 +36,17 @@
                 android:layout_height="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewQuellenSM"
+                android:id="@+id/recycler_view_source_social_media"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginStart="10dp"
                 android:orientation="horizontal" />
 
             <TextView
-                android:id="@+id/quellenNewsPagesHeadline"
+                android:id="@+id/source_news_pages_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/headlineQuellenNP"
+                android:text="@string/headline_source_newspaper"
                 style="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textColor="?attr/colorPrimary"
@@ -61,16 +60,16 @@
                 android:layout_height="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewQuellenNP"
+                android:id="@+id/recycle_view_source_news"
                 android:layout_marginStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"/>
 
             <TextView
-                android:id="@+id/quellenInterestsHeadline"
+                android:id="@+id/source_interests_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/headlineQuellenIn"
+                android:text="@string/headline_source_interests"
                 android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
                 android:textColor="?attr/colorPrimary"
                 style="@style/TextAppearance.Material3.ActionBar.Title"
@@ -84,7 +83,7 @@
                 android:layout_height="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewQuellenIn"
+                android:id="@+id/recycler_view_sources_interests"
                 android:layout_marginStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

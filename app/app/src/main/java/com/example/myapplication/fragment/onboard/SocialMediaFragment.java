@@ -143,11 +143,13 @@ public class SocialMediaFragment extends Fragment {
 
             socialMediaAnimation.stopAnimation();
             socialMediaAnimation.setBackground(
-                    getResources().getDrawable(R.drawable.customyesbutton,
+                    getResources().getDrawable(R.drawable.shape_custom_yes_button,
                             requireActivity().getTheme()));
             saveData(socialMediaName);
         });
     }
+
+
 
     /*
     If no button was pressed the Method stops the

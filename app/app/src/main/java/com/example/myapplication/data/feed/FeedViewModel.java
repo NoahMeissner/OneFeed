@@ -20,8 +20,6 @@ import com.example.myapplication.data.insight.NewsReadEntry;
 import com.example.myapplication.database.DataBaseHelper;
 import com.example.myapplication.database.InsightRepository;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -103,7 +101,7 @@ public class FeedViewModel extends AndroidViewModel {
 
     private HashMap<Constants.news, String> loadCategories(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources()
-                .getString(R.string.initProcesBoolean), 0);
+                .getString(R.string.init_process_boolean), 0);
         Set<String> categories = sharedPreferences.getStringSet(Constants.Interests.name(), null);
         return null;
     }

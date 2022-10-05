@@ -7,17 +7,17 @@
     tools:context=".fragment.onboard.ConsumptionPermissionFragment">
 
     <TextView
-        android:id="@+id/konsumanalyseHeadline"
-        android:layout_width="wrap_content"
+        android:id="@+id/consumption_analysis_headline"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
         style="@style/TextAppearance.Material3.ActionBar.Title"
         android:textStyle="bold"
-        android:text="@string/NotificationsHeadline"
+        android:text="@string/notifications_headline"
         android:textColor="?attr/colorPrimary"
         android:textSize="30sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,21 +28,18 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="92dp"
-        android:src="@drawable/notification"
+        android:src="@drawable/icon_notification"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="342dp"
+        android:layout_width="338dp"
         android:layout_height="198dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="208dp"
-        android:text="@string/textNotification"
-        android:textAlignment="center"
-        android:textSize="18sp"
+        android:text="@string/text_notifications"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

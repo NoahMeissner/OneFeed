@@ -26,16 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
-                android:id="@+id/deleteSourceImage"
+                android:id="@+id/delete_source_image"
                 android:layout_width="50dp"
                 android:layout_gravity="center"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 tools:srcCompat="@tools:sample/avatars"
-                />
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/deleteSourceHeadline"
@@ -63,7 +64,7 @@
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:layout_height="wrap_content"
-            android:text="Wollen Sie die Quelle wirklich entfernen" />
+            android:text="@string/delete_source_fragment_text" />
 
         <Space
             android:layout_width="match_parent"
@@ -77,20 +78,20 @@
             >
 
             <Button
-                android:id="@+id/buttonYD"
+                android:id="@+id/button_yes_delete"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="70dp"
-                app:layout_constraintEnd_toEndOf="@id/buttonND"
+                app:layout_constraintEnd_toEndOf="@id/button_no_delete"
                 android:textAppearance="@style/toolbar_icon_button"
-                android:text="Ja"
+                android:text="@string/button_yes"
                 android:textSize="15sp"/>
 
 
 
             <Button
-                android:id="@+id/buttonND"
+                android:id="@+id/button_no_delete"
                 android:textAppearance="@style/toolbar_icon_button"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="100dp"
@@ -98,7 +99,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_height="70dp"
                 android:textSize="15sp"
-                android:text="Nein" />
+                android:text="@string/button_no"
+                tools:ignore="RtlHardcoded" />
 
         </FrameLayout>
     </LinearLayout>

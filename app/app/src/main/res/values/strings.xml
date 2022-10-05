@@ -3,40 +3,39 @@
     <string name="buttonText">Weiter</string>
     <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="interestsHeadline">Was hast du für Interessen?</string>
-    <string name="socialMediaHeadline">Verbinde dich mit deinen Social Media Accounts</string>
-    <string name="kategoriePolitik">Politik</string>
-    <string name="kategorieWirtschaft">Wirtschaft</string>
-    <string name="kategorieCorona">Corona</string>
-    <string name="kategorieGaming">Gaming</string>
-    <string name="kategorieTechnik">Technik</string>
-    <string name="kategorieSport">Sport</string>
+    <string name="interests_headline">Was hast du für Interessen?</string>
+    <string name="social_media_headline">Verbinde dich mit deinen Social Media Accounts</string>
+    <string name="category_politic">Politik</string>
+    <string name="category_economy">Wirtschaft</string>
+    <string name="category_corona">Corona</string>
+    <string name="category_gaming">Gaming</string>
+    <string name="category_technology">Technik</string>
+    <string name="category_sport">Sport</string>
 
-    <string name="konsumanalyseHeadline">Konsumanalyse</string>
-    <string name="NotificationsHeadline">Notifications</string>
-    <string name="textNotification">Die App ermöglicht es Ihnen Mitteilungen zum aktuellen Geschehen als Push Benachrichtigung zu senden.
+    <string name="consumption_analysis_headline">Konsumanalyse</string>
+    <string name="notifications_headline">Notifications</string>
+    <string name="text_notifications">Die App ermöglicht es Ihnen Mitteilungen zum aktuellen Geschehen als Push Benachrichtigung zu senden.
         Die Berechtigung kann dabei jederzeit für alle oder einzelne Quellen wiederrufen werden. </string>
-    <string name="textKonsumanalyse">In dieser App möchten wir ihnen helfen ihren Konsum von Medien zu analysieren und effizienter zu gestalten.
+    <string name="text_consumption_analysis">In dieser App möchten wir ihnen helfen ihren Konsum von Medien zu analysieren und effizienter zu gestalten.
         Dabei erheben wir Daten die ausschließlich Local auf ihrem Gerät gespeichert und verarbeitet werden.
         Sie können die App auch weiterhin ohne diese Nutzen, jedoch sind dadurch nicht alle Funktionen für Sie verfügbar.</string>
     <!-- Strings used for fragments for navigation -->
 
-    <string name="buttonYesText">Ja</string>
-    <string name="buttonNoText">Nein</string>
-    <string name="willkommen">Willkommen</string>
-    <string name="newSourceHeadline">Neue Quelle</string>
-    <string name="initProcesBoolean">initProcess</string>
+    <string name="button_yes">Ja</string>
+    <string name="button_no">Nein</string>
+    <string name="welcome">Willkommen</string>
+    <string name="news_source_headline">Neue Quelle</string>
+    <string name="init_process_boolean">initProcess</string>
 
-    <string name="informationenText">In diesem Bereich der App können Sie die Quellen,
+    <string name="information_text">In diesem Bereich der App können Sie die Quellen,
         welche ihnen in der One Feed App angezeigt werden bearbeiten, löschen oder neue Quellen hinzufügen.</string>
 
 
-    <string name="headlineQuellenActivity">Quellen</string>
-    <string name="headlineQuellenSocialMedia">Social Media</string>
-    <string name="headlineQuellenNP">Zeitungen</string>
-    <string name="headlineQuellenIn">Interessen</string>
-    <string name="hallo">Hallo</string>
-    <string name="pictureofbutton">PictureOfButton</string>
+    <string name="headline_source_activity">Quellen</string>
+    <string name="headline_source_social_media">Social Media</string>
+    <string name="headline_source_newspaper">Zeitungen</string>
+    <string name="headline_source_interests">Interessen</string>
+    <string name="picture_of_button">PictureOfButton</string>
     <string name="settings">Settings</string>
     <string name="analytics_icon_description">Analytics icon</string>
     <string name="sources_icon_description">Sources icon</string>
@@ -49,6 +48,7 @@
         Lorem ipsum sit dolet. Lorem ipsum sit dolet. Lorem ipsum sit dolet. Lorem ipsum sit dolet.
         Lorem ipsum sit dolet. Lorem ipsum sit dolet. Lorem ipsum sit dolet. Lorem ipsum sit dolet.
     </string>
+    <string name="hello">hallo</string>
     <string name="content_description_article_source">Icon of the article source.</string>
     <string name="content_description_article_image">Image about the article.</string>
     <string name="source_twitter">Twitter</string>
@@ -64,5 +64,19 @@
     <string name="mistakeHeadline">Fehler 404</string>
     <string name="errorFragmentText">Prüfen Sie Ihre Internetverbindung</string>
     <string name="feed_limit_reached">"Feed LimitReached</string>
-    <string name="notificationText">"Sie haben für {Quelle} neue Nachrichten"</string>
+    <string name="notification_text">"Sie haben für {Quelle} neue Nachrichten"</string>
+    <string name="default_notification_channel_id">myChannel</string>
+    <string name="consumption_analysis_individual_permission">Um eine Analyse durchzuführen müssen Sie dieser Zustimmen</string>
+    <string name="delete_source_fragment_text">Wollen Sie die Quelle wirklich entfernen</string>
+    <string name="error_fragment_internet_text">Erneut versuchen</string>
+
+
+    <string-array name="notification_time_list">
+        <item>08:00</item>
+        <item>10:00</item>
+        <item>12:00</item>
+        <item>14:00</item>
+        <item>16:00</item>
+        <item>20:00</item>
+        </string-array>
 </resources>

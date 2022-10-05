@@ -5,9 +5,9 @@
     android:orientation="horizontal">
 
     <ImageButton
-        android:id="@+id/addback"
+        android:id="@+id/add_back"
         style="@style/toolbar_icon_button"
-        android:src="@drawable/back_arrow"
+        android:src="@drawable/icon_back_arrow"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <Space
@@ -18,7 +18,7 @@
     <ImageButton
         android:id="@+id/addInfo"
         style="@style/toolbar_icon_button"
-        android:src="@drawable/informationicon"
+        android:src="@drawable/icon_information"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 </LinearLayout>

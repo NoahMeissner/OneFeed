@@ -2,7 +2,7 @@
 
 ### Noah Meißner 
 
-- Email: noah.meissner@dtud.uni-regensburg.de 
+- Email: noah.meissner@stud.uni-regensburg.de 
 - Github: [NoahMeissner](https://github.com/NoahMeissner)
 
 ### Maximilian Weichart 

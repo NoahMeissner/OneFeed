@@ -11,7 +11,7 @@ A project by [NoahMeissner](https://github.com/NoahMeissner) & [Max-We](https://
 
 ### Application
 
-- [Showcase video](https://ann.nl.tab.digital/s/e3WmJY9zMyEwG7w)
+- [Showcase video](https://youtu.be/UNB_qXInrRU)
 - [APK-File](https://ann.nl.tab.digital/s/CMRPKND6scxrwdG)
 
 ### Figma designs
